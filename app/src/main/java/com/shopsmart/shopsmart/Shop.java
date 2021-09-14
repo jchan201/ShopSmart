@@ -14,7 +14,7 @@ public class Shop extends RealmObject {
     @Required private String email;
     @Required private String phone;
     private String website = "";
-    @Required private Address address;
+    private Address address;
     @Required private String daysOpen;
     @Required private String startTime;
     @Required private String endTime;

@@ -25,9 +25,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);
 
-        /*// Initialize the Realm library.
+        // Initialize the Realm library.
         Realm.init(this);
 
         // Access the Realm application.
@@ -69,11 +69,10 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
-
             } else {
                 Log.e("LOGIN", "Failed to log in. Error: " + result.getError());
             }
-        });*/
+        });
     }
 
     @Override
