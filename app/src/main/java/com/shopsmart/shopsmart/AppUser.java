@@ -15,7 +15,6 @@ public class AppUser extends RealmObject {
     @Required private String firstName;
     @Required private String lastName;
     private int age;
-    @Required private String email;
     private String phone = "";
     @Required private Date birthdate;
     private RealmList<Address> addresses;
@@ -29,7 +28,6 @@ public class AppUser extends RealmObject {
         firstName = "";
         lastName = "";
         age = 0;
-        email = "";
         birthdate = new Date();
     }
     public AppUser(String userType, String firstName, String lastName, int age, String email,
@@ -38,7 +36,6 @@ public class AppUser extends RealmObject {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
-        this.email = email;
         this.phone = phone;
         this.birthdate = birthdate;
     }
@@ -73,13 +70,6 @@ public class AppUser extends RealmObject {
     }
     public void setAge(int age) {
         this.age = age;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPhone() {
