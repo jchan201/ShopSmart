@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="30dp"
+    tools:context=".SignupActivity">
+
+    <TextView
+        android:id="@+id/txtPrompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:text="Sign up as a..."
+        android:textAlignment="center"
+        android:textSize="30sp"/>
+
+    <!--
+        Need to replace the below Buttons with ImageButtons
+     -->
+
+    <Button
+        android:id="@+id/btnCustomer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:text="Customer"
+        android:textSize="25sp"/>
+
+    <Button
+        android:id="@+id/btnShopOwner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:text="Shop Owner"
+        android:textSize="25sp"/>
+
+</LinearLayout>

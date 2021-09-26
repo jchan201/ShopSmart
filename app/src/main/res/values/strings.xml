@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ShopSmart</string>
+    <string name="signup">Registration</string>
 </resources>
