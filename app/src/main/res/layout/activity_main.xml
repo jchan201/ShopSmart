@@ -50,6 +50,7 @@
         />
 
     <Button
+        android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="125dp"
@@ -59,6 +60,8 @@
         />
 
     <Button
+        android:id="@+id/registerButton"
+        android:onClick="goToRegistration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="125dp"

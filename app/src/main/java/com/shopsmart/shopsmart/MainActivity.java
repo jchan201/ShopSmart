@@ -2,8 +2,10 @@ package com.shopsmart.shopsmart;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import org.bson.types.ObjectId;
 
@@ -73,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("LOGIN", "Failed to log in. Error: " + result.getError());
             }
         });
+    }
+
+    public void goToRegistration(View view){
+        Intent intent = new Intent(this, CustomerRegistrationActivity.class);
+        startActivity(intent);
     }
 
     @Override
