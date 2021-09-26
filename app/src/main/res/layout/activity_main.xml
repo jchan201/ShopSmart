@@ -15,7 +15,7 @@
         android:paddingVertical="75dp"
         android:textSize="40sp"
         android:fontFamily="casual"
-        android:background="@drawable/ShopSmart"
+        android:background="@drawable/shopsmart"
         android:layout_marginBottom="25dp"
         />
 
