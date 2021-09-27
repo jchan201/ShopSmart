@@ -1,11 +1,13 @@
 package com.shopsmart.shopsmart;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 import io.realm.annotations.RealmClass;
 import io.realm.annotations.Required;
 
 @RealmClass(embedded = true)
-public class PaymentMethod extends RealmObject {
+public class PaymentMethod extends RealmObject implements Serializable {
     // these may need to be hashed
     @Required private String cardNumber;
     @Required private String expiry;
