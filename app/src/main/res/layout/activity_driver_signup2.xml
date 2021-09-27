@@ -6,4 +6,222 @@
     android:layout_height="match_parent"
     tools:context=".DriverSignup2Activity">
 
+    <TextView
+        android:id="@+id/tv_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/basic_rectangle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="REGISTER"
+        android:textAlignment="center"
+        android:textSize="64sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_driver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_register"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="DRIVER"
+        android:textAlignment="center"
+        android:textSize="32sp" />
+
+    <EditText
+        android:id="@+id/edit_fname"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/edit_middle_initial"
+        app:layout_constraintTop_toBottomOf="@id/tv_driver"
+        android:layout_marginTop="32dp"
+        android:padding="8dp"
+        android:background="@drawable/basic_rectangle"
+        android:textAlignment="center"
+        android:hint="FIRST NAME"
+        android:inputType="textEmailAddress"
+        android:textSize="16sp"/>
+
+    <EditText
+        android:id="@+id/edit_middle_initial"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/edit_fname"
+        app:layout_constraintEnd_toEndOf="@id/edit_lname"
+        app:layout_constraintTop_toBottomOf="@id/tv_driver"
+        android:layout_marginTop="32dp"
+        android:padding="8dp"
+        android:background="@drawable/basic_rectangle"
+        android:textAlignment="center"
+        android:hint="M.I"
+        android:inputType="textEmailAddress"
+        android:textSize="16sp"/>
+
+    <EditText
+        android:id="@+id/edit_lname"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/edit_middle_initial"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_driver"
+        android:layout_marginTop="32dp"
+        android:padding="8dp"
+        android:background="@drawable/basic_rectangle"
+        android:textAlignment="center"
+        android:hint="LAST NAME"
+        android:inputType="textEmailAddress"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/tv_dob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_fname"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:text="DATE OF BIRTH"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btn_date_picker"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_dob"
+        android:layout_marginTop="10dp"
+        android:text="JAN 01 2021"
+        android:textSize="30sp"
+        android:textColor="@color/black"
+        style="?android:spinnerStyle"
+        android:onClick="openDatePicker"/>
+
+    <EditText
+        android:id="@+id/edit_city"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/spinner_province"
+        app:layout_constraintTop_toBottomOf="@id/btn_date_picker"
+        android:layout_marginTop="32dp"
+        android:padding="8dp"
+        android:background="@drawable/basic_rectangle"
+        android:textAlignment="center"
+        android:hint="CITY"
+        android:inputType="text"
+        android:textSize="16sp"/>
+
+    <Spinner
+        android:id="@+id/spinner_province"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/edit_city"
+        app:layout_constraintEnd_toEndOf="@id/edit_zip_code"
+        app:layout_constraintTop_toBottomOf="@id/btn_date_picker"
+        android:layout_marginTop="32dp"
+        android:padding="8dp"
+        android:background="@drawable/basic_rectangle"
+        android:textSize="16sp"
+        android:entries="@array/provinces"/>
+
+    <EditText
+        android:id="@+id/edit_zip_code"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/spinner_province"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_date_picker"
+        android:layout_marginTop="32dp"
+        android:padding="8dp"
+        android:background="@drawable/basic_rectangle"
+        android:textAlignment="center"
+        android:hint="ZIP CODE"
+        android:inputType="text"
+        android:textSize="16sp"/>
+
+    <EditText
+        android:id="@+id/edit_address1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_city"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="32dp"
+        android:padding="8dp"
+        android:background="@drawable/basic_rectangle"
+        android:textAlignment="center"
+        android:hint="ADDRESS LINE 1"
+        android:inputType="text"
+        android:textSize="16sp"/>
+
+    <EditText
+        android:id="@+id/edit_address2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_address1"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="32dp"
+        android:padding="8dp"
+        android:background="@drawable/basic_rectangle"
+        android:textAlignment="center"
+        android:hint="ADDRESS LINE 2"
+        android:inputType="text"
+        android:textSize="16sp"/>
+
+    <EditText
+        android:id="@+id/edit_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_address2"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="32dp"
+        android:padding="8dp"
+        android:background="@drawable/basic_rectangle"
+        android:textAlignment="center"
+        android:hint="PHONE NUNMBER"
+        android:inputType="number"
+        android:textSize="16sp"/>
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_next"
+        app:layout_constraintTop_toBottomOf="@id/btn_date_picker"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="CANCEL"
+        android:textSize="24sp"/>
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_date_picker"
+        app:layout_constraintVertical_bias="1.0"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="NEXT"
+        android:textSize="24sp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
