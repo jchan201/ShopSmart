@@ -1,4 +1,20 @@
 <resources>
     <string name="app_name">ShopSmart</string>
     <string name="signup">Registration</string>
+
+    <string-array name="provinces">
+        <item>AB</item>
+        <item>BC</item>
+        <item>MB</item>
+        <item>NB</item>
+        <item>NL</item>
+        <item>NS</item>
+        <item>NT</item>
+        <item>NU</item>
+        <item>ON</item>
+        <item>PE</item>
+        <item>QB</item>
+        <item>SK</item>
+        <item>YT</item>
+    </string-array>
 </resources>
