@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.shopsmart.shopsmart.databinding.ActivityDriverSignup2Binding;
@@ -11,8 +12,8 @@ import com.shopsmart.shopsmart.databinding.ActivityDriverSignup3Binding;
 
 public class DriverSignup3Activity extends AppCompatActivity implements View.OnClickListener {
     ActivityDriverSignup3Binding binding;
-    AppUser appUser;
-    String userPassword;
+    Intent currIntent;
+    Address userAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,12 +24,10 @@ public class DriverSignup3Activity extends AppCompatActivity implements View.OnC
         setContentView(view);
 
         // Get Intent
-        Intent currIntent = this.getIntent();
+        this.currIntent = this.getIntent();
 
-        if (currIntent != null) {
-            // Grab objects from intent
-            this.userPassword = currIntent.getStringExtra("EXTRA_PASSWORD");
-            this.appUser = (AppUser)currIntent.getSerializableExtra("EXTRA_APPUSER_OBJ");
+        if (this.currIntent != null) {
+            this.userAddress = (Address)this.currIntent.getSerializableExtra("EXTRA_ADDRESS_OBJ");
         }
 
         this.binding.btnCancel.setOnClickListener(this);
@@ -49,15 +48,10 @@ public class DriverSignup3Activity extends AppCompatActivity implements View.OnC
                     // Validate data
                     if (this.validateData()) {
                         // Update AppUser Object
-                        BankInformation bankInformation = new BankInformation();
-                        bankInformation.setAccountNumber(this.binding.editAccountNumber.getText().toString());
-                        bankInformation.setInstitutionNumber(this.binding.editInstitutionNumber.getText().toString());
-                        bankInformation.setTransitNumber(this.binding.editTransitNumber.getText().toString());
                         this.createUser();
 
                         // Go to Dashboard
                         Intent dashboardIntent = new Intent(this, DriverDashboardActivity.class);
-                        dashboardIntent.putExtra("EXTRA_APPUSER_OBJ", this.appUser);
                         startActivity(dashboardIntent);
                     }
                     break;
@@ -67,7 +61,20 @@ public class DriverSignup3Activity extends AppCompatActivity implements View.OnC
     }
 
     private void createUser() {
-        // Create User and AppUser for database
+        AppUser appUser = new AppUser();
+
+        BankInformation bankInformation = new BankInformation();
+        bankInformation.setAccountNumber(this.binding.editAccountNumber.getText().toString());
+        bankInformation.setInstitutionNumber(this.binding.editInstitutionNumber.getText().toString());
+        bankInformation.setTransitNumber(this.binding.editTransitNumber.getText().toString());
+
+        appUser.setEmail(this.currIntent.getStringExtra("EXTRA_EMAIL"));
+        appUser.setFirstName(this.currIntent.getStringExtra("EXTRA_FNAME"));
+        appUser.setMiddleInitial(this.currIntent.getStringExtra("EXTRA_MNAME"));
+        appUser.setLastName(this.currIntent.getStringExtra("EXTRA_LNAME"));
+        appUser.setPhone(this.currIntent.getStringExtra("EXTRA_PHONE"));
+        appUser.addAddress(this.userAddress);
+        // TO-DO: NEED TO ADD PAYMENT INFORMATION
     }
 
     private boolean validateData() {
