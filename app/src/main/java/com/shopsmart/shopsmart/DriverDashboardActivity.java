@@ -33,6 +33,12 @@ public class DriverDashboardActivity extends AppCompatActivity implements View.O
     public void onClick(View view) {
         if (view != null) {
             switch (view.getId()) {
+                case R.id.btn_logout: {
+                    // Go back to home screen
+                    Intent startupIntent = new Intent(this, StartupActivity.class);
+                    startActivity(startupIntent);
+                    break;
+                }
                 case R.id.btn_profile: {
                     // Go to Driver profile
                     Intent profileIntent = new Intent(this, DriverProfileActivity.class);
