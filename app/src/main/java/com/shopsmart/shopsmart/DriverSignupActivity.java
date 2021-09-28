@@ -9,8 +9,19 @@ import android.view.View;
 
 import com.shopsmart.shopsmart.databinding.ActivityDriverSignupBinding;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
+import io.realm.mongodb.App;
+import io.realm.mongodb.AppConfiguration;
+import io.realm.mongodb.Credentials;
+import io.realm.mongodb.User;
+import io.realm.mongodb.auth.EmailPasswordAuth;
+import io.realm.mongodb.sync.SyncConfiguration;
+
 public class DriverSignupActivity extends AppCompatActivity implements View.OnClickListener {
+    private final String PARTITION = "ShopSmart";
     ActivityDriverSignupBinding binding;
+    private App app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +49,7 @@ public class DriverSignupActivity extends AppCompatActivity implements View.OnCl
                 }
                 case R.id.btn_next: {
                     if (this.validateData()) {
-                        this.makeDriverAppUser();
+                        this.goToNextSignupPage();
                     }
                     break;
                 }
@@ -46,20 +57,10 @@ public class DriverSignupActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    private void makeDriverAppUser() {
-        AppUser appUser = new AppUser();
-        appUser.setUserType("Driver");
-        appUser.setEmail(this.binding.editEmail.getText().toString());
-
-        goToNextSignupPage(appUser);
-    }
-
-    private void goToNextSignupPage(AppUser appUser) {
+    private void goToNextSignupPage() {
         Intent nextSignUpIntent = new Intent(this, DriverSignup2Activity.class);
-        // Put AppUser object, username, and password into the intent
-        nextSignUpIntent.putExtra("EXTRA_APPUSER_OBJ", appUser);
+        nextSignUpIntent.putExtra("EXTRA_EMAIL", this.binding.editEmail.getText().toString());
         nextSignUpIntent.putExtra("EXTRA_PASSWORD", this.binding.editPassword.getText().toString());
-
         startActivity(nextSignUpIntent);
     }
 
