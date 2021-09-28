@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShopSmart">
         <activity
+            android:name=".DriverDashboardActivity"
+            android:exported="true" />
+        <activity
             android:name=".DriverSignup3Activity"
             android:exported="true" />
         <activity
