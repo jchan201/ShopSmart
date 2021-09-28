@@ -26,7 +26,6 @@ import io.realm.mongodb.AppConfiguration;
 import io.realm.mongodb.sync.SyncConfiguration;
 
 public class DriverSignup2Activity extends AppCompatActivity implements View.OnClickListener {
-    private final String PARTITION = "ShopSmart";
     ActivityDriverSignup2Binding binding;
     String userEmail;
     String userPassword;
