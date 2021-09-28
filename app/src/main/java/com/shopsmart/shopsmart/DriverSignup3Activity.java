@@ -32,7 +32,7 @@ public class DriverSignup3Activity extends AppCompatActivity implements View.OnC
         }
 
         this.binding.btnCancel.setOnClickListener(this);
-        this.binding.btnNext.setOnClickListener(this);
+        this.binding.btnFinish.setOnClickListener(this);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class DriverSignup3Activity extends AppCompatActivity implements View.OnC
                     startActivity(mainIntent);
                     break;
                 }
-                case R.id.btn_next: {
+                case R.id.btn_finish: {
                     // Validate data
                     if (this.validateData()) {
                         // Update AppUser Object
