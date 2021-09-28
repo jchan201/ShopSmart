@@ -22,7 +22,6 @@ import java.util.Date;
 public class DriverSignup2Activity extends AppCompatActivity implements View.OnClickListener {
     ActivityDriverSignup2Binding binding;
     AppUser appUser;
-    String userUserName;
     String userPassword;
 
     private DatePickerDialog datePickerDialog;
@@ -43,7 +42,6 @@ public class DriverSignup2Activity extends AppCompatActivity implements View.OnC
 
         if (currIntent != null) {
             // Grab objects from intent
-            this.userUserName = currIntent.getStringExtra("EXTRA_USERNAME");
             this.userPassword = currIntent.getStringExtra("EXTRA_PASSWORD");
             this.appUser = (AppUser)currIntent.getSerializableExtra("EXTRA_APPUSER_OBJ");
         }
@@ -130,6 +128,21 @@ public class DriverSignup2Activity extends AppCompatActivity implements View.OnC
                     // Validate data
                     if (this.validateData()) {
                         // Update AppUser object and pass to next screen
+                        this.appUser.setFirstName(this.binding.editFname.getText().toString());
+                        this.appUser.setMiddleInitial(this.binding.editMiddleInitial.getText().toString());
+                        this.appUser.setLastName(this.binding.editLname.getText().toString());
+                        this.appUser.setPhone(this.binding.editPhone.getText().toString());
+
+                        Address address = new Address();
+                        address.setCity(this.binding.editCity.getText().toString());
+                        address.setProvince(this.binding.spinnerProvince.getSelectedItem().toString());
+                        address.setPostalCode(this.binding.editZipCode.getText().toString());
+                        this.appUser.addAddress(address);
+
+                        Intent nextSignUpScreen = new Intent(this, DriverSignup3Activity.class);
+                        nextSignUpScreen.putExtra("EXTRA_APPUSER_OBJ", this.appUser);
+                        nextSignUpScreen.putExtra("EXTRA_PASSWORD", this.userPassword);
+                        startActivity(nextSignUpScreen);
                     }
                     break;
                 }
@@ -145,29 +158,21 @@ public class DriverSignup2Activity extends AppCompatActivity implements View.OnC
             this.binding.editFname.setError("Cannot be empty");
             validUser = false;
         }
-        else {
-            this.binding.editFname.setError(null);
-        }
         if (this.binding.editLname.getText().toString().isEmpty()) {
             this.binding.editLname.setError("Cannot be empty");
             validUser = false;
-        }
-        else {
-            this.binding.editLname.setError(null);
         }
         if (this.binding.editCity.getText().toString().isEmpty()) {
             this.binding.editCity.setError("Cannot be empty");
             validUser = false;
         }
-        else {
-            this.binding.editCity.setError(null);
-        }
         if (this.binding.editZipCode.getText().toString().isEmpty()) {
             this.binding.editZipCode.setError("Cannot be empty");
             validUser = false;
         }
-        else {
-            this.binding.editZipCode.setError(null);
+        if (this.binding.editAddress1.getText().toString().isEmpty()) {
+            this.binding.editZipCode.setError("Cannot be empty");
+            validUser = false;
         }
 
         return validUser;
