@@ -19,10 +19,18 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
+import io.realm.mongodb.App;
+import io.realm.mongodb.AppConfiguration;
+import io.realm.mongodb.sync.SyncConfiguration;
+
 public class DriverSignup2Activity extends AppCompatActivity implements View.OnClickListener {
+    private final String PARTITION = "ShopSmart";
     ActivityDriverSignup2Binding binding;
-    AppUser appUser;
+    String userEmail;
     String userPassword;
+    App app;
 
     private DatePickerDialog datePickerDialog;
 
@@ -35,15 +43,13 @@ public class DriverSignup2Activity extends AppCompatActivity implements View.OnC
         View view = binding.getRoot();
         setContentView(view);
 
-        appUser = new AppUser();
-
         // Grab object from incoming Intent
         Intent currIntent = this.getIntent();
 
         if (currIntent != null) {
             // Grab objects from intent
+            this.userEmail = currIntent.getStringExtra("EXTRA_EMAIL");
             this.userPassword = currIntent.getStringExtra("EXTRA_PASSWORD");
-            this.appUser = (AppUser)currIntent.getSerializableExtra("EXTRA_APPUSER_OBJ");
         }
 
         // Initialize Date Picker
@@ -127,21 +133,21 @@ public class DriverSignup2Activity extends AppCompatActivity implements View.OnC
                 case R.id.btn_next: {
                     // Validate data
                     if (this.validateData()) {
-                        // Update AppUser object and pass to next screen
-                        this.appUser.setFirstName(this.binding.editFname.getText().toString());
-                        this.appUser.setMiddleInitial(this.binding.editMiddleInitial.getText().toString());
-                        this.appUser.setLastName(this.binding.editLname.getText().toString());
-                        this.appUser.setPhone(this.binding.editPhone.getText().toString());
-
+                        // Create Address Object
                         Address address = new Address();
                         address.setCity(this.binding.editCity.getText().toString());
                         address.setProvince(this.binding.spinnerProvince.getSelectedItem().toString());
                         address.setPostalCode(this.binding.editZipCode.getText().toString());
-                        //this.appUser.addAddress(address);
 
+                        // Wrap information in Intent
                         Intent nextSignUpScreen = new Intent(this, DriverSignup3Activity.class);
-                        nextSignUpScreen.putExtra("EXTRA_APPUSER_OBJ", this.appUser);
+                        nextSignUpScreen.putExtra("EXTRA_ADDRESS_OBJ", address);
+                        nextSignUpScreen.putExtra("EXTRA_EMAIL", this.userEmail);
                         nextSignUpScreen.putExtra("EXTRA_PASSWORD", this.userPassword);
+                        nextSignUpScreen.putExtra("EXTRA_FNAME", this.binding.editFname.getText().toString());
+                        nextSignUpScreen.putExtra("EXTRA_MNAME", this.binding.editMiddleInitial.getText().toString());
+                        nextSignUpScreen.putExtra("EXTRA_LNAME", this.binding.editLname.getText().toString());
+                        nextSignUpScreen.putExtra("EXTRA_PHONE", this.binding.editPhone.getText().toString());
                         startActivity(nextSignUpScreen);
                     }
                     break;
