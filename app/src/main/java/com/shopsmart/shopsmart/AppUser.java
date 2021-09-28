@@ -10,7 +10,7 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
-public class AppUser extends RealmObject implements Serializable {
+public class AppUser extends RealmObject {
     @PrimaryKey @Required private ObjectId _id = new ObjectId();
     @Required private String userType;
     @Required private String firstName;
@@ -20,9 +20,9 @@ public class AppUser extends RealmObject implements Serializable {
     @Required private String email;
     private String phone = "";
     @Required private Date birthdate;
-    private RealmList<Address> addresses;
-    private RealmList<PaymentMethod> paymentMethods;
-    private RealmList<BankInformation> bankInfo;
+    private RealmList<Address> addresses = new RealmList<Address>();
+    private RealmList<PaymentMethod> paymentMethods = new RealmList<PaymentMethod>();
+    private RealmList<BankInformation> bankInfo = new RealmList<BankInformation>();
     private RealmList<ProductItem> shoppingCart;
     @Required private RealmList<ObjectId> orders;
     @Required private RealmList<ObjectId> shops;
