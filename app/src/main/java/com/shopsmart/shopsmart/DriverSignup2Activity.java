@@ -137,7 +137,7 @@ public class DriverSignup2Activity extends AppCompatActivity implements View.OnC
                         address.setCity(this.binding.editCity.getText().toString());
                         address.setProvince(this.binding.spinnerProvince.getSelectedItem().toString());
                         address.setPostalCode(this.binding.editZipCode.getText().toString());
-                        this.appUser.addAddress(address);
+                        //this.appUser.addAddress(address);
 
                         Intent nextSignUpScreen = new Intent(this, DriverSignup3Activity.class);
                         nextSignUpScreen.putExtra("EXTRA_APPUSER_OBJ", this.appUser);
@@ -171,7 +171,11 @@ public class DriverSignup2Activity extends AppCompatActivity implements View.OnC
             validUser = false;
         }
         if (this.binding.editAddress1.getText().toString().isEmpty()) {
-            this.binding.editZipCode.setError("Cannot be empty");
+            this.binding.editAddress1.setError("Cannot be empty");
+            validUser = false;
+        }
+        if (this.binding.editPhone.getText().toString().isEmpty()) {
+            this.binding.editPhone.setError("Cannot be empty");
             validUser = false;
         }
 
