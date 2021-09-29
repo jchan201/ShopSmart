@@ -2,11 +2,11 @@ package com.shopsmart.shopsmart;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
 import org.bson.types.ObjectId;
 
@@ -20,24 +20,19 @@ import io.realm.mongodb.Credentials;
 import io.realm.mongodb.User;
 import io.realm.mongodb.sync.SyncConfiguration;
 
+import com.shopsmart.shopsmart.databinding.ActivityMainBinding;
+
 public class MainActivity extends AppCompatActivity {
-    private Button button;
     private final String PARTITION = "ShopSmart";
+    private ActivityMainBinding binding;
     private Realm realm;
     private App app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        button = (Button) findViewById(R.id.registerButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToRegistration();
-            }
-        });
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         // Initialize the Realm library.
         Realm.init(this);
@@ -45,18 +40,44 @@ public class MainActivity extends AppCompatActivity {
         // Access the Realm application.
         app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
 
-        // Get the user's credentials.
-        Credentials credentials = Credentials.anonymous();
-        //Credentials credentials = Credentials.emailPassword("someEmail@example.com", "somePassword");
+        // Watches changes in certain EditTexts.
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void afterTextChanged(Editable editable) {}
 
-        app.loginAsync(credentials, result -> {
-            if (result.isSuccess()) {
-                Log.v("LOGIN", "Successfully authenticated anonymously.");
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                binding.txtError.setVisibility(View.INVISIBLE);
+            }
+        };
+        binding.edtTxtEmail.addTextChangedListener(textWatcher); // Watch the email
+        binding.edtTxtPassword.addTextChangedListener(textWatcher); // Watch the password
 
-                // Open the Synced Realm for asynchronous transactions.
+        // When the Login button is clicked.
+        binding.btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String email = binding.edtTxtEmail.getText().toString();
+                String password = binding.edtTxtPassword.getText().toString();
+                // Get the user's credentials (email and password).
+                Credentials credentials = Credentials.emailPassword(email, password);
+
+                try {
+                    // Attempt to log in.
+                    User current = app.login(credentials);
+
+                    // get user data
+
+                    Log.v("LOGIN", "Successfully authenticated as ");
+                } catch(Exception e) {
+                    binding.txtError.setVisibility(View.VISIBLE);
+                    Log.e("LOGIN", "Failed to log in. Error: " + e.getMessage());
+                }
+
+                // Open a Synced Realm for asynchronous transactions.
                 SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
-
-                // Sync all Realm changes.
                 realm = Realm.getInstance(config);
 
                 // add a change listener to the AppUser collection
@@ -81,23 +102,16 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
-            } else {
-                Log.e("LOGIN", "Failed to log in. Error: " + result.getError());
             }
         });
-    }
-
-    public void goToRegistration(){
-        Intent intent = new Intent(this, CustomerRegistrationActivity1.class);
-        startActivity(intent);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        realm.close();
+        binding = null;
 
-        // log out
+        // Log out.
         app.currentUser().logOutAsync(result -> {
             if (result.isSuccess()) {
                 Log.v("LOGOUT", "Successfully logged out.");
@@ -105,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("LOGOUT", "Failed to log out, error: " + result.getError());
             }
         });
+        realm.close(); // Close the realm.
     }
 
     // Objects of this class are intended to be executed by a thread, as denoted by "Runnable".
