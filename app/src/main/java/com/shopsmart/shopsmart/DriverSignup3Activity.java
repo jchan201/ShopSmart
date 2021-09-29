@@ -10,10 +10,18 @@ import android.view.View;
 import com.shopsmart.shopsmart.databinding.ActivityDriverSignup2Binding;
 import com.shopsmart.shopsmart.databinding.ActivityDriverSignup3Binding;
 
+import io.realm.Realm;
+import io.realm.mongodb.App;
+import io.realm.mongodb.AppConfiguration;
+import io.realm.mongodb.Credentials;
+import io.realm.mongodb.sync.SyncConfiguration;
+
 public class DriverSignup3Activity extends AppCompatActivity implements View.OnClickListener {
+    private final String PARTITION = "ShopSmart";
     ActivityDriverSignup3Binding binding;
     Intent currIntent;
     Address userAddress;
+    App app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +30,9 @@ public class DriverSignup3Activity extends AppCompatActivity implements View.OnC
         this.binding = ActivityDriverSignup3Binding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        // Access realm
+        app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
 
         // Get Intent
         this.currIntent = this.getIntent();
@@ -47,7 +58,7 @@ public class DriverSignup3Activity extends AppCompatActivity implements View.OnC
                 case R.id.btn_finish: {
                     // Validate data
                     if (this.validateData()) {
-                        // Update AppUser Object
+                        // Create User and AppUser Object
                         this.createUser();
 
                         // Go to Dashboard
@@ -62,6 +73,7 @@ public class DriverSignup3Activity extends AppCompatActivity implements View.OnC
 
     private void createUser() {
         AppUser appUser = new AppUser();
+        String password = this.currIntent.getStringExtra("EXTRA_PASSWORD");
 
         BankInformation bankInformation = new BankInformation();
         bankInformation.setAccountNumber(this.binding.editAccountNumber.getText().toString());
@@ -75,6 +87,28 @@ public class DriverSignup3Activity extends AppCompatActivity implements View.OnC
         appUser.setPhone(this.currIntent.getStringExtra("EXTRA_PHONE"));
         appUser.addAddress(this.userAddress);
         // TO-DO: NEED TO ADD PAYMENT INFORMATION
+
+        // Create user in database
+        app.getEmailPassword().registerUserAsync(appUser.getEmail(), password, it -> {
+            if (it.isSuccess()) {
+                Log.i("EXAMPLE", "Successfully registered user.");
+            } else {
+                Log.e("EXAMPLE", "Failed to register user: " + it.getError().getErrorMessage());
+            }
+        });
+
+        // Create AppUser with associated User
+        Credentials credentials = Credentials.emailPassword(appUser.getEmail(), password);
+        app.loginAsync(credentials, result -> {
+            Log.e("SSS", "In async: " + app.currentUser().getId());
+            SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
+            Realm backgroundRealm = Realm.getInstance(config);
+
+            backgroundRealm.executeTransaction(transactionRealm -> {
+                // insert the user
+                transactionRealm.insert(appUser);
+            });
+        });
     }
 
     private boolean validateData() {
