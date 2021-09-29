@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import org.bson.types.ObjectId;
 
@@ -20,6 +21,7 @@ import io.realm.mongodb.User;
 import io.realm.mongodb.sync.SyncConfiguration;
 
 public class MainActivity extends AppCompatActivity {
+    private Button button;
     private final String PARTITION = "ShopSmart";
     private Realm realm;
     private App app;
@@ -28,6 +30,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        button = (Button) findViewById(R.id.registerButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToRegistration();
+            }
+        });
 
         // Initialize the Realm library.
         Realm.init(this);
@@ -77,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void goToRegistration(View view){
-        Intent intent = new Intent(this, CustomerRegistrationActivity.class);
+    public void goToRegistration(){
+        Intent intent = new Intent(this, CustomerRegistrationActivity1.class);
         startActivity(intent);
     }
 
