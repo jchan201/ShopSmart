@@ -22,6 +22,10 @@
             android:name=".CustomerRegistrationActivity2"
             android:label="Registration2"
             ></activity>
+        <activity
+            android:name=".CustomerRegistrationActivity3"
+            android:label="Registration3"
+            ></activity>
         <activity android:name=".CustomerRegistrationActivity1"
             android:label="Registration1"
             ></activity>

@@ -2,11 +2,13 @@ package com.shopsmart.shopsmart;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import org.bson.types.ObjectId;
 
@@ -28,11 +30,21 @@ public class MainActivity extends AppCompatActivity {
     private Realm realm;
     private App app;
 
+    private Button buttonRegister;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        buttonRegister = (Button) findViewById(R.id.btnRegister);
+        buttonRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                customerRegistration1();
+            }
+        });
 
         // Initialize the Realm library.
         Realm.init(this);
@@ -104,6 +116,11 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    public void customerRegistration1(){
+        Intent intent = new Intent(this, CustomerRegistrationActivity1.class);
+        startActivity(intent);
     }
 
     @Override
