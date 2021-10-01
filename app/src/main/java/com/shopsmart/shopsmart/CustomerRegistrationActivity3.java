@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,17 +19,22 @@ import com.shopsmart.shopsmart.databinding.CustomerRegister3Binding;
 
 import java.util.Calendar;
 
+import io.realm.Realm;
 import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
+import io.realm.mongodb.Credentials;
+import io.realm.mongodb.sync.SyncConfiguration;
 
 public class CustomerRegistrationActivity3 extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
+    private static final String PARTITION = "ShopSmart";
     CustomerRegister3Binding binding;
     private DatePickerDialog dpd;
-    private Button dateButton;
     private Spinner provSpinner;
     String currEmail;
     String currPassword;
+    Intent currentIntent;
     App app;
+    Address userAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -40,16 +46,13 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
 
         app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
 
-        Intent currentIntent = this.getIntent();
+        this.currentIntent = this.getIntent();
 
         if(currentIntent != null){
             this.currEmail = currentIntent.getStringExtra("EXTRA_EMAIL");
         }
 
         //setContentView(R.layout.customer_register2);
-        initDatePicker();
-        dateButton = findViewById(R.id.dob);
-        dateButton.setText(todaysDate());
         provSpinner = findViewById(R.id.provPicker);
 
         ArrayAdapter<CharSequence> provList = ArrayAdapter.createFromResource(this, R.array.provinces, android.R.layout.simple_spinner_item);
@@ -58,7 +61,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         provSpinner.setOnItemSelectedListener(this);
 
         this.binding.cancelButton3.setOnClickListener(this);
-        this.binding.nextButton3.setOnClickListener(this);
+        this.binding.finishButton.setOnClickListener(this);
     }
 
     private String todaysDate(){
@@ -71,26 +74,6 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         return makeDateString(day, month, year);
     }
 
-    private void initDatePicker(){
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
-                String date = makeDateString(day, month, year);
-                dateButton.setText(date);
-            }
-        };
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(1900, 0, 1);
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-        int style = AlertDialog.THEME_HOLO_DARK;
-
-        dpd = new DatePickerDialog(this, style, dateSetListener, year, month, day);
-    }
 
     private String makeDateString(int day, int month, int year){
         return getMonthFormat(month) + " " + day + " " + year;
@@ -163,7 +146,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
                         //address.setProvince(this.binding.provPicker.getSelectedItem().toString());
                         //address.setPostalCode(this.binding.zipCode.getText().toString());
 
-                        Intent CRegister3 = new Intent(this, CustomerRegistrationActivity3.class);
+                        Intent CRegister3 = new Intent(this, MainActivity.class);
 
                     }
                 }
@@ -180,9 +163,56 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         //        || this.binding.address2.getText().toString().isEmpty()
         //        || this.binding.phoneNum.getText().toString().isEmpty()){
 
-            Toast.makeText(CustomerRegistrationActivity3.this, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
-            return false;
+            Toast.makeText(CustomerRegistrationActivity3.this, "Testing", Toast.LENGTH_SHORT).show();
+            return true;
         }
         //return true;
+
+    private void createUser() {
+        AppUser appUser = new AppUser();
+        PaymentMethod paymentMethod = new PaymentMethod();
+        String password = this.currentIntent.getStringExtra("EXTRA_PASSWORD");
+
+        String cCardNum = this.binding.cCardNum.getText().toString();
+        long cCardNumLong = Long.parseLong(cCardNum);
+
+        //Example
+        int expExample = 25;
+
+        int secCodeExample = 25;
+
+        paymentMethod.setCardNumber(cCardNumLong);
+        paymentMethod.setExpiry(expExample);
+        paymentMethod.setSecurityCode(secCodeExample);
+
+        appUser.setEmail(this.currentIntent.getStringExtra("EXTRA_EMAIL"));
+        appUser.setFirstName(this.currentIntent.getStringExtra("EXTRA_FNAME"));
+        appUser.setMiddleInitial(this.currentIntent.getStringExtra("EXTRA_MNAME"));
+        appUser.setLastName(this.currentIntent.getStringExtra("EXTRA_LNAME"));
+        appUser.setPhone(this.currentIntent.getStringExtra("EXTRA_PHONE"));
+        appUser.addAddress(this.userAddress);
+        // TO-DO: NEED TO ADD PAYMENT INFORMATION
+
+        // Create user in database
+        app.getEmailPassword().registerUserAsync(appUser.getEmail(), password, it -> {
+            if (it.isSuccess()) {
+                Log.i("EXAMPLE", "Successfully registered user.");
+            } else {
+                Log.e("EXAMPLE", "Failed to register user: " + it.getError().getErrorMessage());
+            }
+        });
+
+        // Create AppUser with associated User
+        Credentials credentials = Credentials.emailPassword(appUser.getEmail(), password);
+        app.loginAsync(credentials, result -> {
+            Log.e("SSS", "In async: " + app.currentUser().getId());
+            SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
+            Realm backgroundRealm = Realm.getInstance(config);
+
+            backgroundRealm.executeTransaction(transactionRealm -> {
+                // insert the user
+                transactionRealm.insert(appUser);
+            });
+        });
     }
-//}
+}

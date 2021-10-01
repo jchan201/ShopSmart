@@ -146,4 +146,7 @@ public class AppUser extends RealmObject implements Serializable {
     public void removeShop(/* search params */) {
         // NEED TO IMPLEMENT
     }
+
+    public void setMiddleInitial(String extra_mname) {
+    }
 }

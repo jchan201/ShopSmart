@@ -4,10 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CustomerRegistrationActivity2">
+    tools:context=".CustomerRegistrationActivity3">
+
+    <Spinner
+        android:id="@+id/provPicker"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.958"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cCardCity" />
 
     <Button
-        android:id="@+id/dob2"
+        android:id="@+id/expSpinner"
         style="?android:spinnerStyle"
         android:layout_width="75dp"
         android:layout_height="40dp"
@@ -46,12 +56,12 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/nextButton3"
+        android:id="@+id/finishButton"
         android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="48dp"
         android:background="@drawable/button_bg"
-        android:text="Next"
+        android:text="Finish"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.828"
@@ -170,19 +180,6 @@
         app:layout_constraintTop_toBottomOf="@+id/cCardName" />
 
     <EditText
-        android:id="@+id/cCardProv"
-        android:layout_width="120dp"
-        android:layout_height="40dp"
-        android:layout_marginHorizontal="12dp"
-        android:layout_marginTop="72dp"
-        android:hint="State/Province"
-        android:textSize="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cCardNum" />
-
-    <EditText
         android:id="@+id/cCardAddress2"
         android:layout_width="200dp"
         android:layout_height="40dp"
@@ -232,6 +229,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cCardProv" />
+        app:layout_constraintTop_toBottomOf="@+id/provPicker" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

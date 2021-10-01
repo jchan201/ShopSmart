@@ -165,6 +165,7 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity implements 
                         address.setPostalCode(this.binding.zipCode.getText().toString());
 
                         Intent CRegister3 = new Intent(this, CustomerRegistrationActivity3.class);
+                        CRegister3.putExtra("EXTRA_ADDRESS_OBJ", address);
                         CRegister3.putExtra("EXTRA_EMAIL", this.currEmail);
                         CRegister3.putExtra("EXTRA_PASSWORD", this.currPassword);
                         CRegister3.putExtra("EXTRA_FNAME", this.binding.nameFirst.getText().toString());
