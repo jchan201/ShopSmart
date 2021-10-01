@@ -20,7 +20,7 @@ public class ShopOwnerSignupActivity2 extends AppCompatActivity {
     String userLName;
     String userEmail;
     String userPass;
-    Date userDOB;
+    String userDOB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +35,7 @@ public class ShopOwnerSignupActivity2 extends AppCompatActivity {
             this.userLName = currIntent.getStringExtra("EXTRA_LNAME");
             this.userEmail = currIntent.getStringExtra("EXTRA_EMAIL");
             this.userPass = currIntent.getStringExtra("EXTRA_PASSWORD");
-            //this.userDOB = currIntent.getStringExtra("EXTRA_DOB");
-            try {
-                this.userDOB = new SimpleDateFormat("MMM dd yyyy").parse(currIntent.getStringExtra("EXTRA_DOB"));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            this.userDOB = currIntent.getStringExtra("EXTRA_DOB");
         }
 
         //cancel go back sign up selection page

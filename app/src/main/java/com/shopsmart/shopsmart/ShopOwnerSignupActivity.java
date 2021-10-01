@@ -89,7 +89,7 @@ public class ShopOwnerSignupActivity extends AppCompatActivity {
             valid = false;
         }
 
-        if(!this.binding.editTextConfirmPassword.getText().toString().equals(this.binding.editTextConfirmPassword.getText().toString())){
+        if(!this.binding.editTextPassword.getText().toString().equals(this.binding.editTextConfirmPassword.getText().toString())){
             this.binding.editTextConfirmPassword.setError("Confirm password does not match password");
             valid = false;
         }

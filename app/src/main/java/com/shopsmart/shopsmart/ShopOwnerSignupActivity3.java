@@ -45,7 +45,7 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
         app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
 
         // Get Intent
-        currIntent = this.getIntent();
+        this.currIntent = this.getIntent();
 
         if (this.currIntent != null) {
             this.userAddress = (Address)this.currIntent.getSerializableExtra("EXTRA_ADDRESS_OBJ");
@@ -57,7 +57,8 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
             this.userPhone = currIntent.getStringExtra("EXTRA_PHONE");
             try {
                 this.userDOB = new SimpleDateFormat("MMM dd yyyy").parse(currIntent.getStringExtra("EXTRA_DOB"));
-            } catch (ParseException e) {
+//                this.userDOB = (Date)currIntent.getSerializableExtra("EXTRA_DOB2");
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -75,6 +76,7 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
             public void onClick(View view) {
                 if(validation()){
                     createUser();
+                    startActivity(new Intent(ShopOwnerSignupActivity3.this, ShopOwnerDashboardActivity.class));
                 }
             }
         });

@@ -134,7 +134,7 @@ public class StartupActivity extends AppCompatActivity {
     }
 
     // Objects of this class are intended to be executed by a thread, as denoted by "Runnable".
-    public class SampleCode implements Runnable {
+    public class SampleCode implements Runnable { //used to push to mongodb realm database
         User user;
         // constructor
         public SampleCode(User user) {
