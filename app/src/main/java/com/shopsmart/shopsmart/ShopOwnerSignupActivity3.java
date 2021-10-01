@@ -57,7 +57,6 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
             this.userPhone = currIntent.getStringExtra("EXTRA_PHONE");
             try {
                 this.userDOB = new SimpleDateFormat("MMM dd yyyy").parse(currIntent.getStringExtra("EXTRA_DOB"));
-//                this.userDOB = (Date)currIntent.getSerializableExtra("EXTRA_DOB2");
             } catch (Exception e) {
                 e.printStackTrace();
             }
