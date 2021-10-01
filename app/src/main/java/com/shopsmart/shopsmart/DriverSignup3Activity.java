@@ -62,8 +62,8 @@ public class DriverSignup3Activity extends AppCompatActivity implements View.OnC
                         this.createUser();
 
                         // Go to Dashboard
-                        Intent dashboardIntent = new Intent(this, DriverDashboardActivity.class);
-                        //startActivity(dashboardIntent);
+                        Intent dashboardIntent = new Intent(this, ShopOwnerDashboardActivity.class);
+                        startActivity(dashboardIntent);
                     }
                     break;
                 }

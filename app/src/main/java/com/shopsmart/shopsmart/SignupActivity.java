@@ -32,7 +32,7 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Go to Shop Owner Signup Activity
                 // replace the ???
-                //startActivity(new Intent(SignupActivity.this, ???));
+                startActivity(new Intent(SignupActivity.this, ShopOwnerSignupActivity.class));
             }
         });
     }
