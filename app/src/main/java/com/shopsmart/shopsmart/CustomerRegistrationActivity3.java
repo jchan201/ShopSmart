@@ -49,7 +49,8 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         this.currentIntent = this.getIntent();
 
         if(currentIntent != null){
-            this.currEmail = currentIntent.getStringExtra("EXTRA_EMAIL");
+            //this.currEmail = currentIntent.getStringExtra("EXTRA_EMAIL");
+            this.userAddress = (Address)this.currentIntent.getSerializableExtra("EXTRA_ADDRESS_OBJ");
         }
 
         //setContentView(R.layout.customer_register2);
@@ -131,20 +132,20 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
     public void onClick(View view) {
         if(view != null){
             switch (view.getId()){
-                case R.id.cancelButton2:{
+                case R.id.cancelButton3:{
                     Intent mainIntent = new Intent(this, MainActivity.class);
                     startActivity(mainIntent);
                     break;
                 }
-                case R.id.nextButton2:{
+                case R.id.finishButton:{
                     if (this.validateData()) {
 
-                        this.createUser();
-
-                        Address address = new Address();
+                        //Address address = new Address();
                         //address.setCity(this.binding.city.getText().toString());
                         //address.setProvince(this.binding.provPicker.getSelectedItem().toString());
                         //address.setPostalCode(this.binding.zipCode.getText().toString());
+
+                        this.createUser();
 
                         Intent CRegister3 = new Intent(this, MainActivity.class);
 
@@ -190,7 +191,8 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         appUser.setMiddleInitial(this.currentIntent.getStringExtra("EXTRA_MNAME"));
         appUser.setLastName(this.currentIntent.getStringExtra("EXTRA_LNAME"));
         appUser.setPhone(this.currentIntent.getStringExtra("EXTRA_PHONE"));
-        appUser.addAddress(this.userAddress);
+
+        //appUser.addAddress(this.userAddress);
         // TO-DO: NEED TO ADD PAYMENT INFORMATION
 
         // Create user in database

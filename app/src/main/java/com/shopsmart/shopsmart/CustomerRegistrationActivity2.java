@@ -172,6 +172,7 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity implements 
                         CRegister3.putExtra("EXTRA_MNAME", this.binding.nameMiddle.getText().toString());
                         CRegister3.putExtra("EXTRA_LNAME", this.binding.nameLast.getText().toString());
                         CRegister3.putExtra("EXTRA_PHONE", this.binding.phoneNum.getText().toString());
+                        CRegister3.putExtra("EXTRA_DATE", this.binding.dob.getText().toString());
                         startActivity(CRegister3);
 
                     }
