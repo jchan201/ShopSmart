@@ -84,6 +84,16 @@ public class ShopOwnerSignupActivity extends AppCompatActivity {
             valid = false;
         }
 
+        if(this.binding.editTextPassword.getText().toString().length() < 6){
+            this.binding.editTextPassword.setError("Password must contain more than 6 or more characters");
+            valid = false;
+        }
+
+        else if(!this.binding.editTextPassword.getText().toString().matches("(.*[A-Z].*)") || !this.binding.editTextPassword.getText().toString().matches("(.*[0-9].*)")){
+            this.binding.editTextPassword.setError("Password must contain 1 Uppercase and 1 Number");
+            valid = false;
+        }
+
         if(this.binding.editTextConfirmPassword.getText().toString().isEmpty()){
             this.binding.editTextConfirmPassword.setError("Confirm password cannot be empty");
             valid = false;

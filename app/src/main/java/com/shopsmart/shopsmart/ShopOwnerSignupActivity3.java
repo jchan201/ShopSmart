@@ -133,6 +133,8 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
                 Log.i("EXAMPLE", "Successfully registered user.");
             } else {
                 Log.e("EXAMPLE", "Failed to register user: " + it.getError().getErrorMessage());
+                appUser.deleteFromRealm();
+                startActivity(new Intent(ShopOwnerSignupActivity3.this, SignupActivity.class));
             }
         });
 
