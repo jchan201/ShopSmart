@@ -19,8 +19,8 @@ public class AppUser extends RealmObject implements Serializable {
     @Required private String email;
     private String phone = "";
     @Required private Date birthdate;
-    private RealmList<Address> addresses;
-    private RealmList<PaymentMethod> paymentMethods;
+    private RealmList<Address> addresses = new RealmList<Address>();
+    private RealmList<PaymentMethod> paymentMethods = new RealmList<PaymentMethod>();
     private RealmList<ProductItem> shoppingCart;
     @Required private RealmList<ObjectId> orders;
     @Required private RealmList<ObjectId> shops;

@@ -49,7 +49,6 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         this.currentIntent = this.getIntent();
 
         if(currentIntent != null){
-            //this.currEmail = currentIntent.getStringExtra("EXTRA_EMAIL");
             this.userAddress = (Address)this.currentIntent.getSerializableExtra("EXTRA_ADDRESS_OBJ");
         }
 
@@ -191,8 +190,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         appUser.setMiddleInitial(this.currentIntent.getStringExtra("EXTRA_MNAME"));
         appUser.setLastName(this.currentIntent.getStringExtra("EXTRA_LNAME"));
         appUser.setPhone(this.currentIntent.getStringExtra("EXTRA_PHONE"));
-
-        //appUser.addAddress(this.userAddress);
+        appUser.addAddress(this.userAddress);
         // TO-DO: NEED TO ADD PAYMENT INFORMATION
 
         // Create user in database
