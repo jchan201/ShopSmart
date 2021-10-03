@@ -191,6 +191,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         appUser.setLastName(this.currentIntent.getStringExtra("EXTRA_LNAME"));
         appUser.setPhone(this.currentIntent.getStringExtra("EXTRA_PHONE"));
         appUser.addAddress(this.userAddress);
+        appUser.setUserType("Customer");
         // TO-DO: NEED TO ADD PAYMENT INFORMATION
 
         // Create user in database
