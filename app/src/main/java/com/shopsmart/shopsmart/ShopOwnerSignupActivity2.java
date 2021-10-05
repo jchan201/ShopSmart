@@ -55,6 +55,7 @@ public class ShopOwnerSignupActivity2 extends AppCompatActivity {
                     address.setCity(binding.edtTextCity.getText().toString());
                     address.setProvince(binding.spinnerProvince.getSelectedItem().toString());
                     address.setPostalCode(binding.edtTextZip.getText().toString());
+                    address.setCountry("Canada");
 
                     Intent nextSignUpScreen = new Intent(ShopOwnerSignupActivity2.this, ShopOwnerSignupActivity3.class);
                     nextSignUpScreen.putExtra("EXTRA_ADDRESS_OBJ", address);

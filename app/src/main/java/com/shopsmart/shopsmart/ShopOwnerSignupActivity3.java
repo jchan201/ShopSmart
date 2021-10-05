@@ -9,12 +9,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.ShopownerSignupActivity3Binding;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
 import io.realm.mongodb.Credentials;
@@ -75,7 +75,10 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
             public void onClick(View view) {
                 if(validation()){
                     createUser();
-                    startActivity(new Intent(ShopOwnerSignupActivity3.this, ShopOwnerDashboardActivity.class));
+                    Intent nextSignUpScreen = new Intent(ShopOwnerSignupActivity3.this, ShopOwnerDashboardActivity.class);
+//                    nextSignUpScreen.putExtra("EXTRA_PASS", userPass);
+//                    nextSignUpScreen.putExtra("EXTRA_EMAIL", userEmail);
+                    startActivity(nextSignUpScreen);
                 }
             }
         });
@@ -84,35 +87,81 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
     private boolean validation(){
         boolean valid = true;
 
-        if(this.binding.edtTextAccNum.getText().toString().isEmpty()){
-            this.binding.edtTextAccNum.setError("Account number cannot be empty");
+//        if(this.binding.edtTextAccNum.getText().toString().isEmpty()){
+//            this.binding.edtTextAccNum.setError("Account number cannot be empty");
+//            valid = false;
+//        }
+//
+//        if(this.binding.edtTextIntNum.getText().toString().isEmpty()){
+//            this.binding.edtTextIntNum.setError("Institution number cannot be empty");
+//            valid = false;
+//        }
+//
+//        if(this.binding.edtTextTransNum.getText().toString().isEmpty()){
+//            this.binding.edtTextTransNum.setError("Transit number cannot be empty");
+//            valid = false;
+//        }
+
+        if(this.binding.edtTextCardNum.getText().toString().isEmpty()){
+            this.binding.edtTextCardNum.setError("Card number cannot be empty");
             valid = false;
         }
 
-        if(this.binding.edtTextIntNum.getText().toString().isEmpty()){
-            this.binding.edtTextIntNum.setError("Institution number cannot be empty");
+        if(this.binding.edtTextExpiryDate.getText().toString().isEmpty()){
+            this.binding.edtTextExpiryDate.setError("Expiry date cannot be empty");
             valid = false;
         }
 
-        if(this.binding.edtTextTransNum.getText().toString().isEmpty()){
-            this.binding.edtTextTransNum.setError("Transit number cannot be empty");
+        if(this.binding.edtTextCCV.getText().toString().isEmpty()){
+            this.binding.edtTextCCV.setError("CCV cannot be empty");
+            valid = false;
+        }
+
+        if(this.binding.edtTextBillCity.getText().toString().isEmpty()){
+            this.binding.edtTextBillCity.setError("City cannot be empty");
+            valid = false;
+        }
+
+        if(this.binding.edtTextBillPostalCode.getText().toString().isEmpty()){
+            this.binding.edtTextBillPostalCode.setError("Postal Code cannot be empty");
+            valid = false;
+        }
+
+        if(this.binding.edtTextBillAdd1.getText().toString().isEmpty()){
+            this.binding.edtTextBillAdd1.setError("Address cannot be empty");
             valid = false;
         }
 
         return valid;
     }
 
-    private void createBankInfo(){
-        BankInformation bankInfo = new BankInformation();
-        bankInfo.setAccountNumber(this.binding.edtTextAccNum.getText().toString());
-        bankInfo.setInstitutionNumber(this.binding.edtTextIntNum.getText().toString());
-        bankInfo.setTransitNumber(this.binding.edtTextTransNum.getText().toString());
+//    private void createBankInfo(){
+//        BankInformation bankInfo = new BankInformation();
+//        bankInfo.setAccountNumber(this.binding.edtTextAccNum.getText().toString());
+//        bankInfo.setInstitutionNumber(this.binding.edtTextIntNum.getText().toString());
+//        bankInfo.setTransitNumber(this.binding.edtTextTransNum.getText().toString());
+//    }
+
+    private PaymentMethod createPaymentMethod(){
+        PaymentMethod paymentMethod = new PaymentMethod();
+        paymentMethod.setCardNumber(this.binding.edtTextCardNum.getText().toString());
+        paymentMethod.setExpiry(this.binding.edtTextExpiryDate.getText().toString());
+        paymentMethod.setSecurityCode(this.binding.edtTextCCV.getText().toString());
+
+        Address billAddress = new Address();
+        billAddress.setCity(this.binding.edtTextBillCity.getText().toString());
+        billAddress.setProvince(this.binding.spinnerProvince.getSelectedItem().toString());
+        billAddress.setPostalCode(this.binding.edtTextBillPostalCode.getText().toString());
+        billAddress.setCountry("Canada");
+
+        paymentMethod.setBillingAddress(billAddress);
+        return paymentMethod;
     }
 
     private void createUser(){
         AppUser appUser = new AppUser();
 
-        createBankInfo();
+        //createBankInfo();
 
         appUser.setEmail(userEmail);
         appUser.setFirstName(userFName);
@@ -121,6 +170,9 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
         appUser.setPhone(userPhone);
         appUser.addAddress(userAddress);
         appUser.setBirthdate(userDOB);
+        appUser.setUserType("Owner");
+
+        appUser.addPaymentMethod(createPaymentMethod());
 
         Calendar calendarDOB = Calendar.getInstance();
         calendarDOB.setTime(userDOB);
@@ -134,7 +186,9 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
             } else {
                 Log.e("EXAMPLE", "Failed to register user: " + it.getError().getErrorMessage());
                 appUser.deleteFromRealm();
-                startActivity(new Intent(ShopOwnerSignupActivity3.this, SignupActivity.class));
+                Intent backToSignUpScreen = new Intent(ShopOwnerSignupActivity3.this, SignupActivity.class);
+                backToSignUpScreen.putExtra("EXTRA_SIGNUP_SUCCESS", false);
+                startActivity(backToSignUpScreen);
             }
         });
 
@@ -145,7 +199,7 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
             SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), "ShopSmart").build();
             Realm backgroundRealm = Realm.getInstance(config);
 
-            backgroundRealm.executeTransaction(transactionRealm -> {
+            backgroundRealm.executeTransactionAsync(transactionRealm -> {
                 // insert the user
                 transactionRealm.insert(appUser);
             });

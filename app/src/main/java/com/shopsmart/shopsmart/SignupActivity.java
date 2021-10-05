@@ -11,6 +11,7 @@ import com.shopsmart.shopsmart.databinding.ActivitySignupBinding;
 public class SignupActivity extends AppCompatActivity {
     private final String PARTITION = "ShopSmart";
     private ActivitySignupBinding binding;
+    boolean success = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
