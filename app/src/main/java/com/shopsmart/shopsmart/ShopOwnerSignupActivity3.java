@@ -41,6 +41,12 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
         binding = ShopownerSignupActivity3Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        binding.edtTextExpiryDateMonth.setText(Integer.toString(month));
+        binding.edtTextExpiryDateYear.setText(Integer.toString(year));
+
         // Access realm
         app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
 
@@ -107,10 +113,10 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
             valid = false;
         }
 
-        if(this.binding.edtTextExpiryDate.getText().toString().isEmpty()){
-            this.binding.edtTextExpiryDate.setError("Expiry date cannot be empty");
-            valid = false;
-        }
+//        if(this.binding.edtTextExpiryDate.getText().toString().isEmpty()){
+//            this.binding.edtTextExpiryDate.setError("Expiry date cannot be empty");
+//            valid = false;
+//        }
 
         if(this.binding.edtTextCCV.getText().toString().isEmpty()){
             this.binding.edtTextCCV.setError("CCV cannot be empty");
@@ -145,7 +151,7 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
     private PaymentMethod createPaymentMethod(){
         PaymentMethod paymentMethod = new PaymentMethod();
         paymentMethod.setCardNumber(this.binding.edtTextCardNum.getText().toString());
-        paymentMethod.setExpiry(this.binding.edtTextExpiryDate.getText().toString());
+        paymentMethod.setExpiry(this.binding.edtTextExpiryDateMonth.getText().toString()+"/"+this.binding.edtTextExpiryDateYear.getText().toString());
         paymentMethod.setSecurityCode(this.binding.edtTextCCV.getText().toString());
 
         Address billAddress = new Address();

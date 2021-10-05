@@ -41,65 +41,6 @@
         app:layout_constraintTop_toBottomOf="@+id/titleView"
         />
 
-<!--    <TextView-->
-<!--        android:id="@+id/textBankTitle"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Bank Information"-->
-<!--        android:textSize="30dp"-->
-<!--        app:layout_constraintEnd_toEndOf="@+id/bodyView"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/bodyView"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/bodyView" />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/edtTextAccNum"-->
-<!--        android:layout_width="300dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:background="@drawable/basic_rectangle"-->
-<!--        android:ems="10"-->
-<!--        android:hint="ACCOUNT NUMBER"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:padding="8dp"-->
-<!--        android:textAlignment="center"-->
-<!--        android:textSize="15sp"-->
-<!--        app:layout_constraintEnd_toEndOf="@+id/bodyView"-->
-<!--        app:layout_constraintHorizontal_bias="0.504"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/bodyView"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textBankTitle" />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/edtTextIntNum"-->
-<!--        android:layout_width="300dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:ems="10"-->
-<!--        android:hint="INSTITUTION NUMBER"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:padding="8dp"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:textSize="15sp"-->
-<!--        android:textAlignment="center"-->
-<!--        android:background="@drawable/basic_rectangle"-->
-<!--        app:layout_constraintEnd_toEndOf="@+id/bodyView"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/bodyView"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/edtTextAccNum" />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/edtTextTransNum"-->
-<!--        android:layout_width="300dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:ems="10"-->
-<!--        android:hint="TRANSIT NUMBER"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:padding="8dp"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:textSize="15sp"-->
-<!--        android:textAlignment="center"-->
-<!--        android:background="@drawable/basic_rectangle"-->
-<!--        app:layout_constraintEnd_toEndOf="@+id/bodyView"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/bodyView"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/edtTextIntNum" />-->
-
     <TextView
         android:id="@+id/textPaymentTitle"
         android:layout_width="wrap_content"
@@ -128,20 +69,48 @@
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/textPaymentTitle" />
 
+    <TextView
+        android:id="@+id/textViewExpiryDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Expiry Date:"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="55dp"
+        app:layout_constraintStart_toStartOf="@+id/bodyView"
+        app:layout_constraintTop_toBottomOf="@+id/edtTextCardNum" />
+
     <EditText
-        android:id="@+id/edtTextExpiryDate"
-        android:layout_width="300dp"
+        android:id="@+id/edtTextExpiryDateMonth"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/basic_rectangle"
         android:ems="10"
-        android:hint="EXPIRY DATE"
-        android:inputType="textPersonName"
+        android:hint="MM"
+        android:inputType="number"
+        android:padding="8dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/edtTextExpiryDateYear"
+        app:layout_constraintStart_toEndOf="@+id/textViewExpiryDate"
+        app:layout_constraintTop_toBottomOf="@+id/edtTextCardNum" />
+
+    <EditText
+        android:id="@+id/edtTextExpiryDateYear"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="35dp"
+        android:background="@drawable/basic_rectangle"
+        android:ems="10"
+        android:hint="YYYY"
+        android:inputType="number"
         android:padding="8dp"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
-        app:layout_constraintStart_toStartOf="@+id/bodyView"
+        app:layout_constraintStart_toEndOf="@+id/edtTextExpiryDateMonth"
         app:layout_constraintTop_toBottomOf="@+id/edtTextCardNum" />
 
     <EditText
@@ -158,7 +127,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/edtTextExpiryDate" />
+        app:layout_constraintTop_toBottomOf="@+id/edtTextExpiryDateMonth" />
 
     <EditText
         android:id="@+id/edtTextBillCity"
