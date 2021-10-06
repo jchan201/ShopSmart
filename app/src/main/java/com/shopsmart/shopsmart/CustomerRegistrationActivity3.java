@@ -52,7 +52,6 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
             this.userAddress = (Address)this.currentIntent.getSerializableExtra("EXTRA_ADDRESS_OBJ");
         }
 
-        //setContentView(R.layout.customer_register2);
         provSpinner = findViewById(R.id.provPicker);
 
         ArrayAdapter<CharSequence> provList = ArrayAdapter.createFromResource(this, R.array.provinces, android.R.layout.simple_spinner_item);
@@ -123,9 +122,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> adapterView){
-
-    }
+    public void onNothingSelected(AdapterView<?> adapterView) {}
 
     @Override
     public void onClick(View view) {
@@ -215,5 +212,8 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
                 transactionRealm.insert(appUser);
             });
         });
+        //AppUser appUser = new AppUser();
+        //appUser.setUserType("Customer");
+        //appUser.setEmail(this.binding.email.getText().toString());
     }
 }

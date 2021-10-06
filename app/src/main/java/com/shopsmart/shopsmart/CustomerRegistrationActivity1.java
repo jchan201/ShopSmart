@@ -13,9 +13,6 @@ import com.shopsmart.shopsmart.databinding.CustomerRegister1Binding;
 public class CustomerRegistrationActivity1 extends AppCompatActivity implements View.OnClickListener {
     CustomerRegister1Binding binding;
 
-    private Button buttonCancel;
-    private Button buttonNext;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -87,18 +84,5 @@ public class CustomerRegistrationActivity1 extends AppCompatActivity implements 
         CRegister2.putExtra("EXTRA_EMAIL", this.binding.email.getText().toString());
         CRegister2.putExtra("EXTRA_PASSWORD", this.binding.password1.getText().toString());
         startActivity(CRegister2);
-        //AppUser appUser = new AppUser();
-        //appUser.setUserType("Customer");
-        //appUser.setEmail(this.binding.email.getText().toString());
-    }
-
-    private void nextPage(AppUser appUser){
-        Intent nextPageIntent = new Intent(this, CustomerRegistrationActivity2.class);
-
-        nextPageIntent.putExtra("EXTRA_APPUSER_OBJ", appUser);
-        nextPageIntent.putExtra("EXTRA_USERNAME", this.binding.email.getText().toString());
-        nextPageIntent.putExtra("EXTRA_PASSWORD", this.binding.password1.getText().toString());
-
-        startActivity(nextPageIntent);
     }
 }
