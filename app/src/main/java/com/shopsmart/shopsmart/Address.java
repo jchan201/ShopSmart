@@ -1,12 +1,11 @@
 package com.shopsmart.shopsmart;
 
-import java.io.Serializable;
 import io.realm.RealmObject;
 import io.realm.annotations.RealmClass;
 import io.realm.annotations.Required;
 
 @RealmClass(embedded = true)
-public class Address extends RealmObject implements Serializable{
+public class Address extends RealmObject {
     @Required private String address1;
     @Required private String address2;
     @Required private String country;

@@ -134,7 +134,7 @@ public class StartupActivity extends AppCompatActivity {
     }
 
     // Objects of this class are intended to be executed by a thread, as denoted by "Runnable".
-    public class SampleCode implements Runnable { //used to push to mongodb realm database
+    public class SampleCode implements Runnable {
         User user;
         // constructor
         public SampleCode(User user) {
@@ -166,7 +166,7 @@ public class StartupActivity extends AppCompatActivity {
                 // find the specified user in the realm
                 AppUser user = transactionRealm.where(AppUser.class).equalTo("_id", someUserId).findFirst();
                 // modify it (add new address)
-//                user.addAddress(new Address("Canada", "Ontario", "Toronto", "A1B 2C3"));
+                user.addAddress(new Address("Address 1","Address 2", "Canada", "Ontario", "Toronto", "A1B 2C3"));
             });
 
             // Delete a user.
