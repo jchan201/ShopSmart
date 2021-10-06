@@ -3,6 +3,7 @@ package com.shopsmart.shopsmart;
 
 import org.bson.types.ObjectId;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import io.realm.RealmList;
@@ -10,7 +11,7 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
-public class Order extends RealmObject {
+public class Order extends RealmObject implements Serializable {
     @PrimaryKey @Required private ObjectId _id = new ObjectId();
     @Required private ObjectId cust_id;
     @Required private Date date;

@@ -171,12 +171,11 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         String password = this.currentIntent.getStringExtra("EXTRA_PASSWORD");
 
         String cCardNum = this.binding.cCardNum.getText().toString();
-        long cCardNumLong = Long.parseLong(cCardNum);
+        String cCardNumLong = this.binding.cCardNum.getText().toString();
 
         //Example
-        int expExample = 25;
-
-        int secCodeExample = 25;
+        String expExample = "1/1";
+        String secCodeExample = "1/1";
 
         paymentMethod.setCardNumber(cCardNumLong);
         paymentMethod.setExpiry(expExample);

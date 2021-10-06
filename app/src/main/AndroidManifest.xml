@@ -10,7 +10,37 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShopSmart">
         <activity
-            android:name=".MainActivity"
+            android:name=".DriverProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".DriverDashboardActivity"
+            android:exported="true" />
+        <activity
+            android:name=".DriverSignup3Activity"
+            android:exported="true" />
+        <activity
+            android:name=".DriverSignup2Activity"
+            android:exported="true" />
+        <activity
+            android:name=".DriverSignupActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SignupActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ShopOwnerSignupActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ShopOwnerSignupActivity2"
+            android:exported="true" />
+        <activity
+            android:name=".ShopOwnerSignupActivity3"
+            android:exported="true" />
+        <activity
+            android:name=".ShopOwnerDashboardActivity"
+            android:exported="true" />
+        <activity
+            android:name=".StartupActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

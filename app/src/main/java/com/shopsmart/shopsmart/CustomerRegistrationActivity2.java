@@ -151,7 +151,7 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity implements 
         if(view != null){
             switch (view.getId()){
                 case R.id.cancelButton2:{
-                    Intent mainIntent = new Intent(this, MainActivity.class);
+                    Intent mainIntent = new Intent(this, StartupActivity.class);
                     startActivity(mainIntent);
                     break;
                 }

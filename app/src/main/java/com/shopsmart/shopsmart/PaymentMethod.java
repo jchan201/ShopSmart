@@ -1,47 +1,50 @@
 package com.shopsmart.shopsmart;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 import io.realm.annotations.RealmClass;
+import io.realm.annotations.Required;
 
 @RealmClass(embedded = true)
-public class PaymentMethod extends RealmObject {
+public class PaymentMethod extends RealmObject implements Serializable {
     // these may need to be hashed
-    private long cardNumber;
-    private int expiry;
-    private int securityCode;
+    @Required private String cardNumber;
+    @Required private String expiry;
+    @Required private String securityCode;
     private Address billingAddress;
 
     public PaymentMethod() {
-        cardNumber = -1;
-        expiry = -1;
-        securityCode = -1;
+        cardNumber = "";
+        expiry = "";
+        securityCode = "";
         billingAddress = null;
     }
-    public PaymentMethod(long cardNumber, int expiry, int securityCode, Address billingAddress) {
+    public PaymentMethod(String cardNumber, String expiry, String securityCode, Address billingAddress) {
         this.cardNumber = cardNumber;
         this.expiry = expiry;
         this.securityCode = securityCode;
         this.billingAddress = billingAddress;
     }
 
-    public long getCardNumber() {
+    public String getCardNumber() {
         return cardNumber;
     }
-    public void setCardNumber(long cardNumber) {
+    public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
 
-    public int getExpiry() {
+    public String getExpiry() {
         return expiry;
     }
-    public void setExpiry(int expiry) {
+    public void setExpiry(String expiry) {
         this.expiry = expiry;
     }
 
-    public int getSecurityCode() {
+    public String getSecurityCode() {
         return securityCode;
     }
-    public void setSecurityCode(int securityCode) {
+    public void setSecurityCode(String securityCode) {
         this.securityCode = securityCode;
     }
 

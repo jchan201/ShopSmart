@@ -10,10 +10,11 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
-public class AppUser extends RealmObject implements Serializable {
+public class AppUser extends RealmObject {
     @PrimaryKey @Required private ObjectId _id = new ObjectId();
     @Required private String userType;
     @Required private String firstName;
+    private String middleInitial;
     @Required private String lastName;
     private int age;
     @Required private String email;
@@ -21,6 +22,7 @@ public class AppUser extends RealmObject implements Serializable {
     @Required private Date birthdate;
     private RealmList<Address> addresses = new RealmList<Address>();
     private RealmList<PaymentMethod> paymentMethods = new RealmList<PaymentMethod>();
+    private RealmList<BankInformation> bankInfo = new RealmList<BankInformation>();
     private RealmList<ProductItem> shoppingCart;
     @Required private RealmList<ObjectId> orders;
     @Required private RealmList<ObjectId> shops;
@@ -33,10 +35,11 @@ public class AppUser extends RealmObject implements Serializable {
         email = "";
         birthdate = new Date();
     }
-    public AppUser(String userType, String firstName, String lastName, int age, String email,
-                   String phone, Date birthdate) {
+    public AppUser(String userType, String firstName, String middleInitial, String lastName,
+                   int age, String email, String phone, Date birthdate) {
         this.userType = userType;
         this.firstName = firstName;
+        this.middleInitial = middleInitial;
         this.lastName = lastName;
         this.age = age;
         this.email = email;
@@ -60,6 +63,13 @@ public class AppUser extends RealmObject implements Serializable {
     }
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getMiddleInitial() {
+        return middleInitial;
+    }
+    public void setMiddleInitial(String middleInitial) {
+        this.middleInitial = middleInitial;
     }
 
     public String getLastName() {
@@ -145,8 +155,5 @@ public class AppUser extends RealmObject implements Serializable {
     }
     public void removeShop(/* search params */) {
         // NEED TO IMPLEMENT
-    }
-
-    public void setMiddleInitial(String extra_mname) {
     }
 }

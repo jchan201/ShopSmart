@@ -1,4 +1,4 @@
-/*package com.shopsmart.shopsmart;
+package com.shopsmart.shopsmart;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,7 +8,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
 import org.bson.types.ObjectId;
 
@@ -22,29 +21,21 @@ import io.realm.mongodb.Credentials;
 import io.realm.mongodb.User;
 import io.realm.mongodb.sync.SyncConfiguration;
 
-import com.shopsmart.shopsmart.databinding.ActivityMainBinding;
+import com.shopsmart.shopsmart.databinding.ActivityStartupBinding;
 
-public class MainActivity extends AppCompatActivity {
+import javax.annotation.Nullable;
+
+public class StartupActivity extends AppCompatActivity {
     private final String PARTITION = "ShopSmart";
-    private ActivityMainBinding binding;
+    private ActivityStartupBinding binding;
     private Realm realm;
     private App app;
 
-    private Button buttonRegister;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityStartupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        buttonRegister = (Button) findViewById(R.id.btnRegister);
-        buttonRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                customerRegistration1();
-            }
-        });
 
         // Initialize the Realm library.
         Realm.init(this);
@@ -61,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Hide error message if the text is changed.
                 binding.txtError.setVisibility(View.INVISIBLE);
             }
         };
@@ -71,56 +63,58 @@ public class MainActivity extends AppCompatActivity {
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Get the user's credentials (email and password).
                 String email = binding.edtTxtEmail.getText().toString();
                 String password = binding.edtTxtPassword.getText().toString();
-                // Get the user's credentials (email and password).
                 Credentials credentials = Credentials.emailPassword(email, password);
 
-                try {
-                    // Attempt to log in.
-                    User current = app.login(credentials);
+                app.loginAsync(credentials, result -> {
+                    if (result.isSuccess()) {
+                        Log.v("LOGIN", "Successfully authenticated using email and password.");
 
-                    // get user data
+                        // Open a Synced Realm for asynchronous transactions.
+                        SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
+                        realm = Realm.getInstance(config);
 
-                    Log.v("LOGIN", "Successfully authenticated as ");
-                } catch(Exception e) {
-                    binding.txtError.setVisibility(View.VISIBLE);
-                    Log.e("LOGIN", "Failed to log in. Error: " + e.getMessage());
-                }
-
-                // Open a Synced Realm for asynchronous transactions.
-                SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
-                realm = Realm.getInstance(config);
-
-                // add a change listener to the AppUser collection
-                RealmResults<AppUser> users = realm.where(AppUser.class).findAllAsync();
-                users.addChangeListener(new OrderedRealmCollectionChangeListener<RealmResults<AppUser>>() {
-                    @Override
-                    public void onChange(RealmResults<AppUser> appUsers, OrderedCollectionChangeSet changeSet) {
-                        OrderedCollectionChangeSet.Range[] deletions = changeSet.getDeletionRanges();
-                        for (OrderedCollectionChangeSet.Range range : deletions) {
-                            Log.v("DELETION", "Deleted range: " + range.startIndex + " to "
-                                    + (range.startIndex + range.length - 1));
-                        }
-                        OrderedCollectionChangeSet.Range[] insertions = changeSet.getInsertionRanges();
-                        for (OrderedCollectionChangeSet.Range range : insertions) {
-                            Log.v("INSERTION", "Inserted range: " + range.startIndex + " to "
-                                    + (range.startIndex + range.length - 1));
-                        }
-                        OrderedCollectionChangeSet.Range[] modifications = changeSet.getChangeRanges();
-                        for (OrderedCollectionChangeSet.Range range : modifications) {
-                            Log.v("UPDATES", "Updated range: " + range.startIndex + " to "
-                                    + (range.startIndex + range.length - 1));
-                        }
+                        // Add a change listener to the AppUser collection (note: sample code)
+                        RealmResults<AppUser> users = realm.where(AppUser.class).findAllAsync();
+                        users.addChangeListener(new OrderedRealmCollectionChangeListener<RealmResults<AppUser>>() {
+                            @Override
+                            public void onChange(RealmResults<AppUser> appUsers, OrderedCollectionChangeSet changeSet) {
+                                OrderedCollectionChangeSet.Range[] deletions = changeSet.getDeletionRanges();
+                                for (OrderedCollectionChangeSet.Range range : deletions) {
+                                    Log.v("DELETION", "Deleted range: " + range.startIndex + " to "
+                                            + (range.startIndex + range.length - 1));
+                                }
+                                OrderedCollectionChangeSet.Range[] insertions = changeSet.getInsertionRanges();
+                                for (OrderedCollectionChangeSet.Range range : insertions) {
+                                    Log.v("INSERTION", "Inserted range: " + range.startIndex + " to "
+                                            + (range.startIndex + range.length - 1));
+                                }
+                                OrderedCollectionChangeSet.Range[] modifications = changeSet.getChangeRanges();
+                                for (OrderedCollectionChangeSet.Range range : modifications) {
+                                    Log.v("UPDATES", "Updated range: " + range.startIndex + " to "
+                                            + (range.startIndex + range.length - 1));
+                                }
+                            }
+                        });
+                    } else {
+                        Log.e("LOGIN", "Failed to log in.");
+                        // Show error message if login failed.
+                        binding.txtError.setVisibility(View.VISIBLE);
                     }
                 });
             }
         });
-    }
 
-    public void customerRegistration1(){
-        Intent intent = new Intent(this, CustomerRegistrationActivity1.class);
-        startActivity(intent);
+        // When the Register button is clicked.
+        binding.btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Go to Signup Activity
+                startActivity(new Intent(StartupActivity.this, SignupActivity.class));
+            }
+        });
     }
 
     @Override
@@ -140,10 +134,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Objects of this class are intended to be executed by a thread, as denoted by "Runnable".
-    public class TestingCode implements Runnable {
+    public class SampleCode implements Runnable { //used to push to mongodb realm database
         User user;
         // constructor
-        public TestingCode(User user) {
+        public SampleCode(User user) {
             this.user = user;
         }
         @Override
@@ -186,4 +180,4 @@ public class MainActivity extends AppCompatActivity {
             backgroundRealm.close();
         }
     }
-}*/
+}

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".StartupActivity">
 
     <TextView
         android:id="@+id/txtLogo"
@@ -26,15 +26,17 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="50dp"
         android:layout_marginTop="20dp"
+        android:labelFor="@id/edtTxtEmail"
         android:text="Email"
-        android:textSize="17dp" />
-
+        android:textSize="17sp" />
     <EditText
         android:id="@+id/edtTxtEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="50dp"
-        android:layout_marginBottom="30dp" />
+        android:layout_marginBottom="30dp"
+        android:autofillHints="emailAddress"
+        android:inputType="textEmailAddress" />
 
     <TextView
         android:id="@+id/txtPassword"
@@ -42,15 +44,17 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="50dp"
         android:layout_marginTop="5dp"
+        android:labelFor="@id/edtTxtPassword"
         android:text="Password"
-        android:textSize="17dp" />
-
+        android:textSize="17sp" />
     <EditText
         android:id="@+id/edtTxtPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="50dp"
-        android:layout_marginBottom="15dp" />
+        android:layout_marginBottom="15dp"
+        android:autofillHints="password"
+        android:inputType="textPassword" />
 
     <TextView
         android:id="@+id/txtError"
@@ -59,7 +63,7 @@
         android:text="Invalid email/password."
         android:textAlignment="center"
         android:textColor="@color/red"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:visibility="invisible"/>
 
     <Button
@@ -79,4 +83,9 @@
         android:layout_marginHorizontal="125dp"
         android:background="@drawable/button_bg"
         android:text="Register" />
+
+    <!--
+        May want to switch to RelativeLayout or ConstraintLayout
+        to replace horizontal margins with centering in parent.
+    -->
 </LinearLayout>
