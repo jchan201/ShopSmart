@@ -6,22 +6,42 @@ import io.realm.annotations.Required;
 
 @RealmClass(embedded = true)
 public class Address extends RealmObject {
+    @Required private String address1;
+    @Required private String address2;
     @Required private String country;
     @Required private String province;
     @Required private String city;
     @Required private String postalCode;
 
     public Address() {
+        this.address1 = "";
+        this.address2 = "";
         this.country = "";
         this.province = "";
         this.city = "";
         this.postalCode = "";
     }
-    public Address(String country, String province, String city, String postalCode) {
+    public Address(String address1, String address2, String country, String province, String city, String postalCode) {
+        this.address1 = address1;
+        this.address2 = address2;
         this.country = country;
         this.province = province;
         this.city = city;
         this.postalCode = postalCode;
+    }
+
+    public String getAddress1() {
+        return address1;
+    }
+    public void setAddress1(String address) {
+        this.address1 = address;
+    }
+
+    public String getAddress2() {
+        return address2;
+    }
+    public void setAddress2(String address2) {
+        this.address2 = address2;
     }
 
     public String getCountry() {

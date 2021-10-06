@@ -111,8 +111,8 @@ public class Shop extends RealmObject {
     public void addOrder(ObjectId order) {
         salesOrders.add(order);
     }
-    public void removeOrder() {
-        // NEED TO IMPLEMENT
+    public void removeOrder(int pos) {
+        salesOrders.remove(pos);
     }
 
     public RealmList<ObjectId> getOwners() {
@@ -121,7 +121,7 @@ public class Shop extends RealmObject {
     public void addOwner(ObjectId owner) {
         owners.add(owner);
     }
-    public void removeOwner() {
-        // NEED TO IMPLEMENT
+    public void removeOwner(int pos) {
+        owners.remove(pos);
     }
 }
