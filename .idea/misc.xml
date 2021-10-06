@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/layout/activity_driver_profile.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/layout/customer_register1.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/layout/customer_register2.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/layout/customer_register3.xml" value="0.2015625" />
+        <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/layout/shopowner_dashboard_activity.xml" value="0.20520833333333333" />
       </map>
     </option>
   </component>

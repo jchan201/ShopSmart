@@ -24,7 +24,7 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Go to Customer Signup Activity
                 // replace the ???
-                //startActivity(new Intent(SignupActivity.this, ???));
+                startActivity(new Intent(SignupActivity.this, CustomerRegistrationActivity1.class));
             }
         });
 

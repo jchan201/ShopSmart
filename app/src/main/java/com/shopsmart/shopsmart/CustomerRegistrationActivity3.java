@@ -129,7 +129,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         if(view != null){
             switch (view.getId()){
                 case R.id.cancelButton3:{
-                    Intent mainIntent = new Intent(this, MainActivity.class);
+                    Intent mainIntent = new Intent(this, StartupActivity.class);
                     startActivity(mainIntent);
                     break;
                 }
@@ -143,7 +143,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
 
                         this.createUser();
 
-                        Intent CRegister3 = new Intent(this, MainActivity.class);
+                        Intent CRegister3 = new Intent(this, StartupActivity.class);
 
                     }
                 }
@@ -177,7 +177,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         String expExample = "1/1";
         String secCodeExample = "1/1";
 
-        paymentMethod.setCardNumber(cCardNumLong);
+        paymentMethod.setCardNumber(cCardNum);
         paymentMethod.setExpiry(expExample);
         paymentMethod.setSecurityCode(secCodeExample);
 
@@ -196,6 +196,10 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
                 Log.i("EXAMPLE", "Successfully registered user.");
             } else {
                 Log.e("EXAMPLE", "Failed to register user: " + it.getError().getErrorMessage());
+                appUser.deleteFromRealm();
+                Intent mainIntent = new Intent(this, SignupActivity.class);
+                mainIntent.putExtra("EXTRA_SIGNUP_SUCCESS", false);
+                startActivity(mainIntent);
             }
         });
 
@@ -203,10 +207,10 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         Credentials credentials = Credentials.emailPassword(appUser.getEmail(), password);
         app.loginAsync(credentials, result -> {
             Log.e("SSS", "In async: " + app.currentUser().getId());
-            SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
+            SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), "ShopSmart").build();
             Realm backgroundRealm = Realm.getInstance(config);
 
-            backgroundRealm.executeTransaction(transactionRealm -> {
+            backgroundRealm.executeTransactionAsync(transactionRealm -> {
                 // insert the user
                 transactionRealm.insert(appUser);
             });
