@@ -17,7 +17,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.CustomerRegister3Binding;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import io.realm.Realm;
 import io.realm.mongodb.App;
@@ -35,6 +37,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
     Intent currentIntent;
     App app;
     Address userAddress;
+    Date userDOB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -47,10 +50,6 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
 
         this.currentIntent = this.getIntent();
-
-        if(currentIntent != null){
-            this.userAddress = (Address)this.currentIntent.getSerializableExtra("EXTRA_ADDRESS_OBJ");
-        }
 
         provSpinner = findViewById(R.id.provPicker);
 
@@ -181,12 +180,28 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         paymentMethod.setExpiry(expExample);
         paymentMethod.setSecurityCode(secCodeExample);
 
+        if(currentIntent != null){
+            this.userAddress = (Address)this.currentIntent.getSerializableExtra("EXTRA_ADDRESS_OBJ");
+        }
+
         appUser.setEmail(this.currentIntent.getStringExtra("EXTRA_EMAIL"));
         appUser.setFirstName(this.currentIntent.getStringExtra("EXTRA_FNAME"));
         appUser.setMiddleInitial(this.currentIntent.getStringExtra("EXTRA_MNAME"));
         appUser.setLastName(this.currentIntent.getStringExtra("EXTRA_LNAME"));
         appUser.setPhone(this.currentIntent.getStringExtra("EXTRA_PHONE"));
         appUser.addAddress(this.userAddress);
+        try {
+            this.userDOB = new SimpleDateFormat("MMM dd yyyy").parse(currentIntent.getStringExtra("EXTRA_DATE"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        appUser.setBirthdate(userDOB);
+
+        Calendar calendarUser = Calendar.getInstance();
+        calendarUser.setTime(userDOB);
+        Calendar calendar = Calendar.getInstance();
+
+        appUser.setAge(calendar.get(Calendar.YEAR) - calendarUser.get(Calendar.YEAR));
         appUser.setUserType("Customer");
         // TO-DO: NEED TO ADD PAYMENT INFORMATION
 
@@ -218,5 +233,14 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         //AppUser appUser = new AppUser();
         //appUser.setUserType("Customer");
         //appUser.setEmail(this.binding.email.getText().toString());
+    }
+
+    private PaymentMethod createPayment(){
+        PaymentMethod pMethod = new PaymentMethod();
+        pMethod.setCardNumber(this.binding.cCardNum.getText().toString());
+        pMethod.setSecurityCode(this.binding.cCardCCV.getText().toString());
+
+        Address cAddress = new Address();
+        //cAddress.set
     }
 }
