@@ -37,6 +37,8 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
 
     App app;
 
+    Realm backgroundRealm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -186,12 +188,28 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
         app.loginAsync(credentials, result -> {
             Log.e("SSS", "In async: " + app.currentUser().getId());
             SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), "ShopSmart").build();
-            Realm backgroundRealm = Realm.getInstance(config);
+            backgroundRealm = Realm.getInstance(config);
 
             backgroundRealm.executeTransactionAsync(transactionRealm -> {
                 // insert the user
                 transactionRealm.insert(appUser);
             });
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        binding = null;
+
+        // Log out.
+        app.currentUser().logOutAsync(result -> {
+            if (result.isSuccess()) {
+                Log.v("LOGOUT", "Successfully logged out.");
+            } else {
+                Log.e("LOGOUT", "Failed to log out, error: " + result.getError());
+            }
+        });
+        backgroundRealm.close(); // Close the realm.
     }
 }
