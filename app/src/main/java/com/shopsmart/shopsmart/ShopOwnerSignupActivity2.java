@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.shopsmart.shopsmart.databinding.ShopownerSignupActivity2Binding;
 import com.shopsmart.shopsmart.databinding.ShopownerSignupActivity3Binding;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -51,11 +52,11 @@ public class ShopOwnerSignupActivity2 extends AppCompatActivity {
             public void onClick(View view) {
                 if(validation()){
                     //Create Address Object
-                    Address address = new Address();
-                    address.setCity(binding.edtTextCity.getText().toString());
-                    address.setProvince(binding.spinnerProvince.getSelectedItem().toString());
-                    address.setPostalCode(binding.edtTextZip.getText().toString());
-                    address.setCountry("Canada");
+                    Address address = new Address(binding.edtTextAdd1.getText().toString(),
+                            binding.edtTextAdd2.getText().toString(), "Canada",
+                            binding.spinnerProvince.getSelectedItem().toString(),
+                            binding.edtTextCity.getText().toString(),
+                            binding.edtTextZip.getText().toString());
 
                     Intent nextSignUpScreen = new Intent(ShopOwnerSignupActivity2.this, ShopOwnerSignupActivity3.class);
                     nextSignUpScreen.putExtra("EXTRA_ADDRESS_OBJ", address);
@@ -75,6 +76,11 @@ public class ShopOwnerSignupActivity2 extends AppCompatActivity {
     private boolean validation(){
         boolean valid = true;
 
+        if(this.binding.edtTextAdd1.getText().toString().isEmpty()){
+            this.binding.edtTextAdd1.setError("Address Line 1 cannot be empty");
+            valid = false;
+        }
+
         if(this.binding.edtTextCity.getText().toString().isEmpty()){
             this.binding.edtTextCity.setError("City cannot be empty");
             valid = false;
@@ -82,6 +88,11 @@ public class ShopOwnerSignupActivity2 extends AppCompatActivity {
 
         if(this.binding.edtTextZip.getText().toString().isEmpty()){
             this.binding.edtTextZip.setError("Email cannot be empty");
+            valid = false;
+        }
+
+        if(!this.binding.edtTextZip.getText().toString().matches("([A-Z]\\d[A-Z]\\s\\d[A-Z]\\d)")){
+            this.binding.edtTextZip.setError("Postal code does not match schema: A1A 1A1");
             valid = false;
         }
 
