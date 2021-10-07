@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 import com.shopsmart.shopsmart.databinding.ActivityDriverSignup2Binding;
 import com.shopsmart.shopsmart.databinding.ActivityDriverSignupBinding;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
