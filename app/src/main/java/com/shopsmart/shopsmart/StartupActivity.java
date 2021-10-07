@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 
+import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import io.realm.OrderedCollectionChangeSet;
@@ -19,9 +20,12 @@ import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
 import io.realm.mongodb.Credentials;
 import io.realm.mongodb.User;
+import io.realm.mongodb.mongo.MongoCollection;
 import io.realm.mongodb.sync.SyncConfiguration;
 
 import com.shopsmart.shopsmart.databinding.ActivityStartupBinding;
+
+import java.util.ArrayList;
 
 import javax.annotation.Nullable;
 
@@ -30,6 +34,7 @@ public class StartupActivity extends AppCompatActivity {
     private ActivityStartupBinding binding;
     private Realm realm;
     private App app;
+    final ArrayList<String> ATTEMPTS = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,32 +81,40 @@ public class StartupActivity extends AppCompatActivity {
                         SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
                         realm = Realm.getInstance(config);
 
-                        // Add a change listener to the AppUser collection (note: sample code)
-                        RealmResults<AppUser> users = realm.where(AppUser.class).findAllAsync();
-                        users.addChangeListener(new OrderedRealmCollectionChangeListener<RealmResults<AppUser>>() {
-                            @Override
-                            public void onChange(RealmResults<AppUser> appUsers, OrderedCollectionChangeSet changeSet) {
-                                OrderedCollectionChangeSet.Range[] deletions = changeSet.getDeletionRanges();
-                                for (OrderedCollectionChangeSet.Range range : deletions) {
-                                    Log.v("DELETION", "Deleted range: " + range.startIndex + " to "
-                                            + (range.startIndex + range.length - 1));
-                                }
-                                OrderedCollectionChangeSet.Range[] insertions = changeSet.getInsertionRanges();
-                                for (OrderedCollectionChangeSet.Range range : insertions) {
-                                    Log.v("INSERTION", "Inserted range: " + range.startIndex + " to "
-                                            + (range.startIndex + range.length - 1));
-                                }
-                                OrderedCollectionChangeSet.Range[] modifications = changeSet.getChangeRanges();
-                                for (OrderedCollectionChangeSet.Range range : modifications) {
-                                    Log.v("UPDATES", "Updated range: " + range.startIndex + " to "
-                                            + (range.startIndex + range.length - 1));
-                                }
+                        // Retrieve all users in the Realm.
+                        RealmResults<AppUser> users = realm.where(AppUser.class).findAll();
+                        AppUser user = null;
+
+                        // Find the AppUser
+                        for (int i = 0; i < users.size(); i++) {
+                            if (users.get(i).getEmail() == email) {
+                                user = users.get(i);
                             }
-                        });
+                        }
+                        if (user == null) Log.wtf(PARTITION, "No such AppUser exists...?");
+
+                        // Go to the dashboard depending on the AppUser's type.
+                        String type = user.getUserType();
+                        switch (type) {
+                            case "Customer":
+                                // putExtra?
+                                // startActivity(new Intent(StartupActivity.this, ???));
+                                Log.v(PARTITION,"Successfully got to dashboard!");
+                                break;
+                            case "Owner":
+                                // putExtra?
+                                // startActivity(new Intent(StartupActivity.this, ???));
+                                Log.v(PARTITION,"Successfully got to dashboard!");
+                                break;
+                            default:
+                                Log.wtf(PARTITION, "AppUser is neither a Customer nor ShopOwner.");
+                        }
                     } else {
                         Log.e("LOGIN", "Failed to log in.");
                         // Show error message if login failed.
                         binding.txtError.setVisibility(View.VISIBLE);
+                        ATTEMPTS.add(email);
+                        if (ATTEMPTS.size() == 5) binding.btnLogin.setEnabled(false);
                     }
                 });
             }
@@ -144,17 +157,17 @@ public class StartupActivity extends AppCompatActivity {
         public void run() {
             SyncConfiguration config = new SyncConfiguration.Builder(user, PARTITION).build();
             // Sync all Realm changes.
-            Realm backgroundRealm = Realm.getInstance(config);
+            Realm realm2 = Realm.getInstance(config);
 
             // Create a user.
             AppUser userToAdd = new AppUser();
-            backgroundRealm.executeTransaction(transactionRealm -> {
+            realm2.executeTransaction(transactionRealm -> {
                 // insert the user
                 transactionRealm.insert(userToAdd);
             });
 
             // Retrieve all users in the Realm.
-            RealmResults<AppUser> users = backgroundRealm.where(AppUser.class).findAll();
+            RealmResults<AppUser> users = realm2.where(AppUser.class).findAll();
 
             // get a user from the realm
             AppUser someUser = users.get(0);
@@ -162,7 +175,7 @@ public class StartupActivity extends AppCompatActivity {
             ObjectId someUserId = someUser.getId();
 
             // Modify a user.
-            backgroundRealm.executeTransaction(transactionRealm -> {
+            realm2.executeTransaction(transactionRealm -> {
                 // find the specified user in the realm
                 AppUser user = transactionRealm.where(AppUser.class).equalTo("_id", someUserId).findFirst();
                 // modify it (add new address)
@@ -170,14 +183,36 @@ public class StartupActivity extends AppCompatActivity {
             });
 
             // Delete a user.
-            backgroundRealm.executeTransaction(transactionRealm -> {
+            realm2.executeTransaction(transactionRealm -> {
                 // find the specified user in the realm
                 AppUser user = transactionRealm.where(AppUser.class).equalTo("_id", someUserId).findFirst();
                 // delete it
                 user.deleteFromRealm();
             });
 
-            backgroundRealm.close();
+            // Add a change listener to the AppUser collection
+            users.addChangeListener(new OrderedRealmCollectionChangeListener<RealmResults<AppUser>>() {
+                @Override
+                public void onChange(RealmResults<AppUser> appUsers, OrderedCollectionChangeSet changeSet) {
+                    OrderedCollectionChangeSet.Range[] deletions = changeSet.getDeletionRanges();
+                    for (OrderedCollectionChangeSet.Range range : deletions) {
+                        Log.v("DELETION", "Deleted range: " + range.startIndex + " to "
+                                + (range.startIndex + range.length - 1));
+                    }
+                    OrderedCollectionChangeSet.Range[] insertions = changeSet.getInsertionRanges();
+                    for (OrderedCollectionChangeSet.Range range : insertions) {
+                        Log.v("INSERTION", "Inserted range: " + range.startIndex + " to "
+                                + (range.startIndex + range.length - 1));
+                    }
+                    OrderedCollectionChangeSet.Range[] modifications = changeSet.getChangeRanges();
+                    for (OrderedCollectionChangeSet.Range range : modifications) {
+                        Log.v("UPDATES", "Updated range: " + range.startIndex + " to "
+                                + (range.startIndex + range.length - 1));
+                    }
+                }
+            });
+
+            realm2.close();
         }
     }
 }
