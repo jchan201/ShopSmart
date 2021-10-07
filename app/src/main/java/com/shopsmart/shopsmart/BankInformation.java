@@ -1,12 +1,14 @@
 package com.shopsmart.shopsmart;
 
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 import io.realm.annotations.RealmClass;
 import io.realm.annotations.Required;
 
 @RealmClass(embedded = true)
-public class BankInformation extends RealmObject {
+public class BankInformation extends RealmObject implements Serializable {
     @Required private String accountNumber;
     @Required private String institutionNumber;
     @Required private String transitNumber;

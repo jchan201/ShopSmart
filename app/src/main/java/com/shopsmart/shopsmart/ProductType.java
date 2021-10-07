@@ -2,11 +2,13 @@ package com.shopsmart.shopsmart;
 
 import org.bson.types.ObjectId;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
-public class ProductType extends RealmObject {
+public class ProductType extends RealmObject implements Serializable {
     @PrimaryKey @Required private ObjectId _id = new ObjectId();
     @Required private String name;
 

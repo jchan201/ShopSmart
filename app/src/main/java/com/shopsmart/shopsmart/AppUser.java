@@ -2,6 +2,7 @@ package com.shopsmart.shopsmart;
 
 import org.bson.types.ObjectId;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import io.realm.RealmList;
@@ -19,9 +20,9 @@ public class AppUser extends RealmObject {
     @Required private String email;
     private String phone = "";
     @Required private Date birthdate;
-    private RealmList<Address> addresses;
-    private RealmList<PaymentMethod> paymentMethods;
-    private RealmList<BankInformation> bankInfo;
+    private RealmList<Address> addresses = new RealmList<Address>();
+    private RealmList<PaymentMethod> paymentMethods = new RealmList<PaymentMethod>();
+    private RealmList<BankInformation> bankInfo = new RealmList<BankInformation>();
     private RealmList<ProductItem> shoppingCart;
     @Required private RealmList<ObjectId> orders;
     @Required private RealmList<ObjectId> shops;
