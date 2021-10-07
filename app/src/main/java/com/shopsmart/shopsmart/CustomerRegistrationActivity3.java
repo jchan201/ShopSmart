@@ -235,7 +235,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         //appUser.setEmail(this.binding.email.getText().toString());
     }
 
-    private PaymentMethod createPayment(){
+    private void createPayment(){
         PaymentMethod pMethod = new PaymentMethod();
         pMethod.setCardNumber(this.binding.cCardNum.getText().toString());
         pMethod.setSecurityCode(this.binding.cCardCCV.getText().toString());
