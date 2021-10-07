@@ -96,4 +96,23 @@
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/edtTextIntNum" />
 
+    <TextView
+        android:id="@+id/textUserTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User: "
+        android:layout_marginLeft="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/edtTextAccNum"
+        app:layout_constraintStart_toStartOf="@+id/bodyView"
+        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+
+    <TextView
+        android:id="@+id/textUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="UNKNOWN"
+        app:layout_constraintBottom_toTopOf="@+id/edtTextAccNum"
+        app:layout_constraintStart_toEndOf="@+id/textUserTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
