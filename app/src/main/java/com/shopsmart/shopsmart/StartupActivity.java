@@ -86,7 +86,7 @@ public class StartupActivity extends AppCompatActivity {
 
                         // Find the AppUser
                         for (int i = 0; i < users.size(); i++) {
-                            if (users.get(i).getEmail() == email) {
+                            if (users.get(i).getEmail().equals(email)) {
                                 user = users.get(i);
                             }
                         }
