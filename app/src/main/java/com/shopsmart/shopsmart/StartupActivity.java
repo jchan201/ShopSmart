@@ -20,7 +20,6 @@ import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
 import io.realm.mongodb.Credentials;
 import io.realm.mongodb.User;
-import io.realm.mongodb.mongo.MongoCollection;
 import io.realm.mongodb.sync.SyncConfiguration;
 
 import com.shopsmart.shopsmart.databinding.ActivityStartupBinding;
@@ -179,7 +178,7 @@ public class StartupActivity extends AppCompatActivity {
                 // find the specified user in the realm
                 AppUser user = transactionRealm.where(AppUser.class).equalTo("_id", someUserId).findFirst();
                 // modify it (add new address)
-                user.addAddress(new Address("Address 1","Address 2", "Canada", "Ontario", "Toronto", "A1B 2C3"));
+                //user.addAddress(new Address("Address 1","Address 2", "Canada", "Ontario", "Toronto", "A1B 2C3"));
             });
 
             // Delete a user.
