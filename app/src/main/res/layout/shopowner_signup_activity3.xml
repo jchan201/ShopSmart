@@ -65,6 +65,7 @@
         android:padding="8dp"
         android:textAlignment="center"
         android:textSize="20sp"
+        android:maxLength="16"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/textPaymentTitle" />
@@ -80,7 +81,7 @@
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/edtTextCardNum" />
 
-    <EditText
+    <Spinner
         android:id="@+id/edtTextExpiryDateMonth"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
@@ -92,6 +93,7 @@
         android:padding="8dp"
         android:textAlignment="center"
         android:textSize="20sp"
+        android:entries="@array/months"
         app:layout_constraintEnd_toStartOf="@+id/edtTextExpiryDateYear"
         app:layout_constraintStart_toEndOf="@+id/textViewExpiryDate"
         app:layout_constraintTop_toBottomOf="@+id/edtTextCardNum" />
@@ -109,6 +111,7 @@
         android:padding="8dp"
         android:textAlignment="center"
         android:textSize="20sp"
+        android:maxLength="4"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toEndOf="@+id/edtTextExpiryDateMonth"
         app:layout_constraintTop_toBottomOf="@+id/edtTextCardNum" />
