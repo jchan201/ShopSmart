@@ -141,7 +141,7 @@ public class DriverSignup2Activity extends AppCompatActivity implements View.OnC
                         this.appUser.addAddress(address);
 
                         Intent nextSignUpScreen = new Intent(this, DriverSignup3Activity.class);
-                        nextSignUpScreen.putExtra("EXTRA_APPUSER_OBJ", this.appUser);
+                        //nextSignUpScreen.putExtra("EXTRA_APPUSER_OBJ", this.appUser);
                         nextSignUpScreen.putExtra("EXTRA_PASSWORD", this.userPassword);
                         startActivity(nextSignUpScreen);
                     }

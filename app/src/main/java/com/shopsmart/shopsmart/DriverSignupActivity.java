@@ -57,7 +57,7 @@ public class DriverSignupActivity extends AppCompatActivity implements View.OnCl
     private void goToNextSignupPage(AppUser appUser) {
         Intent nextSignUpIntent = new Intent(this, DriverSignup2Activity.class);
         // Put AppUser object, username, and password into the intent
-        nextSignUpIntent.putExtra("EXTRA_APPUSER_OBJ", appUser);
+        //nextSignUpIntent.putExtra("EXTRA_APPUSER_OBJ", appUser);
         nextSignUpIntent.putExtra("EXTRA_PASSWORD", this.binding.editPassword.getText().toString());
 
         startActivity(nextSignUpIntent);

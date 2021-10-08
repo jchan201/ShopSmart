@@ -90,6 +90,7 @@ public class StartupActivity extends AppCompatActivity {
                                 user = users.get(i);
                             }
                         }
+
                         if (user == null) Log.wtf(PARTITION, "No such AppUser exists...?");
 
                         // Go to the dashboard depending on the AppUser's type.
@@ -97,14 +98,17 @@ public class StartupActivity extends AppCompatActivity {
                         switch (type) {
                             case "Customer":
                                 // putExtra?
-                                realm.close();
                                 // startActivity(new Intent(StartupActivity.this, ???));
                                 Log.v(PARTITION,"Successfully got to dashboard!");
                                 break;
                             case "Owner":
                                 // putExtra?
+                                Intent intentToDashboard = new Intent(StartupActivity.this, ShopOwnerDashboardActivity.class);
+                                intentToDashboard.putExtra("EXTRA_PASS", password);
+                                intentToDashboard.putExtra("EXTRA_EMAIL", email);
+
                                 realm.close();
-                                // startActivity(new Intent(StartupActivity.this, ???));
+                                startActivity(intentToDashboard);
                                 Log.v(PARTITION,"Successfully got to dashboard!");
                                 break;
                             default:
@@ -126,7 +130,6 @@ public class StartupActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Go to Signup Activity
-                realm.close();
                 startActivity(new Intent(StartupActivity.this, SignupActivity.class));
             }
         });
