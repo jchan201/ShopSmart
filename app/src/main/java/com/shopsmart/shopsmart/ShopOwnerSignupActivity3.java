@@ -3,8 +3,6 @@ package com.shopsmart.shopsmart;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.ShopownerSignupActivity3Binding;
@@ -46,8 +44,6 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
 
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        binding.edtTextExpiryDateMonth.setText(Integer.toString(month));
         binding.edtTextExpiryDateYear.setText(Integer.toString(year));
 
         // Access realm
@@ -72,7 +68,10 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
         }
 
         //cancel go back sign up selection page
-        binding.buttonCancel.setOnClickListener(view -> startActivity(new Intent(ShopOwnerSignupActivity3.this, ShopOwnerSignupActivity2.class)));
+        binding.buttonCancel.setOnClickListener(view -> {
+            backgroundRealm.close(); // Close the realm.
+            startActivity(new Intent(ShopOwnerSignupActivity3.this, ShopOwnerSignupActivity2.class));
+        });
 
         binding.buttonNext.setOnClickListener(view -> {
             if(validation()){
@@ -81,6 +80,7 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
                     Intent nextSignUpScreen = new Intent(ShopOwnerSignupActivity3.this, ShopOwnerDashboardActivity.class);
                     nextSignUpScreen.putExtra("EXTRA_PASS", userPass);
                     nextSignUpScreen.putExtra("EXTRA_EMAIL", userEmail);
+                    backgroundRealm.close(); // Close the realm.
                     startActivity(nextSignUpScreen);
                 }
             }
@@ -126,7 +126,7 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
     private PaymentMethod createPaymentMethod(){
         PaymentMethod paymentMethod = new PaymentMethod();
         paymentMethod.setCardNumber(this.binding.edtTextCardNum.getText().toString());
-        paymentMethod.setExpiry(this.binding.edtTextExpiryDateMonth.getText().toString()+"/"+this.binding.edtTextExpiryDateYear.getText().toString());
+        paymentMethod.setExpiry(this.binding.edtTextExpiryDateMonth.getSelectedItem().toString()+"/"+this.binding.edtTextExpiryDateYear.getText().toString());
         paymentMethod.setSecurityCode(this.binding.edtTextCCV.getText().toString());
 
         Address billAddress = new Address();
@@ -201,6 +201,5 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
                 Log.e("LOGOUT", "Failed to log out, error: " + result.getError());
             }
         });
-        backgroundRealm.close(); // Close the realm.
     }
 }
