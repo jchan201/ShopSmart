@@ -10,12 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShopSmart">
         <activity
-            android:name=".DriverProfileActivity"
-            android:exported="true" />
-        <activity
-            android:name=".DriverDashboardActivity"
-            android:exported="true" />
-        <activity
             android:name=".DriverSignup3Activity"
             android:exported="true" />
         <activity
@@ -25,7 +19,7 @@
             android:name=".DriverSignupActivity"
             android:exported="true" />
         <activity
-            android:name=".SignupActivity"
+            android:name=".ShopOwnerDashboardActivity"
             android:exported="true" />
         <activity
             android:name=".ShopOwnerSignupActivity"
@@ -37,7 +31,7 @@
             android:name=".ShopOwnerSignupActivity3"
             android:exported="true" />
         <activity
-            android:name=".ShopOwnerDashboardActivity"
+            android:name=".SignupActivity"
             android:exported="true" />
         <activity
             android:name=".StartupActivity"
@@ -50,15 +44,12 @@
         </activity>
         <activity
             android:name=".CustomerRegistrationActivity2"
-            android:label="Registration2"
-            ></activity>
+            android:label="Registration2" />
         <activity
             android:name=".CustomerRegistrationActivity3"
-            android:label="Registration3"
-            ></activity>
-        <activity android:name=".CustomerRegistrationActivity1"
-            android:label="Registration1"
-            ></activity>
+            android:label="Registration3" />
+        <activity
+            android:name=".CustomerRegistrationActivity1"
+            android:label="Registration1" />
     </application>
-
 </manifest>

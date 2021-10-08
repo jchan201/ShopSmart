@@ -3,7 +3,6 @@ package com.shopsmart.shopsmart;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,7 +40,7 @@ public class CustomerRegistrationActivity1 extends AppCompatActivity implements 
 
                     }
                     else{
-                        Toast.makeText(getApplicationContext(), "Both Passwords must be the same", Toast.LENGTH_SHORT);
+                        Toast.makeText(getApplicationContext(), "Both Passwords must be the same", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

@@ -33,7 +33,11 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
     Date userDOB;
     String userPhone;
 
+    boolean success = true;
+
     App app;
+
+    Realm backgroundRealm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,10 +85,12 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
             public void onClick(View view) {
                 if(validation()){
                     createUser();
-                    Intent nextSignUpScreen = new Intent(ShopOwnerSignupActivity3.this, ShopOwnerDashboardActivity.class);
-//                    nextSignUpScreen.putExtra("EXTRA_PASS", userPass);
-//                    nextSignUpScreen.putExtra("EXTRA_EMAIL", userEmail);
-                    startActivity(nextSignUpScreen);
+                    if(success) {
+                        Intent nextSignUpScreen = new Intent(ShopOwnerSignupActivity3.this, ShopOwnerDashboardActivity.class);
+                        nextSignUpScreen.putExtra("EXTRA_PASS", userPass);
+                        nextSignUpScreen.putExtra("EXTRA_EMAIL", userEmail);
+                        startActivity(nextSignUpScreen);
+                    }
                 }
             }
         });
@@ -93,30 +99,10 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
     private boolean validation(){
         boolean valid = true;
 
-//        if(this.binding.edtTextAccNum.getText().toString().isEmpty()){
-//            this.binding.edtTextAccNum.setError("Account number cannot be empty");
-//            valid = false;
-//        }
-//
-//        if(this.binding.edtTextIntNum.getText().toString().isEmpty()){
-//            this.binding.edtTextIntNum.setError("Institution number cannot be empty");
-//            valid = false;
-//        }
-//
-//        if(this.binding.edtTextTransNum.getText().toString().isEmpty()){
-//            this.binding.edtTextTransNum.setError("Transit number cannot be empty");
-//            valid = false;
-//        }
-
         if(this.binding.edtTextCardNum.getText().toString().isEmpty()){
             this.binding.edtTextCardNum.setError("Card number cannot be empty");
             valid = false;
         }
-
-//        if(this.binding.edtTextExpiryDate.getText().toString().isEmpty()){
-//            this.binding.edtTextExpiryDate.setError("Expiry date cannot be empty");
-//            valid = false;
-//        }
 
         if(this.binding.edtTextCCV.getText().toString().isEmpty()){
             this.binding.edtTextCCV.setError("CCV cannot be empty");
@@ -133,6 +119,11 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
             valid = false;
         }
 
+        if(!this.binding.edtTextBillPostalCode.getText().toString().matches("([A-Z]\\d[A-Z]\\s\\d[A-Z]\\d)")){
+            this.binding.edtTextBillPostalCode.setError("Postal code does not match schema: A1A 1A1");
+            valid = false;
+        }
+
         if(this.binding.edtTextBillAdd1.getText().toString().isEmpty()){
             this.binding.edtTextBillAdd1.setError("Address cannot be empty");
             valid = false;
@@ -141,13 +132,6 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
         return valid;
     }
 
-//    private void createBankInfo(){
-//        BankInformation bankInfo = new BankInformation();
-//        bankInfo.setAccountNumber(this.binding.edtTextAccNum.getText().toString());
-//        bankInfo.setInstitutionNumber(this.binding.edtTextIntNum.getText().toString());
-//        bankInfo.setTransitNumber(this.binding.edtTextTransNum.getText().toString());
-//    }
-
     private PaymentMethod createPaymentMethod(){
         PaymentMethod paymentMethod = new PaymentMethod();
         paymentMethod.setCardNumber(this.binding.edtTextCardNum.getText().toString());
@@ -155,6 +139,8 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
         paymentMethod.setSecurityCode(this.binding.edtTextCCV.getText().toString());
 
         Address billAddress = new Address();
+        billAddress.setAddress1(this.binding.edtTextBillAdd1.getText().toString());
+        billAddress.setAddress2(this.binding.edtTextBillAdd2.getText().toString());
         billAddress.setCity(this.binding.edtTextBillCity.getText().toString());
         billAddress.setProvince(this.binding.spinnerProvince.getSelectedItem().toString());
         billAddress.setPostalCode(this.binding.edtTextBillPostalCode.getText().toString());
@@ -166,8 +152,6 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
 
     private void createUser(){
         AppUser appUser = new AppUser();
-
-        //createBankInfo();
 
         appUser.setEmail(userEmail);
         appUser.setFirstName(userFName);
@@ -191,9 +175,10 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
                 Log.i("EXAMPLE", "Successfully registered user.");
             } else {
                 Log.e("EXAMPLE", "Failed to register user: " + it.getError().getErrorMessage());
-                appUser.deleteFromRealm();
+                success = false;
                 Intent backToSignUpScreen = new Intent(ShopOwnerSignupActivity3.this, SignupActivity.class);
                 backToSignUpScreen.putExtra("EXTRA_SIGNUP_SUCCESS", false);
+                backToSignUpScreen.putExtra("EXTRA_ERROR_MSG", it.getError().getErrorMessage());
                 startActivity(backToSignUpScreen);
             }
         });
@@ -203,12 +188,28 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
         app.loginAsync(credentials, result -> {
             Log.e("SSS", "In async: " + app.currentUser().getId());
             SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), "ShopSmart").build();
-            Realm backgroundRealm = Realm.getInstance(config);
+            backgroundRealm = Realm.getInstance(config);
 
             backgroundRealm.executeTransactionAsync(transactionRealm -> {
                 // insert the user
                 transactionRealm.insert(appUser);
             });
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        binding = null;
+
+        // Log out.
+        app.currentUser().logOutAsync(result -> {
+            if (result.isSuccess()) {
+                Log.v("LOGOUT", "Successfully logged out.");
+            } else {
+                Log.e("LOGOUT", "Failed to log out, error: " + result.getError());
+            }
+        });
+        backgroundRealm.close(); // Close the realm.
     }
 }

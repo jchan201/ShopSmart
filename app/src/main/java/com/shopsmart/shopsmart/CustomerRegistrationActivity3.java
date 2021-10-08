@@ -1,6 +1,5 @@
 package com.shopsmart.shopsmart;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,8 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -28,12 +25,8 @@ import io.realm.mongodb.Credentials;
 import io.realm.mongodb.sync.SyncConfiguration;
 
 public class CustomerRegistrationActivity3 extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
-    private static final String PARTITION = "ShopSmart";
     CustomerRegister3Binding binding;
     private DatePickerDialog dpd;
-    private Spinner provSpinner;
-    String currEmail;
-    String currPassword;
     Intent currentIntent;
     App app;
     Address userAddress;
@@ -51,7 +44,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
 
         this.currentIntent = this.getIntent();
 
-        provSpinner = findViewById(R.id.provPicker);
+        Spinner provSpinner = findViewById(R.id.provPicker);
 
         ArrayAdapter<CharSequence> provList = ArrayAdapter.createFromResource(this, R.array.provinces, android.R.layout.simple_spinner_item);
         provList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

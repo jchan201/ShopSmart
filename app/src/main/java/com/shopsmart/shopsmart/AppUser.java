@@ -113,8 +113,8 @@ public class AppUser extends RealmObject {
     public void addAddress(Address address) {
         addresses.add(address);
     }
-    public void removeAddress(/* search params */) {
-        // NEED TO IMPLEMENT
+    public void removeAddress(int pos) {
+        addresses.remove(pos);
     }
 
     public RealmList<PaymentMethod> getPaymentMethods() {
@@ -123,8 +123,8 @@ public class AppUser extends RealmObject {
     public void addPaymentMethod(PaymentMethod paymentMethod) {
         paymentMethods.add(paymentMethod);
     }
-    public void removePaymentMethod(/* search params */) {
-        // NEED TO IMPLEMENT
+    public void removePaymentMethod(int pos) {
+        paymentMethods.remove(pos);
     }
 
     public RealmList<ProductItem> getShoppingCart() {
@@ -133,8 +133,8 @@ public class AppUser extends RealmObject {
     public void addShoppingItem(ProductItem productItem) {
         shoppingCart.add(productItem);
     }
-    public void removeShoppingItem(/* search params */) {
-        // NEED TO IMPLEMENT
+    public void removeShoppingItem(int pos) {
+        shoppingCart.remove(pos);
     }
 
     public RealmList<ObjectId> getOrders() {
@@ -143,8 +143,8 @@ public class AppUser extends RealmObject {
     public void addOrder(ObjectId order) {
         orders.add(order);
     }
-    public void removeOrder(/* search params */) {
-        // NEED TO IMPLEMENT
+    public void removeOrder(int pos) {
+        orders.remove(pos);
     }
 
     public RealmList<ObjectId> getShops() {
@@ -153,7 +153,7 @@ public class AppUser extends RealmObject {
     public void addShop(ObjectId shop) {
         shops.add(shop);
     }
-    public void removeShop(/* search params */) {
-        // NEED TO IMPLEMENT
+    public void removeShop(int pos) {
+        shops.remove(pos);
     }
 }

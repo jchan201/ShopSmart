@@ -18,6 +18,8 @@ public class ShopOwnerDashboardActivity extends AppCompatActivity {
         binding = ShopownerDashboardActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
+
 //        binding.btnCustomer.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
