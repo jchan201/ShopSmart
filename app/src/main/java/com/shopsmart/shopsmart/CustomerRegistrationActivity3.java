@@ -21,10 +21,12 @@ import java.util.Date;
 import io.realm.Realm;
 import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
+import io.realm.mongodb.AppException;
 import io.realm.mongodb.Credentials;
 import io.realm.mongodb.sync.SyncConfiguration;
 
 public class CustomerRegistrationActivity3 extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
+    private final String PARTITION = "ShopSmart";
     CustomerRegister3Binding binding;
     private DatePickerDialog dpd;
     Intent currentIntent;
@@ -65,38 +67,39 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         return makeDateString(day, month, year);
     }
 
-
     private String makeDateString(int day, int month, int year){
         return getMonthFormat(month) + " " + day + " " + year;
     }
 
-
     private String getMonthFormat(int month){
-        if(month == 1)
-            return "JAN";
-        if(month == 2)
-            return "FEB";
-        if(month == 3)
-            return "MAR";
-        if(month == 4)
-            return "APR";
-        if(month == 5)
-            return "MAY";
-        if(month == 6)
-            return "JUN";
-        if(month == 7)
-            return "JUL";
-        if(month == 8)
-            return "AUG";
-        if(month == 9)
-            return "SEP";
-        if(month == 10)
-            return "OCT";
-        if(month == 11)
-            return "NOV";
-        if(month == 12)
-            return "DEC";
-        return "JAN";
+        switch (month) {
+            case 1:
+                return "JAN";
+            case 2:
+                return "FEB";
+            case 3:
+                return "MAR";
+            case 4:
+                return "APR";
+            case 5:
+                return "MAY";
+            case 6:
+                return "JUN";
+            case 7:
+                return "JUL";
+            case 8:
+                return "AUG";
+            case 9:
+                return "SEP";
+            case 10:
+                return "OCT";
+            case 11:
+                return "NOV";
+            case 12:
+                return "DEC";
+            default:
+                return "";
+        }
     }
 
     public void openDatePicker(View view){
@@ -127,16 +130,8 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
                 }
                 case R.id.finishButton:{
                     if (this.validateData()) {
-
-                        //Address address = new Address();
-                        //address.setCity(this.binding.city.getText().toString());
-                        //address.setProvince(this.binding.provPicker.getSelectedItem().toString());
-                        //address.setPostalCode(this.binding.zipCode.getText().toString());
-
                         this.createUser();
-
                         Intent CRegister3 = new Intent(this, StartupActivity.class);
-
                     }
                 }
             }
@@ -186,7 +181,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         try {
             this.userDOB = new SimpleDateFormat("MMM dd yyyy").parse(currentIntent.getStringExtra("EXTRA_DATE"));
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.wtf(PARTITION, "Failed to register user: " + e.getMessage());
         }
         appUser.setBirthdate(userDOB);
 
@@ -200,18 +195,27 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         appUser.addPaymentMethod(createPayment());
         // TO-DO: NEED TO ADD PAYMENT INFORMATION
 
-        // Create user in database
+        /*// Create user in database
         app.getEmailPassword().registerUserAsync(appUser.getEmail(), password, it -> {
             if (it.isSuccess()) {
                 Log.i("EXAMPLE", "Successfully registered user.");
             } else {
                 Log.e("EXAMPLE", "Failed to register user: " + it.getError().getErrorMessage());
-                appUser.deleteFromRealm();
                 Intent mainIntent = new Intent(this, SignupActivity.class);
                 mainIntent.putExtra("EXTRA_SIGNUP_SUCCESS", false);
                 startActivity(mainIntent);
             }
-        });
+        });*/
+        try {
+            app.getEmailPassword().registerUser(appUser.getEmail(), password);
+            Log.i("EXAMPLE", "Successfully registered user.");
+        }
+        catch (AppException e) {
+            Log.e("EXAMPLE", "Failed to register user: " + e.getErrorMessage());
+            Intent mainIntent = new Intent(this, SignupActivity.class);
+            mainIntent.putExtra("EXTRA_SIGNUP_SUCCESS", false);
+            startActivity(mainIntent);
+        }
 
         // Create AppUser with associated User
         Credentials credentials = Credentials.emailPassword(appUser.getEmail(), password);
