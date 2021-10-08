@@ -3,6 +3,8 @@ package com.shopsmart.shopsmart;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.ShopownerDashboardActivityBinding;
@@ -66,23 +68,27 @@ public class ShopOwnerDashboardActivity extends AppCompatActivity {
                 binding.textUsername.setText(user.getEmail());
             }
         });
-//        binding.btnCustomer.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                // Go to Customer Signup Activity
-//                // replace the ???
-//                //startActivity(new Intent(SignupActivity.this, ???));
-//            }
-//        });
-//
-//        binding.btnShopOwner.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                // Go to Shop Owner Signup Activity
-//                // replace the ???
-//                startActivity(new Intent(ShopOwnerDashboardActivity.this, ShopOwnerSignupActivity.class));
-//            }
-//        });
+
+        binding.btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                realm.close();
+                Intent intentToProfile = new Intent(ShopOwnerDashboardActivity.this, ShopOwnerProfileActivity.class);
+                intentToProfile.putExtra("EXTRA_PASS", userPass);
+                intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+                startActivity(intentToProfile);
+                finish();
+            }
+        });
+
+        binding.btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                realm.close();
+                startActivity(new Intent(ShopOwnerDashboardActivity.this, StartupActivity.class));
+                finish();
+            }
+        });
     }
 
     @Override
@@ -98,6 +104,5 @@ public class ShopOwnerDashboardActivity extends AppCompatActivity {
                 Log.e("LOGOUT", "Failed to log out, error: " + result.getError());
             }
         });
-        realm.close(); // Close the realm.
     }
 }

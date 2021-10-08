@@ -23,7 +23,7 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dashboard"
+        android:text="Profile"
         android:textSize="40dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/titleView"
@@ -52,11 +52,11 @@
         app:layout_constraintTop_toTopOf="@+id/bodyView" />
 
     <Button
-        android:id="@+id/btnShopList"
+        android:id="@+id/btnPersonalInfo"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="SHOP LIST"
+        android:hint="Login, Security, and Personal Details"
         android:padding="8dp"
         android:layout_marginTop="64dp"
         android:textSize="20sp"
@@ -67,11 +67,11 @@
         app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
     <Button
-        android:id="@+id/btnProfile"
+        android:id="@+id/btnAddresses"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="PROFILE"
+        android:hint="Your Addresses"
         android:padding="8dp"
         android:layout_marginTop="32dp"
         android:textSize="20sp"
@@ -79,14 +79,14 @@
         android:background="@drawable/basic_rectangle"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/btnShopList" />
+        app:layout_constraintTop_toBottomOf="@+id/btnPersonalInfo" />
 
     <Button
-        android:id="@+id/btnLogout"
+        android:id="@+id/btnPayments"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="LOG OUT"
+        android:hint="Your Payments"
         android:padding="8dp"
         android:layout_marginTop="32dp"
         android:textSize="20sp"
@@ -94,25 +94,21 @@
         android:background="@drawable/basic_rectangle"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/btnProfile" />
+        app:layout_constraintTop_toBottomOf="@+id/btnAddresses" />
 
-    <TextView
-        android:id="@+id/textUserTitle"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="User: "
-        android:layout_marginLeft="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnShopList"
+        android:ems="10"
+        android:hint="Back"
+        android:padding="8dp"
+        android:layout_marginTop="32dp"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:background="@drawable/basic_rectangle"
+        app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
-
-    <TextView
-        android:id="@+id/textUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="UNKNOWN"
-        app:layout_constraintBottom_toTopOf="@+id/btnShopList"
-        app:layout_constraintStart_toEndOf="@+id/textUserTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/btnPayments" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,6 +22,9 @@
             android:name=".ShopOwnerDashboardActivity"
             android:exported="true" />
         <activity
+            android:name=".ShopOwnerProfileActivity"
+            android:exported="true" />
+        <activity
             android:name=".ShopOwnerSignupActivity"
             android:exported="true" />
         <activity
