@@ -51,6 +51,16 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity implements 
         //this.binding.cancelButton2.setOnClickListener(this);
         //this.binding.nextButton2.setOnClickListener(this);
 
+        binding.cancelButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //if(validateData()){
+                    createUser();
+                    startActivity(new Intent(CustomerRegistrationActivity2.this, SignupActivity.class));
+                //}
+            }
+        });
+
         binding.nextButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
