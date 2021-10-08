@@ -29,7 +29,7 @@ public class DriverSignup3Activity extends AppCompatActivity {
         if (currIntent != null) {
             // Grab objects from intent
             this.userPassword = currIntent.getStringExtra("EXTRA_PASSWORD");
-            this.appUser = (AppUser)currIntent.getSerializableExtra("EXTRA_APPUSER_OBJ");
+            //this.appUser = (AppUser)currIntent.getSerializableExtra("EXTRA_APPUSER_OBJ");
         }
     }
 }

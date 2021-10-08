@@ -86,10 +86,11 @@ public class StartupActivity extends AppCompatActivity {
 
                         // Find the AppUser
                         for (int i = 0; i < users.size(); i++) {
-                            if (users.get(i).getEmail() == email) {
+                            if (users.get(i).getEmail().equals(email)) {
                                 user = users.get(i);
                             }
                         }
+
                         if (user == null) Log.wtf(PARTITION, "No such AppUser exists...?");
 
                         // Go to the dashboard depending on the AppUser's type.
@@ -102,7 +103,12 @@ public class StartupActivity extends AppCompatActivity {
                                 break;
                             case "Owner":
                                 // putExtra?
-                                // startActivity(new Intent(StartupActivity.this, ???));
+                                Intent intentToDashboard = new Intent(StartupActivity.this, ShopOwnerDashboardActivity.class);
+                                intentToDashboard.putExtra("EXTRA_PASS", password);
+                                intentToDashboard.putExtra("EXTRA_EMAIL", email);
+
+                                realm.close();
+                                startActivity(intentToDashboard);
                                 Log.v(PARTITION,"Successfully got to dashboard!");
                                 break;
                             default:

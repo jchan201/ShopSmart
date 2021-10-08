@@ -18,15 +18,20 @@ import io.realm.mongodb.Credentials;
 import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ShopOwnerDashboardActivity extends AppCompatActivity {
+    private final String PARTITION = "ShopSmart";
     private ShopownerDashboardActivityBinding binding;
     Intent currIntent;
 
     String userEmail;
     String userPass;
 
-    App app;
+    private App app;
 
-    Realm backgroundRealm;
+    private Realm realm;
+
+    AppUser user;
+
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,29 +47,30 @@ public class ShopOwnerDashboardActivity extends AppCompatActivity {
 
         if (this.currIntent != null) {
             this.userEmail = currIntent.getStringExtra("EXTRA_EMAIL");
-            this.userPass = currIntent.getStringExtra("EXTRA_PASSWORD");
+            this.userPass = currIntent.getStringExtra("EXTRA_PASS");
         }
 
         Credentials credentials = Credentials.emailPassword(userEmail, userPass);
         app.loginAsync(credentials, result -> {
-            Log.e("SSS", "In async: " + app.currentUser().getId());
-            SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), "ShopSmart").build();
-            backgroundRealm = Realm.getInstance(config);
-        });
+            if (result.isSuccess()) {
+                Log.v("LOGIN", "Successfully authenticated using email and password.");
 
-        // Retrieve all users in the Realm.
-        RealmResults<AppUser> users = backgroundRealm.where(AppUser.class).findAll();
-        AppUser user = null;
+                // Open a Synced Realm for asynchronous transactions.
+                SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
+                realm = Realm.getInstance(config);
 
-        // Find the AppUser
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getEmail() == userEmail) {
-                user = users.get(i);
+                // Retrieve all users in the Realm.
+                RealmResults<AppUser> users = realm.where(AppUser.class).findAll();
+
+                // Find the AppUser
+                for (int i = 0; i < users.size(); i++) {
+                    if (users.get(i).getEmail().equals(userEmail)) {
+                        user = users.get(i);
+                    }
+                }
+                binding.textUsername.setText(user.getEmail());
             }
-        }
-
-        binding.textUsername.setText(user.getEmail());
-
+        });
 //        binding.btnCustomer.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -82,5 +88,21 @@ public class ShopOwnerDashboardActivity extends AppCompatActivity {
 //                startActivity(new Intent(ShopOwnerDashboardActivity.this, ShopOwnerSignupActivity.class));
 //            }
 //        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        binding = null;
+
+        // Log out.
+        app.currentUser().logOutAsync(result -> {
+            if (result.isSuccess()) {
+                Log.v("LOGOUT", "Successfully logged out.");
+            } else {
+                Log.e("LOGOUT", "Failed to log out, error: " + result.getError());
+            }
+        });
+        realm.close(); // Close the realm.
     }
 }
