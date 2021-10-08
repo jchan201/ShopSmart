@@ -69,7 +69,6 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
 
         //cancel go back sign up selection page
         binding.buttonCancel.setOnClickListener(view -> {
-            backgroundRealm.close(); // Close the realm.
             startActivity(new Intent(ShopOwnerSignupActivity3.this, ShopOwnerSignupActivity2.class));
         });
 
@@ -77,11 +76,14 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
             if(validation()){
                 createUser();
                 if(success) {
-                    Intent nextSignUpScreen = new Intent(ShopOwnerSignupActivity3.this, ShopOwnerDashboardActivity.class);
-                    nextSignUpScreen.putExtra("EXTRA_PASS", userPass);
-                    nextSignUpScreen.putExtra("EXTRA_EMAIL", userEmail);
-                    backgroundRealm.close(); // Close the realm.
-                    startActivity(nextSignUpScreen);
+//                    Intent nextSignUpScreen = new Intent(ShopOwnerSignupActivity3.this, ShopOwnerDashboardActivity.class);
+//                    nextSignUpScreen.putExtra("EXTRA_PASS", userPass);
+//                    nextSignUpScreen.putExtra("EXTRA_EMAIL", userEmail);
+//                    startActivity(nextSignUpScreen);
+                    success = true;
+                    Intent backToSignUpScreen = new Intent(ShopOwnerSignupActivity3.this, SignupActivity.class);
+                    backToSignUpScreen.putExtra("EXTRA_SIGNUP_SUCCESS", true);
+                    startActivity(backToSignUpScreen);
                 }
             }
         });
@@ -201,5 +203,6 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
                 Log.e("LOGOUT", "Failed to log out, error: " + result.getError());
             }
         });
+        backgroundRealm.close(); // Close the realm.
     }
 }
