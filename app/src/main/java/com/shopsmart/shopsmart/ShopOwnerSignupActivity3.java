@@ -70,12 +70,20 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
 
         //cancel go back sign up selection page
         binding.buttonCancel.setOnClickListener(view -> {
+            backgroundRealm.close(); // Close the realm.
             startActivity(new Intent(ShopOwnerSignupActivity3.this, ShopOwnerSignupActivity2.class));
         });
 
         binding.buttonNext.setOnClickListener(view -> {
             if(validation()){
                 createUser();
+                if(success) {
+                    Intent nextSignUpScreen = new Intent(ShopOwnerSignupActivity3.this, ShopOwnerDashboardActivity.class);
+                    nextSignUpScreen.putExtra("EXTRA_PASS", userPass);
+                    nextSignUpScreen.putExtra("EXTRA_EMAIL", userEmail);
+                    backgroundRealm.close(); // Close the realm.
+                    startActivity(nextSignUpScreen);
+                }
             }
         });
     }
@@ -180,7 +188,6 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
                 // insert the user
                 transactionRealm.insert(appUser);
             });
-
         });
     }
 
