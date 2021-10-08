@@ -192,6 +192,8 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity implements 
         address.setCity(this.binding.city.getText().toString());
         address.setProvince(this.binding.provPicker.getSelectedItem().toString());
         address.setPostalCode(this.binding.zipCode.getText().toString());
+        address.setAddress1(this.binding.address1.getText().toString());
+        address.setAddress2(this.binding.address2.getText().toString());
         address.setCountry("Canada");
 
 
