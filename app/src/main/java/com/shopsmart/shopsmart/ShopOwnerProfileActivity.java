@@ -46,13 +46,15 @@ public class ShopOwnerProfileActivity extends AppCompatActivity {
 //            }
 //        });
 //
-//        binding.btnLogout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                realm.close();
-//                startActivity(new Intent(ShopOwnerProfileActivity.this, StartupActivity.class));
-//                finish();
-//            }
-//        });
+        binding.btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentToProfile = new Intent(ShopOwnerProfileActivity.this, ShopOwnerDashboardActivity.class);
+                intentToProfile.putExtra("EXTRA_PASS", userPass);
+                intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+                startActivity(intentToProfile);
+                finish();
+            }
+        });
     }
 }
