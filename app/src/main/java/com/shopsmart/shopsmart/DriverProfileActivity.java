@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.shopsmart.shopsmart.databinding.ActivityDriverDashboardBinding;
 import com.shopsmart.shopsmart.databinding.ActivityDriverProfileBinding;
 
 public class DriverProfileActivity extends AppCompatActivity {

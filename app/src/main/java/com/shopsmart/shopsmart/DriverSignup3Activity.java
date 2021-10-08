@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.shopsmart.shopsmart.databinding.ActivityDriverSignup2Binding;
 import com.shopsmart.shopsmart.databinding.ActivityDriverSignup3Binding;
 
 public class DriverSignup3Activity extends AppCompatActivity {
@@ -29,7 +28,7 @@ public class DriverSignup3Activity extends AppCompatActivity {
         if (currIntent != null) {
             // Grab objects from intent
             this.userPassword = currIntent.getStringExtra("EXTRA_PASSWORD");
-            this.appUser = (AppUser)currIntent.getSerializableExtra("EXTRA_APPUSER_OBJ");
+            //this.appUser = (AppUser)currIntent.getSerializableExtra("EXTRA_APPUSER_OBJ");
         }
     }
 }
