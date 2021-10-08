@@ -31,6 +31,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
     App app;
     Address userAddress;
     Date userDOB;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -241,5 +242,21 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         cAddress.setAddress2(this.binding.cCardAddress2.getText().toString());
 
         return pMethod;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        binding = null;
+
+        // Log out.
+        app.currentUser().logOutAsync(result -> {
+            if (result.isSuccess()) {
+                Log.v("LOGOUT", "Successfully logged out.");
+            } else {
+                Log.e("LOGOUT", "Failed to log out, error: " + result.getError());
+            }
+        });
+        realm.close(); // Close the realm.
     }
 }
