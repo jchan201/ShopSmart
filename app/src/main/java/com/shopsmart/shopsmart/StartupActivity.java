@@ -97,11 +97,13 @@ public class StartupActivity extends AppCompatActivity {
                         switch (type) {
                             case "Customer":
                                 // putExtra?
+                                realm.close();
                                 // startActivity(new Intent(StartupActivity.this, ???));
                                 Log.v(PARTITION,"Successfully got to dashboard!");
                                 break;
                             case "Owner":
                                 // putExtra?
+                                realm.close();
                                 // startActivity(new Intent(StartupActivity.this, ???));
                                 Log.v(PARTITION,"Successfully got to dashboard!");
                                 break;
@@ -124,6 +126,7 @@ public class StartupActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Go to Signup Activity
+                realm.close();
                 startActivity(new Intent(StartupActivity.this, SignupActivity.class));
             }
         });
