@@ -42,6 +42,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".CustomerRegistrationActivity2"
+            android:label="Registration2" />
+        <activity
+            android:name=".CustomerRegistrationActivity3"
+            android:label="Registration3" />
+        <activity
+            android:name=".CustomerRegistrationActivity1"
+            android:label="Registration1" />
     </application>
-
 </manifest>
