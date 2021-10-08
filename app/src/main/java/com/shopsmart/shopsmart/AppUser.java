@@ -10,7 +10,7 @@ import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
 public class AppUser extends RealmObject {
-    @PrimaryKey @Required private final ObjectId _id = new ObjectId();
+    @PrimaryKey @Required private ObjectId _id = new ObjectId();
     @Required private String userType;
     @Required private String firstName;
     private String middleInitial;
