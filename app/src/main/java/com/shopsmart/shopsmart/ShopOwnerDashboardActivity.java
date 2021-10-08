@@ -3,11 +3,8 @@ package com.shopsmart.shopsmart;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.shopsmart.shopsmart.databinding.ActivitySignupBinding;
 import com.shopsmart.shopsmart.databinding.ShopownerDashboardActivityBinding;
 
 import io.realm.Realm;
@@ -30,8 +27,6 @@ public class ShopOwnerDashboardActivity extends AppCompatActivity {
     private Realm realm;
 
     AppUser user;
-
-    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
