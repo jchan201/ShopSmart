@@ -6,19 +6,12 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.CalendarView;
 import android.widget.DatePicker;
 
 import com.shopsmart.shopsmart.databinding.ActivityDriverSignup2Binding;
-import com.shopsmart.shopsmart.databinding.ActivityDriverSignupBinding;
 
-import java.io.Serializable;
-import java.text.DateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class DriverSignup2Activity extends AppCompatActivity implements View.OnClickListener {
     ActivityDriverSignup2Binding binding;
@@ -56,13 +49,10 @@ public class DriverSignup2Activity extends AppCompatActivity implements View.OnC
     }
 
     private void initDatePicker() {
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
-                String date = makeDateString(year, month, day);
-                binding.btnDatePicker.setText(date);
-            }
+        DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, day) -> {
+            month = month + 1;
+            String date = makeDateString(year, month, day);
+            binding.btnDatePicker.setText(date);
         };
 
         Calendar cal = Calendar.getInstance();
@@ -70,7 +60,7 @@ public class DriverSignup2Activity extends AppCompatActivity implements View.OnC
         int month = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH);
 
-        int style = AlertDialog.THEME_HOLO_LIGHT;
+        int style = R.style.Theme_MaterialComponents_Dialog_Alert;
 
         datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
     }

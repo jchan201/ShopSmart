@@ -2,24 +2,13 @@ package com.shopsmart.shopsmart;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.shopsmart.shopsmart.databinding.ShopownerDashboardActivityBinding;
 import com.shopsmart.shopsmart.databinding.ShopownerProfilePageActivityBinding;
-
-import io.realm.Realm;
-import io.realm.RealmResults;
-import io.realm.mongodb.App;
-import io.realm.mongodb.AppConfiguration;
-import io.realm.mongodb.Credentials;
-import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ShopOwnerProfileActivity extends AppCompatActivity {
     private final String PARTITION = "ShopSmart";
-    private ShopownerProfilePageActivityBinding binding;
     Intent currIntent;
 
     String userEmail;
@@ -28,7 +17,7 @@ public class ShopOwnerProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ShopownerProfilePageActivityBinding.inflate(getLayoutInflater());
+        com.shopsmart.shopsmart.databinding.ShopownerProfilePageActivityBinding binding = ShopownerProfilePageActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Get Intent
