@@ -3,8 +3,6 @@ package com.shopsmart.shopsmart;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.ShopownerDashboardActivityBinding;
@@ -81,7 +79,6 @@ public class ShopOwnerDashboardActivity extends AppCompatActivity {
         binding.btnLogout.setOnClickListener(view -> {
             realm.close();
             startActivity(new Intent(ShopOwnerDashboardActivity.this, StartupActivity.class));
-            finish();
         });
     }
 
