@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import org.bson.types.ObjectId;
 
@@ -33,12 +34,21 @@ public class StartupActivity extends AppCompatActivity {
     private Realm realm;
     private App app;
     final ArrayList<String> ATTEMPTS = new ArrayList<>();
+    Intent currIntent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityStartupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        this.currIntent = this.getIntent();
+        if (this.currIntent != null) {
+            boolean success = currIntent.getBooleanExtra("EXTRA_SIGNUP_SUCCESS", true);
+            if(!success){
+                Toast.makeText(StartupActivity.this, currIntent.getStringExtra("EXTRA_ERROR_MSG"), Toast.LENGTH_SHORT).show();
+            }
+        }
 
         // Initialize the Realm library.
         Realm.init(this);

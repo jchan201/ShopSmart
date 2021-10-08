@@ -31,6 +31,7 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
     String userPhone;
 
     boolean success = true;
+    String errorMsg;
 
     App app;
 
@@ -69,20 +70,12 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
 
         //cancel go back sign up selection page
         binding.buttonCancel.setOnClickListener(view -> {
-            backgroundRealm.close(); // Close the realm.
             startActivity(new Intent(ShopOwnerSignupActivity3.this, ShopOwnerSignupActivity2.class));
         });
 
         binding.buttonNext.setOnClickListener(view -> {
             if(validation()){
                 createUser();
-                if(success) {
-                    Intent nextSignUpScreen = new Intent(ShopOwnerSignupActivity3.this, ShopOwnerDashboardActivity.class);
-                    nextSignUpScreen.putExtra("EXTRA_PASS", userPass);
-                    nextSignUpScreen.putExtra("EXTRA_EMAIL", userEmail);
-                    backgroundRealm.close(); // Close the realm.
-                    startActivity(nextSignUpScreen);
-                }
             }
         });
     }
@@ -164,14 +157,16 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
         app.getEmailPassword().registerUserAsync(appUser.getEmail(), userPass, it -> {
             if (it.isSuccess()) {
                 Log.i("EXAMPLE", "Successfully registered user.");
+                errorMsg = "Successfully registered user";
             } else {
                 Log.e("EXAMPLE", "Failed to register user: " + it.getError().getErrorMessage());
                 success = false;
-                Intent backToSignUpScreen = new Intent(ShopOwnerSignupActivity3.this, SignupActivity.class);
-                backToSignUpScreen.putExtra("EXTRA_SIGNUP_SUCCESS", false);
-                backToSignUpScreen.putExtra("EXTRA_ERROR_MSG", it.getError().getErrorMessage());
-                startActivity(backToSignUpScreen);
+                errorMsg = "Failed to register user: " + it.getError().getErrorMessage();
             }
+            Intent backToStartUpScreen = new Intent(ShopOwnerSignupActivity3.this, StartupActivity.class);
+            backToStartUpScreen.putExtra("EXTRA_SIGNUP_SUCCESS", success);
+            backToStartUpScreen.putExtra("EXTRA_ERROR_MSG", errorMsg);
+            startActivity(backToStartUpScreen);
         });
 
         // Create AppUser with associated User
@@ -185,6 +180,7 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
                 // insert the user
                 transactionRealm.insert(appUser);
             });
+
         });
     }
 
@@ -201,5 +197,6 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
                 Log.e("LOGOUT", "Failed to log out, error: " + result.getError());
             }
         });
+        backgroundRealm.close(); // Close the realm.
     }
 }
