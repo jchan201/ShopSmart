@@ -9,6 +9,7 @@ import io.realm.annotations.Required;
 @RealmClass(embedded = true)
 public class PaymentMethod extends RealmObject implements Serializable {
     // these may need to be hashed
+    @Required private String name;
     @Required private String cardNumber;
     @Required private String expiry;
     @Required private String securityCode;
@@ -20,11 +21,19 @@ public class PaymentMethod extends RealmObject implements Serializable {
         securityCode = "";
         billingAddress = null;
     }
-    public PaymentMethod(String cardNumber, String expiry, String securityCode, Address billingAddress) {
+    public PaymentMethod(String name, String cardNumber, String expiry, String securityCode, Address billingAddress) {
+        this.name = name;
         this.cardNumber = cardNumber;
         this.expiry = expiry;
         this.securityCode = securityCode;
         this.billingAddress = billingAddress;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCardNumber() {
