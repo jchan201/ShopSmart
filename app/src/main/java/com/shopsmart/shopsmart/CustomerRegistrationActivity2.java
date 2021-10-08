@@ -51,6 +51,16 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity implements 
         //this.binding.cancelButton2.setOnClickListener(this);
         //this.binding.nextButton2.setOnClickListener(this);
 
+        binding.cancelButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //if(validateData()){
+                    createUser();
+                    startActivity(new Intent(CustomerRegistrationActivity2.this, SignupActivity.class));
+                //}
+            }
+        });
+
         binding.nextButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -182,6 +192,8 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity implements 
         address.setCity(this.binding.city.getText().toString());
         address.setProvince(this.binding.provPicker.getSelectedItem().toString());
         address.setPostalCode(this.binding.zipCode.getText().toString());
+        address.setAddress1(this.binding.address1.getText().toString());
+        address.setAddress2(this.binding.address2.getText().toString());
         address.setCountry("Canada");
 
 
