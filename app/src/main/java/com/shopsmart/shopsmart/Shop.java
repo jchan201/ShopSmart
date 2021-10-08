@@ -10,7 +10,7 @@ import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
 public class Shop extends RealmObject implements Serializable {
-    @PrimaryKey @Required private final ObjectId _id = new ObjectId();
+    @PrimaryKey @Required private ObjectId _id = new ObjectId();
     private String desc = "";
     @Required private String name;
     @Required private String email;

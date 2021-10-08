@@ -9,7 +9,7 @@ import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
 public class Product extends RealmObject implements Serializable {
-    @PrimaryKey @Required private final ObjectId _id = new ObjectId();
+    @PrimaryKey @Required private ObjectId _id = new ObjectId();
     @Required private ObjectId shop_id;
     @Required private ObjectId type_id;
     @Required private String name;

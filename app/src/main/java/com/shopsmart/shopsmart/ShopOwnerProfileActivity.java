@@ -35,16 +35,13 @@ public class ShopOwnerProfileActivity extends AppCompatActivity {
 //                startActivity(new Intent(ShopOwnerProfileActivity.this, ));
 //            }
 //        });
-//
-        binding.btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentToProfile = new Intent(ShopOwnerProfileActivity.this, ShopOwnerDashboardActivity.class);
-                intentToProfile.putExtra("EXTRA_PASS", userPass);
-                intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
-                startActivity(intentToProfile);
-                finish();
-            }
+
+        binding.btnBack.setOnClickListener(view -> {
+            Intent intentToProfile = new Intent(ShopOwnerProfileActivity.this, ShopOwnerDashboardActivity.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+            startActivity(intentToProfile);
+            finish();
         });
     }
 }
