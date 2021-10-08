@@ -196,6 +196,8 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
 
         appUser.setAge(calendar.get(Calendar.YEAR) - calendarUser.get(Calendar.YEAR));
         appUser.setUserType("Customer");
+
+        appUser.addPaymentMethod(createPayment());
         // TO-DO: NEED TO ADD PAYMENT INFORMATION
 
         // Create user in database
@@ -228,12 +230,16 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         //appUser.setEmail(this.binding.email.getText().toString());
     }
 
-    private void createPayment(){
+    private PaymentMethod createPayment(){
         PaymentMethod pMethod = new PaymentMethod();
         pMethod.setCardNumber(this.binding.cCardNum.getText().toString());
         pMethod.setSecurityCode(this.binding.cCardCCV.getText().toString());
+        pMethod.setSecurityCode("123");
 
         Address cAddress = new Address();
-        //cAddress.set
+        cAddress.setAddress1(this.binding.cCardAddress1.getText().toString());
+        cAddress.setAddress2(this.binding.cCardAddress2.getText().toString());
+
+        return pMethod;
     }
 }

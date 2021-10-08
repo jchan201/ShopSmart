@@ -6,6 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".CustomerRegistrationActivity3">
 
+    <EditText
+        android:id="@+id/expM"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="28dp"
+        android:ems="10"
+        android:hint="MM"
+        android:inputType="number"
+        android:padding="8dp"
+        android:textAlignment="center"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toStartOf="@+id/expY"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/cCardNum"
+        app:layout_constraintTop_toBottomOf="@+id/cCardName" />
+
+    <EditText
+        android:id="@+id/expY"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="YY"
+        android:inputType="number"
+        android:padding="8dp"
+        android:textAlignment="center"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toStartOf="@+id/cCardCCV"
+        app:layout_constraintTop_toBottomOf="@+id/cCardName" />
+
     <Spinner
         android:id="@+id/provPicker"
         android:layout_width="120dp"
@@ -15,20 +46,6 @@
         app:layout_constraintHorizontal_bias="0.958"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cCardCity" />
-
-    <Button
-        android:id="@+id/expSpinner"
-        style="?android:spinnerStyle"
-        android:layout_width="75dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="28dp"
-        android:onClick="openDatePicker"
-        android:text="EXP"
-        android:textColor="#AAAAAA"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.705"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cCardName" />
 
     <Button
         android:id="@+id/cancelButton3"
