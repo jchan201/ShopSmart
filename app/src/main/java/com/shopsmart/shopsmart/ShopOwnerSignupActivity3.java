@@ -14,6 +14,7 @@ import java.util.Date;
 import io.realm.Realm;
 import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
+import io.realm.mongodb.AppException;
 import io.realm.mongodb.Credentials;
 import io.realm.mongodb.sync.SyncConfiguration;
 
@@ -29,13 +30,9 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
     String userPass;
     Date userDOB;
     String userPhone;
-
     boolean success = true;
     String errorMsg;
-
     App app;
-
-    Realm backgroundRealm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +67,6 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
 
         //cancel go back sign up selection page
         binding.buttonCancel.setOnClickListener(view -> {
-            backgroundRealm.close(); // Close the realm.
             startActivity(new Intent(ShopOwnerSignupActivity3.this, ShopOwnerSignupActivity2.class));
         });
 
@@ -81,7 +77,6 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
                     Intent nextSignUpScreen = new Intent(ShopOwnerSignupActivity3.this, ShopOwnerDashboardActivity.class);
                     nextSignUpScreen.putExtra("EXTRA_PASS", userPass);
                     nextSignUpScreen.putExtra("EXTRA_EMAIL", userEmail);
-                    backgroundRealm.close(); // Close the realm.
                     startActivity(nextSignUpScreen);
                 }
             }
@@ -162,7 +157,7 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
         appUser.setAge(calendar.get(Calendar.YEAR) - calendarDOB.get(Calendar.YEAR));
 
         // Create user in database
-        app.getEmailPassword().registerUserAsync(appUser.getEmail(), userPass, it -> {
+        /*app.getEmailPassword().registerUserAsync(appUser.getEmail(), userPass, it -> {
             if (it.isSuccess()) {
                 Log.i("EXAMPLE", "Successfully registered user.");
                 errorMsg = "Successfully registered user";
@@ -175,19 +170,33 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
             backToStartUpScreen.putExtra("EXTRA_SIGNUP_SUCCESS", success);
             backToStartUpScreen.putExtra("EXTRA_ERROR_MSG", errorMsg);
             startActivity(backToStartUpScreen);
-        });
+        });*/
+        try {
+            app.getEmailPassword().registerUser(appUser.getEmail(), userPass);
+            Log.i("EXAMPLE", "Successfully registered user.");
+            errorMsg = "Successfully registered user";
+        }
+        catch (AppException e) {
+            Log.e("EXAMPLE", "Failed to register user: " + e.getErrorMessage());
+            errorMsg = "Failed to register user: " + e.getErrorMessage();
+            Intent backToStartup = new Intent(ShopOwnerSignupActivity3.this, StartupActivity.class);
+            backToStartup.putExtra("EXTRA_SIGNUP_SUCCESS", false);
+            backToStartup.putExtra("EXTRA_ERROR_MSG", errorMsg);
+            startActivity(backToStartup);
+        }
 
         // Create AppUser with associated User
         Credentials credentials = Credentials.emailPassword(appUser.getEmail(), userPass);
         app.loginAsync(credentials, result -> {
             Log.e("SSS", "In async: " + app.currentUser().getId());
-            SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), "ShopSmart").build();
-            backgroundRealm = Realm.getInstance(config);
-
-            backgroundRealm.executeTransactionAsync(transactionRealm -> {
-                // insert the user
+            SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), "ShopSmart")
+                    .allowWritesOnUiThread(true) // allow synchronous writes
+                    .build();
+            Realm backgroundRealm = Realm.getInstance(config);
+            backgroundRealm.executeTransaction(transactionRealm -> {
                 transactionRealm.insert(appUser);
             });
+            backgroundRealm.close();
         });
     }
 
@@ -204,6 +213,5 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
                 Log.e("LOGOUT", "Failed to log out, error: " + result.getError());
             }
         });
-        backgroundRealm.close(); // Close the realm.
     }
 }

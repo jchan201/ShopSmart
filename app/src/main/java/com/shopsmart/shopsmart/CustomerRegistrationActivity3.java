@@ -33,7 +33,6 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
     App app;
     Address userAddress;
     Date userDOB;
-    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -196,8 +195,8 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         appUser.addPaymentMethod(createPayment());
         // TO-DO: NEED TO ADD PAYMENT INFORMATION
 
-        /*// Create user in database
-        app.getEmailPassword().registerUserAsync(appUser.getEmail(), password, it -> {
+        // Create user in database
+        /*app.getEmailPassword().registerUserAsync(appUser.getEmail(), password, it -> {
             if (it.isSuccess()) {
                 Log.i("EXAMPLE", "Successfully registered user.");
             } else {
@@ -213,26 +212,24 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         }
         catch (AppException e) {
             Log.e("EXAMPLE", "Failed to register user: " + e.getErrorMessage());
-            Intent mainIntent = new Intent(this, SignupActivity.class);
-            mainIntent.putExtra("EXTRA_SIGNUP_SUCCESS", false);
-            startActivity(mainIntent);
+            Intent backToStartup = new Intent(CustomerRegistrationActivity3.this, StartupActivity.class);
+            backToStartup.putExtra("EXTRA_SIGNUP_SUCCESS", false);
+            startActivity(backToStartup);
         }
 
         // Create AppUser with associated User
         Credentials credentials = Credentials.emailPassword(appUser.getEmail(), password);
         app.loginAsync(credentials, result -> {
             Log.e("SSS", "In async: " + app.currentUser().getId());
-            SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), "ShopSmart").build();
+            SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), "ShopSmart")
+                    .allowWritesOnUiThread(true) // allow synchronous writes
+                    .build();
             Realm backgroundRealm = Realm.getInstance(config);
-
-            backgroundRealm.executeTransactionAsync(transactionRealm -> {
-                // insert the user
+            backgroundRealm.executeTransaction(transactionRealm -> {
                 transactionRealm.insert(appUser);
             });
+            backgroundRealm.close();
         });
-        //AppUser appUser = new AppUser();
-        //appUser.setUserType("Customer");
-        //appUser.setEmail(this.binding.email.getText().toString());
     }
 
     private PaymentMethod createPayment(){
@@ -261,6 +258,5 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
                 Log.e("LOGOUT", "Failed to log out, error: " + result.getError());
             }
         });
-        realm.close(); // Close the realm.
     }
 }
