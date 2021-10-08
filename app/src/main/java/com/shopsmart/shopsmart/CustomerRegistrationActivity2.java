@@ -16,8 +16,8 @@ import com.shopsmart.shopsmart.databinding.CustomerRegister2Binding;
 
 import java.util.Calendar;
 
-public class CustomerRegistrationActivity2 extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
-    CustomerRegister2Binding binding;
+public class CustomerRegistrationActivity2 extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    private CustomerRegister2Binding binding;
     private DatePickerDialog dpd;
     private Button dateButton;
     String currEmail;
@@ -48,8 +48,17 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity implements 
         provSpinner.setAdapter(provList);
         provSpinner.setOnItemSelectedListener(this);
 
-        this.binding.cancelButton2.setOnClickListener(this);
-        this.binding.nextButton2.setOnClickListener(this);
+        //this.binding.cancelButton2.setOnClickListener(this);
+        //this.binding.nextButton2.setOnClickListener(this);
+
+        binding.nextButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(validateData()){
+                    createUser();
+                }
+            }
+        });
     }
 
     private String todaysDate(){
@@ -132,54 +141,101 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity implements 
 
     }
 
-    @Override
-    public void onClick(View view) {
-        if(view != null){
-            switch (view.getId()){
-                case R.id.cancelButton2:{
-                    Intent mainIntent = new Intent(this, StartupActivity.class);
-                    startActivity(mainIntent);
-                    break;
-                }
-                case R.id.nextButton2:{
-                    if (this.validateData()) {
+    //@Override
+    //public void onClick(View view) {
+    //    if(view != null){
+    //        switch (view.getId()){
+    //            case R.id.cancelButton2:{
+    //                Intent mainIntent = new Intent(this, StartupActivity.class);
+    //                startActivity(mainIntent);
+    //                break;
+    //            }
+    //            case R.id.nextButton2:{
+    //                if (validateData()) {
+//
+    //                    Address address = new Address();
+    //                    address.setCity(this.binding.city.getText().toString());
+    //                    address.setProvince(this.binding.provPicker.getSelectedItem().toString());
+    //                    address.setPostalCode(this.binding.zipCode.getText().toString());
+    //                    address.setCountry("Canada");
 
-                        Address address = new Address();
-                        address.setCity(this.binding.city.getText().toString());
-                        address.setProvince(this.binding.provPicker.getSelectedItem().toString());
-                        address.setPostalCode(this.binding.zipCode.getText().toString());
-                        address.setCountry("Canada");
+
+    //                    Intent CRegister3 = new Intent(this, CustomerRegistrationActivity3.class);
+    //                    CRegister3.putExtra("EXTRA_ADDRESS_OBJ", address);
+    //                    CRegister3.putExtra("EXTRA_EMAIL", this.currEmail);
+    //                    CRegister3.putExtra("EXTRA_PASSWORD", this.currPassword);
+    //                    CRegister3.putExtra("EXTRA_FNAME", this.binding.nameFirst.getText().toString());
+    //                    CRegister3.putExtra("EXTRA_MNAME", this.binding.nameMiddle.getText().toString());
+    //                    CRegister3.putExtra("EXTRA_LNAME", this.binding.nameLast.getText().toString());
+    //                    CRegister3.putExtra("EXTRA_PHONE", this.binding.phoneNum.getText().toString());
+    //                    CRegister3.putExtra("EXTRA_DATE", this.binding.dob.getText().toString());
+    //                    startActivity(CRegister3);
+//
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
+
+    private void createUser(){
+        Address address = new Address();
+        address.setCity(this.binding.city.getText().toString());
+        address.setProvince(this.binding.provPicker.getSelectedItem().toString());
+        address.setPostalCode(this.binding.zipCode.getText().toString());
+        address.setCountry("Canada");
 
 
-                        Intent CRegister3 = new Intent(this, CustomerRegistrationActivity3.class);
-                        CRegister3.putExtra("EXTRA_ADDRESS_OBJ", address);
-                        CRegister3.putExtra("EXTRA_EMAIL", this.currEmail);
-                        CRegister3.putExtra("EXTRA_PASSWORD", this.currPassword);
-                        CRegister3.putExtra("EXTRA_FNAME", this.binding.nameFirst.getText().toString());
-                        CRegister3.putExtra("EXTRA_MNAME", this.binding.nameMiddle.getText().toString());
-                        CRegister3.putExtra("EXTRA_LNAME", this.binding.nameLast.getText().toString());
-                        CRegister3.putExtra("EXTRA_PHONE", this.binding.phoneNum.getText().toString());
-                        CRegister3.putExtra("EXTRA_DATE", this.binding.dob.getText().toString());
-                        startActivity(CRegister3);
-
-                    }
-                }
-            }
-        }
+        Intent CRegister3 = new Intent(this, CustomerRegistrationActivity3.class);
+        CRegister3.putExtra("EXTRA_ADDRESS_OBJ", address);
+        CRegister3.putExtra("EXTRA_EMAIL", this.currEmail);
+        CRegister3.putExtra("EXTRA_PASSWORD", this.currPassword);
+        CRegister3.putExtra("EXTRA_FNAME", this.binding.nameFirst.getText().toString());
+        CRegister3.putExtra("EXTRA_MNAME", this.binding.nameMiddle.getText().toString());
+        CRegister3.putExtra("EXTRA_LNAME", this.binding.nameLast.getText().toString());
+        CRegister3.putExtra("EXTRA_PHONE", this.binding.phoneNum.getText().toString());
+        CRegister3.putExtra("EXTRA_DATE", this.binding.dob.getText().toString());
+        startActivity(CRegister3);
     }
 
     private boolean validateData(){
-        if(this.binding.nameFirst.getText().toString().isEmpty()
-                || this.binding.nameLast.getText().toString().isEmpty()
-                || this.binding.city.getText().toString().isEmpty()
-                || this.binding.zipCode.getText().toString().isEmpty()
-                || this.binding.address1.getText().toString().isEmpty()
-                || this.binding.address2.getText().toString().isEmpty()
-                || this.binding.phoneNum.getText().toString().isEmpty()){
-
-            Toast.makeText(CustomerRegistrationActivity2.this, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
-            return false;
+        boolean valid = true;
+        if(this.binding.nameFirst.getText().toString().isEmpty()) {
+            this.binding.nameFirst.setError("Field cannot be empty");
+            valid = false;
         }
-        return true;
+        if(this.binding.nameLast.getText().toString().isEmpty()) {
+            this.binding.nameLast.setError("Field cannot be empty");
+            valid = false;
+        }
+        if(this.binding.city.getText().toString().isEmpty()) {
+            this.binding.city.setError("Field cannot be empty");
+            valid = false;
+        }
+        if(this.binding.zipCode.getText().toString().isEmpty()){
+            this.binding.zipCode.setError("Field cannot be empty");
+            valid = false;
+        }
+        if(!this.binding.zipCode.getText().toString().matches("([A-Z]\\d[A-Z]\\s\\d[A-Z]\\d)")){
+            this.binding.zipCode.setError("Postal code must match schema A1A 1A1");
+            valid = false;
+        }
+        if(this.binding.address1.getText().toString().isEmpty()) {
+            this.binding.address1.setError("Field cannot be empty");
+            valid = false;
+        }
+        if(this.binding.phoneNum.getText().toString().isEmpty()) {
+            this.binding.phoneNum.setError("Phone number cannot be empty");
+            valid = false;
+        }
+        if(!this.binding.phoneNum.getText().toString().matches("\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d")) {
+            this.binding.phoneNum.setError("Must contain 10 digits");
+            valid = false;
+        }
+                //|| this.binding.address2.getText().toString().isEmpty()
+                //|| this.binding.phoneNum.getText().toString().isEmpty()){
+
+            //Toast.makeText(CustomerRegistrationActivity2.this, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
+        //}
+        return valid;
     }
 }
