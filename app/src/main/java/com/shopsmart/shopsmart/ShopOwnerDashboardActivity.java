@@ -79,6 +79,7 @@ public class ShopOwnerDashboardActivity extends AppCompatActivity {
         binding.btnLogout.setOnClickListener(view -> {
             realm.close();
             startActivity(new Intent(ShopOwnerDashboardActivity.this, StartupActivity.class));
+            finish();
         });
     }
 
