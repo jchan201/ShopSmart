@@ -9,7 +9,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 
-import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import io.realm.OrderedCollectionChangeSet;
@@ -64,74 +63,68 @@ public class StartupActivity extends AppCompatActivity {
         binding.edtTxtPassword.addTextChangedListener(textWatcher); // Watch the password
 
         // When the Login button is clicked.
-        binding.btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Get the user's credentials (email and password).
-                String email = binding.edtTxtEmail.getText().toString();
-                String password = binding.edtTxtPassword.getText().toString();
-                Credentials credentials = Credentials.emailPassword(email, password);
+        binding.btnLogin.setOnClickListener(view -> {
+            // Get the user's credentials (email and password).
+            String email = binding.edtTxtEmail.getText().toString();
+            String password = binding.edtTxtPassword.getText().toString();
+            Credentials credentials = Credentials.emailPassword(email, password);
 
-                app.loginAsync(credentials, result -> {
-                    if (result.isSuccess()) {
-                        Log.v("LOGIN", "Successfully authenticated using email and password.");
+            app.loginAsync(credentials, result -> {
+                if (result.isSuccess()) {
+                    Log.v("LOGIN", "Successfully authenticated using email and password.");
 
-                        // Open a Synced Realm for asynchronous transactions.
-                        SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
-                        realm = Realm.getInstance(config);
+                    // Open a Synced Realm for asynchronous transactions.
+                    SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
+                    realm = Realm.getInstance(config);
 
-                        // Retrieve all users in the Realm.
-                        RealmResults<AppUser> users = realm.where(AppUser.class).findAll();
-                        AppUser user = null;
+                    // Retrieve all users in the Realm.
+                    RealmResults<AppUser> users = realm.where(AppUser.class).findAll();
+                    AppUser user = null;
 
-                        // Find the AppUser
-                        for (int i = 0; i < users.size(); i++) {
-                            if (users.get(i).getEmail().equals(email)) {
-                                user = users.get(i);
-                            }
+                    // Find the AppUser
+                    for (int i = 0; i < users.size(); i++) {
+                        if (users.get(i).getEmail().equals(email)) {
+                            user = users.get(i);
                         }
-
-                        if (user == null) Log.wtf(PARTITION, "No such AppUser exists...?");
-
-                        // Go to the dashboard depending on the AppUser's type.
-                        String type = user.getUserType();
-                        switch (type) {
-                            case "Customer":
-                                // putExtra?
-                                // startActivity(new Intent(StartupActivity.this, ???));
-                                Log.v(PARTITION,"Successfully got to dashboard!");
-                                break;
-                            case "Owner":
-                                // putExtra?
-                                Intent intentToDashboard = new Intent(StartupActivity.this, ShopOwnerDashboardActivity.class);
-                                intentToDashboard.putExtra("EXTRA_PASS", password);
-                                intentToDashboard.putExtra("EXTRA_EMAIL", email);
-
-                                realm.close();
-                                startActivity(intentToDashboard);
-                                Log.v(PARTITION,"Successfully got to dashboard!");
-                                break;
-                            default:
-                                Log.wtf(PARTITION, "AppUser is neither a Customer nor ShopOwner.");
-                        }
-                    } else {
-                        Log.e("LOGIN", "Failed to log in.");
-                        // Show error message if login failed.
-                        binding.txtError.setVisibility(View.VISIBLE);
-                        ATTEMPTS.add(email);
-                        if (ATTEMPTS.size() == 5) binding.btnLogin.setEnabled(false);
                     }
-                });
-            }
+
+                    if (user == null) Log.wtf(PARTITION, "No such AppUser exists...?");
+
+                    // Go to the dashboard depending on the AppUser's type.
+                    String type = user.getUserType();
+                    switch (type) {
+                        case "Customer":
+                            // putExtra?
+                            // startActivity(new Intent(StartupActivity.this, ???));
+                            Log.v(PARTITION,"Successfully got to dashboard!");
+                            break;
+                        case "Owner":
+                            // putExtra?
+                            Intent intentToDashboard = new Intent(StartupActivity.this, ShopOwnerDashboardActivity.class);
+                            intentToDashboard.putExtra("EXTRA_PASS", password);
+                            intentToDashboard.putExtra("EXTRA_EMAIL", email);
+
+                            realm.close();
+                            startActivity(intentToDashboard);
+                            Log.v(PARTITION,"Successfully got to dashboard!");
+                            break;
+                        default:
+                            Log.wtf(PARTITION, "AppUser is neither a Customer nor ShopOwner.");
+                    }
+                } else {
+                    Log.e("LOGIN", "Failed to log in.");
+                    // Show error message if login failed.
+                    binding.txtError.setVisibility(View.VISIBLE);
+                    ATTEMPTS.add(email);
+                    if (ATTEMPTS.size() == 5) binding.btnLogin.setEnabled(false);
+                }
+            });
         });
 
         // When the Register button is clicked.
-        binding.btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Go to Signup Activity
-                startActivity(new Intent(StartupActivity.this, SignupActivity.class));
-            }
+        binding.btnRegister.setOnClickListener(view -> {
+            // Go to Signup Activity
+            startActivity(new Intent(StartupActivity.this, SignupActivity.class));
         });
     }
 
@@ -196,24 +189,21 @@ public class StartupActivity extends AppCompatActivity {
             });
 
             // Add a change listener to the AppUser collection
-            users.addChangeListener(new OrderedRealmCollectionChangeListener<RealmResults<AppUser>>() {
-                @Override
-                public void onChange(RealmResults<AppUser> appUsers, OrderedCollectionChangeSet changeSet) {
-                    OrderedCollectionChangeSet.Range[] deletions = changeSet.getDeletionRanges();
-                    for (OrderedCollectionChangeSet.Range range : deletions) {
-                        Log.v("DELETION", "Deleted range: " + range.startIndex + " to "
-                                + (range.startIndex + range.length - 1));
-                    }
-                    OrderedCollectionChangeSet.Range[] insertions = changeSet.getInsertionRanges();
-                    for (OrderedCollectionChangeSet.Range range : insertions) {
-                        Log.v("INSERTION", "Inserted range: " + range.startIndex + " to "
-                                + (range.startIndex + range.length - 1));
-                    }
-                    OrderedCollectionChangeSet.Range[] modifications = changeSet.getChangeRanges();
-                    for (OrderedCollectionChangeSet.Range range : modifications) {
-                        Log.v("UPDATES", "Updated range: " + range.startIndex + " to "
-                                + (range.startIndex + range.length - 1));
-                    }
+            users.addChangeListener((appUsers, changeSet) -> {
+                OrderedCollectionChangeSet.Range[] deletions = changeSet.getDeletionRanges();
+                for (OrderedCollectionChangeSet.Range range : deletions) {
+                    Log.v("DELETION", "Deleted range: " + range.startIndex + " to "
+                            + (range.startIndex + range.length - 1));
+                }
+                OrderedCollectionChangeSet.Range[] insertions = changeSet.getInsertionRanges();
+                for (OrderedCollectionChangeSet.Range range : insertions) {
+                    Log.v("INSERTION", "Inserted range: " + range.startIndex + " to "
+                            + (range.startIndex + range.length - 1));
+                }
+                OrderedCollectionChangeSet.Range[] modifications = changeSet.getChangeRanges();
+                for (OrderedCollectionChangeSet.Range range : modifications) {
+                    Log.v("UPDATES", "Updated range: " + range.startIndex + " to "
+                            + (range.startIndex + range.length - 1));
                 }
             });
 

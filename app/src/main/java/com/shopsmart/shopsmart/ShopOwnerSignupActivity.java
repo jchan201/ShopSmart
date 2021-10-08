@@ -26,28 +26,20 @@ public class ShopOwnerSignupActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         //cancel go back sign up selection page
-        binding.buttonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ShopOwnerSignupActivity.this, SignupActivity.class));
-            }
-        });
+        binding.buttonCancel.setOnClickListener(view -> startActivity(new Intent(ShopOwnerSignupActivity.this, SignupActivity.class)));
 
-        binding.buttonNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        binding.buttonNext.setOnClickListener(view -> {
 
-                //startActivity(new Intent(ShopOwnerSignupActivity.this, ShopOwnerSignupActivity2.class));
-                if(validation()){
-                    Intent nextSignUpScreen = new Intent(ShopOwnerSignupActivity.this, ShopOwnerSignupActivity2.class);
-                    nextSignUpScreen.putExtra("EXTRA_FNAME",binding.edtTextFName.getText().toString());
-                    nextSignUpScreen.putExtra("EXTRA_MNAME", binding.edtTextInitial.getText().toString());
-                    nextSignUpScreen.putExtra("EXTRA_LNAME", binding.edtTextLName.getText().toString());
-                    nextSignUpScreen.putExtra("EXTRA_EMAIL", binding.editTextEmailAddress.getText().toString());
-                    nextSignUpScreen.putExtra("EXTRA_PASSWORD", binding.editTextPassword.getText().toString());
-                    nextSignUpScreen.putExtra("EXTRA_DOB", dateButton.getText().toString());
-                    startActivity(nextSignUpScreen);
-                }
+            //startActivity(new Intent(ShopOwnerSignupActivity.this, ShopOwnerSignupActivity2.class));
+            if(validation()){
+                Intent nextSignUpScreen = new Intent(ShopOwnerSignupActivity.this, ShopOwnerSignupActivity2.class);
+                nextSignUpScreen.putExtra("EXTRA_FNAME",binding.edtTextFName.getText().toString());
+                nextSignUpScreen.putExtra("EXTRA_MNAME", binding.edtTextInitial.getText().toString());
+                nextSignUpScreen.putExtra("EXTRA_LNAME", binding.edtTextLName.getText().toString());
+                nextSignUpScreen.putExtra("EXTRA_EMAIL", binding.editTextEmailAddress.getText().toString());
+                nextSignUpScreen.putExtra("EXTRA_PASSWORD", binding.editTextPassword.getText().toString());
+                nextSignUpScreen.putExtra("EXTRA_DOB", dateButton.getText().toString());
+                startActivity(nextSignUpScreen);
             }
         });
 
@@ -108,13 +100,10 @@ public class ShopOwnerSignupActivity extends AppCompatActivity {
     }
 
     public void initDatePicker(){
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month+1;
-                String date = makeDateString(day,month,year);
-                dateButton.setText(date);
-            }
+        DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, day) -> {
+            month = month+1;
+            String date = makeDateString(day,month,year);
+            dateButton.setText(date);
         };
 
         Calendar cal = Calendar.getInstance();
@@ -122,7 +111,7 @@ public class ShopOwnerSignupActivity extends AppCompatActivity {
         int month = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH);
 
-        int style = AlertDialog.THEME_HOLO_DARK;
+        int style = R.style.Theme_MaterialComponents_Dialog_Alert;
 
         datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
     }

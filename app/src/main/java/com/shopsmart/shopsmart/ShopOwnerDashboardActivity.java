@@ -69,25 +69,19 @@ public class ShopOwnerDashboardActivity extends AppCompatActivity {
             }
         });
 
-        binding.btnProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                realm.close();
-                Intent intentToProfile = new Intent(ShopOwnerDashboardActivity.this, ShopOwnerProfileActivity.class);
-                intentToProfile.putExtra("EXTRA_PASS", userPass);
-                intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
-                startActivity(intentToProfile);
-                finish();
-            }
+        binding.btnProfile.setOnClickListener(view -> {
+            realm.close();
+            Intent intentToProfile = new Intent(ShopOwnerDashboardActivity.this, ShopOwnerProfileActivity.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+            startActivity(intentToProfile);
+            finish();
         });
 
-        binding.btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                realm.close();
-                startActivity(new Intent(ShopOwnerDashboardActivity.this, StartupActivity.class));
-                finish();
-            }
+        binding.btnLogout.setOnClickListener(view -> {
+            realm.close();
+            startActivity(new Intent(ShopOwnerDashboardActivity.this, StartupActivity.class));
+            finish();
         });
     }
 

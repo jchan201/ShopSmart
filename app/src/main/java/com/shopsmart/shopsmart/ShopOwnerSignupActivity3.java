@@ -14,7 +14,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
 import io.realm.mongodb.Credentials;
@@ -73,24 +72,16 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
         }
 
         //cancel go back sign up selection page
-        binding.buttonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ShopOwnerSignupActivity3.this, ShopOwnerSignupActivity2.class));
-            }
-        });
+        binding.buttonCancel.setOnClickListener(view -> startActivity(new Intent(ShopOwnerSignupActivity3.this, ShopOwnerSignupActivity2.class)));
 
-        binding.buttonNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(validation()){
-                    createUser();
-                    if(success) {
-                        Intent nextSignUpScreen = new Intent(ShopOwnerSignupActivity3.this, ShopOwnerDashboardActivity.class);
-                        nextSignUpScreen.putExtra("EXTRA_PASS", userPass);
-                        nextSignUpScreen.putExtra("EXTRA_EMAIL", userEmail);
-                        startActivity(nextSignUpScreen);
-                    }
+        binding.buttonNext.setOnClickListener(view -> {
+            if(validation()){
+                createUser();
+                if(success) {
+                    Intent nextSignUpScreen = new Intent(ShopOwnerSignupActivity3.this, ShopOwnerDashboardActivity.class);
+                    nextSignUpScreen.putExtra("EXTRA_PASS", userPass);
+                    nextSignUpScreen.putExtra("EXTRA_EMAIL", userEmail);
+                    startActivity(nextSignUpScreen);
                 }
             }
         });

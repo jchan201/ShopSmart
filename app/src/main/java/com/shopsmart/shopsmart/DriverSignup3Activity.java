@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.shopsmart.shopsmart.databinding.ActivityDriverSignup2Binding;
 import com.shopsmart.shopsmart.databinding.ActivityDriverSignup3Binding;
 
 public class DriverSignup3Activity extends AppCompatActivity {

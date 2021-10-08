@@ -7,12 +7,6 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.ShopownerSignupActivity2Binding;
-import com.shopsmart.shopsmart.databinding.ShopownerSignupActivity3Binding;
-
-import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class ShopOwnerSignupActivity2 extends AppCompatActivity {
     private ShopownerSignupActivity2Binding binding;
@@ -40,35 +34,27 @@ public class ShopOwnerSignupActivity2 extends AppCompatActivity {
         }
 
         //cancel go back sign up selection page
-        binding.buttonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ShopOwnerSignupActivity2.this, ShopOwnerSignupActivity.class));
-            }
-        });
+        binding.buttonCancel.setOnClickListener(view -> startActivity(new Intent(ShopOwnerSignupActivity2.this, ShopOwnerSignupActivity.class)));
 
-        binding.buttonNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(validation()){
-                    //Create Address Object
-                    Address address = new Address(binding.edtTextAdd1.getText().toString(),
-                            binding.edtTextAdd2.getText().toString(), "Canada",
-                            binding.spinnerProvince.getSelectedItem().toString(),
-                            binding.edtTextCity.getText().toString(),
-                            binding.edtTextZip.getText().toString());
+        binding.buttonNext.setOnClickListener(view -> {
+            if(validation()){
+                //Create Address Object
+                Address address = new Address(binding.edtTextAdd1.getText().toString(),
+                        binding.edtTextAdd2.getText().toString(), "Canada",
+                        binding.spinnerProvince.getSelectedItem().toString(),
+                        binding.edtTextCity.getText().toString(),
+                        binding.edtTextZip.getText().toString());
 
-                    Intent nextSignUpScreen = new Intent(ShopOwnerSignupActivity2.this, ShopOwnerSignupActivity3.class);
-                    nextSignUpScreen.putExtra("EXTRA_ADDRESS_OBJ", address);
-                    nextSignUpScreen.putExtra("EXTRA_EMAIL", userEmail);
-                    nextSignUpScreen.putExtra("EXTRA_PASSWORD", userPass);
-                    nextSignUpScreen.putExtra("EXTRA_FNAME", userFName);
-                    nextSignUpScreen.putExtra("EXTRA_MNAME", userMName);
-                    nextSignUpScreen.putExtra("EXTRA_LNAME", userLName);
-                    nextSignUpScreen.putExtra("EXTRA_DOB", userDOB);
-                    nextSignUpScreen.putExtra("EXTRA_PHONE", binding.edtTextPhoneNum.getText().toString());
-                    startActivity(nextSignUpScreen);
-                }
+                Intent nextSignUpScreen = new Intent(ShopOwnerSignupActivity2.this, ShopOwnerSignupActivity3.class);
+                nextSignUpScreen.putExtra("EXTRA_ADDRESS_OBJ", address);
+                nextSignUpScreen.putExtra("EXTRA_EMAIL", userEmail);
+                nextSignUpScreen.putExtra("EXTRA_PASSWORD", userPass);
+                nextSignUpScreen.putExtra("EXTRA_FNAME", userFName);
+                nextSignUpScreen.putExtra("EXTRA_MNAME", userMName);
+                nextSignUpScreen.putExtra("EXTRA_LNAME", userLName);
+                nextSignUpScreen.putExtra("EXTRA_DOB", userDOB);
+                nextSignUpScreen.putExtra("EXTRA_PHONE", binding.edtTextPhoneNum.getText().toString());
+                startActivity(nextSignUpScreen);
             }
         });
     }
