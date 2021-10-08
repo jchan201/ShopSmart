@@ -1,5 +1,6 @@
 package com.shopsmart.shopsmart;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -94,7 +95,7 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity implements 
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        int style = R.style.Theme_MaterialComponents_Dialog_Alert;
+        int style = AlertDialog.THEME_HOLO_DARK;
 
         dpd = new DatePickerDialog(this, style, dateSetListener, year, month, day);
     }
