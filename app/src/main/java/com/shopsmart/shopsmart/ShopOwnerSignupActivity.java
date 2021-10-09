@@ -16,7 +16,6 @@ import java.util.Calendar;
 
 public class ShopOwnerSignupActivity extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
-    private Button dateButton;
     private ShopownerSignupActivityBinding binding;
 
     @Override
@@ -25,12 +24,18 @@ public class ShopOwnerSignupActivity extends AppCompatActivity {
         binding = ShopownerSignupActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Date picker
+        binding.datePickerButton.setText(makeDateString(1, 0, 2000));
+        DatePickerDialog.OnDateSetListener dateSetListener =
+                (datePicker, year, month, day) -> binding.datePickerButton.setText(makeDateString(day, month, year));
+        datePickerDialog = new DatePickerDialog(this, dateSetListener, 2000, 0, 1);
+
         //cancel go back sign up selection page
-        binding.buttonCancel.setOnClickListener(view -> startActivity(new Intent(ShopOwnerSignupActivity.this, SignupActivity.class)));
+        binding.buttonCancel.setOnClickListener(view ->
+                startActivity(new Intent(ShopOwnerSignupActivity.this, SignupActivity.class)));
 
+        //next
         binding.buttonNext.setOnClickListener(view -> {
-
-            //startActivity(new Intent(ShopOwnerSignupActivity.this, ShopOwnerSignupActivity2.class));
             if(validation()){
                 Intent nextSignUpScreen = new Intent(ShopOwnerSignupActivity.this, ShopOwnerSignupActivity2.class);
                 nextSignUpScreen.putExtra("EXTRA_FNAME",binding.edtTextFName.getText().toString());
@@ -38,14 +43,10 @@ public class ShopOwnerSignupActivity extends AppCompatActivity {
                 nextSignUpScreen.putExtra("EXTRA_LNAME", binding.edtTextLName.getText().toString());
                 nextSignUpScreen.putExtra("EXTRA_EMAIL", binding.editTextEmailAddress.getText().toString());
                 nextSignUpScreen.putExtra("EXTRA_PASSWORD", binding.editTextPassword.getText().toString());
-                nextSignUpScreen.putExtra("EXTRA_DOB", dateButton.getText().toString());
+                nextSignUpScreen.putExtra("EXTRA_DOB", binding.datePickerButton.getText().toString());
                 startActivity(nextSignUpScreen);
             }
         });
-
-        initDatePicker();
-        dateButton = findViewById(R.id.datePickerButton);
-        dateButton.setText(getTodayDate());
     }
 
     private boolean validation(){
@@ -99,78 +100,40 @@ public class ShopOwnerSignupActivity extends AppCompatActivity {
         return valid;
     }
 
-    public void initDatePicker(){
-        DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, day) -> {
-            month = month+1;
-            String date = makeDateString(day,month,year);
-            dateButton.setText(date);
-        };
-
-        Calendar cal = Calendar.getInstance();
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        int day = cal.get(Calendar.DAY_OF_MONTH);
-
-        int style = R.style.Theme_MaterialComponents_Dialog_Alert;
-
-        datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
-    }
-
-    private String getTodayDate() {
-        Calendar cal = Calendar.getInstance();
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        month = month+1;
-        int day = cal.get(Calendar.DAY_OF_MONTH);
-        return makeDateString(day, month, year);
-    }
-
+    // Date Functions
     private String makeDateString(int day, int month, int year) {
         return getMonthFormat(month) + " " + day + " " + year;
     }
-
     private String getMonthFormat(int month){
-        if(month == 1){
-            return "JAN";
+        switch (month) {
+            case 1:
+                return "JAN";
+            case 2:
+                return "FEB";
+            case 3:
+                return "MAR";
+            case 4:
+                return "APR";
+            case 5:
+                return "MAY";
+            case 6:
+                return "JUN";
+            case 7:
+                return "JUL";
+            case 8:
+                return "AUG";
+            case 9:
+                return "SEP";
+            case 10:
+                return "OCT";
+            case 11:
+                return "NOV";
+            case 12:
+                return "DEC";
+            default:
+                return "";
         }
-        if(month == 2){
-            return "FEB";
-        }
-        if(month == 3){
-            return "MAR";
-        }
-        if(month == 4){
-            return "APR";
-        }
-        if(month == 5){
-            return "MAY";
-        }
-        if(month == 6){
-            return "JUN";
-        }
-        if(month == 7){
-            return "JUL";
-        }
-        if(month == 8){
-            return "AUG";
-        }
-        if(month == 9){
-            return "SEP";
-        }
-        if(month == 10){
-            return "OCT";
-        }
-        if(month == 11){
-            return "NOV";
-        }
-        if(month == 12) {
-            return "DEC";
-        }
-
-        return "JAN";
-
     }
-
     public void openDatePicker(View view){
         datePickerDialog.show();
     }

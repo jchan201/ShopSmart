@@ -17,8 +17,7 @@ public class CustomerRegistrationActivity1 extends AppCompatActivity implements 
         super.onCreate(savedInstanceState);
 
         this.binding = CustomerRegister1Binding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
-        setContentView(view);
+        setContentView(binding.getRoot());
 
         this.binding.cancelButton.setOnClickListener(this);
         this.binding.nextButton.setOnClickListener(this);

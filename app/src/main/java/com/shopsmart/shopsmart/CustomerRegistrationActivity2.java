@@ -1,13 +1,11 @@
 package com.shopsmart.shopsmart;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -15,95 +13,54 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.CustomerRegister2Binding;
 
-import java.util.Calendar;
-
 public class CustomerRegistrationActivity2 extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private CustomerRegister2Binding binding;
     private DatePickerDialog dpd;
-    private Button dateButton;
     String currEmail;
     String currPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         this.binding = CustomerRegister2Binding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
-        setContentView(view);
+        setContentView(binding.getRoot());
 
         Intent currentIntent = this.getIntent();
-
         if (currentIntent != null) {
             this.currEmail = currentIntent.getStringExtra("EXTRA_EMAIL");
             this.currPassword = currentIntent.getStringExtra("EXTRA_PASSWORD");
         }
 
-        initDatePicker();
-        dateButton = findViewById(R.id.dob);
-        dateButton.setText(todaysDate());
-        Spinner provSpinner = findViewById(R.id.provPicker);
+        // Date picker
+        binding.dob.setText(makeDateString(1, 0, 2000));
+        DatePickerDialog.OnDateSetListener dateSetListener =
+                (datePicker, year, month, day) -> binding.dob.setText(makeDateString(day, month, year));
+        dpd = new DatePickerDialog(this, dateSetListener, 2000, 0, 1);
 
+        // Province spinner
+        Spinner provSpinner = findViewById(R.id.provPicker);
         ArrayAdapter<CharSequence> provList = ArrayAdapter.createFromResource(this, R.array.provinces, android.R.layout.simple_spinner_item);
         provList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         provSpinner.setAdapter(provList);
         provSpinner.setOnItemSelectedListener(this);
 
-        //this.binding.cancelButton2.setOnClickListener(this);
-        //this.binding.nextButton2.setOnClickListener(this);
-
-        binding.cancelButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //if(validateData()){
+        binding.cancelButton2.setOnClickListener(view -> {
+            //if(validateData()){
+            createUser();
+            startActivity(new Intent(CustomerRegistrationActivity2.this, SignupActivity.class));
+            //}
+        });
+        binding.nextButton2.setOnClickListener(view -> {
+            if (validateData()) {
                 createUser();
-                startActivity(new Intent(CustomerRegistrationActivity2.this, SignupActivity.class));
-                //}
-            }
-        });
-
-        binding.nextButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (validateData()) {
-                    createUser();
-                }
             }
         });
     }
 
-    private String todaysDate() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(1900, 0, 1);
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        month = month + 1;
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        return makeDateString(day, month, year);
-    }
-
-    private void initDatePicker() {
-        DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, day) -> {
-            month = month + 1;
-            String date = makeDateString(day, month, year);
-            dateButton.setText(date);
-        };
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(1900, 0, 1);
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-        int style = AlertDialog.THEME_HOLO_DARK;
-
-        dpd = new DatePickerDialog(this, style, dateSetListener, year, month, day);
-    }
-
+    // Date Functions
     private String makeDateString(int day, int month, int year) {
         return getMonthFormat(month) + " " + day + " " + year;
     }
-
     private String getMonthFormat(int month) {
         switch (month) {
             case 1:
@@ -134,11 +91,11 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity implements 
                 return "";
         }
     }
-
     public void openDatePicker(View view) {
         dpd.show();
     }
 
+    // Spinner Functions
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         String choice = adapterView.getItemAtPosition(i).toString();
@@ -148,10 +105,8 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity implements 
             Toast.makeText(getApplication(), "Please select a province/territory", Toast.LENGTH_LONG).show();
         }
     }
-
     @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-    }
+    public void onNothingSelected(AdapterView<?> adapterView) {}
 
     private void createUser() {
         Address address = new Address();
@@ -161,7 +116,6 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity implements 
         address.setAddress1(this.binding.address1.getText().toString());
         address.setAddress2(this.binding.address2.getText().toString());
         address.setCountry("Canada");
-
 
         Intent CRegister3 = new Intent(this, CustomerRegistrationActivity3.class);
         CRegister3.putExtra("EXTRA_ADDRESS_OBJ", address);

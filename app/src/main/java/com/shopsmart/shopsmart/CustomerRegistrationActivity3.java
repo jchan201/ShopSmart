@@ -37,17 +37,12 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-
         this.binding = CustomerRegister3Binding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
-        setContentView(view);
-
+        setContentView(binding.getRoot());
         app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
-
         this.currentIntent = this.getIntent();
 
         Spinner provSpinner = findViewById(R.id.provPicker);
-
         ArrayAdapter<CharSequence> provList = ArrayAdapter.createFromResource(this, R.array.provinces, android.R.layout.simple_spinner_item);
         provList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         provSpinner.setAdapter(provList);
@@ -55,16 +50,6 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
 
         this.binding.cancelButton3.setOnClickListener(this);
         this.binding.finishButton.setOnClickListener(this);
-    }
-
-    private String todaysDate(){
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(1900, 0, 1);
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        month = month + 1;
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        return makeDateString(day, month, year);
     }
 
     private String makeDateString(int day, int month, int year){
@@ -100,10 +85,6 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
             default:
                 return "";
         }
-    }
-
-    public void openDatePicker(View view){
-        dpd.show();
     }
 
     @Override
