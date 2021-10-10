@@ -104,31 +104,31 @@ public class ShopOwnerSignupActivity extends AppCompatActivity {
     private String makeDateString(int day, int month, int year) {
         return getMonthFormat(month) + " " + day + " " + year;
     }
-    private String getMonthFormat(int month){
+    private String getMonthFormat(int month) {
         switch (month) {
-            case 1:
+            case 0:
                 return "JAN";
-            case 2:
+            case 1:
                 return "FEB";
-            case 3:
+            case 2:
                 return "MAR";
-            case 4:
+            case 3:
                 return "APR";
-            case 5:
+            case 4:
                 return "MAY";
-            case 6:
+            case 5:
                 return "JUN";
-            case 7:
+            case 6:
                 return "JUL";
-            case 8:
+            case 7:
                 return "AUG";
-            case 9:
+            case 8:
                 return "SEP";
-            case 10:
+            case 9:
                 return "OCT";
-            case 11:
+            case 10:
                 return "NOV";
-            case 12:
+            case 11:
                 return "DEC";
             default:
                 return "";
