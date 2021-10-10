@@ -120,16 +120,75 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
     }
 
     private boolean validateData(){
-        //if(this.binding.nameFirst.getText().toString().isEmpty()
-        //        || this.binding.nameLast.getText().toString().isEmpty()
-        //        || this.binding.city.getText().toString().isEmpty()
-        //        || this.binding.zipCode.getText().toString().isEmpty()
-        //        || this.binding.address1.getText().toString().isEmpty()
-        //        || this.binding.address2.getText().toString().isEmpty()
-        //        || this.binding.phoneNum.getText().toString().isEmpty()){
+        boolean valid = true;
+        if (this.binding.cCardName.getText().toString().isEmpty()) {
+            this.binding.cCardName.setError("Field cannot be empty");
+            valid = false;
+        }
+        if (this.binding.cCardPhoneNum.getText().toString().isEmpty()){
+            this.binding.cCardPhoneNum.setError("Field cannot be empty");
+            valid = false;
+        }
+        if (this.binding.cCardCCV.getText().toString().isEmpty()){
+            this.binding.cCardCCV.setError("Field cannot be empty");
+            valid = false;
+        }
 
-            Toast.makeText(CustomerRegistrationActivity3.this, "Testing", Toast.LENGTH_SHORT).show();
-            return true;
+        if(this.binding.cCardCCV.getText().toString().length() < 3){
+            this.binding.cCardCCV.setError("Field must be 3 digits long");
+            valid = false;
+        }
+
+        if(this.binding.cCardPhoneNum.getText().toString().length() < 9){
+            this.binding.cCardPhoneNum.setError("Field must be 10 digits long");
+            valid = false;
+        }
+
+        Calendar todaysDate = Calendar.getInstance();
+        if(!this.binding.expY.getText().toString().isEmpty() && !this.binding.expM.getText().toString().isEmpty()) {
+            if(Long.parseLong(this.binding.expY.getText().toString()) + 2000 + (Long.parseLong(this.binding.expM.getText().toString()) / 12) < todaysDate.get(Calendar.YEAR) + ((todaysDate.get(Calendar.MONTH) + 1) / 12)){
+                this.binding.expY.setError("Please enter a valid date");
+                valid = false;
+            }
+            //if (Long.parseLong(this.binding.expY.getText().toString()) + 2000 <= (todaysDate.get(Calendar.YEAR)) && Long.parseLong(this.binding.expM.getText().toString()) < todaysDate.get(Calendar.MONTH) + 1) {
+            //    this.binding.expY.setError("Please enter a valid date");
+            //    valid = false;
+            //}
+            else if(Long.parseLong(this.binding.expM.getText().toString()) > 12){
+                this.binding.expM.setError("Please enter a valid date" + todaysDate.get(Calendar.YEAR));
+                valid = false;
+            }
+        }
+
+        if (this.binding.expY.getText().toString().isEmpty()) {
+            this.binding.expY.setError("Field cannot be empty");
+            valid = false;
+        }
+        if (this.binding.expM.getText().toString().isEmpty()) {
+            this.binding.expM.setError("Field cannot be empty");
+            valid = false;
+        }
+        if (this.binding.cCardPostalCode.getText().toString().isEmpty()) {
+            this.binding.cCardPostalCode.setError("Field cannot be empty");
+            valid = false;
+        }
+        if (!this.binding.cCardPostalCode.getText().toString().matches("([A-Z]\\d[A-Z]\\s\\d[A-Z]\\d)")) {
+            this.binding.cCardPostalCode.setError("Postal code must match schema A1A 1A1");
+            valid = false;
+        }
+        if (this.binding.cCardCity.getText().toString().isEmpty()) {
+            this.binding.cCardCity.setError("Field cannot be empty");
+            valid = false;
+        }
+        if (this.binding.cCardCountry.getText().toString().isEmpty()) {
+            this.binding.cCardCountry.setError("Field cannot be empty");
+            valid = false;
+        }
+        if (this.binding.cCardNum.getText().toString().length() < 16) {
+            this.binding.cCardNum.setError("Must contain 16 digits");
+            valid = false;
+        }
+            return valid;
         }
         //return true;
 
@@ -159,6 +218,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         appUser.setLastName(this.currentIntent.getStringExtra("EXTRA_LNAME"));
         appUser.setPhone(this.currentIntent.getStringExtra("EXTRA_PHONE"));
         appUser.addAddress(this.userAddress);
+
         try {
             this.userDOB = new SimpleDateFormat("MMM dd yyyy").parse(currentIntent.getStringExtra("EXTRA_DATE"));
         } catch (Exception e) {
@@ -217,7 +277,6 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         PaymentMethod pMethod = new PaymentMethod();
         pMethod.setCardNumber(this.binding.cCardNum.getText().toString());
         pMethod.setSecurityCode(this.binding.cCardCCV.getText().toString());
-        pMethod.setSecurityCode("123");
 
         Address cAddress = new Address();
         cAddress.setAddress1(this.binding.cCardAddress1.getText().toString());
