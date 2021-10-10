@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".StartupActivity">
+
+    <TextView
+        android:id="@+id/txtLogo"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/shopsmart"
+        android:fontFamily="casual"
+        android:paddingVertical="75dp"
+        android:text="ShopSmart "
+        android:textAlignment="textEnd"
+        android:textColor="#000"
+        android:textSize="40sp" />
+
+    <!--
+        May want to switch to RelativeLayout or ConstraintLayout
+        to replace horizontal margins with centering in parent.
+    -->
+</LinearLayout>
