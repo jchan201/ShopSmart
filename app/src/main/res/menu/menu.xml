@@ -14,4 +14,15 @@
         android:id="@+id/menuNext"
         app:showAsAction="ifRoom"
         />
+    <item
+        android:title="Home"
+        android:icon="@drawable/toolbar_home"
+        android:id="/menuHome"
+        app:showAsAction="ifRoom"
+        />
+    <item android:id="@+id/Profile"
+        android:title="Profile"
+        app:showAsAction="never"
+        />
+
 </menu>

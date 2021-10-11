@@ -6,9 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".CustomerRegistrationActivity2">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar"></include>
 
     <ImageView
         android:id="@+id/imageView"

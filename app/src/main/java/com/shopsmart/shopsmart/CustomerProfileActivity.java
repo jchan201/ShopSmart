@@ -1,6 +1,5 @@
 package com.shopsmart.shopsmart;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -9,7 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class CustomerDashboardActivity extends AppCompatActivity {
+public class CustomerProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +31,7 @@ public class CustomerDashboardActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
             case R.id.Profile:
-                Intent settingsIntent = new Intent(this, CustomerLoginActivity.class);
-                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
-                startActivity(settingsIntent);
-                break;
+                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
         }
 
         return true;

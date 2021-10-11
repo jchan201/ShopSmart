@@ -54,5 +54,9 @@
         <activity
             android:name=".CustomerRegistrationActivity1"
             android:label="Registration1" />
+        <activity
+            android:name=".CustomerDashboardActivity"
+            android:label="Dashboard1"
+            />
     </application>
 </manifest>
