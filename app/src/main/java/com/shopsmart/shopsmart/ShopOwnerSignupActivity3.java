@@ -84,6 +84,8 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
     }
 
     private boolean validation(){
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
         boolean valid = true;
 
         if(this.binding.edtTextCardNum.getText().toString().isEmpty()){
@@ -91,8 +93,18 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
             valid = false;
         }
 
+        if(Integer.parseInt(this.binding.edtTextExpiryDateYear.getText().toString()) < year){
+            this.binding.edtTextCardNum.setError("Expiry date invalid");
+            valid = false;
+        }
+
         if(this.binding.edtTextCCV.getText().toString().isEmpty()){
             this.binding.edtTextCCV.setError("CCV cannot be empty");
+            valid = false;
+        }
+
+        if(this.binding.edtTextCCV.getText().toString().length() < 3){
+            this.binding.edtTextCCV.setError("CCV invalid");
             valid = false;
         }
 
@@ -171,6 +183,7 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
             backToStartUpScreen.putExtra("EXTRA_ERROR_MSG", errorMsg);
             startActivity(backToStartUpScreen);
         });*/
+
         try {
             app.getEmailPassword().registerUser(appUser.getEmail(), userPass);
             Log.i("EXAMPLE", "Successfully registered user.");

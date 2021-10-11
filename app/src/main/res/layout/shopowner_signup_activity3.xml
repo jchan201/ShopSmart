@@ -85,7 +85,7 @@
 
     <Spinner
         android:id="@+id/edtTextExpiryDateMonth"
-        android:layout_width="50dp"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/basic_rectangle"
@@ -148,6 +148,7 @@
         android:padding="8dp"
         android:textAlignment="center"
         android:textSize="20sp"
+        android:maxLength="50"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/edtTextCCV" />
 
@@ -164,6 +165,7 @@
         android:padding="8dp"
         android:textAlignment="center"
         android:textSize="20sp"
+        android:maxLength="7"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/edtTextCCV" />
 
