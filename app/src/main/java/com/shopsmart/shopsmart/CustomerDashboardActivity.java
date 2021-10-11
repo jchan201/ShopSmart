@@ -32,7 +32,7 @@ public class CustomerDashboardActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
             case R.id.Profile:
-                Intent settingsIntent = new Intent(this, CustomerLoginActivity.class);
+                Intent settingsIntent = new Intent(this, CustomerProfileActivity.class);
                 Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
                 startActivity(settingsIntent);
                 break;

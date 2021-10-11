@@ -6,15 +6,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.shopsmart.shopsmart.databinding.CustomerProfileBinding;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class CustomerProfileActivity extends AppCompatActivity {
+
+CustomerProfileBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.customer_dashboard1);
+        setContentView(R.layout.customer_profile);
 
         //Toolbar toolbar = findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);

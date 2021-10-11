@@ -9,15 +9,9 @@
         app:showAsAction="ifRoom"
         />
     <item
-        android:title="Next"
-        android:icon="@drawable/button_next"
-        android:id="@+id/menuNext"
-        app:showAsAction="ifRoom"
-        />
-    <item
         android:title="Home"
         android:icon="@drawable/toolbar_home"
-        android:id="/menuHome"
+        android:id="@+id/menuHome"
         app:showAsAction="ifRoom"
         />
     <item android:id="@+id/Profile"

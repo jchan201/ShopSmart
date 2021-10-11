@@ -18,6 +18,7 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         com.shopsmart.shopsmart.databinding.ActivitySignupBinding binding = ActivitySignupBinding.inflate(getLayoutInflater());
+        //com.shopsmart.shopsmart.databinding.ActivitySignupBinding binding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Get Intent
