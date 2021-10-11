@@ -3,6 +3,7 @@ package com.shopsmart.shopsmart;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Telephony;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -42,7 +43,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
         this.currentIntent = this.getIntent();
 
-        Spinner provSpinner = findViewById(R.id.provPicker);
+        Spinner provSpinner = findViewById(R.id.provPicker3);
         ArrayAdapter<CharSequence> provList = ArrayAdapter.createFromResource(this, R.array.provinces, android.R.layout.simple_spinner_item);
         provList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         provSpinner.setAdapter(provList);
@@ -113,6 +114,8 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
                     if (this.validateData()) {
                         this.createUser();
                         Intent CRegister3 = new Intent(this, StartupActivity.class);
+                        startActivity(CRegister3);
+                        break;
                     }
                 }
             }
@@ -194,19 +197,9 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
 
     private void createUser() {
         AppUser appUser = new AppUser();
-        PaymentMethod paymentMethod = new PaymentMethod();
+
         String password = this.currentIntent.getStringExtra("EXTRA_PASSWORD");
 
-        String cCardNum = this.binding.cCardNum.getText().toString();
-        String cCardNumLong = this.binding.cCardNum.getText().toString();
-
-        //Example
-        String expExample = "1/1";
-        String secCodeExample = "1/1";
-
-        paymentMethod.setCardNumber(cCardNum);
-        paymentMethod.setExpiry(expExample);
-        paymentMethod.setSecurityCode(secCodeExample);
 
         if(currentIntent != null){
             this.userAddress = (Address)this.currentIntent.getSerializableExtra("EXTRA_ADDRESS_OBJ");
@@ -237,50 +230,48 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         // TO-DO: NEED TO ADD PAYMENT INFORMATION
 
         // Create user in database
-        /*app.getEmailPassword().registerUserAsync(appUser.getEmail(), password, it -> {
+        app.getEmailPassword().registerUserAsync(appUser.getEmail(), password, it -> {
             if (it.isSuccess()) {
                 Log.i("EXAMPLE", "Successfully registered user.");
+
+                // Create AppUser with associated User
+                Credentials credentials = Credentials.emailPassword(appUser.getEmail(), password);
+                app.loginAsync(credentials, result -> {
+                    Log.e("SSS", "In async: " + app.currentUser().getId());
+                    SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), "ShopSmart")
+                            .allowWritesOnUiThread(true) // allow synchronous writes
+                            .build();
+                    Realm backgroundRealm = Realm.getInstance(config);
+                    backgroundRealm.executeTransaction(transactionRealm -> {
+                        transactionRealm.insert(appUser);
+                    });
+                    backgroundRealm.close();
+                });
             } else {
                 Log.e("EXAMPLE", "Failed to register user: " + it.getError().getErrorMessage());
                 Intent mainIntent = new Intent(this, SignupActivity.class);
                 mainIntent.putExtra("EXTRA_SIGNUP_SUCCESS", false);
                 startActivity(mainIntent);
             }
-        });*/
-        try {
-            app.getEmailPassword().registerUser(appUser.getEmail(), password);
-            Log.i("EXAMPLE", "Successfully registered user.");
-        }
-        catch (AppException e) {
-            Log.e("EXAMPLE", "Failed to register user: " + e.getErrorMessage());
-            Intent backToStartup = new Intent(CustomerRegistrationActivity3.this, StartupActivity.class);
-            backToStartup.putExtra("EXTRA_SIGNUP_SUCCESS", false);
-            startActivity(backToStartup);
-        }
-
-        // Create AppUser with associated User
-        Credentials credentials = Credentials.emailPassword(appUser.getEmail(), password);
-        app.loginAsync(credentials, result -> {
-            Log.e("SSS", "In async: " + app.currentUser().getId());
-            SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), "ShopSmart")
-                    .allowWritesOnUiThread(true) // allow synchronous writes
-                    .build();
-            Realm backgroundRealm = Realm.getInstance(config);
-            backgroundRealm.executeTransaction(transactionRealm -> {
-                transactionRealm.insert(appUser);
-            });
-            backgroundRealm.close();
         });
     }
 
     private PaymentMethod createPayment(){
         PaymentMethod pMethod = new PaymentMethod();
-        pMethod.setCardNumber(this.binding.cCardNum.getText().toString());
+        String cCardNum = this.binding.cCardNum.getText().toString();
+
+        pMethod.setCardNumber(cCardNum);
+        pMethod.setExpiry(this.binding.expM + "/" + this.binding.expY);
         pMethod.setSecurityCode(this.binding.cCardCCV.getText().toString());
 
-        Address cAddress = new Address();
-        cAddress.setAddress1(this.binding.cCardAddress1.getText().toString());
-        cAddress.setAddress2(this.binding.cCardAddress2.getText().toString());
+        Address cCardAddress = new Address();
+        cCardAddress.setAddress1(this.binding.cCardAddress1.getText().toString());
+        cCardAddress.setAddress2(this.binding.cCardAddress2.getText().toString());
+        cCardAddress.setCity(this.binding.cCardCity.getText().toString());
+        cCardAddress.setProvince(this.binding.provPicker3.getSelectedItem().toString());
+        cCardAddress.setCountry("Canada");
+
+        pMethod.setBillingAddress(cCardAddress);
 
         return pMethod;
     }

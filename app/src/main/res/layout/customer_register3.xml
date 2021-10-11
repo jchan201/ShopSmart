@@ -40,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cCardName" />
 
     <Spinner
-        android:id="@+id/provPicker"
+        android:id="@+id/provPicker3"
         android:layout_width="120dp"
         android:layout_height="40dp"
         android:layout_marginTop="12dp"
@@ -275,6 +275,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/provPicker" />
+        app:layout_constraintTop_toBottomOf="@+id/provPicker3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
