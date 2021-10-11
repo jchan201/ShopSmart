@@ -18,6 +18,7 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         com.shopsmart.shopsmart.databinding.ActivitySignupBinding binding = ActivitySignupBinding.inflate(getLayoutInflater());
+        //com.shopsmart.shopsmart.databinding.ActivitySignupBinding binding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Get Intent
@@ -35,7 +36,8 @@ public class SignupActivity extends AppCompatActivity {
         binding.btnCustomer.setOnClickListener(view -> {
             // Go to Customer Signup Activity
             // replace the ???
-            startActivity(new Intent(SignupActivity.this, CustomerRegistrationActivity1.class));
+            startActivity(new Intent(SignupActivity.this, CustomerDashboardActivity.class));
+            //startActivity(new Intent(SignupActivity.this, CustomerRegistrationActivity1.class));
         });
 
         binding.btnShopOwner.setOnClickListener(view -> {

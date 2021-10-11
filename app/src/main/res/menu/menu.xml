@@ -9,9 +9,22 @@
         app:showAsAction="ifRoom"
         />
     <item
-        android:title="Next"
-        android:icon="@drawable/button_next"
-        android:id="@+id/menuNext"
+        android:title="Home"
+        android:icon="@drawable/toolbar_home"
+        android:id="@+id/menuHome"
         app:showAsAction="ifRoom"
         />
+    <item android:id="@+id/Profile"
+        android:title="Profile"
+        app:showAsAction="never"
+        />
+    <item android:id="@+id/Settings"
+        android:title="Settings"
+        app:showAsAction="never"
+        />
+    <item android:id="@+id/LogOut"
+        android:title="Log Out"
+        app:showAsAction="never"
+        />
+
 </menu>

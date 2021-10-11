@@ -7,15 +7,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.shopsmart.shopsmart.databinding.CustomerProfileBinding;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-public class CustomerDashboardActivity extends AppCompatActivity {
+public class CustomerProfileActivity extends AppCompatActivity {
+
+CustomerProfileBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.customer_dashboard1);
+        setContentView(R.layout.customer_profile);
 
         //Toolbar toolbar = findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
@@ -31,11 +35,10 @@ public class CustomerDashboardActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
-            case R.id.Profile:
-                Intent settingsIntent = new Intent(this, CustomerProfileActivity.class);
-                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
-                startActivity(settingsIntent);
-                break;
+            case R.id.menuHome:
+                Intent homeIntent = new Intent(this, CustomerDashboardActivity.class);
+                startActivity(homeIntent);
+                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
         }
 
         return true;

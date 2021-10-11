@@ -57,5 +57,13 @@
         <activity
             android:name=".CustomerRegistrationActivity1"
             android:label="Registration1" />
+        <activity
+            android:name=".CustomerDashboardActivity"
+            android:label="Dashboard1"
+            />
+        <activity
+            android:name=".CustomerProfileActivity"
+            android:label="Profile1"
+            />
     </application>
 </manifest>
