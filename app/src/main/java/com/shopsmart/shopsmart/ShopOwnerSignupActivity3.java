@@ -157,10 +157,24 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
         appUser.setAge(calendar.get(Calendar.YEAR) - calendarDOB.get(Calendar.YEAR));
 
         // Create user in database
-        /*app.getEmailPassword().registerUserAsync(appUser.getEmail(), userPass, it -> {
+        app.getEmailPassword().registerUserAsync(appUser.getEmail(), userPass, it -> {
             if (it.isSuccess()) {
                 Log.i("EXAMPLE", "Successfully registered user.");
                 errorMsg = "Successfully registered user";
+
+                // Create AppUser with associated User
+                Credentials credentials = Credentials.emailPassword(appUser.getEmail(), userPass);
+                app.loginAsync(credentials, result -> {
+                    Log.e("SSS", "In async: " + app.currentUser().getId());
+                    SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), "ShopSmart")
+                            .allowWritesOnUiThread(true) // allow synchronous writes
+                            .build();
+                    Realm backgroundRealm = Realm.getInstance(config);
+                    backgroundRealm.executeTransaction(transactionRealm -> {
+                        transactionRealm.insert(appUser);
+                    });
+                    backgroundRealm.close();
+                });
             } else {
                 Log.e("EXAMPLE", "Failed to register user: " + it.getError().getErrorMessage());
                 success = false;
@@ -170,33 +184,6 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
             backToStartUpScreen.putExtra("EXTRA_SIGNUP_SUCCESS", success);
             backToStartUpScreen.putExtra("EXTRA_ERROR_MSG", errorMsg);
             startActivity(backToStartUpScreen);
-        });*/
-        try {
-            app.getEmailPassword().registerUser(appUser.getEmail(), userPass);
-            Log.i("EXAMPLE", "Successfully registered user.");
-            errorMsg = "Successfully registered user";
-        }
-        catch (AppException e) {
-            Log.e("EXAMPLE", "Failed to register user: " + e.getErrorMessage());
-            errorMsg = "Failed to register user: " + e.getErrorMessage();
-            Intent backToStartup = new Intent(ShopOwnerSignupActivity3.this, StartupActivity.class);
-            backToStartup.putExtra("EXTRA_SIGNUP_SUCCESS", false);
-            backToStartup.putExtra("EXTRA_ERROR_MSG", errorMsg);
-            startActivity(backToStartup);
-        }
-
-        // Create AppUser with associated User
-        Credentials credentials = Credentials.emailPassword(appUser.getEmail(), userPass);
-        app.loginAsync(credentials, result -> {
-            Log.e("SSS", "In async: " + app.currentUser().getId());
-            SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), "ShopSmart")
-                    .allowWritesOnUiThread(true) // allow synchronous writes
-                    .build();
-            Realm backgroundRealm = Realm.getInstance(config);
-            backgroundRealm.executeTransaction(transactionRealm -> {
-                transactionRealm.insert(appUser);
-            });
-            backgroundRealm.close();
         });
     }
 

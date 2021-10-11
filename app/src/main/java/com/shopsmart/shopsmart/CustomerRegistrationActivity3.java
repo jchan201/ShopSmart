@@ -239,39 +239,29 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         // TO-DO: NEED TO ADD PAYMENT INFORMATION
 
         // Create user in database
-        /*app.getEmailPassword().registerUserAsync(appUser.getEmail(), password, it -> {
+        app.getEmailPassword().registerUserAsync(appUser.getEmail(), password, it -> {
             if (it.isSuccess()) {
                 Log.i("EXAMPLE", "Successfully registered user.");
+
+                // Create AppUser with associated User
+                Credentials credentials = Credentials.emailPassword(appUser.getEmail(), password);
+                app.loginAsync(credentials, result -> {
+                    Log.e("SSS", "In async: " + app.currentUser().getId());
+                    SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), "ShopSmart")
+                            .allowWritesOnUiThread(true) // allow synchronous writes
+                            .build();
+                    Realm backgroundRealm = Realm.getInstance(config);
+                    backgroundRealm.executeTransaction(transactionRealm -> {
+                        transactionRealm.insert(appUser);
+                    });
+                    backgroundRealm.close();
+                });
             } else {
                 Log.e("EXAMPLE", "Failed to register user: " + it.getError().getErrorMessage());
                 Intent mainIntent = new Intent(this, SignupActivity.class);
                 mainIntent.putExtra("EXTRA_SIGNUP_SUCCESS", false);
                 startActivity(mainIntent);
             }
-        });*/
-        try {
-            app.getEmailPassword().registerUser(appUser.getEmail(), password);
-            Log.i("EXAMPLE", "Successfully registered user.");
-        }
-        catch (AppException e) {
-            Log.e("EXAMPLE", "Failed to register user: " + e.getErrorMessage());
-            Intent backToStartup = new Intent(CustomerRegistrationActivity3.this, StartupActivity.class);
-            backToStartup.putExtra("EXTRA_SIGNUP_SUCCESS", false);
-            startActivity(backToStartup);
-        }
-
-        // Create AppUser with associated User
-        Credentials credentials = Credentials.emailPassword(appUser.getEmail(), password);
-        app.loginAsync(credentials, result -> {
-            Log.e("SSS", "In async: " + app.currentUser().getId());
-            SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), "ShopSmart")
-                    .allowWritesOnUiThread(true) // allow synchronous writes
-                    .build();
-            Realm backgroundRealm = Realm.getInstance(config);
-            backgroundRealm.executeTransaction(transactionRealm -> {
-                transactionRealm.insert(appUser);
-            });
-            backgroundRealm.close();
         });
     }
 
