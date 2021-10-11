@@ -2,6 +2,7 @@ package com.shopsmart.shopsmart;
 
 import org.bson.types.ObjectId;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import io.realm.RealmList;
@@ -105,6 +106,9 @@ public class AppUser extends RealmObject {
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
+
+//    public String getBirthdateString(){
+//    }
 
     public RealmList<Address> getAddresses() {
         return addresses;
