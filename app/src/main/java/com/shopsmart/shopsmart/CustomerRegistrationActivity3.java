@@ -3,6 +3,7 @@ package com.shopsmart.shopsmart;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Telephony;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -42,7 +43,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
         this.currentIntent = this.getIntent();
 
-        Spinner provSpinner = findViewById(R.id.provPicker);
+        Spinner provSpinner = findViewById(R.id.provPicker3);
         ArrayAdapter<CharSequence> provList = ArrayAdapter.createFromResource(this, R.array.provinces, android.R.layout.simple_spinner_item);
         provList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         provSpinner.setAdapter(provList);
@@ -196,19 +197,9 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
 
     private void createUser() {
         AppUser appUser = new AppUser();
-        PaymentMethod paymentMethod = new PaymentMethod();
+
         String password = this.currentIntent.getStringExtra("EXTRA_PASSWORD");
 
-        String cCardNum = this.binding.cCardNum.getText().toString();
-        String cCardNumLong = this.binding.cCardNum.getText().toString();
-
-        //Example
-        String expExample = "1/1";
-        String secCodeExample = "1/1";
-
-        paymentMethod.setCardNumber(cCardNum);
-        paymentMethod.setExpiry(expExample);
-        paymentMethod.setSecurityCode(secCodeExample);
 
         if(currentIntent != null){
             this.userAddress = (Address)this.currentIntent.getSerializableExtra("EXTRA_ADDRESS_OBJ");
@@ -267,12 +258,20 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
 
     private PaymentMethod createPayment(){
         PaymentMethod pMethod = new PaymentMethod();
-        pMethod.setCardNumber(this.binding.cCardNum.getText().toString());
+        String cCardNum = this.binding.cCardNum.getText().toString();
+
+        pMethod.setCardNumber(cCardNum);
+        pMethod.setExpiry(this.binding.expM + "/" + this.binding.expY);
         pMethod.setSecurityCode(this.binding.cCardCCV.getText().toString());
 
-        Address cAddress = new Address();
-        cAddress.setAddress1(this.binding.cCardAddress1.getText().toString());
-        cAddress.setAddress2(this.binding.cCardAddress2.getText().toString());
+        Address cCardAddress = new Address();
+        cCardAddress.setAddress1(this.binding.cCardAddress1.getText().toString());
+        cCardAddress.setAddress2(this.binding.cCardAddress2.getText().toString());
+        cCardAddress.setCity(this.binding.cCardCity.getText().toString());
+        cCardAddress.setProvince(this.binding.provPicker3.getSelectedItem().toString());
+        cCardAddress.setCountry("Canada");
+
+        pMethod.setBillingAddress(cCardAddress);
 
         return pMethod;
     }
