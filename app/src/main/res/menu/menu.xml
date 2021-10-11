@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="Prev"
+        android:icon="@drawable/button_prev"
+        android:id="@+id/menuPrev"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:title="Next"
+        android:icon="@drawable/button_next"
+        android:id="@+id/menuNext"
+        app:showAsAction="ifRoom"
+        />
+</menu>
