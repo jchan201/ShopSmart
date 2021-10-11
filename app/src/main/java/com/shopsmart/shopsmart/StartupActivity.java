@@ -44,10 +44,9 @@ public class StartupActivity extends AppCompatActivity {
 
         this.currIntent = this.getIntent();
         if (this.currIntent != null) {
-            boolean success = currIntent.getBooleanExtra("EXTRA_SIGNUP_SUCCESS", true);
-            if(!success){
-                Toast.makeText(StartupActivity.this, currIntent.getStringExtra("EXTRA_ERROR_MSG"), Toast.LENGTH_SHORT).show();
-            }
+            boolean success = currIntent.getBooleanExtra("EXTRA_SIGNUP_SUCCESS", false);
+            if (success)
+                Toast.makeText(StartupActivity.this, "Successfully registered.", Toast.LENGTH_SHORT).show();
         }
 
         // Initialize the Realm library.
@@ -77,58 +76,66 @@ public class StartupActivity extends AppCompatActivity {
             // Get the user's credentials (email and password).
             String email = binding.edtTxtEmail.getText().toString();
             String password = binding.edtTxtPassword.getText().toString();
-            Credentials credentials = Credentials.emailPassword(email, password);
+            if (email.isEmpty()) {
+                binding.txtError.setText("Please enter a email address.");
+                binding.txtError.setVisibility(View.VISIBLE);
+            } else if (password.isEmpty()) {
+                binding.txtError.setText("Please enter a password.");
+                binding.txtError.setVisibility(View.VISIBLE);
+            } else {
+                Credentials credentials = Credentials.emailPassword(email, password);
+                app.loginAsync(credentials, result -> {
+                    if (result.isSuccess()) {
+                        Log.v("LOGIN", "Successfully authenticated using email and password.");
 
-            app.loginAsync(credentials, result -> {
-                if (result.isSuccess()) {
-                    Log.v("LOGIN", "Successfully authenticated using email and password.");
+                        // Open a Synced Realm for asynchronous transactions.
+                        SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
+                        realm = Realm.getInstance(config);
 
-                    // Open a Synced Realm for asynchronous transactions.
-                    SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
-                    realm = Realm.getInstance(config);
+                        // Retrieve all users in the Realm.
+                        RealmResults<AppUser> users = realm.where(AppUser.class).findAll();
+                        AppUser user = null;
 
-                    // Retrieve all users in the Realm.
-                    RealmResults<AppUser> users = realm.where(AppUser.class).findAll();
-                    AppUser user = null;
-
-                    // Find the AppUser
-                    for (int i = 0; i < users.size(); i++) {
-                        if (users.get(i).getEmail().equals(email)) {
-                            user = users.get(i);
+                        // Find the AppUser
+                        for (int i = 0; i < users.size(); i++) {
+                            if (users.get(i).getEmail().equals(email)) {
+                                user = users.get(i);
+                            }
                         }
+
+                        if (user == null) Log.wtf(PARTITION, "No such AppUser exists...?");
+
+                        // Go to the dashboard depending on the AppUser's type.
+                        String type = user.getUserType();
+                        switch (type) {
+                            case "Customer":
+                                // putExtra?
+                                // startActivity(new Intent(StartupActivity.this, ???));
+                                Log.v(PARTITION,"Successfully got to dashboard!");
+                                break;
+                            case "Owner":
+                                // putExtra?
+                                Intent intentToDashboard = new Intent(StartupActivity.this, ShopOwnerDashboardActivity.class);
+                                intentToDashboard.putExtra("EXTRA_PASS", password);
+                                intentToDashboard.putExtra("EXTRA_EMAIL", email);
+
+                                realm.close();
+                                startActivity(intentToDashboard);
+                                Log.v(PARTITION,"Successfully got to dashboard!");
+                                break;
+                            default:
+                                Log.wtf(PARTITION, "AppUser is neither a Customer nor ShopOwner.");
+                        }
+                    } else {
+                        Log.e("LOGIN", "Failed to log in.");
+                        // Show error message if login failed.
+                        binding.txtError.setText("Invalid email/password.");
+                        binding.txtError.setVisibility(View.VISIBLE);
+                        ATTEMPTS.add(email);
+                        if (ATTEMPTS.size() == 5) binding.btnLogin.setEnabled(false);
                     }
-
-                    if (user == null) Log.wtf(PARTITION, "No such AppUser exists...?");
-
-                    // Go to the dashboard depending on the AppUser's type.
-                    String type = user.getUserType();
-                    switch (type) {
-                        case "Customer":
-                            // putExtra?
-                            // startActivity(new Intent(StartupActivity.this, ???));
-                            Log.v(PARTITION,"Successfully got to dashboard!");
-                            break;
-                        case "Owner":
-                            // putExtra?
-                            Intent intentToDashboard = new Intent(StartupActivity.this, ShopOwnerDashboardActivity.class);
-                            intentToDashboard.putExtra("EXTRA_PASS", password);
-                            intentToDashboard.putExtra("EXTRA_EMAIL", email);
-
-                            realm.close();
-                            startActivity(intentToDashboard);
-                            Log.v(PARTITION,"Successfully got to dashboard!");
-                            break;
-                        default:
-                            Log.wtf(PARTITION, "AppUser is neither a Customer nor ShopOwner.");
-                    }
-                } else {
-                    Log.e("LOGIN", "Failed to log in.");
-                    // Show error message if login failed.
-                    binding.txtError.setVisibility(View.VISIBLE);
-                    ATTEMPTS.add(email);
-                    if (ATTEMPTS.size() == 5) binding.btnLogin.setEnabled(false);
-                }
-            });
+                });
+            }
         });
 
         // When the Register button is clicked.
