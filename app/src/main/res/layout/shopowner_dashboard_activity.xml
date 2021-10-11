@@ -39,6 +39,8 @@
         app:layout_constraintTop_toBottomOf="@+id/titleView"
         android:layout_marginTop="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         />
 
     <TextView
@@ -56,12 +58,11 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="SHOP LIST"
+        android:text="SHOP LIST"
         android:padding="8dp"
         android:layout_marginTop="64dp"
         android:textSize="20sp"
         android:textAlignment="center"
-        android:background="@drawable/basic_rectangle"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/textTitle" />
@@ -71,12 +72,11 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="PROFILE"
+        android:text="PROFILE"
         android:padding="8dp"
         android:layout_marginTop="32dp"
         android:textSize="20sp"
         android:textAlignment="center"
-        android:background="@drawable/basic_rectangle"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/btnShopList" />
@@ -86,12 +86,11 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="LOG OUT"
+        android:text="LOG OUT"
         android:padding="8dp"
         android:layout_marginTop="32dp"
         android:textSize="20sp"
         android:textAlignment="center"
-        android:background="@drawable/basic_rectangle"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/btnProfile" />
