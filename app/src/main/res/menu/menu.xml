@@ -18,5 +18,13 @@
         android:title="Profile"
         app:showAsAction="never"
         />
+    <item android:id="@+id/Settings"
+        android:title="Settings"
+        app:showAsAction="never"
+        />
+    <item android:id="@+id/LogOut"
+        android:title="Log Out"
+        app:showAsAction="never"
+        />
 
 </menu>

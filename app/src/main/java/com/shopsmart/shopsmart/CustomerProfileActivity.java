@@ -1,5 +1,6 @@
 package com.shopsmart.shopsmart;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,7 +35,9 @@ CustomerProfileBinding binding;
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
-            case R.id.Profile:
+            case R.id.menuHome:
+                Intent homeIntent = new Intent(this, CustomerDashboardActivity.class);
+                startActivity(homeIntent);
                 Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
         }
 
