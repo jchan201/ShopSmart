@@ -107,8 +107,11 @@ public class AppUser extends RealmObject {
         this.birthdate = birthdate;
     }
 
-//    public String getBirthdateString(){
-//    }
+    public String getBirthdateString(){
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd yyyy");
+        String strDate = formatter.format(birthdate);
+        return strDate;
+    }
 
     public RealmList<Address> getAddresses() {
         return addresses;

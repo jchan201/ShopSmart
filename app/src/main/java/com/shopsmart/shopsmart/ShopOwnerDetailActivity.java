@@ -67,6 +67,7 @@ public class ShopOwnerDetailActivity extends AppCompatActivity {
                 }
                 binding.textEmail.setText(user.getEmail());
                 binding.textName.setText(user.getFirstName() + " " + user.getMiddleInitial() + ". " + user.getLastName());
+                binding.textDOB.setText(user.getBirthdateString());
             }
         });
 
