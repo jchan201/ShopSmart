@@ -247,6 +247,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
                     });
                     backgroundRealm.close();
                 });
+                //loginScreen.putExtra
             } else {
                 Log.e("EXAMPLE", "Failed to register user: " + it.getError().getErrorMessage());
                 Intent mainIntent = new Intent(this, SignupActivity.class);
