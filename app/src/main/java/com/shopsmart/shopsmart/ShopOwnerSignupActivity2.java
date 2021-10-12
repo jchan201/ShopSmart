@@ -62,18 +62,13 @@ public class ShopOwnerSignupActivity2 extends AppCompatActivity {
     private boolean validation(){
         boolean valid = true;
 
-        if(this.binding.edtTextAdd1.getText().toString().isEmpty()){
-            this.binding.edtTextAdd1.setError("Address Line 1 cannot be empty");
-            valid = false;
-        }
-
         if(this.binding.edtTextCity.getText().toString().isEmpty()){
             this.binding.edtTextCity.setError("City cannot be empty");
             valid = false;
         }
 
         if(this.binding.edtTextZip.getText().toString().isEmpty()){
-            this.binding.edtTextZip.setError("Email cannot be empty");
+            this.binding.edtTextZip.setError("Postal Code cannot be empty");
             valid = false;
         }
 
@@ -83,12 +78,12 @@ public class ShopOwnerSignupActivity2 extends AppCompatActivity {
         }
 
         if(this.binding.edtTextAdd1.getText().toString().isEmpty()){
-            this.binding.edtTextAdd1.setError("Email cannot be empty");
+            this.binding.edtTextAdd1.setError("Address Line 1 cannot be empty");
             valid = false;
         }
 
         if(this.binding.edtTextPhoneNum.getText().toString().isEmpty()){
-            this.binding.edtTextPhoneNum.setError("Password cannot be empty");
+            this.binding.edtTextPhoneNum.setError("Phone cannot be empty");
             valid = false;
         }
 

@@ -18,7 +18,7 @@ public class ShopOwnerProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        com.shopsmart.shopsmart.databinding.ShopownerProfilePageActivityBinding binding = ShopownerProfilePageActivityBinding.inflate(getLayoutInflater());
+        ShopownerProfilePageActivityBinding binding = ShopownerProfilePageActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Get Intent
@@ -29,19 +29,18 @@ public class ShopOwnerProfileActivity extends AppCompatActivity {
             this.userPass = currIntent.getStringExtra("EXTRA_PASS");
         }
 
-//        binding.btnProfile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(new Intent(ShopOwnerProfileActivity.this, ));
-//            }
-//        });
+        binding.btnPersonalInfo.setOnClickListener(view -> {
+            Intent intentToProfile = new Intent(ShopOwnerProfileActivity.this, ShopOwnerDetailActivity.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+            startActivity(intentToProfile);
+        });
 
         binding.btnBack.setOnClickListener(view -> {
             Intent intentToProfile = new Intent(ShopOwnerProfileActivity.this, ShopOwnerDashboardActivity.class);
             intentToProfile.putExtra("EXTRA_PASS", userPass);
             intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
             startActivity(intentToProfile);
-            finish();
         });
     }
 }

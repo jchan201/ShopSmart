@@ -2,6 +2,7 @@ package com.shopsmart.shopsmart;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.BoringLayout;
 import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,6 +20,7 @@ import io.realm.mongodb.Credentials;
 import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ShopOwnerSignupActivity3 extends AppCompatActivity {
+    private final String PARTITION = "ShopSmart";
     private ShopownerSignupActivity3Binding binding;
     Intent currIntent;
 
@@ -30,8 +32,6 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
     String userPass;
     Date userDOB;
     String userPhone;
-    boolean success = true;
-    String errorMsg;
     App app;
 
     @Override
@@ -66,24 +66,15 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
         }
 
         //cancel go back sign up selection page
-        binding.buttonCancel.setOnClickListener(view -> {
-            startActivity(new Intent(ShopOwnerSignupActivity3.this, ShopOwnerSignupActivity2.class));
-        });
+        binding.buttonCancel.setOnClickListener(view ->
+                startActivity(new Intent(ShopOwnerSignupActivity3.this, ShopOwnerSignupActivity2.class)));
 
         binding.buttonNext.setOnClickListener(view -> {
-            if(validation()){
-                createUser();
-                if(success) {
-                    Intent nextSignUpScreen = new Intent(ShopOwnerSignupActivity3.this, ShopOwnerDashboardActivity.class);
-                    nextSignUpScreen.putExtra("EXTRA_PASS", userPass);
-                    nextSignUpScreen.putExtra("EXTRA_EMAIL", userEmail);
-                    startActivity(nextSignUpScreen);
-                }
-            }
+            if (validation()) createUser();
         });
     }
 
-    private boolean validation(){
+    private boolean validation() {
         boolean valid = true;
 
         if(this.binding.edtTextCardNum.getText().toString().isEmpty()){
@@ -138,29 +129,18 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
     }
 
     private void createUser(){
-        AppUser appUser = new AppUser();
-
-        appUser.setEmail(userEmail);
-        appUser.setFirstName(userFName);
-        appUser.setMiddleInitial(userMName);
-        appUser.setLastName(userLName);
-        appUser.setPhone(userPhone);
-        appUser.addAddress(userAddress);
-        appUser.setBirthdate(userDOB);
-        appUser.setUserType("Owner");
-
-        appUser.addPaymentMethod(createPaymentMethod());
-
+        Calendar calendar = Calendar.getInstance();
         Calendar calendarDOB = Calendar.getInstance();
         calendarDOB.setTime(userDOB);
-        Calendar calendar = Calendar.getInstance();
-        appUser.setAge(calendar.get(Calendar.YEAR) - calendarDOB.get(Calendar.YEAR));
+        AppUser appUser = new AppUser("Owner", userFName, userMName, userLName,
+                calendar.get(Calendar.YEAR) - calendarDOB.get(Calendar.YEAR), userEmail, userPhone, userDOB);
+        appUser.addPaymentMethod(createPaymentMethod());
 
         // Create user in database
         app.getEmailPassword().registerUserAsync(appUser.getEmail(), userPass, it -> {
+            Intent loginScreen = new Intent(ShopOwnerSignupActivity3.this, StartupActivity.class);
             if (it.isSuccess()) {
-                Log.i("EXAMPLE", "Successfully registered user.");
-                errorMsg = "Successfully registered user";
+                Log.i(PARTITION, "Successfully registered user.");
 
                 // Create AppUser with associated User
                 Credentials credentials = Credentials.emailPassword(appUser.getEmail(), userPass);
@@ -175,15 +155,11 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
                     });
                     backgroundRealm.close();
                 });
+                loginScreen.putExtra("EXTRA_SIGNUP_SUCCESS", true);
             } else {
-                Log.e("EXAMPLE", "Failed to register user: " + it.getError().getErrorMessage());
-                success = false;
-                errorMsg = "Failed to register user: " + it.getError().getErrorMessage();
+                Log.e(PARTITION, "Failed to register user: " + it.getError().getErrorMessage());
             }
-            Intent backToStartUpScreen = new Intent(ShopOwnerSignupActivity3.this, StartupActivity.class);
-            backToStartUpScreen.putExtra("EXTRA_SIGNUP_SUCCESS", success);
-            backToStartUpScreen.putExtra("EXTRA_ERROR_MSG", errorMsg);
-            startActivity(backToStartUpScreen);
+            startActivity(loginScreen);
         });
     }
 

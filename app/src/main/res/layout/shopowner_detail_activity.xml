@@ -23,7 +23,7 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dashboard"
+        android:text="Personal Details"
         android:textSize="40dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/titleView"
@@ -54,64 +54,111 @@
         app:layout_constraintTop_toTopOf="@+id/bodyView" />
 
     <Button
-        android:id="@+id/btnShopList"
+        android:id="@+id/btnResetPassword"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:text="SHOP LIST"
+        android:layout_marginBottom="16dp"
         android:padding="8dp"
-        android:layout_marginTop="64dp"
-        android:textSize="20sp"
+        android:text="RESET PASSWORD"
         android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnProfile"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
-        app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+        app:layout_constraintStart_toStartOf="@+id/bodyView" />
 
     <Button
         android:id="@+id/btnProfile"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:text="PROFILE"
+        android:layout_marginBottom="16dp"
         android:padding="8dp"
-        android:layout_marginTop="32dp"
-        android:textSize="20sp"
+        android:text="UPDATE PROFILE"
         android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnBack"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
-        app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/btnShopList" />
+        app:layout_constraintStart_toStartOf="@+id/bodyView" />
 
     <Button
-        android:id="@+id/btnLogout"
+        android:id="@+id/btnBack"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:ems="10"
-        android:text="LOG OUT"
         android:padding="8dp"
-        android:layout_marginTop="32dp"
-        android:textSize="20sp"
+        android:text="BACK"
         android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/btnProfile" />
+        />
 
     <TextView
-        android:id="@+id/textUserTitle"
+        android:id="@+id/textNameTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User: "
-        android:layout_marginLeft="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnShopList"
+        android:layout_marginTop="64dp"
+        android:layout_marginLeft="32dp"
+        android:text="Name: "
+        android:textSize="15dp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
     <TextView
-        android:id="@+id/textUsername"
+        android:id="@+id/textName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:textSize="15dp"
         android:text="UNKNOWN"
-        app:layout_constraintBottom_toTopOf="@+id/btnShopList"
-        app:layout_constraintStart_toEndOf="@+id/textUserTitle"
+        app:layout_constraintStart_toEndOf="@+id/textNameTitle"
         app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+
+    <TextView
+        android:id="@+id/textEmailTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="32dp"
+        android:textSize="15dp"
+        android:text="Email: "
+        app:layout_constraintStart_toStartOf="@+id/bodyView"
+        app:layout_constraintTop_toBottomOf="@+id/textNameTitle" />
+
+    <TextView
+        android:id="@+id/textEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="5dp"
+        android:textSize="15dp"
+        android:text="UNKNOWN"
+        app:layout_constraintStart_toEndOf="@+id/textEmailTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textName" />
+
+    <TextView
+        android:id="@+id/textDOBTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="32dp"
+        android:textSize="15dp"
+        android:text="Date of Birth: "
+        app:layout_constraintStart_toStartOf="@+id/bodyView"
+        app:layout_constraintTop_toBottomOf="@+id/textEmail" />
+
+    <TextView
+        android:id="@+id/textDOB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="5dp"
+        android:textSize="15dp"
+        android:text="UNKNOWN"
+        app:layout_constraintStart_toEndOf="@+id/textDOBTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textEmailTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
