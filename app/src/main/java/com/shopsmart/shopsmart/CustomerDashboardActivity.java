@@ -83,6 +83,7 @@ public class CustomerDashboardActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
             case R.id.Profile:
+                realm.close();
                 Intent settingsIntent = new Intent(this, CustomerProfileActivity.class);
                 settingsIntent.putExtra("EXTRA_EMAIL", userEmail);
                 settingsIntent.putExtra("EXTRA_PASS", userPass);
