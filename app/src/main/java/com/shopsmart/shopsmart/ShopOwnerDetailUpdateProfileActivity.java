@@ -60,7 +60,10 @@ public class ShopOwnerDetailUpdateProfileActivity extends AppCompatActivity {
                 Log.v("LOGIN", "Successfully authenticated using email and password.");
 
                 // Open a Synced Realm for asynchronous transactions.
-                SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
+//                SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
+                SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), "ShopSmart")
+                        .allowWritesOnUiThread(true) // allow synchronous writes
+                        .build();
                 realm = Realm.getInstance(config);
 
                 // Retrieve all users in the Realm.
@@ -112,17 +115,49 @@ public class ShopOwnerDetailUpdateProfileActivity extends AppCompatActivity {
     }
 
     private void updateUser(){
-        user.setFirstName(binding.textFName.getText().toString());
-        user.setMiddleInitial(binding.textMName.getText().toString());
-        user.setLastName(binding.textLName.getText().toString());
+        AppUser updateUser = new AppUser();
+        updateUser.setFirstName(binding.textFName.getText().toString());
+        updateUser.setMiddleInitial(binding.textMName.getText().toString());
+        updateUser.setLastName(binding.textLName.getText().toString());
+
+        updateUser.setUserType(user.getUserType());
+
         try {
-            user.setBirthdate(new SimpleDateFormat("MMM dd yyyy").parse(binding.datePickerButton.getText().toString()));
+            updateUser.setBirthdate(new SimpleDateFormat("MMM dd yyyy").parse(binding.datePickerButton.getText().toString()));
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        Calendar calendar = Calendar.getInstance();
+        Calendar calendarDOB = Calendar.getInstance();
+        calendarDOB.setTime(updateUser.getBirthdate());
+
+        updateUser.setAge(calendar.get(Calendar.YEAR) - calendarDOB.get(Calendar.YEAR));
+        updateUser.setEmail(user.getEmail());
+        updateUser.setPhone(user.getPhone());
+
+        for(int i = 0; i < user.getAddresses().size(); i++){
+            updateUser.addAddress(user.getAddresses().get(0));
+        }
+
+        for(int i = 0; i < user.getPaymentMethods().size(); i++){
+            updateUser.addPaymentMethod(user.getPaymentMethods().get(0));
+        }
+
+//        user.setFirstName(binding.textFName.getText().toString());
+//        user.setMiddleInitial(binding.textMName.getText().toString());
+//        user.setLastName(binding.textLName.getText().toString());
+//        try {
+//            user.setBirthdate(new SimpleDateFormat("MMM dd yyyy").parse(binding.datePickerButton.getText().toString()));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
         realm.executeTransaction(transactionRealm -> {
-            transactionRealm.insertOrUpdate(user);
+            transactionRealm.insertOrUpdate(updateUser);
+            AppUser removeUser = transactionRealm.where(AppUser.class).equalTo("_id", user.getId()).findFirst();
+            removeUser.deleteFromRealm();
+            removeUser = null;
         });
     }
 
