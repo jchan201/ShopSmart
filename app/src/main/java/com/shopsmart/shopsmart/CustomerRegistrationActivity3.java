@@ -231,6 +231,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
 
         // Create user in database
         app.getEmailPassword().registerUserAsync(appUser.getEmail(), password, it -> {
+            Intent loginScreen = new Intent(CustomerRegistrationActivity3.this, StartupActivity.class);
             if (it.isSuccess()) {
                 Log.i("EXAMPLE", "Successfully registered user.");
 
@@ -247,13 +248,11 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
                     });
                     backgroundRealm.close();
                 });
-                //loginScreen.putExtra
+                loginScreen.putExtra("EXTRA_SIGNUP_SUCCESS", true);
             } else {
                 Log.e("EXAMPLE", "Failed to register user: " + it.getError().getErrorMessage());
-                Intent mainIntent = new Intent(this, SignupActivity.class);
-                mainIntent.putExtra("EXTRA_SIGNUP_SUCCESS", false);
-                startActivity(mainIntent);
             }
+            startActivity(loginScreen);
         });
     }
 
