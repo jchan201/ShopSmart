@@ -86,7 +86,7 @@
         android:id="@+id/textNameTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="74dp"
+        android:layout_marginTop="37dp"
         android:layout_marginLeft="32dp"
         android:text="Name: "
         android:textSize="15dp"
@@ -97,7 +97,7 @@
         android:id="@+id/textFName"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="27dp"
         android:layout_marginLeft="48dp"
         android:textSize="15dp"
         android:text="UNKNOWN"
@@ -109,7 +109,7 @@
         android:id="@+id/textMName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginLeft="48dp"
         android:textSize="15dp"
         android:text="UNKNOWN"
@@ -121,7 +121,7 @@
         android:id="@+id/textLName"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginLeft="48dp"
         android:textSize="15dp"
         android:text="UNKNOWN"
@@ -134,22 +134,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="33dp"
         android:text="Date of Birth: "
         android:textSize="15dp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/textLName" />
 
-<!--    <EditText-->
-<!--        android:id="@+id/textDOB"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="32dp"-->
-<!--        android:layout_marginLeft="5dp"-->
-<!--        android:textSize="15dp"-->
-<!--        android:text="UNKNOWN"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/textDOBTitle"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textLName" />-->
+    <TextView
+        android:id="@+id/textPhoneTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="42dp"
+        android:text="Phone No.: "
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="@+id/bodyView"
+        app:layout_constraintTop_toBottomOf="@+id/textDOBTitle" />
+
+    <EditText
+        android:id="@+id/textPhone"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="19dp"
+        android:layout_marginTop="16dp"
+        android:hint="Phone number"
+        android:text="UNKNOWN"
+        android:textSize="15dp"
+        app:layout_constraintStart_toEndOf="@+id/textPhoneTitle"
+        app:layout_constraintTop_toBottomOf="@+id/datePickerButton" />
 
     <Button
         android:id="@+id/datePickerButton"
@@ -161,8 +173,8 @@
         style="?android:spinnerStyle"
         app:layout_constraintStart_toEndOf="@+id/textDOBTitle"
         app:layout_constraintTop_toBottomOf="@+id/textLName"
-        android:layout_marginTop="25dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="5dp"
         android:onClick="openDatePicker"
         />
 

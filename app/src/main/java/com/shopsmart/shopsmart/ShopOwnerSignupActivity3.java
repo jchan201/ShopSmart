@@ -135,6 +135,7 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
         AppUser appUser = new AppUser("Owner", userFName, userMName, userLName,
                 calendar.get(Calendar.YEAR) - calendarDOB.get(Calendar.YEAR), userEmail, userPhone, userDOB);
         appUser.addPaymentMethod(createPaymentMethod());
+        appUser.addAddress(userAddress);
 
         // Create user in database
         app.getEmailPassword().registerUserAsync(appUser.getEmail(), userPass, it -> {

@@ -78,6 +78,7 @@ public class ShopOwnerDetailUpdateProfileActivity extends AppCompatActivity {
                 binding.textFName.setText(user.getFirstName());
                 binding.textMName.setText(user.getMiddleInitial());
                 binding.textLName.setText(user.getLastName());
+                binding.textPhone.setText(user.getPhone());
 
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(user.getBirthdate());
@@ -94,16 +95,16 @@ public class ShopOwnerDetailUpdateProfileActivity extends AppCompatActivity {
         });
 
         binding.btnCancel.setOnClickListener(view -> {
-                realm.close();
-                Intent intentToProfile = new Intent(ShopOwnerDetailUpdateProfileActivity.this, ShopOwnerProfileDetailActivity.class);
-                intentToProfile.putExtra("EXTRA_PASS", userPass);
-                intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
-                startActivity(intentToProfile);
-            }
+                    realm.close();
+                    Intent intentToProfile = new Intent(ShopOwnerDetailUpdateProfileActivity.this, ShopOwnerProfileDetailActivity.class);
+                    intentToProfile.putExtra("EXTRA_PASS", userPass);
+                    intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+                    startActivity(intentToProfile);
+                }
         );
 
         binding.btnSave.setOnClickListener(view -> {
-            if(validation()){
+            if (validation()) {
                 updateUser();
                 realm.close();
                 Intent intentToProfile = new Intent(ShopOwnerDetailUpdateProfileActivity.this, ShopOwnerProfileDetailActivity.class);
@@ -114,50 +115,17 @@ public class ShopOwnerDetailUpdateProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void updateUser(){
-        AppUser updateUser = new AppUser();
-        updateUser.setFirstName(binding.textFName.getText().toString());
-        updateUser.setMiddleInitial(binding.textMName.getText().toString());
-        updateUser.setLastName(binding.textLName.getText().toString());
-
-        updateUser.setUserType(user.getUserType());
-
-        try {
-            updateUser.setBirthdate(new SimpleDateFormat("MMM dd yyyy").parse(binding.datePickerButton.getText().toString()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        Calendar calendar = Calendar.getInstance();
-        Calendar calendarDOB = Calendar.getInstance();
-        calendarDOB.setTime(updateUser.getBirthdate());
-
-        updateUser.setAge(calendar.get(Calendar.YEAR) - calendarDOB.get(Calendar.YEAR));
-        updateUser.setEmail(user.getEmail());
-        updateUser.setPhone(user.getPhone());
-
-        for(int i = 0; i < user.getAddresses().size(); i++){
-            updateUser.addAddress(user.getAddresses().get(0));
-        }
-
-        for(int i = 0; i < user.getPaymentMethods().size(); i++){
-            updateUser.addPaymentMethod(user.getPaymentMethods().get(0));
-        }
-
-//        user.setFirstName(binding.textFName.getText().toString());
-//        user.setMiddleInitial(binding.textMName.getText().toString());
-//        user.setLastName(binding.textLName.getText().toString());
-//        try {
-//            user.setBirthdate(new SimpleDateFormat("MMM dd yyyy").parse(binding.datePickerButton.getText().toString()));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
+    private void updateUser() {
         realm.executeTransaction(transactionRealm -> {
-            transactionRealm.insertOrUpdate(updateUser);
-            AppUser removeUser = transactionRealm.where(AppUser.class).equalTo("_id", user.getId()).findFirst();
-            removeUser.deleteFromRealm();
-            removeUser = null;
+            user.setFirstName(binding.textFName.getText().toString());
+            user.setMiddleInitial(binding.textMName.getText().toString());
+            user.setLastName(binding.textLName.getText().toString());
+            user.setPhone(binding.textPhone.getText().toString());
+            try {
+                user.setBirthdate(new SimpleDateFormat("MMM dd yyyy").parse(binding.datePickerButton.getText().toString()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
     }
 
@@ -171,6 +139,11 @@ public class ShopOwnerDetailUpdateProfileActivity extends AppCompatActivity {
 
         if (this.binding.textLName.getText().toString().isEmpty()) {
             this.binding.textLName.setError("Last name cannot be empty");
+            valid = false;
+        }
+
+        if (this.binding.textPhone.getText().toString().isEmpty()) {
+            this.binding.textPhone.setError("Phone number cannot be empty");
             valid = false;
         }
 
