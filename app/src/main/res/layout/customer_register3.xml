@@ -271,6 +271,7 @@
         android:layout_marginHorizontal="12dp"
         android:layout_marginTop="12dp"
         android:maxLines="1"
+        android:inputType="text"
         android:hint="Country"
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
