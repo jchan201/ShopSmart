@@ -18,7 +18,6 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         com.shopsmart.shopsmart.databinding.ActivitySignupBinding binding = ActivitySignupBinding.inflate(getLayoutInflater());
-        //com.shopsmart.shopsmart.databinding.ActivitySignupBinding binding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Get Intent
@@ -29,20 +28,19 @@ public class SignupActivity extends AppCompatActivity {
             this.errorMessage = currIntent.getStringExtra("EXTRA_ERROR_MSG");
         }
 
-        if(!success){
-            binding.textError.setText("Failed to register user: "+errorMessage);
+        if (!success) {
+            binding.textError.setText("Failed to register user: " + errorMessage);
         }
 
         binding.btnCustomer.setOnClickListener(view -> {
             // Go to Customer Signup Activity
             // replace the ???
-            startActivity(new Intent(SignupActivity.this, CustomerDashboardActivity.class));
-            //startActivity(new Intent(SignupActivity.this, CustomerRegistrationActivity1.class));
+            //startActivity(new Intent(SignupActivity.this, CustomerDashboardActivity.class));
+            startActivity(new Intent(SignupActivity.this, CustomerRegistrationActivity1.class));
         });
 
         binding.btnShopOwner.setOnClickListener(view -> {
             // Go to Shop Owner Signup Activity
-            // replace the ???
             startActivity(new Intent(SignupActivity.this, ShopOwnerSignupActivity.class));
         });
     }

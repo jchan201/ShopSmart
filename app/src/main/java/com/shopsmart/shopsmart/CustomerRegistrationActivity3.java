@@ -227,10 +227,10 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         appUser.setUserType("Customer");
 
         appUser.addPaymentMethod(createPayment());
-        // TO-DO: NEED TO ADD PAYMENT INFORMATION
 
         // Create user in database
         app.getEmailPassword().registerUserAsync(appUser.getEmail(), password, it -> {
+            Intent loginScreen = new Intent(CustomerRegistrationActivity3.this, StartupActivity.class);
             if (it.isSuccess()) {
                 Log.i("EXAMPLE", "Successfully registered user.");
 
@@ -247,12 +247,11 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
                     });
                     backgroundRealm.close();
                 });
+                loginScreen.putExtra("EXTRA_SIGNUP_SUCCESS", true);
             } else {
                 Log.e("EXAMPLE", "Failed to register user: " + it.getError().getErrorMessage());
-                Intent mainIntent = new Intent(this, SignupActivity.class);
-                mainIntent.putExtra("EXTRA_SIGNUP_SUCCESS", false);
-                startActivity(mainIntent);
             }
+            startActivity(loginScreen);
         });
     }
 
@@ -261,7 +260,8 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         String cCardNum = this.binding.cCardNum.getText().toString();
 
         pMethod.setCardNumber(cCardNum);
-        pMethod.setExpiry(this.binding.expM + "/" + this.binding.expY);
+        pMethod.setName(this.binding.cCardName.getText().toString());
+        pMethod.setExpiry(this.binding.expM.getText().toString() + "/" + this.binding.expY.getText().toString());
         pMethod.setSecurityCode(this.binding.cCardCCV.getText().toString());
 
         Address cCardAddress = new Address();
@@ -270,6 +270,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         cCardAddress.setCity(this.binding.cCardCity.getText().toString());
         cCardAddress.setProvince(this.binding.provPicker3.getSelectedItem().toString());
         cCardAddress.setCountry("Canada");
+        cCardAddress.setPostalCode(this.binding.cCardPostalCode.getText().toString());
 
         pMethod.setBillingAddress(cCardAddress);
 
