@@ -110,7 +110,12 @@ public class StartupActivity extends AppCompatActivity {
                         switch (type) {
                             case "Customer":
                                 // putExtra?
-                                // startActivity(new Intent(StartupActivity.this, ???));
+                                Intent customerDashboardActivity = new Intent(StartupActivity.this, CustomerDashboardActivity.class);
+                                customerDashboardActivity.putExtra("EXTRA_PASS", password);
+                                customerDashboardActivity.putExtra("EXTRA_EMAIL", email);
+
+                                realm.close();
+                                startActivity(customerDashboardActivity);
                                 Log.v(PARTITION,"Successfully got to dashboard!");
                                 break;
                             case "Owner":

@@ -261,7 +261,8 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         String cCardNum = this.binding.cCardNum.getText().toString();
 
         pMethod.setCardNumber(cCardNum);
-        pMethod.setExpiry(this.binding.expM + "/" + this.binding.expY);
+        pMethod.setName(this.binding.cCardName.getText().toString());
+        pMethod.setExpiry(this.binding.expM.getText().toString() + "/" + this.binding.expY.getText().toString());
         pMethod.setSecurityCode(this.binding.cCardCCV.getText().toString());
 
         Address cCardAddress = new Address();
@@ -270,6 +271,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         cCardAddress.setCity(this.binding.cCardCity.getText().toString());
         cCardAddress.setProvince(this.binding.provPicker3.getSelectedItem().toString());
         cCardAddress.setCountry("Canada");
+        cCardAddress.setPostalCode(this.binding.cCardPostalCode.getText().toString());
 
         pMethod.setBillingAddress(cCardAddress);
 
