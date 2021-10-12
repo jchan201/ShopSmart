@@ -25,7 +25,10 @@
             android:name=".ShopOwnerProfileActivity"
             android:exported="true" />
         <activity
-            android:name=".ShopOwnerDetailActivity"
+            android:name=".ShopOwnerProfileDetailActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ShopOwnerDetailUpdateProfileActivity"
             android:exported="true" />
         <activity
             android:name=".ShopOwnerSignupActivity"

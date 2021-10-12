@@ -6,7 +6,6 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.shopsmart.shopsmart.databinding.ShopownerDashboardActivityBinding;
 import com.shopsmart.shopsmart.databinding.ShopownerDetailActivityBinding;
 
 import io.realm.Realm;
@@ -16,7 +15,7 @@ import io.realm.mongodb.AppConfiguration;
 import io.realm.mongodb.Credentials;
 import io.realm.mongodb.sync.SyncConfiguration;
 
-public class ShopOwnerDetailActivity extends AppCompatActivity {
+public class ShopOwnerProfileDetailActivity extends AppCompatActivity {
     private final String PARTITION = "ShopSmart";
     private ShopownerDetailActivityBinding binding;
     Intent currIntent;
@@ -71,19 +70,21 @@ public class ShopOwnerDetailActivity extends AppCompatActivity {
             }
         });
 
-//        binding.btnProfile.setOnClickListener(view -> {
-//            realm.close();
-//            Intent intentToProfile = new Intent(ShopOwnerDetailActivity.this, ShopOwnerProfileActivity.class);
-//            intentToProfile.putExtra("EXTRA_PASS", userPass);
-//            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
-//            startActivity(intentToProfile);
-//            finish();
-//        });
-//
-//        binding.btnLogout.setOnClickListener(view -> {
-//            realm.close();
-//            startActivity(new Intent(ShopOwnerDetailActivity.this, StartupActivity.class));
-//        });
+        binding.btnProfile.setOnClickListener(view -> {
+            realm.close();
+            Intent intentToProfile = new Intent(ShopOwnerProfileDetailActivity.this, ShopOwnerDetailUpdateProfileActivity.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+            startActivity(intentToProfile);
+        });
+
+        binding.btnBack.setOnClickListener(view -> {
+            realm.close();
+            Intent intentToBack = new Intent(ShopOwnerProfileDetailActivity.this, ShopOwnerProfileActivity.class);
+            intentToBack.putExtra("EXTRA_PASS", userPass);
+            intentToBack.putExtra("EXTRA_EMAIL", userEmail);
+            startActivity(intentToBack);
+        });
     }
 
     @Override
