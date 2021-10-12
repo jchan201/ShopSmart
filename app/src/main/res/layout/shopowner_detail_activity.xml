@@ -148,7 +148,7 @@
         android:textSize="15dp"
         android:text="Date of Birth: "
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/textEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/textEmailTitle" />
 
     <TextView
         android:id="@+id/textDOB"
@@ -159,6 +159,28 @@
         android:textSize="15dp"
         android:text="UNKNOWN"
         app:layout_constraintStart_toEndOf="@+id/textDOBTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textEmailTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/textEmail" />
+
+    <TextView
+        android:id="@+id/textPhoneTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="32dp"
+        android:textSize="15dp"
+        android:text="Phone number: "
+        app:layout_constraintStart_toStartOf="@+id/bodyView"
+        app:layout_constraintTop_toBottomOf="@+id/textDOBTitle" />
+
+    <TextView
+        android:id="@+id/textPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="5dp"
+        android:textSize="15dp"
+        android:text="UNKNOWN"
+        app:layout_constraintStart_toEndOf="@+id/textPhoneTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textDOB" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
