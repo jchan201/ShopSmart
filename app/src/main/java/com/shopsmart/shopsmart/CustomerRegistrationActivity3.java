@@ -227,7 +227,6 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         appUser.setUserType("Customer");
 
         appUser.addPaymentMethod(createPayment());
-        // TO-DO: NEED TO ADD PAYMENT INFORMATION
 
         // Create user in database
         app.getEmailPassword().registerUserAsync(appUser.getEmail(), password, it -> {
