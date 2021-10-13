@@ -3,6 +3,7 @@ package com.shopsmart.shopsmart;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -44,6 +45,10 @@ public class ShopOwnerProfileDetailActivity extends AppCompatActivity {
         if (this.currIntent != null) {
             this.userEmail = currIntent.getStringExtra("EXTRA_EMAIL");
             this.userPass = currIntent.getStringExtra("EXTRA_PASS");
+
+            boolean success = currIntent.getBooleanExtra("EXTRA_RESET_PASSWORD_SUCCESS", false);
+            if (success)
+                Toast.makeText(ShopOwnerProfileDetailActivity.this, "Successfully reset password.", Toast.LENGTH_SHORT).show();
         }
 
         Credentials credentials = Credentials.emailPassword(userEmail, userPass);
@@ -74,6 +79,14 @@ public class ShopOwnerProfileDetailActivity extends AppCompatActivity {
         binding.btnProfile.setOnClickListener(view -> {
             realm.close();
             Intent intentToProfile = new Intent(ShopOwnerProfileDetailActivity.this, ShopOwnerDetailUpdateProfileActivity.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+            startActivity(intentToProfile);
+        });
+
+        binding.btnResetPassword.setOnClickListener(view -> {
+            realm.close();
+            Intent intentToProfile = new Intent(ShopOwnerProfileDetailActivity.this, ShopOwnerDetailResetPasswordActivity.class);
             intentToProfile.putExtra("EXTRA_PASS", userPass);
             intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
             startActivity(intentToProfile);

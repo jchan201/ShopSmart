@@ -31,6 +31,9 @@
             android:name=".ShopOwnerDetailUpdateProfileActivity"
             android:exported="true" />
         <activity
+            android:name=".ShopOwnerDetailResetPasswordActivity"
+            android:exported="true" />
+        <activity
             android:name=".ShopOwnerSignupActivity"
             android:exported="true" />
         <activity

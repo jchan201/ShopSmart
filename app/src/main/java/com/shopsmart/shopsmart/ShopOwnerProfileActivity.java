@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.shopsmart.shopsmart.databinding.ShopownerProfilePageActivityBinding;
 
 public class ShopOwnerProfileActivity extends AppCompatActivity {
-    private final String PARTITION = "ShopSmart";
     Intent currIntent;
 
     String userEmail;
