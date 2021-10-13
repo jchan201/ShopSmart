@@ -111,8 +111,8 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
                 case R.id.finishButton:{
                     if (this.validateData()) {
                         this.createUser();
-                        Intent CRegister3 = new Intent(this, StartupActivity.class);
-                        startActivity(CRegister3);
+                        //Intent CRegister3 = new Intent(this, StartupActivity.class);
+                        //startActivity(CRegister3);
                         break;
                     }
                 }

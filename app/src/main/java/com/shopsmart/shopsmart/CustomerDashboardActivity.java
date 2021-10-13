@@ -84,6 +84,8 @@ public class CustomerDashboardActivity extends AppCompatActivity {
         switch(item.getItemId()){
             case R.id.Profile:
                 Intent settingsIntent = new Intent(this, CustomerProfileActivity.class);
+                settingsIntent.putExtra("EXTRA_EMAIL", userEmail);
+                settingsIntent.putExtra("EXTRA_PASS", userPass);
                 Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
                 startActivity(settingsIntent);
                 break;

@@ -12,11 +12,22 @@ import com.shopsmart.shopsmart.databinding.CustomerProfileBinding;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class CustomerProfileActivity extends AppCompatActivity {
+    private final String PARTITION = "ShopSmart";
+    private CustomerProfileBinding binding;
+    Intent currentIntent;
 
-CustomerProfileBinding binding;
+    String userEmail;
+    String userPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        this.currentIntent = this.getIntent();
+
+        if(this.currentIntent != null){
+            this.userEmail = currentIntent.getStringExtra("EXTRA_EMAIL");
+            this.userPass = currentIntent.getStringExtra("EXTRA_PASS");
+        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.customer_profile);
@@ -36,9 +47,12 @@ CustomerProfileBinding binding;
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
             case R.id.menuHome:
-                Intent homeIntent = new Intent(this, CustomerDashboardActivity.class);
-                startActivity(homeIntent);
+                Intent homeIntent = new Intent(CustomerProfileActivity.this, CustomerDashboardActivity.class);
+                homeIntent.putExtra("EXTRA_EMAIL", userEmail);
+                homeIntent.putExtra("EXTRA_PASS", userPass);
                 Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
+                startActivity(homeIntent);
+                break;
         }
 
         return true;
