@@ -56,13 +56,13 @@ public class CustomerProfileActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
             case R.id.menuHome:
-                realm.close();
+                //realm.close();
                 Intent homeIntent = new Intent(CustomerProfileActivity.this, CustomerDashboardActivity.class);
                 homeIntent.putExtra("EXTRA_EMAIL", userEmail);
                 homeIntent.putExtra("EXTRA_PASS", userPass);
                 //Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
                 startActivity(homeIntent);
-                break;
+                //break;
         }
 
         return true;

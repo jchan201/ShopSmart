@@ -89,7 +89,7 @@ public class CustomerDashboardActivity extends AppCompatActivity {
                 settingsIntent.putExtra("EXTRA_PASS", userPass);
                 Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
                 startActivity(settingsIntent);
-                break;
+                finish();
         }
         return true;
     }
