@@ -72,7 +72,8 @@ public class CustomerProfileActivity extends AppCompatActivity {
                     }
                 }
                 binding.fullName.setText(user.getFirstName() + " " + user.getMiddleInitial() + " " + user.getLastName());
-                Address userAddress;
+                binding.queryCity.setText(user.getAddress().getCity());
+
 
 
             }
