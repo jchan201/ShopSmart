@@ -20,7 +20,7 @@ public class AppUser extends RealmObject {
     @Required private String email;
     private String phone = "";
     @Required private Date birthdate;
-    private final RealmList<Address> addresses = new RealmList<>();
+    private Address address;
     private final RealmList<PaymentMethod> paymentMethods = new RealmList<>();
     private final RealmList<BankInformation> bankInfo = new RealmList<>();
     private RealmList<ProductItem> shoppingCart;
@@ -113,20 +113,17 @@ public class AppUser extends RealmObject {
         return strDate;
     }
 
-    public RealmList<Address> getAddresses() {
-        return addresses;
+    public Address getAddress() {
+        return address;
     }
     public void addOrUpdateAddress(Address address) {
-        if (addresses.size() < 1) addresses.add(address);
-        else {
-            Address a = addresses.get(0);
-            a.setAddress1(address.getAddress1());
-            a.setAddress2(address.getAddress2());
-            a.setCountry(address.getCountry());
-            a.setProvince(address.getProvince());
-            a.setCity(address.getCity());
-            a.setPostalCode(address.getPostalCode());
-        }
+        Address a = this.address;
+        a.setAddress1(address.getAddress1());
+        a.setAddress2(address.getAddress2());
+        a.setCountry(address.getCountry());
+        a.setProvince(address.getProvince());
+        a.setCity(address.getCity());
+        a.setPostalCode(address.getPostalCode());
     }
 
     public RealmList<PaymentMethod> getPaymentMethods() {
