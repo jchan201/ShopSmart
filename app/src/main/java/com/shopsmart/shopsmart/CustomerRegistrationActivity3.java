@@ -208,6 +208,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         appUser.setMiddleInitial(this.currentIntent.getStringExtra("EXTRA_MNAME"));
         appUser.setLastName(this.currentIntent.getStringExtra("EXTRA_LNAME"));
         appUser.setPhone(this.currentIntent.getStringExtra("EXTRA_PHONE"));
+        Log.v(PARTITION, userAddress.getAddress1());
         appUser.addOrUpdateAddress(this.userAddress);
 
         try {

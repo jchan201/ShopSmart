@@ -20,7 +20,7 @@ public class AppUser extends RealmObject {
     @Required private String email;
     private String phone = "";
     @Required private Date birthdate;
-    private Address address;
+    private Address address = new Address();
     private final RealmList<PaymentMethod> paymentMethods = new RealmList<>();
     private final RealmList<BankInformation> bankInfo = new RealmList<>();
     private RealmList<ProductItem> shoppingCart;
