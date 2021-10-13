@@ -2,7 +2,6 @@ package com.shopsmart.shopsmart;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.BoringLayout;
 import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,7 +14,6 @@ import java.util.Date;
 import io.realm.Realm;
 import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
-import io.realm.mongodb.AppException;
 import io.realm.mongodb.Credentials;
 import io.realm.mongodb.sync.SyncConfiguration;
 
@@ -135,6 +133,7 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
         AppUser appUser = new AppUser("Owner", userFName, userMName, userLName,
                 calendar.get(Calendar.YEAR) - calendarDOB.get(Calendar.YEAR), userEmail, userPhone, userDOB);
         appUser.addPaymentMethod(createPaymentMethod());
+        appUser.addOrUpdateAddress(userAddress);
 
         // Create user in database
         app.getEmailPassword().registerUserAsync(appUser.getEmail(), userPass, it -> {

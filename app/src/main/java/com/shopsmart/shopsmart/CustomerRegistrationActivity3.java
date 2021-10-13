@@ -3,7 +3,6 @@ package com.shopsmart.shopsmart;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Telephony;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,7 +21,6 @@ import java.util.Date;
 import io.realm.Realm;
 import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
-import io.realm.mongodb.AppException;
 import io.realm.mongodb.Credentials;
 import io.realm.mongodb.sync.SyncConfiguration;
 
@@ -210,7 +208,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         appUser.setMiddleInitial(this.currentIntent.getStringExtra("EXTRA_MNAME"));
         appUser.setLastName(this.currentIntent.getStringExtra("EXTRA_LNAME"));
         appUser.setPhone(this.currentIntent.getStringExtra("EXTRA_PHONE"));
-        appUser.addAddress(this.userAddress);
+        appUser.addOrUpdateAddress(this.userAddress);
 
         try {
             this.userDOB = new SimpleDateFormat("MMM dd yyyy").parse(currentIntent.getStringExtra("EXTRA_DATE"));

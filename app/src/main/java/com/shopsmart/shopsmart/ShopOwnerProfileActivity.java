@@ -2,14 +2,12 @@ package com.shopsmart.shopsmart;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.ShopownerProfilePageActivityBinding;
 
 public class ShopOwnerProfileActivity extends AppCompatActivity {
-    private final String PARTITION = "ShopSmart";
     Intent currIntent;
 
     String userEmail;
@@ -30,7 +28,7 @@ public class ShopOwnerProfileActivity extends AppCompatActivity {
         }
 
         binding.btnPersonalInfo.setOnClickListener(view -> {
-            Intent intentToProfile = new Intent(ShopOwnerProfileActivity.this, ShopOwnerDetailActivity.class);
+            Intent intentToProfile = new Intent(ShopOwnerProfileActivity.this, ShopOwnerProfileDetailActivity.class);
             intentToProfile.putExtra("EXTRA_PASS", userPass);
             intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
             startActivity(intentToProfile);

@@ -3,10 +3,10 @@ package com.shopsmart.shopsmart;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.shopsmart.shopsmart.databinding.ShopownerDashboardActivityBinding;
 import com.shopsmart.shopsmart.databinding.ShopownerDetailActivityBinding;
 
 import io.realm.Realm;
@@ -16,7 +16,7 @@ import io.realm.mongodb.AppConfiguration;
 import io.realm.mongodb.Credentials;
 import io.realm.mongodb.sync.SyncConfiguration;
 
-public class ShopOwnerDetailActivity extends AppCompatActivity {
+public class ShopOwnerProfileDetailActivity extends AppCompatActivity {
     private final String PARTITION = "ShopSmart";
     private ShopownerDetailActivityBinding binding;
     Intent currIntent;
@@ -45,6 +45,10 @@ public class ShopOwnerDetailActivity extends AppCompatActivity {
         if (this.currIntent != null) {
             this.userEmail = currIntent.getStringExtra("EXTRA_EMAIL");
             this.userPass = currIntent.getStringExtra("EXTRA_PASS");
+
+            boolean success = currIntent.getBooleanExtra("EXTRA_RESET_PASSWORD_SUCCESS", false);
+            if (success)
+                Toast.makeText(ShopOwnerProfileDetailActivity.this, "Successfully reset password.", Toast.LENGTH_SHORT).show();
         }
 
         Credentials credentials = Credentials.emailPassword(userEmail, userPass);
@@ -68,22 +72,33 @@ public class ShopOwnerDetailActivity extends AppCompatActivity {
                 binding.textEmail.setText(user.getEmail());
                 binding.textName.setText(user.getFirstName() + " " + user.getMiddleInitial() + ". " + user.getLastName());
                 binding.textDOB.setText(user.getBirthdateString());
+                binding.textPhone.setText(user.getPhone());
             }
         });
 
-//        binding.btnProfile.setOnClickListener(view -> {
-//            realm.close();
-//            Intent intentToProfile = new Intent(ShopOwnerDetailActivity.this, ShopOwnerProfileActivity.class);
-//            intentToProfile.putExtra("EXTRA_PASS", userPass);
-//            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
-//            startActivity(intentToProfile);
-//            finish();
-//        });
-//
-//        binding.btnLogout.setOnClickListener(view -> {
-//            realm.close();
-//            startActivity(new Intent(ShopOwnerDetailActivity.this, StartupActivity.class));
-//        });
+        binding.btnProfile.setOnClickListener(view -> {
+            realm.close();
+            Intent intentToProfile = new Intent(ShopOwnerProfileDetailActivity.this, ShopOwnerDetailUpdateProfileActivity.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+            startActivity(intentToProfile);
+        });
+
+        binding.btnResetPassword.setOnClickListener(view -> {
+            realm.close();
+            Intent intentToProfile = new Intent(ShopOwnerProfileDetailActivity.this, ShopOwnerDetailResetPasswordActivity.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+            startActivity(intentToProfile);
+        });
+
+        binding.btnBack.setOnClickListener(view -> {
+            realm.close();
+            Intent intentToBack = new Intent(ShopOwnerProfileDetailActivity.this, ShopOwnerProfileActivity.class);
+            intentToBack.putExtra("EXTRA_PASS", userPass);
+            intentToBack.putExtra("EXTRA_EMAIL", userEmail);
+            startActivity(intentToBack);
+        });
     }
 
     @Override
