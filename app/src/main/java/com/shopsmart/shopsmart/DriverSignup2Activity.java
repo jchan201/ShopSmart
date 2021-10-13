@@ -2,12 +2,10 @@ package com.shopsmart.shopsmart;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.DatePicker;
 
 import com.shopsmart.shopsmart.databinding.ActivityDriverSignup2Binding;
 
@@ -128,7 +126,7 @@ public class DriverSignup2Activity extends AppCompatActivity implements View.OnC
                         address.setCity(this.binding.editCity.getText().toString());
                         address.setProvince(this.binding.spinnerProvince.getSelectedItem().toString());
                         address.setPostalCode(this.binding.editZipCode.getText().toString());
-                        this.appUser.addAddress(address);
+                        this.appUser.addOrUpdateAddress(address);
 
                         Intent nextSignUpScreen = new Intent(this, DriverSignup3Activity.class);
                         //nextSignUpScreen.putExtra("EXTRA_APPUSER_OBJ", this.appUser);
