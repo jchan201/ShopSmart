@@ -78,11 +78,24 @@ public class CustomerProfileActivity extends AppCompatActivity {
                     }
                 }
                 binding.fullName.setText(user.getFirstName() + " " + user.getMiddleInitial() + " " + user.getLastName());
+                binding.firstName.setText(user.getFirstName());
+                binding.middleName.setText(user.getMiddleInitial());
+                binding.lastName.setText(user.getLastName());
+
                 binding.queryCity.setText(user.getAddress().getCity());
+                binding.city1.setText(user.getAddress().getCity());
+
                 binding.queryAddress1.setText(user.getAddress().getAddress1());
+                binding.addressLine1.setText(user.getAddress().getAddress1());
                 binding.queryAddress2.setText(user.getAddress().getAddress2());
+                binding.addressLine2.setText(user.getAddress().getAddress2());
+
                 binding.queryCountry.setText(user.getAddress().getCountry());
+                binding.userCountry.setText("Canada");
+
                 binding.queryPhoneNum.setText(user.getPhone());
+                binding.inputPhoneNumber.setText(user.getPhone());
+
                 binding.queryDob.setText(user.getBirthdateString());
                 binding.queryPostalCode.setText(user.getAddress().getPostalCode());
 
@@ -99,8 +112,12 @@ public class CustomerProfileActivity extends AppCompatActivity {
             }
         });
 
-        binding.applyButton.setOnClickListener(view->{
-
+        binding.cancelButton.setOnClickListener(view->{
+            realm.close();
+            Intent cancelIntent = new Intent(CustomerProfileActivity.this, CustomerProfileActivity.class);
+            cancelIntent.putExtra("EXTRA_EMAIL", userEmail);
+            cancelIntent.putExtra("EXTRA_PASS", userPass);
+            startActivity(cancelIntent);
         });
 
         binding.editAddress.setOnClickListener(view->{
@@ -162,7 +179,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
                     user.getAddress().setAddress1(binding.addressLine1.getText().toString());
                     user.getAddress().setAddress2(binding.addressLine2.getText().toString());
                     //Address City dob country name pCode prov phone)
-            }
+                }
                 if(cityEdit)
                     user.getAddress().setCity(binding.city1.getText().toString());
 
@@ -173,12 +190,11 @@ public class CustomerProfileActivity extends AppCompatActivity {
 
                 if(countryEdit)
                     user.getAddress().setCountry("Canada");
-                });
 
                 if(nameEdit){
                     user.setFirstName(binding.firstName.getText().toString());
-                    //user.setMiddleInitial(binding.middleName.getText().toString());
-                    //user.setLastName(binding.lastName.getText().toString());
+                    user.setMiddleInitial(binding.middleName.getText().toString());
+                    user.setLastName(binding.lastName.getText().toString());
                 }
 
                 if(pCodeEdit){
@@ -188,6 +204,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
                 if(phoneEdit){
                     user.setPhone(binding.inputPhoneNumber.getText().toString());
                 }
+                });
             }
         });
 
