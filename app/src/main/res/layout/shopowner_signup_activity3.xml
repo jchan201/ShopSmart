@@ -56,6 +56,23 @@
         />
 
     <EditText
+        android:id="@+id/edtTextCardName"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/basic_rectangle"
+        android:ems="10"
+        android:hint="NAME ON CARD"
+        android:inputType="textPersonName"
+        android:padding="8dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:maxLength="16"
+        app:layout_constraintEnd_toEndOf="@+id/bodyView"
+        app:layout_constraintStart_toStartOf="@+id/bodyView"
+        app:layout_constraintTop_toBottomOf="@+id/textPaymentTitle" />
+
+    <EditText
         android:id="@+id/edtTextCardNum"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
@@ -70,7 +87,7 @@
         android:maxLength="16"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/textPaymentTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/edtTextCardName" />
 
     <TextView
         android:id="@+id/textViewExpiryDate"
