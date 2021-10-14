@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.shopsmart.shopsmart.databinding.ShopownerProfileAddressActivityBinding;
 import com.shopsmart.shopsmart.databinding.ShopownerProfilePageActivityBinding;
 
 public class ShopOwnerProfileActivity extends AppCompatActivity {
@@ -29,6 +30,13 @@ public class ShopOwnerProfileActivity extends AppCompatActivity {
 
         binding.btnPersonalInfo.setOnClickListener(view -> {
             Intent intentToProfile = new Intent(ShopOwnerProfileActivity.this, ShopOwnerProfileDetailActivity.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+            startActivity(intentToProfile);
+        });
+
+        binding.btnAddresses.setOnClickListener(view -> {
+            Intent intentToProfile = new Intent(ShopOwnerProfileActivity.this, ShopOwnerProfileAddressActivity.class);
             intentToProfile.putExtra("EXTRA_PASS", userPass);
             intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
             startActivity(intentToProfile);

@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.ShopownerDetailActivityBinding;
+import com.shopsmart.shopsmart.databinding.ShopownerProfileAddressActivityBinding;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -16,9 +17,9 @@ import io.realm.mongodb.AppConfiguration;
 import io.realm.mongodb.Credentials;
 import io.realm.mongodb.sync.SyncConfiguration;
 
-public class ShopOwnerProfileDetailActivity extends AppCompatActivity {
+public class ShopOwnerProfileAddressActivity extends AppCompatActivity {
     private final String PARTITION = "ShopSmart";
-    private ShopownerDetailActivityBinding binding;
+    private ShopownerProfileAddressActivityBinding binding;
     Intent currIntent;
 
     String userEmail;
@@ -29,11 +30,12 @@ public class ShopOwnerProfileDetailActivity extends AppCompatActivity {
     private Realm realm;
 
     AppUser user;
+    Address address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ShopownerDetailActivityBinding.inflate(getLayoutInflater());
+        binding = ShopownerProfileAddressActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Access realm
@@ -46,9 +48,9 @@ public class ShopOwnerProfileDetailActivity extends AppCompatActivity {
             this.userEmail = currIntent.getStringExtra("EXTRA_EMAIL");
             this.userPass = currIntent.getStringExtra("EXTRA_PASS");
 
-            boolean success = currIntent.getBooleanExtra("EXTRA_RESET_PASSWORD_SUCCESS", false);
+            boolean success = currIntent.getBooleanExtra("EXTRA_UPDATE_ADDRESS_SUCCESS", false);
             if (success)
-                Toast.makeText(ShopOwnerProfileDetailActivity.this, "Successfully reset password.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ShopOwnerProfileAddressActivity.this, "Successfully update address.", Toast.LENGTH_SHORT).show();
         }
 
         Credentials credentials = Credentials.emailPassword(userEmail, userPass);
@@ -69,35 +71,27 @@ public class ShopOwnerProfileDetailActivity extends AppCompatActivity {
                         user = users.get(i);
                     }
                 }
-                binding.textEmail.setText(user.getEmail());
-                binding.textName.setText(user.getFirstName() + " " + user.getMiddleInitial() + ". " + user.getLastName());
-                binding.textDOB.setText(user.getBirthdateString());
-                binding.textPhone.setText(user.getPhone());
-            }
-            else{
-                Log.v("LOGIN", "Failed to authenticate using email and password.");
+
+                address = user.getAddress();
+                binding.textCity.setText(address.getCity());
+                binding.textProvince.setText(address.getProvince());
+                binding.textZipCode.setText(address.getPostalCode());
+                binding.textAddLine1.setText(address.getAddress1());
+                binding.textAddLine2.setText(address.getAddress2());
             }
         });
 
-        binding.btnProfile.setOnClickListener(view -> {
-            realm.close();
-            Intent intentToProfile = new Intent(ShopOwnerProfileDetailActivity.this, ShopOwnerDetailUpdateProfileActivity.class);
-            intentToProfile.putExtra("EXTRA_PASS", userPass);
-            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
-            startActivity(intentToProfile);
-        });
-
-        binding.btnResetPassword.setOnClickListener(view -> {
-            realm.close();
-            Intent intentToProfile = new Intent(ShopOwnerProfileDetailActivity.this, ShopOwnerDetailResetPasswordActivity.class);
-            intentToProfile.putExtra("EXTRA_PASS", userPass);
-            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
-            startActivity(intentToProfile);
-        });
+//        binding.btnUpdate.setOnClickListener(view -> {
+//            realm.close();
+//            Intent intentToProfile = new Intent(ShopOwnerProfileAddressActivity.this, ShopOwnerDetailUpdateProfileActivity.class);
+//            intentToProfile.putExtra("EXTRA_PASS", userPass);
+//            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+//            startActivity(intentToProfile);
+//        });
 
         binding.btnBack.setOnClickListener(view -> {
             realm.close();
-            Intent intentToBack = new Intent(ShopOwnerProfileDetailActivity.this, ShopOwnerProfileActivity.class);
+            Intent intentToBack = new Intent(ShopOwnerProfileAddressActivity.this, ShopOwnerProfileActivity.class);
             intentToBack.putExtra("EXTRA_PASS", userPass);
             intentToBack.putExtra("EXTRA_EMAIL", userEmail);
             startActivity(intentToBack);
