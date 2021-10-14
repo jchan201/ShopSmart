@@ -11,6 +11,7 @@
     <item
         android:title="Home"
         android:id="@+id/menuHome"
+        android:icon="@drawable/toolbar_home"
         app:showAsAction="ifRoom"
         />
     <item android:id="@+id/Profile"

@@ -47,7 +47,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         binding = CustomerProfileBinding.inflate(getLayoutInflater());
-        setContentView(R.layout.customer_profile);
+        setContentView(binding.getRoot());
 
         app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
 
@@ -84,6 +84,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
                 binding.queryCountry.setText(user.getAddress().getCountry());
                 binding.queryPhoneNum.setText(user.getPhone());
                 binding.queryDob.setText(user.getBirthdateString());
+
                 //Calendar cal = Calendar.getInstance();
                 //cal.setTime(user.getBirthdate());
                 //int calY = cal.get(Calendar.YEAR);
@@ -155,6 +156,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
 
         binding.applyButton.setOnClickListener(view -> {
             if(validation()) {
+                realm.executeTransaction(transactionRealm -> {
                 if(addressEdit){
                     user.getAddress().setAddress1(binding.addressLine1.getText().toString());
                     user.getAddress().setAddress2(binding.addressLine2.getText().toString());
@@ -166,12 +168,25 @@ public class CustomerProfileActivity extends AppCompatActivity {
                 if(dobEdit){
                     Calendar cal = Calendar.getInstance();
                             cal.setTime(user.getBirthdate());
-
                 }
 
                 if(countryEdit)
                     user.getAddress().setCountry("Canada");
+                });
 
+                if(nameEdit){
+                    user.setFirstName(binding.firstName.getText().toString());
+                    user.setMiddleInitial(binding.middleName.getText().toString());
+                    user.setLastName(binding.lastName.getText().toString());
+                }
+
+                if(pCodeEdit){
+                    user.getAddress().setPostalCode(binding.userPostalCode.getText().toString());
+
+                }
+                if(phoneEdit){
+                    user.setPhone(binding.inputPhoneNumber.getText().toString());
+                }
             }
         });
 

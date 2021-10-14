@@ -84,10 +84,10 @@ public class CustomerDashboardActivity extends AppCompatActivity {
         switch(item.getItemId()){
             case R.id.Profile:
                 realm.close();
-                Intent settingsIntent = new Intent(this, CustomerProfileActivity.class);
+                Intent settingsIntent = new Intent(CustomerDashboardActivity.this, CustomerProfileActivity.class);
                 settingsIntent.putExtra("EXTRA_EMAIL", userEmail);
                 settingsIntent.putExtra("EXTRA_PASS", userPass);
-                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CustomerDashboardActivity.this, "Profile", Toast.LENGTH_SHORT).show();
                 startActivity(settingsIntent);
                 finish();
         }
