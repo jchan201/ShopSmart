@@ -19,7 +19,7 @@
         android:textColor="@color/black"
         android:textSize="22dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
@@ -71,22 +71,21 @@
         android:layout_height="211dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:layout_constraintVertical_bias="0.948">
+        app:layout_constraintVertical_bias="0.985">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:padding="0dp"
             tools:context=".CustomerDashboardActivity">
 
             <TextView
                 android:id="@+id/sampleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" Sample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text"
+                android:text="NOT YET IMPLEMENTED\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"

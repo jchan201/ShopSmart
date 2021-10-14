@@ -15,6 +15,8 @@ import com.shopsmart.shopsmart.databinding.CustomerProfileBinding;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Calendar;
+
 import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmResults;
@@ -37,6 +39,8 @@ public class CustomerProfileActivity extends AppCompatActivity {
 
     AppUser user;
 
+    boolean nameEdit = false, phoneEdit = false, cityEdit = false, addressEdit = false, provinceEdit = false, countryEdit = false, dobEdit = false, pCodeEdit = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -52,6 +56,8 @@ public class CustomerProfileActivity extends AppCompatActivity {
         if(this.currentIntent != null){
             this.userEmail = currentIntent.getStringExtra("EXTRA_EMAIL");
             this.userPass = currentIntent.getStringExtra("EXTRA_PASS");
+
+
         }
 
         Credentials credentials = Credentials.emailPassword(userEmail, userPass);
@@ -73,14 +79,125 @@ public class CustomerProfileActivity extends AppCompatActivity {
                 }
                 binding.fullName.setText(user.getFirstName() + " " + user.getMiddleInitial() + " " + user.getLastName());
                 binding.queryCity.setText(user.getAddress().getCity());
-
-
+                binding.queryAddress1.setText(user.getAddress().getAddress1());
+                binding.queryAddress2.setText(user.getAddress().getAddress2());
+                binding.queryCountry.setText(user.getAddress().getCountry());
+                binding.queryPhoneNum.setText(user.getPhone());
+                binding.queryDob.setText(user.getBirthdateString());
+                //Calendar cal = Calendar.getInstance();
+                //cal.setTime(user.getBirthdate());
+                //int calY = cal.get(Calendar.YEAR);
+                //int calM = cal.get(Calendar.MONTH);
+                //int calD = cal.get(Calendar.DAY_OF_MONTH);
+//
+                //binding.queryDob.setText(makeDateString(calD, calM, calY));
+                //DatePickerDialog.OnDateSetListener dsl =
+                //        ((datePicker, year, month, day) -> binding.)
 
             }
         });
 
+        binding.applyButton.setOnClickListener(view->{
+
+        });
+
+        binding.editAddress.setOnClickListener(view->{
+            binding.queryAddress1.setVisibility(View.INVISIBLE);
+            binding.queryAddress2.setVisibility(View.INVISIBLE);
+            binding.addressLine1.setVisibility(View.VISIBLE);
+            binding.addressLine2.setVisibility(View.VISIBLE);
+            addressEdit = true;
+        });
+
+        binding.editCity.setOnClickListener(view->{
+            binding.city1.setVisibility(View.VISIBLE);
+            binding.queryCity.setVisibility(View.INVISIBLE);
+            cityEdit = true;
+        });
+
+        binding.editCountry.setOnClickListener(view->{
+            binding.queryCity.setVisibility(View.INVISIBLE);
+            binding.city1.setVisibility(View.VISIBLE);
+            countryEdit = true;
+        });
+
+        binding.editDob.setOnClickListener(view->{
+            binding.dobProfile.setVisibility(View.VISIBLE);
+            binding.queryDob.setVisibility(View.INVISIBLE);
+            dobEdit = true;
+        });
+
+        binding.editFullName.setOnClickListener(view->{
+            binding.fullName.setVisibility(View.INVISIBLE);
+            binding.firstName.setVisibility(View.VISIBLE);
+            binding.middleName.setVisibility(View.VISIBLE);
+            binding.lastName.setVisibility(View.VISIBLE);
+            nameEdit = true;
+        });
+
+        binding.editPCode.setOnClickListener(view->{
+            binding.queryPostalCode.setVisibility(View.INVISIBLE);
+            binding.userPostalCode.setVisibility(View.VISIBLE);
+            pCodeEdit = true;
+        });
+
+        binding.editProvince.setOnClickListener(view->{
+            binding.queryProvince.setVisibility(View.INVISIBLE);
+            binding.provPickerProfile.setVisibility(View.VISIBLE);
+            provinceEdit = true;
+        });
+
+        binding.editPhoneNum.setOnClickListener(view->{
+            binding.queryPhoneNum.setVisibility(View.INVISIBLE);
+            binding.inputPhoneNumber.setVisibility(View.VISIBLE);
+            phoneEdit = true;
+        });
+
+        binding.applyButton.setOnClickListener(view -> {
+            if(validation()) {
+                if(addressEdit){
+                    user.getAddress().setAddress1(binding.addressLine1.getText().toString());
+                    user.getAddress().setAddress2(binding.addressLine2.getText().toString());
+                    //Address City dob country name pCode prov phone)
+            }
+                if(cityEdit)
+                    user.getAddress().setCity(binding.city1.getText().toString());
+
+                if(dobEdit){
+                    Calendar cal = Calendar.getInstance();
+                            cal.setTime(user.getBirthdate());
+
+                }
+
+                if(countryEdit)
+                    user.getAddress().setCountry("Canada");
+
+            }
+        });
+
+        binding.cancelButton.setOnClickListener(view -> {
+            realm.close();
+            Intent goBack = new Intent(CustomerProfileActivity.this, CustomerDashboardActivity.class);
+            goBack.putExtra("EXTRA_PASS", userPass);
+            goBack.putExtra("EXTRA_EMAIL", userEmail);
+            startActivity(goBack);
+        });
+
         //Toolbar toolbar = findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
+    }
+
+    private boolean validation(){
+        boolean valid = true;
+
+        return valid;
+    }
+
+    private void updateUser(){
+        realm.executeTransaction(transactionRealm ->{
+            user.setFirstName(binding.firstName.getText().toString());
+            user.setMiddleInitial(binding.middleName.getText().toString());
+        });
     }
 
     @Override
@@ -101,6 +218,12 @@ public class CustomerProfileActivity extends AppCompatActivity {
                 //Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
                 startActivity(homeIntent);
                 //break;
+            case R.id.btn_back:
+                realm.close();
+                Intent goBack = new Intent(CustomerProfileActivity.this, CustomerDashboardActivity.class);
+                goBack.putExtra("EXTRA_EMAIL", userEmail);
+                goBack.putExtra("EXTRA_PASS", userPass);
+                startActivity(goBack);
         }
 
         return true;
