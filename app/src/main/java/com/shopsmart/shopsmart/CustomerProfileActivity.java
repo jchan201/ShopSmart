@@ -84,6 +84,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
                 binding.queryCountry.setText(user.getAddress().getCountry());
                 binding.queryPhoneNum.setText(user.getPhone());
                 binding.queryDob.setText(user.getBirthdateString());
+                binding.queryPostalCode.setText(user.getAddress().getPostalCode());
 
                 //Calendar cal = Calendar.getInstance();
                 //cal.setTime(user.getBirthdate());
@@ -176,8 +177,8 @@ public class CustomerProfileActivity extends AppCompatActivity {
 
                 if(nameEdit){
                     user.setFirstName(binding.firstName.getText().toString());
-                    user.setMiddleInitial(binding.middleName.getText().toString());
-                    user.setLastName(binding.lastName.getText().toString());
+                    //user.setMiddleInitial(binding.middleName.getText().toString());
+                    //user.setLastName(binding.lastName.getText().toString());
                 }
 
                 if(pCodeEdit){
