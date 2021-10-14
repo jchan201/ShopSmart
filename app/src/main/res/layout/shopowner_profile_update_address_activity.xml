@@ -23,7 +23,7 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your Address"
+        android:text="Update Address"
         android:textSize="40dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/titleView"
@@ -54,21 +54,21 @@
         app:layout_constraintTop_toTopOf="@+id/bodyView" />
 
     <Button
-        android:id="@+id/btnUpdate"
+        android:id="@+id/btnSave"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:layout_marginBottom="16dp"
         android:padding="8dp"
-        android:text="UPDATE ADDRESS"
+        android:text="SAVE"
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnBack"
+        app:layout_constraintBottom_toTopOf="@+id/btnCancel"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView" />
 
     <Button
-        android:id="@+id/btnBack"
+        android:id="@+id/btnCancel"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -86,18 +86,19 @@
         android:id="@+id/textCityTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="64dp"
         android:layout_marginLeft="32dp"
         android:text="City: "
         android:textSize="15dp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
-    <TextView
+    <EditText
         android:id="@+id/textCity"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginLeft="10dp"
         android:textSize="15dp"
         android:text="UNKNOWN"
         app:layout_constraintStart_toEndOf="@+id/textCityTitle"
@@ -114,14 +115,28 @@
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/textCityTitle" />
 
-    <TextView
-        android:id="@+id/textProvince"
-        android:layout_width="wrap_content"
+<!--    <TextView-->
+<!--        android:id="@+id/textProvince"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        android:layout_marginLeft="5dp"-->
+<!--        android:textSize="15dp"-->
+<!--        android:text="UNKNOWN"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/textProvinceTitle"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textCity" />-->
+
+    <Spinner
+        android:id="@+id/spinner_province"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/basic_rectangle"
+        android:padding="8dp"
         android:textSize="15dp"
-        android:text="UNKNOWN"
+        android:textAlignment="center"
+        android:entries="@array/provinces"
         app:layout_constraintStart_toEndOf="@+id/textProvinceTitle"
         app:layout_constraintTop_toBottomOf="@+id/textCity" />
 
@@ -136,16 +151,17 @@
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/textProvinceTitle" />
 
-    <TextView
+    <EditText
         android:id="@+id/textZipCode"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginLeft="10dp"
         android:textSize="15dp"
         android:text="UNKNOWN"
+        android:maxLength="7"
         app:layout_constraintStart_toEndOf="@+id/textZipCodeTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textProvince" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner_province" />
 
     <TextView
         android:id="@+id/textAddLine1Title"
@@ -158,12 +174,12 @@
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/textZipCodeTitle" />
 
-    <TextView
+    <EditText
         android:id="@+id/textAddLine1"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
         android:textSize="15dp"
         android:text="UNKNOWN"
         app:layout_constraintStart_toEndOf="@+id/textAddLine1Title"
@@ -180,37 +196,15 @@
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/textAddLine1Title" />
 
-    <TextView
+    <EditText
         android:id="@+id/textAddLine2"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
         android:textSize="15dp"
         android:text="UNKNOWN"
         app:layout_constraintStart_toEndOf="@+id/textAddLine1Title"
         app:layout_constraintTop_toBottomOf="@+id/textAddLine1" />
-
-    <TextView
-        android:id="@+id/textCountryTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginLeft="32dp"
-        android:textSize="15dp"
-        android:text="Country: "
-        app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/textAddLine2Title" />
-
-    <TextView
-        android:id="@+id/textCountry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginLeft="5dp"
-        android:textSize="15dp"
-        android:text="UNKNOWN"
-        app:layout_constraintStart_toEndOf="@+id/textCountryTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textAddLine2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

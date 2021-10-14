@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.ShopownerDetailActivityBinding;
 import com.shopsmart.shopsmart.databinding.ShopownerProfileAddressActivityBinding;
+import com.shopsmart.shopsmart.databinding.ShopownerProfileUpdateAddressActivityBinding;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -78,16 +79,20 @@ public class ShopOwnerProfileAddressActivity extends AppCompatActivity {
                 binding.textZipCode.setText(address.getPostalCode());
                 binding.textAddLine1.setText(address.getAddress1());
                 binding.textAddLine2.setText(address.getAddress2());
+                binding.textCountry.setText(address.getCountry());
+            }
+            else{
+                Log.v("LOGIN", "Failed to authenticate using email and password.");
             }
         });
 
-//        binding.btnUpdate.setOnClickListener(view -> {
-//            realm.close();
-//            Intent intentToProfile = new Intent(ShopOwnerProfileAddressActivity.this, ShopOwnerDetailUpdateProfileActivity.class);
-//            intentToProfile.putExtra("EXTRA_PASS", userPass);
-//            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
-//            startActivity(intentToProfile);
-//        });
+        binding.btnUpdate.setOnClickListener(view -> {
+            realm.close();
+            Intent intentToProfile = new Intent(ShopOwnerProfileAddressActivity.this, ShopOwnerProfileAddressUpdateActivity.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+            startActivity(intentToProfile);
+        });
 
         binding.btnBack.setOnClickListener(view -> {
             realm.close();

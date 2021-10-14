@@ -37,6 +37,9 @@
             android:name=".ShopOwnerProfileAddressActivity"
             android:exported="true" />
         <activity
+            android:name=".ShopOwnerProfileAddressUpdateActivity"
+            android:exported="true" />
+        <activity
             android:name=".ShopOwnerSignupActivity"
             android:exported="true" />
         <activity
