@@ -80,11 +80,14 @@
             android:label="Registration1" />
         <activity
             android:name=".CustomerDashboardActivity"
-            android:label="Dashboard1"
+            android:label="Dashboard"
             />
         <activity
             android:name=".CustomerProfileActivity"
-            android:label="Profile1"
+            android:label="Profile"
+            />
+        <activity android:name=".CustomerManageProfileActivity"
+            android:label="Profile Menu"
             />
     </application>
 </manifest>
