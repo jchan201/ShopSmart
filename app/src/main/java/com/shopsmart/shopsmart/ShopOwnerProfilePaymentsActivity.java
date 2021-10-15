@@ -96,6 +96,14 @@ public class ShopOwnerProfilePaymentsActivity extends AppCompatActivity {
                     binding.buttonNext.setVisibility(View.GONE);
                 }
                 else{
+                    if(index+1 == total){
+                        binding.buttonPrev.setVisibility(View.INVISIBLE);
+                        binding.buttonNext.setVisibility(View.INVISIBLE);
+                    }
+
+                    if(index+1 < total){
+                        binding.buttonPrev.setVisibility(View.INVISIBLE);
+                    }
                     displayCardInfo(paymentMethods[index]);
                 }
             }
@@ -108,11 +116,11 @@ public class ShopOwnerProfilePaymentsActivity extends AppCompatActivity {
             if(index > 0){
                 index-=1;
                 binding.buttonNext.setVisibility(View.VISIBLE);
-                binding.textPaymentIndex.setText(index+1);
+                binding.textPaymentIndex.setText(Integer.toString(index+1));
                 displayCardInfo(paymentMethods[index]);
 
                 if(index == 0){
-                    binding.buttonNext.setVisibility(View.INVISIBLE);
+                    binding.buttonPrev.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -121,21 +129,21 @@ public class ShopOwnerProfilePaymentsActivity extends AppCompatActivity {
             if(index < total){
                 index+=1;
                 binding.buttonPrev.setVisibility(View.VISIBLE);
-                binding.textPaymentIndex.setText(index+1);
+                binding.textPaymentIndex.setText(Integer.toString(index+1));
                 displayCardInfo(paymentMethods[index]);
 
-                if(index == total){
-                    binding.buttonPrev.setVisibility(View.INVISIBLE);
+                if(index+1 == total){
+                    binding.buttonNext.setVisibility(View.INVISIBLE);
                 }
             }
         });
 
         binding.btnAdd.setOnClickListener(view -> {
-//            realm.close();
-//            Intent intentToProfile = new Intent(ShopOwnerProfilePaymentsActivity.this, ShopOwnerProfileAddressUpdateActivity.class);
-//            intentToProfile.putExtra("EXTRA_PASS", userPass);
-//            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
-//            startActivity(intentToProfile);
+            realm.close();
+            Intent intentToProfile = new Intent(ShopOwnerProfilePaymentsActivity.this, ShopOwnerProfileAddPaymentsActivity1.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+            startActivity(intentToProfile);
         });
 
         binding.btnBack.setOnClickListener(view -> {

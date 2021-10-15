@@ -73,6 +73,8 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
     }
 
     private boolean validation() {
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
         boolean valid = true;
 
         if(this.binding.edtTextCardName.getText().toString().isEmpty()){
@@ -87,6 +89,16 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
 
         if(this.binding.edtTextCCV.getText().toString().isEmpty()){
             this.binding.edtTextCCV.setError("CCV cannot be empty");
+            valid = false;
+        }
+
+        if(this.binding.edtTextExpiryDateYear.getText().toString().isEmpty()){
+            this.binding.edtTextExpiryDateYear.setError("Expire year cannot be empty");
+            valid = false;
+        }
+
+        if(Integer.parseInt(this.binding.edtTextExpiryDateYear.getText().toString()) < year){
+            this.binding.edtTextExpiryDateYear.setError("Card expired");
             valid = false;
         }
 
