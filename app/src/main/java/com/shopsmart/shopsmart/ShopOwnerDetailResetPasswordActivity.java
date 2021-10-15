@@ -55,14 +55,14 @@ public class ShopOwnerDetailResetPasswordActivity extends AppCompatActivity {
     }
 
     private void updatePassword() {
-        String[] args = {"Text1", "Text2", "Text3"};
+        String[] args = {};
         String newPassword = this.binding.textNewPassword.getText().toString();
         app.getEmailPassword().callResetPasswordFunctionAsync(userEmail, newPassword, args, it -> {
             if (it.isSuccess()) {
                 Log.i("EXAMPLE", "Successfully reset the password for " + userPass);
 
                 Intent intentToProfile = new Intent(ShopOwnerDetailResetPasswordActivity.this, ShopOwnerProfileDetailActivity.class);
-                intentToProfile.putExtra("EXTRA_PASS", userPass);
+                intentToProfile.putExtra("EXTRA_PASS", newPassword);
                 intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
                 intentToProfile.putExtra("EXTRA_RESET_PASSWORD_SUCCESS", true);
                 startActivity(intentToProfile);

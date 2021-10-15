@@ -73,7 +73,14 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
     }
 
     private boolean validation() {
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
         boolean valid = true;
+
+        if(this.binding.edtTextCardName.getText().toString().isEmpty()){
+            this.binding.edtTextCardName.setError("Name on card cannot be empty");
+            valid = false;
+        }
 
         if(this.binding.edtTextCardNum.getText().toString().isEmpty()){
             this.binding.edtTextCardNum.setError("Card number cannot be empty");
@@ -82,6 +89,16 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
 
         if(this.binding.edtTextCCV.getText().toString().isEmpty()){
             this.binding.edtTextCCV.setError("CCV cannot be empty");
+            valid = false;
+        }
+
+        if(this.binding.edtTextExpiryDateYear.getText().toString().isEmpty()){
+            this.binding.edtTextExpiryDateYear.setError("Expire year cannot be empty");
+            valid = false;
+        }
+
+        if(Integer.parseInt(this.binding.edtTextExpiryDateYear.getText().toString()) < year){
+            this.binding.edtTextExpiryDateYear.setError("Card expired");
             valid = false;
         }
 
@@ -110,6 +127,7 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
 
     private PaymentMethod createPaymentMethod(){
         PaymentMethod paymentMethod = new PaymentMethod();
+        paymentMethod.setName(this.binding.edtTextCardName.getText().toString());
         paymentMethod.setCardNumber(this.binding.edtTextCardNum.getText().toString());
         paymentMethod.setExpiry(this.binding.edtTextExpiryDateMonth.getSelectedItem().toString()+"/"+this.binding.edtTextExpiryDateYear.getText().toString());
         paymentMethod.setSecurityCode(this.binding.edtTextCCV.getText().toString());
