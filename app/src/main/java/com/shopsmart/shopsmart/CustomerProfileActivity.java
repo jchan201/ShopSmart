@@ -205,10 +205,15 @@ public class CustomerProfileActivity extends AppCompatActivity {
                     user.setPhone(binding.inputPhoneNumber.getText().toString());
                 }
                 });
+                realm.close();
+                Intent goBack = new Intent(CustomerProfileActivity.this, CustomerProfileActivity.class);
+                goBack.putExtra("EXTRA_EMAIL", userEmail);
+                goBack.putExtra("EXTRA_PASS", userPass);
+                startActivity(goBack);
             }
         });
 
-        binding.applyButton.setOnClickListener(view -> {
+        binding.cancelButton.setOnClickListener(view -> {
             realm.close();
             Intent goBack = new Intent(CustomerProfileActivity.this, CustomerDashboardActivity.class);
             goBack.putExtra("EXTRA_PASS", userPass);
