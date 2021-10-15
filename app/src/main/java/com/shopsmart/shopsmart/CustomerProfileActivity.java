@@ -208,7 +208,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
             }
         });
 
-        binding.cancelButton.setOnClickListener(view -> {
+        binding.applyButton.setOnClickListener(view -> {
             realm.close();
             Intent goBack = new Intent(CustomerProfileActivity.this, CustomerDashboardActivity.class);
             goBack.putExtra("EXTRA_PASS", userPass);
