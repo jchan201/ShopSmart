@@ -40,6 +40,9 @@
             android:name=".ShopOwnerProfileAddressUpdateActivity"
             android:exported="true" />
         <activity
+            android:name=".ShopOwnerProfilePaymentsActivity"
+            android:exported="true" />
+        <activity
             android:name=".ShopOwnerSignupActivity"
             android:exported="true" />
         <activity

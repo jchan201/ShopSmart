@@ -42,6 +42,13 @@ public class ShopOwnerProfileActivity extends AppCompatActivity {
             startActivity(intentToProfile);
         });
 
+        binding.btnPayments.setOnClickListener(view -> {
+            Intent intentToProfile = new Intent(ShopOwnerProfileActivity.this, ShopOwnerProfilePaymentsActivity.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+            startActivity(intentToProfile);
+        });
+
         binding.btnBack.setOnClickListener(view -> {
             Intent intentToProfile = new Intent(ShopOwnerProfileActivity.this, ShopOwnerDashboardActivity.class);
             intentToProfile.putExtra("EXTRA_PASS", userPass);

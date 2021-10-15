@@ -35,13 +35,12 @@
         android:id="@+id/bodyView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rectangle"
-        app:layout_constraintTop_toBottomOf="@+id/titleView"
         android:layout_marginTop="100dp"
+        android:background="@drawable/rectangle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/titleView" />
 
     <TextView
         android:id="@+id/textTitle"
@@ -57,7 +56,7 @@
         android:id="@+id/textPaymentIndex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:text="00"
         android:textSize="25dp"
         app:layout_constraintEnd_toStartOf="@+id/textSlash"
@@ -67,7 +66,7 @@
         android:id="@+id/textSlash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:text="/"
         android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
@@ -78,22 +77,108 @@
         android:id="@+id/textPaymentTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:text="00"
         android:textSize="25dp"
         app:layout_constraintStart_toEndOf="@+id/textSlash"
         app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
     <View
-        android:id="@+id/paymentView"
-        android:layout_width="300dp"
-        android:layout_height="400dp"
+        android:id="@+id/singlePaymentView"
+        android:layout_width="350dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/rectangle"
-        android:layout_marginTop="100dp"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/titleView"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/textSlash" />
+
+    <TextView
+        android:id="@+id/textCardNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:text="****UNKNOWN"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="@+id/singlePaymentView"
+        app:layout_constraintTop_toTopOf="@+id/singlePaymentView" />
+
+    <TextView
+        android:id="@+id/textCardName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:text="UNKNOWN"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="@+id/singlePaymentView"
+        app:layout_constraintTop_toBottomOf="@+id/textCardNum" />
+
+    <TextView
+        android:id="@+id/textCardExpireTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:text="Expires "
+        android:textStyle="bold"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="@+id/singlePaymentView"
+        app:layout_constraintTop_toBottomOf="@+id/textCardName" />
+
+    <TextView
+        android:id="@+id/textCardExpire"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:text="00/00 "
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/textCardExpireTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textCardName" />
+
+    <Button
+        android:id="@+id/buttonEdit"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:text="Edit"
+        app:layout_constraintEnd_toEndOf="@+id/singlePaymentView"
+        app:layout_constraintTop_toTopOf="@+id/singlePaymentView" />
+
+    <Button
+        android:id="@+id/buttonRemove"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:text="Remove"
+        app:layout_constraintBottom_toBottomOf="@+id/singlePaymentView"
+        app:layout_constraintEnd_toEndOf="@+id/singlePaymentView" />
+
+    <Button
+        android:id="@+id/buttonPrev"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/button_prev"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="60dp"
+        android:paddingLeft="11dp"
+        app:layout_constraintStart_toStartOf="@+id/bodyView"
+        app:layout_constraintTop_toBottomOf="@+id/singlePaymentView" />
+
+    <Button
+        android:id="@+id/buttonNext"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/button_next"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="60dp"
+        android:paddingRight="11dp"
+        app:layout_constraintEnd_toEndOf="@+id/bodyView"
+        app:layout_constraintTop_toBottomOf="@+id/singlePaymentView" />
 
     <Button
         android:id="@+id/btnAdd"
@@ -124,7 +209,7 @@
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         />
 
-<!--    <TextView-->
+    <!--    <TextView-->
 <!--        android:id="@+id/textCityTitle"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
