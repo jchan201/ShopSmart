@@ -11,26 +11,26 @@
         android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
-        android:layout_marginBottom="72dp"
         android:background="@drawable/button_bg"
         android:text="Cancel"
+        app:layout_constraintVertical_bias="0.4"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <Button
         android:id="@+id/nextButton2"
         android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="40dp"
-        android:layout_marginBottom="72dp"
         android:background="@drawable/button_bg"
         android:text="Next"
+        app:layout_constraintVertical_bias="0.4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.836"
         app:layout_constraintStart_toEndOf="@+id/cancelButton2"
-        app:layout_constraintTop_toBottomOf="@+id/phoneNum"
-        app:layout_constraintVertical_bias="0.983" />
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <TextView
         android:id="@+id/textView3"
@@ -240,5 +240,12 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/address2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="581dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
