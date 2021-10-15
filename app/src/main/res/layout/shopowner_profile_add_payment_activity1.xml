@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShopOwnerSignupActivity"
-    android:background="#2a47a7">
+    android:background="#2a47a7"
+    tools:context=".ShopOwnerSignupActivity">
 
     <View
         android:id="@+id/titleView"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/rectangle"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView5"
@@ -38,9 +38,9 @@
         android:layout_marginTop="100dp"
         android:background="@drawable/rectangle"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleView"
         />
 
     <TextView
@@ -63,10 +63,10 @@
         android:ems="10"
         android:hint="NAME ON CARD"
         android:inputType="textPersonName"
+        android:maxLength="16"
         android:padding="8dp"
         android:textAlignment="center"
         android:textSize="20sp"
-        android:maxLength="16"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/textPaymentTitle" />
@@ -80,10 +80,10 @@
         android:ems="10"
         android:hint="CARD NUMBER"
         android:inputType="number"
+        android:maxLength="16"
         android:padding="8dp"
         android:textAlignment="center"
         android:textSize="20sp"
-        android:maxLength="16"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/edtTextCardName" />
@@ -92,10 +92,10 @@
         android:id="@+id/textViewExpiryDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="36dp"
         android:text="Expiry Date:"
         android:textSize="20dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginLeft="55dp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/edtTextCardNum" />
 
@@ -106,12 +106,12 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/basic_rectangle"
         android:ems="10"
+        android:entries="@array/months"
         android:hint="MM"
         android:inputType="number"
         android:padding="8dp"
         android:textAlignment="center"
         android:textSize="20sp"
-        android:entries="@array/months"
         app:layout_constraintEnd_toStartOf="@+id/edtTextExpiryDateYear"
         app:layout_constraintStart_toEndOf="@+id/textViewExpiryDate"
         app:layout_constraintTop_toBottomOf="@+id/edtTextCardNum" />
@@ -126,10 +126,10 @@
         android:ems="10"
         android:hint="YYYY"
         android:inputType="number"
+        android:maxLength="4"
         android:padding="8dp"
         android:textAlignment="center"
         android:textSize="20sp"
-        android:maxLength="4"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toEndOf="@+id/edtTextExpiryDateMonth"
         app:layout_constraintTop_toBottomOf="@+id/edtTextCardNum" />
@@ -138,6 +138,7 @@
         android:id="@+id/edtTextCCV"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:background="@drawable/basic_rectangle"
         android:ems="10"
         android:hint="CCV"
@@ -146,7 +147,6 @@
         android:padding="8dp"
         android:textAlignment="center"
         android:textSize="20sp"
-        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintHorizontal_bias="0.522"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
@@ -156,8 +156,8 @@
         android:id="@+id/btnNext"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:layout_marginBottom="16dp"
+        android:ems="10"
         android:padding="8dp"
         android:text="BILLING ADDRESS"
         android:textAlignment="center"

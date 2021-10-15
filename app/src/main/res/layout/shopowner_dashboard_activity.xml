@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShopOwnerSignupActivity"
-    android:background="#2a47a7">
+    android:background="#2a47a7"
+    tools:context=".ShopOwnerSignupActivity">
 
     <View
         android:id="@+id/titleView"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/rectangle"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView5"
@@ -35,12 +35,12 @@
         android:id="@+id/bodyView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rectangle"
-        app:layout_constraintTop_toBottomOf="@+id/titleView"
         android:layout_marginTop="100dp"
+        android:background="@drawable/rectangle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleView"
         />
 
     <TextView
@@ -57,12 +57,12 @@
         android:id="@+id/btnShopList"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:text="SHOP LIST"
-        android:padding="8dp"
         android:layout_marginTop="64dp"
-        android:textSize="20sp"
+        android:ems="10"
+        android:padding="8dp"
+        android:text="SHOP LIST"
         android:textAlignment="center"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/textTitle" />
@@ -71,12 +71,12 @@
         android:id="@+id/btnProfile"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:text="PROFILE"
-        android:padding="8dp"
         android:layout_marginTop="32dp"
-        android:textSize="20sp"
+        android:ems="10"
+        android:padding="8dp"
+        android:text="PROFILE"
         android:textAlignment="center"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/btnShopList" />
@@ -85,12 +85,12 @@
         android:id="@+id/btnLogout"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:text="LOG OUT"
-        android:padding="8dp"
         android:layout_marginTop="32dp"
-        android:textSize="20sp"
+        android:ems="10"
+        android:padding="8dp"
+        android:text="LOG OUT"
         android:textAlignment="center"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/btnProfile" />
@@ -99,8 +99,8 @@
         android:id="@+id/textUserTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User: "
         android:layout_marginLeft="20dp"
+        android:text="User: "
         app:layout_constraintBottom_toTopOf="@+id/btnShopList"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/textTitle" />

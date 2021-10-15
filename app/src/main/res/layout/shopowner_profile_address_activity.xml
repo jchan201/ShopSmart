@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShopOwnerSignupActivity"
-    android:background="#2a47a7">
+    android:background="#2a47a7"
+    tools:context=".ShopOwnerSignupActivity">
 
     <View
         android:id="@+id/titleView"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/rectangle"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView5"
@@ -35,12 +35,12 @@
         android:id="@+id/bodyView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rectangle"
-        app:layout_constraintTop_toBottomOf="@+id/titleView"
         android:layout_marginTop="100dp"
+        android:background="@drawable/rectangle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleView"
         />
 
     <TextView
@@ -57,8 +57,8 @@
         android:id="@+id/btnUpdate"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:layout_marginBottom="16dp"
+        android:ems="10"
         android:padding="8dp"
         android:text="UPDATE ADDRESS"
         android:textAlignment="center"
@@ -86,8 +86,8 @@
         android:id="@+id/textCityTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
         android:text="City: "
         android:textSize="15dp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
@@ -98,8 +98,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:textSize="15dp"
         android:text="UNKNOWN"
+        android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/textCityTitle"
         app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
@@ -107,10 +107,10 @@
         android:id="@+id/textProvinceTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginLeft="32dp"
-        android:textSize="15dp"
+        android:layout_marginTop="32dp"
         android:text="Province: "
+        android:textSize="15dp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/textCityTitle" />
 
@@ -118,10 +118,10 @@
         android:id="@+id/textProvince"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginLeft="5dp"
-        android:textSize="15dp"
+        android:layout_marginTop="32dp"
         android:text="UNKNOWN"
+        android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/textProvinceTitle"
         app:layout_constraintTop_toBottomOf="@+id/textCity" />
 
@@ -129,10 +129,10 @@
         android:id="@+id/textZipCodeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginLeft="32dp"
-        android:textSize="15dp"
+        android:layout_marginTop="32dp"
         android:text="Postal Code: "
+        android:textSize="15dp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/textProvinceTitle" />
 
@@ -140,10 +140,10 @@
         android:id="@+id/textZipCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginLeft="5dp"
-        android:textSize="15dp"
+        android:layout_marginTop="32dp"
         android:text="UNKNOWN"
+        android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/textZipCodeTitle"
         app:layout_constraintTop_toBottomOf="@+id/textProvince" />
 
@@ -151,10 +151,10 @@
         android:id="@+id/textAddLine1Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginLeft="32dp"
-        android:textSize="15dp"
+        android:layout_marginTop="32dp"
         android:text="Address Line 1: "
+        android:textSize="15dp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/textZipCodeTitle" />
 
@@ -162,10 +162,10 @@
         android:id="@+id/textAddLine1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginLeft="5dp"
-        android:textSize="15dp"
+        android:layout_marginTop="32dp"
         android:text="UNKNOWN"
+        android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/textAddLine1Title"
         app:layout_constraintTop_toBottomOf="@+id/textZipCode" />
 
@@ -173,10 +173,10 @@
         android:id="@+id/textAddLine2Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginLeft="32dp"
-        android:textSize="15dp"
+        android:layout_marginTop="32dp"
         android:text="Address Line 2: "
+        android:textSize="15dp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/textAddLine1Title" />
 
@@ -184,10 +184,10 @@
         android:id="@+id/textAddLine2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginLeft="5dp"
-        android:textSize="15dp"
+        android:layout_marginTop="32dp"
         android:text="UNKNOWN"
+        android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/textAddLine1Title"
         app:layout_constraintTop_toBottomOf="@+id/textAddLine1" />
 
@@ -195,10 +195,10 @@
         android:id="@+id/textCountryTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginLeft="32dp"
-        android:textSize="15dp"
+        android:layout_marginTop="32dp"
         android:text="Country: "
+        android:textSize="15dp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/textAddLine2Title" />
 
@@ -206,10 +206,10 @@
         android:id="@+id/textCountry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginLeft="5dp"
-        android:textSize="15dp"
+        android:layout_marginTop="32dp"
         android:text="UNKNOWN"
+        android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/textCountryTitle"
         app:layout_constraintTop_toBottomOf="@+id/textAddLine2" />
 

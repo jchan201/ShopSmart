@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShopOwnerSignupActivity"
-    android:background="#2a47a7">
+    android:background="#2a47a7"
+    tools:context=".ShopOwnerSignupActivity">
 
     <View
         android:id="@+id/titleView"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/rectangle"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView5"
@@ -57,8 +57,8 @@
         android:id="@+id/btnSave"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:layout_marginBottom="16dp"
+        android:ems="10"
         android:padding="8dp"
         android:text="SAVE"
         android:textAlignment="center"
@@ -86,8 +86,8 @@
         android:id="@+id/textNameTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="37dp"
         android:layout_marginLeft="32dp"
+        android:layout_marginTop="37dp"
         android:text="Name: "
         android:textSize="15dp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
@@ -97,37 +97,40 @@
         android:id="@+id/textFName"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="27dp"
         android:layout_marginLeft="48dp"
-        android:textSize="15dp"
-        android:text="UNKNOWN"
+        android:layout_marginTop="27dp"
         android:hint="First Name"
+        android:inputType="textPersonName"
+        android:text="UNKNOWN"
+        android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/textNameTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/textTitle"/>
 
     <EditText
         android:id="@+id/textMName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginLeft="48dp"
-        android:textSize="15dp"
-        android:text="UNKNOWN"
+        android:layout_marginTop="16dp"
         android:hint="Middle Initial"
+        android:inputType="textPersonName"
+        android:text="UNKNOWN"
+        android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/textNameTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textFName" />
+        app:layout_constraintTop_toBottomOf="@+id/textFName"/>
 
     <EditText
         android:id="@+id/textLName"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginLeft="48dp"
-        android:textSize="15dp"
-        android:text="UNKNOWN"
+        android:layout_marginTop="16dp"
         android:hint="Last Name"
+        android:inputType="textPersonName"
+        android:text="UNKNOWN"
+        android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/textNameTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textMName" />
+        app:layout_constraintTop_toBottomOf="@+id/textMName"/>
 
     <TextView
         android:id="@+id/textDOBTitle"
@@ -158,25 +161,26 @@
         android:layout_marginLeft="19dp"
         android:layout_marginTop="16dp"
         android:hint="Phone number"
+        android:inputType="phone"
+        android:maxLength="10"
         android:text="UNKNOWN"
         android:textSize="15dp"
-        android:inputType="phone"
         app:layout_constraintStart_toEndOf="@+id/textPhoneTitle"
         app:layout_constraintTop_toBottomOf="@+id/datePickerButton" />
 
     <Button
         android:id="@+id/datePickerButton"
+        style="?android:spinnerStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="16dp"
+        android:onClick="openDatePicker"
         android:text="JAN 01 2020"
-        android:textSize="25dp"
         android:textColor="@color/black"
-        style="?android:spinnerStyle"
+        android:textSize="25dp"
         app:layout_constraintStart_toEndOf="@+id/textDOBTitle"
         app:layout_constraintTop_toBottomOf="@+id/textLName"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="5dp"
-        android:onClick="openDatePicker"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

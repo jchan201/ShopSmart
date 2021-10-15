@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShopOwnerSignupActivity"
-    android:background="#2a47a7">
+    android:background="#2a47a7"
+    tools:context=".ShopOwnerSignupActivity">
 
     <View
         android:id="@+id/titleView"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/rectangle"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView5"
@@ -35,12 +35,12 @@
         android:id="@+id/bodyView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rectangle"
-        app:layout_constraintTop_toBottomOf="@+id/titleView"
         android:layout_marginTop="100dp"
+        android:background="@drawable/rectangle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleView"
         />
 
     <TextView
@@ -57,8 +57,8 @@
         android:id="@+id/btnResetPassword"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:layout_marginBottom="16dp"
+        android:ems="10"
         android:padding="8dp"
         android:text="RESET PASSWORD"
         android:textAlignment="center"
@@ -71,8 +71,8 @@
         android:id="@+id/btnProfile"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:layout_marginBottom="16dp"
+        android:ems="10"
         android:padding="8dp"
         android:text="UPDATE PROFILE"
         android:textAlignment="center"
@@ -100,8 +100,8 @@
         android:id="@+id/textNameTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
         android:layout_marginLeft="32dp"
+        android:layout_marginTop="64dp"
         android:text="Name: "
         android:textSize="15dp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
@@ -112,8 +112,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
-        android:textSize="15dp"
         android:text="UNKNOWN"
+        android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/textNameTitle"
         app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
@@ -121,10 +121,10 @@
         android:id="@+id/textEmailTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginLeft="32dp"
-        android:textSize="15dp"
+        android:layout_marginTop="32dp"
         android:text="Email: "
+        android:textSize="15dp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/textNameTitle" />
 
@@ -132,10 +132,10 @@
         android:id="@+id/textEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginLeft="5dp"
-        android:textSize="15dp"
+        android:layout_marginTop="32dp"
         android:text="UNKNOWN"
+        android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/textEmailTitle"
         app:layout_constraintTop_toBottomOf="@+id/textName" />
 
@@ -143,10 +143,10 @@
         android:id="@+id/textDOBTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginLeft="32dp"
-        android:textSize="15dp"
+        android:layout_marginTop="32dp"
         android:text="Date of Birth: "
+        android:textSize="15dp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/textEmailTitle" />
 
@@ -154,10 +154,10 @@
         android:id="@+id/textDOB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginLeft="5dp"
-        android:textSize="15dp"
+        android:layout_marginTop="32dp"
         android:text="UNKNOWN"
+        android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/textDOBTitle"
         app:layout_constraintTop_toBottomOf="@+id/textEmail" />
 
@@ -165,10 +165,10 @@
         android:id="@+id/textPhoneTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginLeft="32dp"
-        android:textSize="15dp"
+        android:layout_marginTop="32dp"
         android:text="Phone number: "
+        android:textSize="15dp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/textDOBTitle" />
 
@@ -176,10 +176,10 @@
         android:id="@+id/textPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginLeft="5dp"
-        android:textSize="15dp"
+        android:layout_marginTop="32dp"
         android:text="UNKNOWN"
+        android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/textPhoneTitle"
         app:layout_constraintTop_toBottomOf="@+id/textDOB" />
 

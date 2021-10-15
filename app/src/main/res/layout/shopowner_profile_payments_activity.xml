@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShopOwnerSignupActivity"
-    android:background="#2a47a7">
+    android:background="#2a47a7"
+    tools:context=".ShopOwnerSignupActivity">
 
     <View
         android:id="@+id/titleView"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/rectangle"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView5"
@@ -97,11 +97,11 @@
         android:id="@+id/textCardNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
         android:paddingLeft="10dp"
+        android:paddingTop="10dp"
         android:text="****UNKNOWN"
-        android:textStyle="bold"
         android:textSize="15dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/singlePaymentView"
         app:layout_constraintTop_toTopOf="@+id/singlePaymentView" />
 
@@ -109,11 +109,11 @@
         android:id="@+id/textCardName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
         android:paddingLeft="10dp"
+        android:paddingTop="10dp"
         android:text="UNKNOWN"
-        android:textStyle="bold"
         android:textSize="15dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/singlePaymentView"
         app:layout_constraintTop_toBottomOf="@+id/textCardNum" />
 
@@ -121,11 +121,11 @@
         android:id="@+id/textCardExpireTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
         android:paddingLeft="10dp"
+        android:paddingTop="10dp"
         android:text="Expires "
-        android:textStyle="bold"
         android:textSize="15dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/singlePaymentView"
         app:layout_constraintTop_toBottomOf="@+id/textCardName" />
 
@@ -162,9 +162,9 @@
         android:id="@+id/buttonPrev"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/button_prev"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="60dp"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@drawable/button_prev"
         android:paddingLeft="11dp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/singlePaymentView" />
@@ -173,9 +173,9 @@
         android:id="@+id/buttonNext"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:drawableRight="@drawable/button_next"
         android:layout_marginTop="10dp"
         android:layout_marginRight="60dp"
+        android:drawableRight="@drawable/button_next"
         android:paddingRight="11dp"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/singlePaymentView" />
@@ -184,8 +184,8 @@
         android:id="@+id/btnAdd"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:layout_marginBottom="16dp"
+        android:ems="10"
         android:padding="8dp"
         android:text="ADD PAYMENT METHOD"
         android:textAlignment="center"
