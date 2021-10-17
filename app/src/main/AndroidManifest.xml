@@ -49,6 +49,9 @@
             android:name=".ShopOwnerProfileAddPaymentsActivity2"
             android:exported="true" />
         <activity
+            android:name=".ShopOwnerProfileDeletePaymentsConfirmActivity"
+            android:exported="true" />
+        <activity
             android:name=".ShopOwnerSignupActivity"
             android:exported="true" />
         <activity
