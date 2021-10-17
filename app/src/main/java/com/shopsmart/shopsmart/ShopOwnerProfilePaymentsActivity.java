@@ -157,6 +157,29 @@ public class ShopOwnerProfilePaymentsActivity extends AppCompatActivity {
             startActivity(intentToProfile);
         });
 
+        binding.btnEdit.setOnClickListener(view -> {
+            //cuz you can't pass paymentmethods[index]
+//            PaymentMethod paymentMethod = new PaymentMethod(paymentMethods[index].getName(),
+//                                              paymentMethods[index].getCardNumber(),
+//                                              paymentMethods[index].getExpiry(),
+//                                              paymentMethods[index].getSecurityCode(),
+//                                              paymentMethods[index].getBillingAddress());
+
+            PaymentMethod paymentMethod = new PaymentMethod();
+            paymentMethod.setName(paymentMethods[index].getName());
+            paymentMethod.setCardNumber(paymentMethods[index].getCardNumber());
+            paymentMethod.setExpiry(paymentMethods[index].getExpiry());
+            paymentMethod.setSecurityCode(paymentMethods[index].getSecurityCode());
+
+            realm.close();
+            Intent intentToProfile = new Intent(ShopOwnerProfilePaymentsActivity.this, ShopOwnerProfileUpdatePaymentsActivity1.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+            intentToProfile.putExtra("EXTRA_UPDATE_INDEX", index);
+            intentToProfile.putExtra("EXTRA_PAYMENT_METHOD_OBJ", paymentMethod);
+            startActivity(intentToProfile);
+        });
+
         binding.btnAdd.setOnClickListener(view -> {
             realm.close();
             Intent intentToProfile = new Intent(ShopOwnerProfilePaymentsActivity.this, ShopOwnerProfileAddPaymentsActivity1.class);
