@@ -30,6 +30,7 @@ public class ShopOwnerProfileUpdatePaymentsActivity2 extends AppCompatActivity {
 
     AppUser user;
     PaymentMethod paymentMethod;
+    Address billingAddress;
 
     int updateIndex = 0;
 
@@ -50,6 +51,7 @@ public class ShopOwnerProfileUpdatePaymentsActivity2 extends AppCompatActivity {
             this.userEmail = currIntent.getStringExtra("EXTRA_EMAIL");
             this.userPass = currIntent.getStringExtra("EXTRA_PASS");
             this.paymentMethod = (PaymentMethod) this.currIntent.getSerializableExtra("EXTRA_PAYMENT_METHOD_OBJ");
+            this.billingAddress = (Address) this.currIntent.getSerializableExtra("EXTRA_BILLING_ADDRESS_OBJ");
             this.updateIndex = currIntent.getIntExtra("EXTRA_UPDATE_INDEX", updateIndex);
         }
 
@@ -75,17 +77,17 @@ public class ShopOwnerProfileUpdatePaymentsActivity2 extends AppCompatActivity {
                 int index = 0;
                 String[] provinces = getResources().getStringArray(R.array.provinces);
                 for(int i = 0; i < provinces.length; i++){
-                    if(provinces[i].equals(paymentMethod.getBillingAddress().getProvince())){
+                    if(provinces[i].equals(billingAddress.getProvince())){
                         index = i;
                         break;
                     }
                 }
 
-                binding.textCity.setText(paymentMethod.getBillingAddress().getCity());
+                binding.textCity.setText(billingAddress.getCity());
                 binding.spinnerProvince.setSelection(index);
-                binding.textZipCode.setText(paymentMethod.getBillingAddress().getPostalCode());
-                binding.textAddLine1.setText(paymentMethod.getBillingAddress().getAddress1());
-                binding.textAddLine2.setText(paymentMethod.getBillingAddress().getAddress2());
+                binding.textZipCode.setText(billingAddress.getPostalCode());
+                binding.textAddLine1.setText(billingAddress.getAddress1());
+                binding.textAddLine2.setText(billingAddress.getAddress2());
 
             }
             else{
@@ -115,7 +117,6 @@ public class ShopOwnerProfileUpdatePaymentsActivity2 extends AppCompatActivity {
     }
 
     private void addPaymentMethod() {
-        Address billingAddress = new Address();
         billingAddress.setCity(binding.textCity.getText().toString());
         billingAddress.setProvince(binding.spinnerProvince.getSelectedItem().toString());
         billingAddress.setPostalCode(binding.textZipCode.getText().toString());

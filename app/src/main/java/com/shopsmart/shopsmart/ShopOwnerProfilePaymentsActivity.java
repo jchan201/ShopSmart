@@ -158,25 +158,27 @@ public class ShopOwnerProfilePaymentsActivity extends AppCompatActivity {
         });
 
         binding.btnEdit.setOnClickListener(view -> {
-            //cuz you can't pass paymentmethods[index]
-//            PaymentMethod paymentMethod = new PaymentMethod(paymentMethods[index].getName(),
-//                                              paymentMethods[index].getCardNumber(),
-//                                              paymentMethods[index].getExpiry(),
-//                                              paymentMethods[index].getSecurityCode(),
-//                                              paymentMethods[index].getBillingAddress());
-
             PaymentMethod paymentMethod = new PaymentMethod();
             paymentMethod.setName(paymentMethods[index].getName());
             paymentMethod.setCardNumber(paymentMethods[index].getCardNumber());
             paymentMethod.setExpiry(paymentMethods[index].getExpiry());
             paymentMethod.setSecurityCode(paymentMethods[index].getSecurityCode());
 
-            realm.close();
+            Address billingAddress = new Address();
+            billingAddress.setCountry(paymentMethods[index].getBillingAddress().getCountry());
+            billingAddress.setCity(paymentMethods[index].getBillingAddress().getCity());
+            billingAddress.setProvince(paymentMethods[index].getBillingAddress().getProvince());
+            billingAddress.setPostalCode(paymentMethods[index].getBillingAddress().getPostalCode());
+            billingAddress.setAddress1(paymentMethods[index].getBillingAddress().getAddress1());
+            billingAddress.setAddress2(paymentMethods[index].getBillingAddress().getAddress2());
+
             Intent intentToProfile = new Intent(ShopOwnerProfilePaymentsActivity.this, ShopOwnerProfileUpdatePaymentsActivity1.class);
             intentToProfile.putExtra("EXTRA_PASS", userPass);
             intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
             intentToProfile.putExtra("EXTRA_UPDATE_INDEX", index);
             intentToProfile.putExtra("EXTRA_PAYMENT_METHOD_OBJ", paymentMethod);
+            intentToProfile.putExtra("EXTRA_BILLING_ADDRESS_OBJ", billingAddress);
+            realm.close();
             startActivity(intentToProfile);
         });
 

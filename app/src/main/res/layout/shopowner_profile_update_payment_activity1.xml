@@ -131,7 +131,7 @@
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
-        app:layout_constraintStart_toEndOf="@+id/edtTextExpiryDateMonth"
+        app:layout_constraintStart_toEndOf="@+id/spinnerTextExpiryDateMonth"
         app:layout_constraintTop_toBottomOf="@+id/edtTextCardNum" />
 
     <EditText
@@ -150,7 +150,7 @@
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintHorizontal_bias="0.522"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/edtTextExpiryDateMonth" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerTextExpiryDateMonth" />
 
     <Button
         android:id="@+id/btnNext"

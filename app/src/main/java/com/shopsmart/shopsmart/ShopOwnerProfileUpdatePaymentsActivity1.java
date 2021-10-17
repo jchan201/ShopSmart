@@ -27,6 +27,7 @@ public class ShopOwnerProfileUpdatePaymentsActivity1 extends AppCompatActivity {
     String userPass;
 
     PaymentMethod paymentMethod;
+    Address billingAddress;
     int updateIndex = 0;
 
 
@@ -43,6 +44,7 @@ public class ShopOwnerProfileUpdatePaymentsActivity1 extends AppCompatActivity {
             this.userEmail = currIntent.getStringExtra("EXTRA_EMAIL");
             this.userPass = currIntent.getStringExtra("EXTRA_PASS");
             this.paymentMethod = (PaymentMethod) this.currIntent.getSerializableExtra("EXTRA_PAYMENT_METHOD_OBJ");
+            this.billingAddress = (Address) this.currIntent.getSerializableExtra("EXTRA_BILLING_ADDRESS_OBJ");
             this.updateIndex = currIntent.getIntExtra("EXTRA_UPDATE_INDEX", updateIndex);
         }
 
@@ -74,6 +76,7 @@ public class ShopOwnerProfileUpdatePaymentsActivity1 extends AppCompatActivity {
                 intentToNext.putExtra("EXTRA_PASS", userPass);
                 intentToNext.putExtra("EXTRA_EMAIL", userEmail);
                 intentToNext.putExtra("EXTRA_PAYMENT_METHOD_OBJ", paymentMethod);
+                intentToNext.putExtra("EXTRA_BILLING_ADDRESS_OBJ", billingAddress);
                 intentToNext.putExtra("EXTRA_UPDATE_INDEX", updateIndex);
                 startActivity(intentToNext);
             }
