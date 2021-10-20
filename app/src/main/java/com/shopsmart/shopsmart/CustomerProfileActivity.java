@@ -77,6 +77,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
                         user = users.get(x);
                     }
                 }
+
                 binding.fullName.setText(user.getFirstName() + " " + user.getMiddleInitial() + " " + user.getLastName());
                 binding.firstName.setText(user.getFirstName());
                 binding.middleName.setText(user.getMiddleInitial());
@@ -109,6 +110,10 @@ public class CustomerProfileActivity extends AppCompatActivity {
                 //DatePickerDialog.OnDateSetListener dsl =
                 //        ((datePicker, year, month, day) -> binding.)
 
+            }
+            
+            else{
+                Log.v("LOGIN", "Failed to authenticate using email and password.");
             }
         });
 

@@ -79,7 +79,11 @@ public class CustomerManageProfileActivity extends AppCompatActivity {
         });
 
         binding.paymentButton.setOnClickListener(view -> {
-
+            realm.close();
+            Intent intentProfile = new Intent(CustomerManageProfileActivity.this, CustomerPaymentsActivity.class);
+            intentProfile.putExtra("EXTRA_EMAIL", userEmail);
+            intentProfile.putExtra("EXTRA_PASS", userPass);
+            startActivity(intentProfile);
         });
 
         binding.cancelButtonManage.setOnClickListener(view ->{

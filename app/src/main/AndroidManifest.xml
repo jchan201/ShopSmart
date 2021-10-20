@@ -89,5 +89,11 @@
         <activity android:name=".CustomerManageProfileActivity"
             android:label="Profile Menu"
             />
+        <activity android:name=".CustomerPaymentsActivity"
+            android:label="Payments"
+            />
+        <activity android:name=".CustomerPaymentAddActivity"
+            android:label="Payments"
+            />
     </application>
 </manifest>
