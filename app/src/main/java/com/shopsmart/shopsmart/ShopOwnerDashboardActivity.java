@@ -67,6 +67,15 @@ public class ShopOwnerDashboardActivity extends AppCompatActivity {
             }
         });
 
+        binding.btnShopList.setOnClickListener(view -> {
+            realm.close();
+            Intent intentToProfile = new Intent(ShopOwnerDashboardActivity.this, ShopListActivity.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+            startActivity(intentToProfile);
+            finish();
+        });
+
         binding.btnProfile.setOnClickListener(view -> {
             realm.close();
             Intent intentToProfile = new Intent(ShopOwnerDashboardActivity.this, ShopOwnerProfileActivity.class);
