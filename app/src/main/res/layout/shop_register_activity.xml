@@ -145,7 +145,7 @@
         android:layout_marginBottom="16dp"
         android:ems="10"
         android:padding="8dp"
-        android:text="DATES AND TIMES"
+        android:text="SHOP ADDRESS"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/btnCancel"

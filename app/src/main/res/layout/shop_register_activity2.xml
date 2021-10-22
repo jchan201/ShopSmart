@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#2a47a7"
-    tools:context=".ShopRegister2">
+    tools:context=".ShopOwnerSignupActivity">
 
     <View
         android:id="@+id/titleView"
@@ -20,10 +20,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Register Shop"
-        android:textSize="40sp"
+        android:textSize="40dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/titleView"
         app:layout_constraintEnd_toEndOf="@+id/titleView"
@@ -52,133 +53,169 @@
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toTopOf="@+id/bodyView" />
 
-    <EditText
-        android:id="@+id/edtTextFName"
-        android:layout_width="141dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="30dp"
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:ems="10"
-        android:hint="First Name"
-        android:inputType="textPersonName"
-        android:maxLength="50"
-        app:layout_constraintEnd_toStartOf="@+id/edtTextInitial"
-        app:layout_constraintHorizontal_bias="0.514"
-        app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
-
-    <EditText
-        android:id="@+id/edtTextLName"
-        android:layout_width="141dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="30dp"
-        android:ems="10"
-        android:hint="Last Name"
-        android:inputType="textPersonName"
-        android:maxLength="50"
+        android:padding="8dp"
+        android:text="DATES AND TIMES"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnCancel"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
-        app:layout_constraintHorizontal_bias="0.529"
-        app:layout_constraintStart_toEndOf="@+id/edtTextInitial"
-        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+        app:layout_constraintStart_toStartOf="@+id/bodyView" />
 
-    <EditText
-        android:id="@+id/edtTextInitial"
-        android:layout_width="60dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="30dp"
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:ems="10"
-        android:hint="Initial"
-        android:inputType="textPersonName"
-        android:maxLength="5"
+        android:padding="8dp"
+        android:text="CANCEL"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+        />
 
     <TextView
+        android:id="@+id/textCityTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="43dp"
-        android:text="Date of Birth :"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="64dp"
+        android:text="City: "
         android:textSize="15dp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/edtTextFName" />
+        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
-    <Button
-        android:id="@+id/datePickerButton"
-        style="?android:spinnerStyle"
+    <EditText
+        android:id="@+id/textCity"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="23dp"
-        android:onClick="openDatePicker"
-        android:text="JAN 01 2020"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        app:layout_constraintLeft_toLeftOf="@id/bodyView"
-        app:layout_constraintRight_toRightOf="@id/bodyView"
-        app:layout_constraintTop_toBottomOf="@id/edtTextInitial"
-        />
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="55dp"
+        android:inputType="text"
+        android:maxLength="30"
+        android:maxLines="1"
+        android:text="UNKNOWN"
+        android:textSize="15dp"
+        app:layout_constraintStart_toEndOf="@+id/textCityTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textTitle"/>
+
+    <TextView
+        android:id="@+id/textProvinceTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:text="Province: "
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="@+id/bodyView"
+        app:layout_constraintTop_toBottomOf="@+id/textCityTitle"/>
+
+<!--    <TextView-->
+<!--        android:id="@+id/textProvince"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        android:layout_marginLeft="5dp"-->
+<!--        android:textSize="15dp"-->
+<!--        android:text="UNKNOWN"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/textProvinceTitle"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textCity" />-->
+
+    <Spinner
+        android:id="@+id/spinner_province"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="13dp"
+        android:background="@drawable/basic_rectangle"
+        android:entries="@array/provinces"
+        android:padding="8dp"
+        android:textAlignment="center"
+        android:textSize="15dp"
+        app:layout_constraintStart_toEndOf="@+id/textProvinceTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textCity" />
+
+    <TextView
+        android:id="@+id/textZipCodeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:text="Postal Code: "
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="@+id/bodyView"
+        app:layout_constraintTop_toBottomOf="@+id/textProvinceTitle" />
 
     <EditText
-        android:id="@+id/editTextEmailAddress"
-        android:layout_width="match_parent"
+        android:id="@+id/textZipCode"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="30dp"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="@+id/bodyView"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="14dp"
+        android:inputType="text"
+        android:maxLength="7"
+        android:maxLines="1"
+        android:text="UNKNOWN"
+        android:textSize="15dp"
+        app:layout_constraintStart_toEndOf="@+id/textZipCodeTitle"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_province"/>
+
+    <TextView
+        android:id="@+id/textAddLine1Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:text="Address Line 1: "
+        android:textSize="15dp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/datePickerButton" />
+        app:layout_constraintTop_toBottomOf="@+id/textZipCodeTitle" />
 
     <EditText
-        android:id="@+id/editTextPassword"
+        android:id="@+id/textAddLine1"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:inputType="text"
+        android:maxLength="50"
+        android:maxLines="1"
+        android:text="UNKNOWN"
+        android:textSize="15dp"
+        app:layout_constraintStart_toEndOf="@+id/textAddLine1Title"
+        app:layout_constraintTop_toBottomOf="@+id/textZipCode"/>
+
+    <TextView
+        android:id="@+id/textAddLine2Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/bodyView"
-        app:layout_constraintHorizontal_bias="0.057"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:text="Address Line 2: "
+        android:textSize="15dp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEmailAddress" />
+        app:layout_constraintTop_toBottomOf="@+id/textAddLine1Title" />
 
     <EditText
-        android:id="@+id/editTextConfirmPassword"
-        android:layout_width="wrap_content"
+        android:id="@+id/textAddLine2"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:ems="10"
-        android:hint="Confirm Password"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/bodyView"
-        app:layout_constraintHorizontal_bias="0.057"
-        app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
-
-    <Button
-        android:id="@+id/buttonNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="64dp"
-        android:layout_marginBottom="16dp"
-        android:background="#FF0000"
-        android:text="Next"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/bodyView" />
-
-    <Button
-        android:id="@+id/buttonCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="64dp"
-        android:layout_marginBottom="16dp"
-        android:background="#FF0000"
-        android:text="Cancel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/bodyView"
-        />
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:inputType="text"
+        android:maxLength="50"
+        android:maxLines="1"
+        android:text="UNKNOWN"
+        android:textSize="15dp"
+        app:layout_constraintStart_toEndOf="@+id/textAddLine1Title"
+        app:layout_constraintTop_toBottomOf="@+id/textAddLine1"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
