@@ -11,8 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.shopsmart.shopsmart.databinding.CustomerResetPasswordBinding;
 import com.shopsmart.shopsmart.databinding.ShopownerProfileDetailResetPasswordActivityBinding;
 
+import io.realm.Realm;
 import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
+import io.realm.mongodb.sync.SyncConfiguration;
 
 public class CustomerPasswordActivity extends AppCompatActivity {
     private CustomerResetPasswordBinding binding;
@@ -63,7 +65,7 @@ public class CustomerPasswordActivity extends AppCompatActivity {
             if (it.isSuccess()) {
                 Log.i("EXAMPLE", "Successfully reset the password for " + userPass);
 
-                Intent intentToProfile = new Intent(CustomerPasswordActivity.this, CustomerDashboardActivity.class);
+                Intent intentToProfile = new Intent(CustomerPasswordActivity.this, CustomerManageProfileActivity.class);
                 intentToProfile.putExtra("EXTRA_PASS", newPassword);
                 intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
                 //intentToProfile.putExtra("EXTRA_RESET_PASSWORD_SUCCESS", true);
@@ -73,6 +75,7 @@ public class CustomerPasswordActivity extends AppCompatActivity {
                 Toast.makeText(CustomerPasswordActivity.this, "Failed to reset the password: " + it.getError().getErrorMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     private boolean validation() {

@@ -95,6 +95,7 @@ public class CustomerManageProfileActivity extends AppCompatActivity {
         });
 
         binding.passwordButton.setOnClickListener(view ->{
+            realm.close();
             Intent intentPassword = new Intent(CustomerManageProfileActivity.this, CustomerPasswordActivity.class);
             intentPassword.putExtra("EXTRA_EMAIL", userEmail);
             intentPassword.putExtra("EXTRA_PASS", userPass);
