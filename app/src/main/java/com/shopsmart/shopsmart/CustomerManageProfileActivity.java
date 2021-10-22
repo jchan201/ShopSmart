@@ -93,6 +93,13 @@ public class CustomerManageProfileActivity extends AppCompatActivity {
             intentBack.putExtra("EXTRA_PASS", userPass);
             startActivity(intentBack);
         });
+
+        binding.passwordButton.setOnClickListener(view ->{
+            Intent intentPassword = new Intent(CustomerManageProfileActivity.this, CustomerPasswordActivity.class);
+            intentPassword.putExtra("EXTRA_EMAIL", userEmail);
+            intentPassword.putExtra("EXTRA_PASS", userPass);
+            startActivity(intentPassword);
+        });
     }
 
     //@Override

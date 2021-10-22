@@ -42,7 +42,7 @@ public class CustomerPasswordActivity extends AppCompatActivity {
         }
 
         binding.cancelButton.setOnClickListener(view -> {
-                    Intent intentToProfile = new Intent(CustomerPasswordActivity.this, CustomerManageProfileActivity.class);
+                    Intent intentToProfile = new Intent(CustomerPasswordActivity.this, CustomerDashboardActivity.class);
                     intentToProfile.putExtra("EXTRA_PASS", userPass);
                     intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
                     startActivity(intentToProfile);
@@ -63,10 +63,10 @@ public class CustomerPasswordActivity extends AppCompatActivity {
             if (it.isSuccess()) {
                 Log.i("EXAMPLE", "Successfully reset the password for " + userPass);
 
-                Intent intentToProfile = new Intent(CustomerPasswordActivity.this, CustomerManageProfileActivity.class);
+                Intent intentToProfile = new Intent(CustomerPasswordActivity.this, CustomerDashboardActivity.class);
                 intentToProfile.putExtra("EXTRA_PASS", newPassword);
                 intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
-                intentToProfile.putExtra("EXTRA_RESET_PASSWORD_SUCCESS", true);
+                //intentToProfile.putExtra("EXTRA_RESET_PASSWORD_SUCCESS", true);
                 startActivity(intentToProfile);
             } else {
                 Log.e("EXAMPLE", "Failed to reset the password for " + userEmail + ": " + it.getError().getErrorMessage());
@@ -130,10 +130,6 @@ public class CustomerPasswordActivity extends AppCompatActivity {
                 Toast.makeText(CustomerPasswordActivity.this, "Profile", Toast.LENGTH_SHORT).show();
                 startActivity(settingsIntent);
                 //finish();
-                break;
-            case R.id.LogOut:
-                Intent dashboardIntent = new Intent(CustomerPasswordActivity.this, StartupActivity.class);
-                startActivity(dashboardIntent);
                 break;
             case R.id.menuHome:
                 Intent homeIntent = new Intent(CustomerPasswordActivity.this, CustomerDashboardActivity.class);
