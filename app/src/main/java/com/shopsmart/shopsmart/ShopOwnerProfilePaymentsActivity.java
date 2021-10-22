@@ -58,6 +58,11 @@ public class ShopOwnerProfilePaymentsActivity extends AppCompatActivity {
             boolean addSuccess = currIntent.getBooleanExtra("EXTRA_ADD_PAYMENT_SUCCESS", false);
             if (addSuccess)
                 Toast.makeText(ShopOwnerProfilePaymentsActivity.this, "Successfully add new payment method.", Toast.LENGTH_SHORT).show();
+
+            boolean deleteSuccess = currIntent.getBooleanExtra("EXTRA_DELETE_PAYMENT_SUCCESS", false);
+            if (deleteSuccess)
+                Toast.makeText(ShopOwnerProfilePaymentsActivity.this, "Successfully remove payment method.", Toast.LENGTH_SHORT).show();
+
         }
 
         Credentials credentials = Credentials.emailPassword(userEmail, userPass);
@@ -82,7 +87,12 @@ public class ShopOwnerProfilePaymentsActivity extends AppCompatActivity {
                 paymentMethods = user.getPaymentMethods().toArray(new PaymentMethod[0]);
                 total = paymentMethods.length;
                 binding.textPaymentTotal.setText(Integer.toString(total));
-                binding.textPaymentIndex.setText(Integer.toString(index+1));
+                if(total == 0){
+                    binding.textPaymentIndex.setText(Integer.toString(index));
+                }
+                else{
+                    binding.textPaymentIndex.setText(Integer.toString(index+1));
+                }
 
                 if(index == 0 && total == 0){
                     binding.singlePaymentView.setVisibility(View.GONE);
@@ -90,8 +100,8 @@ public class ShopOwnerProfilePaymentsActivity extends AppCompatActivity {
                     binding.textCardName.setVisibility(View.GONE);
                     binding.textCardExpireTitle.setVisibility(View.GONE);
                     binding.textCardExpire.setVisibility(View.GONE);
-                    binding.buttonEdit.setVisibility(View.GONE);
-                    binding.buttonRemove.setVisibility(View.GONE);
+                    binding.btnEdit.setVisibility(View.GONE);
+                    binding.btnRemove.setVisibility(View.GONE);
                     binding.buttonPrev.setVisibility(View.GONE);
                     binding.buttonNext.setVisibility(View.GONE);
                 }
@@ -136,6 +146,48 @@ public class ShopOwnerProfilePaymentsActivity extends AppCompatActivity {
                     binding.buttonNext.setVisibility(View.INVISIBLE);
                 }
             }
+        });
+
+        binding.btnRemove.setOnClickListener(view -> {
+            realm.close();
+            Intent intentToProfile = new Intent(ShopOwnerProfilePaymentsActivity.this, ShopOwnerProfileDeletePaymentsConfirmActivity.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+            intentToProfile.putExtra("EXTRA_REMOVE_INDEX", index);
+            startActivity(intentToProfile);
+        });
+
+        binding.btnEdit.setOnClickListener(view -> {
+            PaymentMethod paymentMethod = new PaymentMethod();
+            paymentMethod.setName(paymentMethods[index].getName());
+            paymentMethod.setCardNumber(paymentMethods[index].getCardNumber());
+            paymentMethod.setExpiry(paymentMethods[index].getExpiry());
+            paymentMethod.setSecurityCode(paymentMethods[index].getSecurityCode());
+
+            Address billingAddress = new Address();
+            billingAddress.setCountry(paymentMethods[index].getBillingAddress().getCountry());
+            billingAddress.setCity(paymentMethods[index].getBillingAddress().getCity());
+            billingAddress.setProvince(paymentMethods[index].getBillingAddress().getProvince());
+            billingAddress.setPostalCode(paymentMethods[index].getBillingAddress().getPostalCode());
+            billingAddress.setAddress1(paymentMethods[index].getBillingAddress().getAddress1());
+            billingAddress.setAddress2(paymentMethods[index].getBillingAddress().getAddress2());
+
+            Intent intentToProfile = new Intent(ShopOwnerProfilePaymentsActivity.this, ShopOwnerProfileUpdatePaymentsActivity1.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+            intentToProfile.putExtra("EXTRA_UPDATE_INDEX", index);
+            intentToProfile.putExtra("EXTRA_PAYMENT_METHOD_OBJ", paymentMethod);
+            intentToProfile.putExtra("EXTRA_BILLING_ADDRESS_OBJ", billingAddress);
+            realm.close();
+            startActivity(intentToProfile);
+        });
+
+        binding.btnAdd.setOnClickListener(view -> {
+            realm.close();
+            Intent intentToProfile = new Intent(ShopOwnerProfilePaymentsActivity.this, ShopOwnerProfileAddPaymentsActivity1.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+            startActivity(intentToProfile);
         });
 
         binding.btnAdd.setOnClickListener(view -> {
