@@ -90,6 +90,11 @@ public class CustomerDashboardActivity extends AppCompatActivity {
                 Toast.makeText(CustomerDashboardActivity.this, "Profile", Toast.LENGTH_SHORT).show();
                 startActivity(settingsIntent);
                 finish();
+                break;
+            case R.id.LogOut:
+                realm.close();
+                Intent dashboardIntent = new Intent(CustomerDashboardActivity.this, StartupActivity.class);
+                startActivity(dashboardIntent);
         }
         return true;
     }

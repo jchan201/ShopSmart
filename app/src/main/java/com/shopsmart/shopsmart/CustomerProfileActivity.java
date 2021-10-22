@@ -220,7 +220,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
 
         binding.cancelButton.setOnClickListener(view -> {
             realm.close();
-            Intent goBack = new Intent(CustomerProfileActivity.this, CustomerDashboardActivity.class);
+            Intent goBack = new Intent(CustomerProfileActivity.this, CustomerManageProfileActivity.class);
             goBack.putExtra("EXTRA_PASS", userPass);
             goBack.putExtra("EXTRA_EMAIL", userEmail);
             startActivity(goBack);
