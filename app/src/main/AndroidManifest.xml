@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShopSmart">
         <activity
+            android:name=".ShopRegister3"
+            android:exported="false" />
+        <activity
+            android:name=".ShopRegister2"
+            android:exported="false" />
+        <activity
+            android:name=".ShopRegister"
+            android:exported="false" />
+        <activity
             android:name=".DriverSignup3Activity"
             android:exported="true" />
         <activity
@@ -89,14 +98,13 @@
             android:label="Registration1" />
         <activity
             android:name=".CustomerDashboardActivity"
-            android:label="Dashboard"
-            />
+            android:label="Dashboard" />
         <activity
             android:name=".CustomerProfileActivity"
-            android:label="Profile"
-            />
-        <activity android:name=".CustomerManageProfileActivity"
-            android:label="Profile Menu"
-            />
+            android:label="Profile" />
+        <activity
+            android:name=".CustomerManageProfileActivity"
+            android:label="Profile Menu" />
     </application>
+
 </manifest>
