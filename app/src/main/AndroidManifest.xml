@@ -10,6 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShopSmart">
         <activity
+            android:name=".ShopRegister3"
+            android:exported="false" />
+        <activity
+            android:name=".ShopRegister2"
+            android:exported="false" />
+        <activity
+            android:name=".ShopRegister"
+            android:exported="false" />
+        <activity
+            android:name=".ShopListActivity"
+            android:exported="false" />
+        <activity
             android:name=".DriverSignup3Activity"
             android:exported="true" />
         <activity
@@ -49,6 +61,15 @@
             android:name=".ShopOwnerProfileAddPaymentsActivity2"
             android:exported="true" />
         <activity
+            android:name=".ShopOwnerProfileDeletePaymentsConfirmActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ShopOwnerProfileUpdatePaymentsActivity1"
+            android:exported="true" />
+        <activity
+            android:name=".ShopOwnerProfileUpdatePaymentsActivity2"
+            android:exported="true" />
+        <activity
             android:name=".ShopOwnerSignupActivity"
             android:exported="true" />
         <activity
@@ -80,23 +101,13 @@
             android:label="Registration1" />
         <activity
             android:name=".CustomerDashboardActivity"
-            android:label="Dashboard"
-            />
+            android:label="Dashboard" />
         <activity
             android:name=".CustomerProfileActivity"
-            android:label="Profile"
-            />
-        <activity android:name=".CustomerManageProfileActivity"
-            android:label="Profile Menu"
-            />
-        <activity android:name=".CustomerPaymentsActivity"
-            android:label="Payments"
-            />
-        <activity android:name=".CustomerPaymentAddActivity"
-            android:label="Payments"
-            />
-        <activity android:name=".CustomerPasswordActivity"
-            android:label="Password"
-            />
+            android:label="Profile" />
+        <activity
+            android:name=".CustomerManageProfileActivity"
+            android:label="Profile Menu" />
     </application>
+
 </manifest>
