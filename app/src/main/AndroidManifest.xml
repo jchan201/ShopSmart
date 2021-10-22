@@ -95,5 +95,8 @@
         <activity android:name=".CustomerPaymentAddActivity"
             android:label="Payments"
             />
+        <activity android:name=".CustomerPasswordActivity"
+            android:label="Password"
+            />
     </application>
 </manifest>
