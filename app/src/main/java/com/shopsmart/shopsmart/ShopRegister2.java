@@ -12,7 +12,7 @@ public class ShopRegister2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.shop_register_activty2);
+        setContentView(R.layout.shop_register_activity2);
     }
 
     public void openDatePicker(View view){

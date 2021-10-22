@@ -55,7 +55,7 @@
         />
 
     <EditText
-        android:id="@+id/edtTextCardName"
+        android:id="@+id/edtTextName"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -72,7 +72,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
 
     <EditText
-        android:id="@+id/edtTextCardNum"
+        android:id="@+id/edtTextDesc"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -86,7 +86,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/edtTextCardName" />
+        app:layout_constraintTop_toBottomOf="@+id/edtTextName" />
 
     <TextView
         android:id="@+id/textViewExpiryDate"
@@ -97,7 +97,7 @@
         android:text="Expiry Date:"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/edtTextCardNum" />
+        app:layout_constraintTop_toBottomOf="@+id/edtTextDesc" />
 
     <Spinner
         android:id="@+id/spinnerTextExpiryDateMonth"
@@ -114,7 +114,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/edtTextExpiryDateYear"
         app:layout_constraintStart_toEndOf="@+id/textViewExpiryDate"
-        app:layout_constraintTop_toBottomOf="@+id/edtTextCardNum" />
+        app:layout_constraintTop_toBottomOf="@+id/edtTextDesc" />
 
     <EditText
         android:id="@+id/edtTextExpiryDateYear"
@@ -132,7 +132,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toEndOf="@+id/spinnerTextExpiryDateMonth"
-        app:layout_constraintTop_toBottomOf="@+id/edtTextCardNum" />
+        app:layout_constraintTop_toBottomOf="@+id/edtTextDesc" />
 
     <EditText
         android:id="@+id/edtTextCCV"
