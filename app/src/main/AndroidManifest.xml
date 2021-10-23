@@ -70,6 +70,9 @@
             android:name=".ShopOwnerProfileUpdatePaymentsActivity2"
             android:exported="true" />
         <activity
+            android:name=".ShopOwnerDeleteAccountConfirmActivity"
+            android:exported="true" />
+        <activity
             android:name=".ShopOwnerSignupActivity"
             android:exported="true" />
         <activity

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2a47a7"
+    tools:context=".ShopOwnerSignupActivity">
+
+    <View
+        android:id="@+id/titleView"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/rectangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete Account"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/titleView"
+        app:layout_constraintEnd_toEndOf="@+id/titleView"
+        app:layout_constraintStart_toStartOf="@+id/titleView"
+        app:layout_constraintTop_toTopOf="@+id/titleView"
+        app:layout_constraintVertical_bias="0.857" />
+
+    <View
+        android:id="@+id/bodyView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/rectangle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleView" />
+
+    <TextView
+        android:id="@+id/textConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/basic_rectangle"
+        android:padding="5dp"
+        android:text="Enter your password and press CONFIRM to confirm deletion of your account"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="@+id/bodyView"
+        app:layout_constraintStart_toStartOf="@+id/bodyView"
+        app:layout_constraintTop_toTopOf="@+id/bodyView" />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:hint="Password"
+        android:paddingLeft="10dp"
+        android:textSize="35sp"
+        android:inputType="textPassword"
+        android:background="@drawable/basic_rectangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/bodyView"
+        app:layout_constraintTop_toBottomOf="@+id/textConfirm" />
+
+
+    <Button
+        android:id="@+id/btnConfirm"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:padding="8dp"
+        android:text="CONFIRM"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/bodyView"
+        app:layout_constraintStart_toStartOf="@+id/bodyView"
+        app:layout_constraintTop_toBottomOf="@+id/textConfirm" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:padding="8dp"
+        android:text="CANCEL"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/bodyView"
+        app:layout_constraintStart_toStartOf="@+id/bodyView"
+        app:layout_constraintTop_toBottomOf="@+id/btnConfirm" />
+
+    <!--    <TextView-->
+<!--        android:id="@+id/textCityTitle"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        android:layout_marginLeft="32dp"-->
+<!--        android:text="City: "-->
+<!--        android:textSize="15dp"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/bodyView"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textTitle" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textCity"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        android:textSize="15dp"-->
+<!--        android:text="UNKNOWN"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/textCityTitle"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textTitle" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textProvinceTitle"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        android:layout_marginLeft="32dp"-->
+<!--        android:textSize="15dp"-->
+<!--        android:text="Province: "-->
+<!--        app:layout_constraintStart_toStartOf="@+id/bodyView"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textCityTitle" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textProvince"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        android:layout_marginLeft="5dp"-->
+<!--        android:textSize="15dp"-->
+<!--        android:text="UNKNOWN"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/textProvinceTitle"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textCity" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textZipCodeTitle"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        android:layout_marginLeft="32dp"-->
+<!--        android:textSize="15dp"-->
+<!--        android:text="Postal Code: "-->
+<!--        app:layout_constraintStart_toStartOf="@+id/bodyView"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textProvinceTitle" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textZipCode"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        android:layout_marginLeft="5dp"-->
+<!--        android:textSize="15dp"-->
+<!--        android:text="UNKNOWN"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/textZipCodeTitle"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textProvince" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textAddLine1Title"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        android:layout_marginLeft="32dp"-->
+<!--        android:textSize="15dp"-->
+<!--        android:text="Address Line 1: "-->
+<!--        app:layout_constraintStart_toStartOf="@+id/bodyView"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textZipCodeTitle" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textAddLine1"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        android:layout_marginLeft="5dp"-->
+<!--        android:textSize="15dp"-->
+<!--        android:text="UNKNOWN"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/textAddLine1Title"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textZipCode" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textAddLine2Title"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        android:layout_marginLeft="32dp"-->
+<!--        android:textSize="15dp"-->
+<!--        android:text="Address Line 2: "-->
+<!--        app:layout_constraintStart_toStartOf="@+id/bodyView"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textAddLine1Title" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textAddLine2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        android:layout_marginLeft="5dp"-->
+<!--        android:textSize="15dp"-->
+<!--        android:text="UNKNOWN"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/textAddLine1Title"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textAddLine1" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textCountryTitle"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        android:layout_marginLeft="32dp"-->
+<!--        android:textSize="15dp"-->
+<!--        android:text="Country: "-->
+<!--        app:layout_constraintStart_toStartOf="@+id/bodyView"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textAddLine2Title" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textCountry"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        android:layout_marginLeft="5dp"-->
+<!--        android:textSize="15dp"-->
+<!--        android:text="UNKNOWN"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/textCountryTitle"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textAddLine2" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

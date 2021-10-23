@@ -44,9 +44,13 @@ public class StartupActivity extends AppCompatActivity {
 
         this.currIntent = this.getIntent();
         if (this.currIntent != null) {
-            boolean success = currIntent.getBooleanExtra("EXTRA_SIGNUP_SUCCESS", false);
-            if (success)
+            boolean signup_success = currIntent.getBooleanExtra("EXTRA_SIGNUP_SUCCESS", false);
+            if (signup_success)
                 Toast.makeText(StartupActivity.this, "Successfully registered.", Toast.LENGTH_SHORT).show();
+
+            boolean delete_success = currIntent.getBooleanExtra("EXTRA_DELETE_PAYMENT_SUCCESS", false);
+            if (delete_success)
+                Toast.makeText(StartupActivity.this, "Successfully delete account.", Toast.LENGTH_SHORT).show();
         }
 
         // Initialize the Realm library.

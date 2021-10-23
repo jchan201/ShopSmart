@@ -3,20 +3,25 @@ package com.shopsmart.shopsmart;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.shopsmart.shopsmart.databinding.ShopownerDashboardActivityBinding;
+import com.shopsmart.shopsmart.databinding.ShopownerDeleteAccountActivityBinding;
+import com.shopsmart.shopsmart.databinding.ShopownerProfileDeletePaymentConfirmationActivityBinding;
+
+import java.util.Calendar;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
 import io.realm.mongodb.Credentials;
+import io.realm.mongodb.User;
 import io.realm.mongodb.sync.SyncConfiguration;
 
-public class ShopOwnerDashboardActivity extends AppCompatActivity {
+public class ShopOwnerDeleteAccountConfirmActivity extends AppCompatActivity {
     private final String PARTITION = "ShopSmart";
-    private ShopownerDashboardActivityBinding binding;
+    private ShopownerDeleteAccountActivityBinding binding;
     Intent currIntent;
 
     String userEmail;
@@ -31,7 +36,7 @@ public class ShopOwnerDashboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ShopownerDashboardActivityBinding.inflate(getLayoutInflater());
+        binding = ShopownerDeleteAccountActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Access realm
@@ -51,7 +56,7 @@ public class ShopOwnerDashboardActivity extends AppCompatActivity {
                 Log.v("LOGIN", "Successfully authenticated using email and password.");
 
                 // Open a Synced Realm for asynchronous transactions.
-                SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
+                SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).allowWritesOnUiThread(true).build();
                 realm = Realm.getInstance(config);
 
                 // Retrieve all users in the Realm.
@@ -63,41 +68,52 @@ public class ShopOwnerDashboardActivity extends AppCompatActivity {
                         user = users.get(i);
                     }
                 }
-                binding.textUsername.setText(user.getEmail());
+            }
+            else{
+                Log.v("LOGIN", "Failed to authenticate using email and password.");
             }
         });
 
-        binding.btnDelete.setOnClickListener(view -> {
-            realm.close();
-            Intent intentToProfile = new Intent(ShopOwnerDashboardActivity.this, ShopOwnerDeleteAccountConfirmActivity.class);
-            intentToProfile.putExtra("EXTRA_PASS", userPass);
-            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
-            startActivity(intentToProfile);
-            finish();
+        binding.btnConfirm.setOnClickListener(view -> {
+            if(validation()) {
+                deleteAccount();
+                realm.close();
+                Intent intentToProfile = new Intent(ShopOwnerDeleteAccountConfirmActivity.this, StartupActivity.class);
+                intentToProfile.putExtra("EXTRA_DELETE_PAYMENT_SUCCESS", true);
+                startActivity(intentToProfile);
+            }
         });
 
-        binding.btnShopList.setOnClickListener(view -> {
+        binding.btnCancel.setOnClickListener(view -> {
             realm.close();
-            Intent intentToProfile = new Intent(ShopOwnerDashboardActivity.this, ShopListActivity.class);
-            intentToProfile.putExtra("EXTRA_PASS", userPass);
-            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
-            startActivity(intentToProfile);
-            finish();
+            Intent intentToBack = new Intent(ShopOwnerDeleteAccountConfirmActivity.this, ShopOwnerDashboardActivity.class);
+            intentToBack.putExtra("EXTRA_PASS", userPass);
+            intentToBack.putExtra("EXTRA_EMAIL", userEmail);
+            startActivity(intentToBack);
         });
+    }
 
-        binding.btnProfile.setOnClickListener(view -> {
-            realm.close();
-            Intent intentToProfile = new Intent(ShopOwnerDashboardActivity.this, ShopOwnerProfileActivity.class);
-            intentToProfile.putExtra("EXTRA_PASS", userPass);
-            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
-            startActivity(intentToProfile);
-            finish();
+    private void deleteAccount() {
+        realm.executeTransaction(transactionRealm -> {
+            AppUser deleteUser = transactionRealm.where(AppUser.class).equalTo("_id", user.getId()).findFirst();
+            deleteUser.deleteFromRealm();
         });
+    }
 
-        binding.btnLogout.setOnClickListener(view -> {
-            realm.close();
-            startActivity(new Intent(ShopOwnerDashboardActivity.this, StartupActivity.class));
-        });
+    private boolean validation() {
+        boolean valid = true;
+
+        if(this.binding.editTextPassword.getText().toString().isEmpty()){
+            this.binding.editTextPassword.setError("Password cannot be empty");
+            valid = false;
+        }
+
+        if(!this.binding.editTextPassword.getText().toString().equals(userPass)){
+            this.binding.editTextPassword.setError("Incorrect password");
+            valid = false;
+        }
+
+        return valid;
     }
 
     @Override
