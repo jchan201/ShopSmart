@@ -54,7 +54,7 @@
         app:layout_constraintTop_toTopOf="@+id/bodyView" />
 
     <Button
-        android:id="@+id/btnSave"
+        android:id="@+id/btnNext"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -63,12 +63,12 @@
         android:text="DATES AND TIMES"
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnCancel"
+        app:layout_constraintBottom_toTopOf="@+id/btnBack"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView" />
 
     <Button
-        android:id="@+id/btnCancel"
+        android:id="@+id/btnBack"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"

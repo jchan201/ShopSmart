@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.shopsmart.shopsmart.databinding.ShopRegisterActivityBinding;
+import com.shopsmart.shopsmart.databinding.ShopownerSignupActivity2Binding;
 
 public class ShopRegister extends AppCompatActivity {
     private ShopRegisterActivityBinding binding;
@@ -13,7 +14,8 @@ public class ShopRegister extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.shop_register_activity);
+        binding = ShopRegisterActivityBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         binding.btnCancel.setOnClickListener(view ->
                 startActivity(new Intent(ShopRegister.this, ShopListActivity.class)));
