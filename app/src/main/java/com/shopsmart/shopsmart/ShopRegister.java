@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.shopsmart.shopsmart.databinding.ShopRegisterActivityBinding;
-import com.shopsmart.shopsmart.databinding.ShopownerSignupActivity2Binding;
 
 public class ShopRegister extends AppCompatActivity {
     private ShopRegisterActivityBinding binding;

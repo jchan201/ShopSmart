@@ -17,15 +17,14 @@ public class Shop extends RealmObject implements Serializable {
     @Required private String phone;
     private String website = "";
     private Address address;
-    @Required private String daysOpen;
-    @Required private String startTime;
-    @Required private String endTime;
+    @Required private RealmList<String> startTimes;
+    @Required private RealmList<String> endTimes;
     @Required private RealmList<ObjectId> salesOrders;
     @Required private RealmList<ObjectId> owners;
 
     public Shop() {}
     public Shop(String desc, String name, String email, String phone, String website,
-                Address address, String daysOpen, String startTime, String endTime,
+                Address address, RealmList<String> startTimes, RealmList<String> endTimes,
                 RealmList<ObjectId> salesOrders, RealmList<ObjectId> owners) {
         this.desc = desc;
         this.name = name;
@@ -33,9 +32,8 @@ public class Shop extends RealmObject implements Serializable {
         this.phone = phone;
         this.website = website;
         this.address = address;
-        this.daysOpen = daysOpen;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTimes = startTimes;
+        this.endTimes = endTimes;
         this.salesOrders = salesOrders;
         this.owners = owners;
     }
@@ -86,25 +84,24 @@ public class Shop extends RealmObject implements Serializable {
         this.address = address;
     }
 
-    public String getDaysOpen() {
-        return daysOpen;
+    public RealmList<String> getStartTimes() {
+        return startTimes;
     }
-    public void setDaysOpen(String daysOpen) {
-        this.daysOpen = daysOpen;
+    public void addStartTime(String time) {
+        startTimes.add(time);
     }
-
-    public String getStartTime() {
-        return startTime;
-    }
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
+    public void setStartTime(int pos, String time) {
+        startTimes.set(pos, time);
     }
 
-    public String getEndTime() {
-        return endTime;
+    public RealmList<String> getEndTimes() {
+        return endTimes;
     }
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
+    public void addEndTime(String time) {
+        endTimes.add(time);
+    }
+    public void setEndTime(int pos, String time) {
+        endTimes.set(pos, time);
     }
 
     public RealmList<ObjectId> getOrders() {

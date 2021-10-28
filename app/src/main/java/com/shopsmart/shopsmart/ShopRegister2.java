@@ -2,13 +2,10 @@ package com.shopsmart.shopsmart;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import com.shopsmart.shopsmart.databinding.ShopRegisterActivity2Binding;
-import com.shopsmart.shopsmart.databinding.ShopRegisterActivityBinding;
 
 public class ShopRegister2 extends AppCompatActivity {
     private ShopRegisterActivity2Binding binding;
