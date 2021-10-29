@@ -4,11 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.shopsmart.shopsmart.databinding.ShopRegisterActivityBinding;
 
 public class ShopRegister extends AppCompatActivity {
     private ShopRegisterActivityBinding binding;
+    String userEmail;
+    String userPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,8 +19,15 @@ public class ShopRegister extends AppCompatActivity {
         binding = ShopRegisterActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.btnCancel.setOnClickListener(view ->
-                startActivity(new Intent(ShopRegister.this, ShopListActivity.class)));
+        Intent currIntent = this.getIntent();
+        if (currIntent != null) {
+            userEmail = currIntent.getStringExtra("EXTRA_EMAIL");
+            userPass = currIntent.getStringExtra("EXTRA_PASS");
+        }
+
+        binding.btnCancel.setOnClickListener(view -> startActivity(new Intent(ShopRegister.this, ShopListActivity.class)
+                .putExtra("EXTRA_EMAIL", userPass)
+                .putExtra("EXTRA_PASS", userPass)));
 
         binding.btnNext.setOnClickListener(view -> {
             if(validation()){
@@ -27,6 +37,8 @@ public class ShopRegister extends AppCompatActivity {
                 nextSignUpScreen.putExtra("EXTRA_EMAIL", binding.edtTextEmail.getText().toString());
                 nextSignUpScreen.putExtra("EXTRA_PHONE", binding.edtTextPhoneNum.getText().toString());
                 nextSignUpScreen.putExtra("EXTRA_WEBSITE", binding.edtTextWebsite.getText().toString());
+                nextSignUpScreen.putExtra("EXTRA_PASS", userPass);
+                nextSignUpScreen.putExtra("EXTRA_EMAIL", userEmail);
                 startActivity(nextSignUpScreen);
             }
         });

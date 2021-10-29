@@ -9,6 +9,10 @@ import com.shopsmart.shopsmart.databinding.ShopRegisterActivity2Binding;
 
 public class ShopRegister2 extends AppCompatActivity {
     private ShopRegisterActivity2Binding binding;
+
+    String userEmail;
+    String userPass;
+
     String shopName;
     String shopDesc;
     String shopEmail;
@@ -28,6 +32,8 @@ public class ShopRegister2 extends AppCompatActivity {
             this.shopEmail = currIntent.getStringExtra("EXTRA_EMAIL");
             this.shopPhone = currIntent.getStringExtra("EXTRA_PHONE");
             this.shopWebsite = currIntent.getStringExtra("EXTRA_WEBSITE");
+            userEmail = currIntent.getStringExtra("EXTRA_EMAIL");
+            userPass = currIntent.getStringExtra("EXTRA_PASS");
         }
 
         binding.btnNext.setOnClickListener(view -> {
@@ -46,12 +52,15 @@ public class ShopRegister2 extends AppCompatActivity {
                 nextSignUpScreen.putExtra("EXTRA_DESC", shopDesc);
                 nextSignUpScreen.putExtra("EXTRA_PHONE", shopPhone);
                 nextSignUpScreen.putExtra("EXTRA_WEBSITE", shopWebsite);
+                nextSignUpScreen.putExtra("EXTRA_PASS", userPass);
+                nextSignUpScreen.putExtra("EXTRA_EMAIL", userEmail);
                 startActivity(nextSignUpScreen);
             }
         });
 
-        binding.btnBack.setOnClickListener(view ->
-                startActivity(new Intent(ShopRegister2.this, ShopRegister.class)));
+        binding.btnBack.setOnClickListener(view -> startActivity(new Intent(ShopRegister2.this, ShopRegister.class)
+                .putExtra("EXTRA_EMAIL", userPass)
+                .putExtra("EXTRA_PASS", userPass)));
     }
 
     private boolean validation(){

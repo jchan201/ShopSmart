@@ -102,7 +102,6 @@
         android:inputType="text"
         android:maxLength="30"
         android:maxLines="1"
-        android:text="UNKNOWN"
         android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/textCityTitle"
         app:layout_constraintTop_toBottomOf="@+id/textTitle"/>
@@ -163,7 +162,7 @@
         android:inputType="text"
         android:maxLength="7"
         android:maxLines="1"
-        android:text="UNKNOWN"
+        android:hint="A1A 1A1"
         android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/textZipCodeTitle"
         app:layout_constraintTop_toBottomOf="@+id/spinner_province"/>
@@ -188,7 +187,6 @@
         android:inputType="text"
         android:maxLength="50"
         android:maxLines="1"
-        android:text="UNKNOWN"
         android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/textAddLine1Title"
         app:layout_constraintTop_toBottomOf="@+id/textZipCode"/>
@@ -213,7 +211,6 @@
         android:inputType="text"
         android:maxLength="50"
         android:maxLines="1"
-        android:text="UNKNOWN"
         android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/textAddLine1Title"
         app:layout_constraintTop_toBottomOf="@+id/textAddLine1"/>
