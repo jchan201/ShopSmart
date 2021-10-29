@@ -1,13 +1,13 @@
 package com.shopsmart.shopsmart;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.ShopRegisterActivity3Binding;
 
@@ -18,7 +18,6 @@ import io.realm.RealmResults;
 import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
 import io.realm.mongodb.Credentials;
-import io.realm.mongodb.User;
 import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ShopRegister3 extends AppCompatActivity {
@@ -35,8 +34,8 @@ public class ShopRegister3 extends AppCompatActivity {
     private String shopPhone;
     private String shopWebsite;
     private CheckBox monday, tuesday, wednesday, thursday, friday, saturday, sunday;
-    private ArrayList<EditText> startTimes = new ArrayList<>();
-    private ArrayList<EditText> endTimes = new ArrayList<>();
+    private final ArrayList<EditText> startTimes = new ArrayList<>();
+    private final ArrayList<EditText> endTimes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +61,6 @@ public class ShopRegister3 extends AppCompatActivity {
             userEmail = currIntent.getStringExtra("EXTRA_EMAIL");
             userPass = currIntent.getStringExtra("EXTRA_PASS");
         }
-        Realm.init(this);
         app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
 
         monday.setOnCheckedChangeListener((compoundButton, b) -> {
@@ -133,15 +131,16 @@ public class ShopRegister3 extends AppCompatActivity {
             if (validation()) {
                 Credentials credentials = Credentials.emailPassword(userEmail, userPass);
                 app.loginAsync(credentials, result -> {
-                    Log.v("ShopCreation", "Logging in...");
+                    Log.d("ShopCreation", "Logging in...");
                     if (result.isSuccess()) {
-                        Log.v("ShopCreation", "Log in success!");
+                        Log.d("ShopCreation", "Log in success!");
                         SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION)
                                 .allowWritesOnUiThread(true)
                                 .allowQueriesOnUiThread(true)
                                 .build();
                         realm = Realm.getInstance(config);
                         realm.executeTransaction(realm -> {
+                            Log.d("Something", "Executing transaction...");
                             Shop shop = new Shop(shopDesc, shopName, shopEmail, shopPhone, shopWebsite, shopAddress);
                             for (EditText time : startTimes) {
                                 shop.addStartTime(time.getText().toString());
@@ -156,6 +155,7 @@ public class ShopRegister3 extends AppCompatActivity {
                                     user = u;
                                 }
                             }
+                            realm.insert(shop);
                             user.addShop(shop.getId());
                         });
                         realm.close();

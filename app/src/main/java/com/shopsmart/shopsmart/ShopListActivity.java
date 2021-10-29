@@ -9,7 +9,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.ShopListActivityBinding;
-import com.shopsmart.shopsmart.databinding.ShopownerProfilePaymentsActivityBinding;
+
+import org.bson.types.ObjectId;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -20,21 +24,17 @@ import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ShopListActivity extends AppCompatActivity {
     private final String PARTITION = "ShopSmart";
-    private ShopListActivityBinding binding;
     Intent currIntent;
-
     String userEmail;
     String userPass;
-
-    private App app;
-
-    private Realm realm;
-
     AppUser user;
-    Shop[] shops;
-
+    List<ObjectId> shopIds;
+    ArrayList<Shop> shops;
     int index = 0;
     int total = 0;
+    private ShopListActivityBinding binding;
+    private App app;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,75 +62,78 @@ public class ShopListActivity extends AppCompatActivity {
             if (result.isSuccess()) {
                 Log.v("LOGIN", "Successfully authenticated using email and password.");
 
-                // Open a Synced Realm for asynchronous transactions.
                 SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
                 realm = Realm.getInstance(config);
 
-                // Retrieve all users in the Realm.
                 RealmResults<AppUser> users = realm.where(AppUser.class).findAll();
-
-                // Find the AppUser
-                for (int i = 0; i < users.size(); i++) {
-                    if (users.get(i).getEmail().equals(userEmail)) {
-                        user = users.get(i);
+                for (AppUser u : users) {
+                    if (u.getEmail().equals(userEmail)) {
+                        user = u;
+                    }
+                }
+                RealmResults<Shop> allShops = realm.where(Shop.class).findAll();
+                shopIds = user.getShops();
+                shops = new ArrayList<>();
+                for (Shop s : allShops) {
+                    for (ObjectId o : shopIds) {
+                        if (s.getId().equals(o))
+                            shops.add(s);
                     }
                 }
 
-                shops = user.getShops().toArray(new Shop[0]);
-                total = shops.length;
+                total = shops.size();
                 binding.textShopTotal.setText(Integer.toString(total));
-                if(total == 0){
+                if (total == 0) {
                     binding.textShopIndex.setText(Integer.toString(index));
-                }
-                else{
-                    binding.textShopIndex.setText(Integer.toString(index+1));
+                } else {
+                    binding.textShopIndex.setText(Integer.toString(index + 1));
                 }
 
-                if(index == 0 && total == 0){
+                if (index == 0 && total == 0) {
                     binding.singleShopView.setVisibility(View.GONE);
                     binding.textShopName.setVisibility(View.GONE);
                     binding.btnView.setVisibility(View.GONE);
                     binding.buttonPrev.setVisibility(View.GONE);
                     binding.buttonNext.setVisibility(View.GONE);
-                }
-                else{
-                    if(index+1 == total){
-                        binding.buttonPrev.setVisibility(View.INVISIBLE);
-                        binding.buttonNext.setVisibility(View.INVISIBLE);
+                } else {
+                    binding.singleShopView.setVisibility(View.VISIBLE);
+                    binding.textShopName.setVisibility(View.VISIBLE);
+                    binding.btnView.setVisibility(View.VISIBLE);
+                    binding.buttonPrev.setVisibility(View.VISIBLE);
+                    binding.buttonNext.setVisibility(View.VISIBLE);
+                    if (index + 1 == total)
+                        binding.buttonNext.setVisibility(View.GONE);
+                    if (index == 0) {
+                        binding.buttonPrev.setVisibility(View.GONE);
                     }
-
-                    if(index+1 < total){
-                        binding.buttonPrev.setVisibility(View.INVISIBLE);
-                    }
-                    displayCardInfo(shops[index]);
+                    displayCardInfo(shops.get(index));
                 }
-            }
-            else{
+            } else {
                 Log.v("LOGIN", "Failed to authenticate using email and password.");
             }
         });
 
         binding.buttonPrev.setOnClickListener(view -> {
-            if(index > 0){
-                index-=1;
+            if (index > 0) {
+                index -= 1;
                 binding.buttonNext.setVisibility(View.VISIBLE);
-                binding.textShopIndex.setText(Integer.toString(index+1));
-                displayCardInfo(shops[index]);
+                binding.textShopIndex.setText(Integer.toString(index + 1));
+                displayCardInfo(shops.get(index));
 
-                if(index == 0){
+                if (index == 0) {
                     binding.buttonPrev.setVisibility(View.INVISIBLE);
                 }
             }
         });
 
         binding.buttonNext.setOnClickListener(view -> {
-            if(index < total){
-                index+=1;
+            if (index < total) {
+                index += 1;
                 binding.buttonPrev.setVisibility(View.VISIBLE);
-                binding.textShopIndex.setText(Integer.toString(index+1));
-                displayCardInfo(shops[index]);
+                binding.textShopIndex.setText(Integer.toString(index + 1));
+                displayCardInfo(shops.get(index));
 
-                if(index+1 == total){
+                if (index + 1 == total) {
                     binding.buttonNext.setVisibility(View.INVISIBLE);
                 }
             }
@@ -162,7 +165,7 @@ public class ShopListActivity extends AppCompatActivity {
         });
     }
 
-    private void displayCardInfo(Shop shop){
+    private void displayCardInfo(Shop shop) {
         binding.textShopName.setText(shop.getName());
     }
 

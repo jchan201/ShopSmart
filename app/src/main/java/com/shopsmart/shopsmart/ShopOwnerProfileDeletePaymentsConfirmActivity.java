@@ -6,7 +6,6 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.shopsmart.shopsmart.databinding.ShopownerProfileAddPaymentActivity2Binding;
 import com.shopsmart.shopsmart.databinding.ShopownerProfileDeletePaymentConfirmationActivityBinding;
 
 import io.realm.Realm;
@@ -18,19 +17,14 @@ import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ShopOwnerProfileDeletePaymentsConfirmActivity extends AppCompatActivity {
     private final String PARTITION = "ShopSmart";
-    private ShopownerProfileDeletePaymentConfirmationActivityBinding binding;
     Intent currIntent;
-
     String userEmail;
     String userPass;
-
-    private App app;
-
-    private Realm realm;
-
     AppUser user;
-
     int index = 0;
+    private ShopownerProfileDeletePaymentConfirmationActivityBinding binding;
+    private App app;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,20 +62,19 @@ public class ShopOwnerProfileDeletePaymentsConfirmActivity extends AppCompatActi
                         user = users.get(i);
                     }
                 }
-            }
-            else{
+            } else {
                 Log.v("LOGIN", "Failed to authenticate using email and password.");
             }
         });
 
         binding.btnConfirm.setOnClickListener(view -> {
-                deletePaymentMethod();
-                realm.close();
-                Intent intentToProfile = new Intent(ShopOwnerProfileDeletePaymentsConfirmActivity.this, ShopOwnerProfilePaymentsActivity.class);
-                intentToProfile.putExtra("EXTRA_PASS", userPass);
-                intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
-                intentToProfile.putExtra("EXTRA_DELETE_PAYMENT_SUCCESS", true);
-                startActivity(intentToProfile);
+            deletePaymentMethod();
+            realm.close();
+            Intent intentToProfile = new Intent(ShopOwnerProfileDeletePaymentsConfirmActivity.this, ShopOwnerProfilePaymentsActivity.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+            intentToProfile.putExtra("EXTRA_DELETE_PAYMENT_SUCCESS", true);
+            startActivity(intentToProfile);
         });
 
         binding.btnCancel.setOnClickListener(view -> {

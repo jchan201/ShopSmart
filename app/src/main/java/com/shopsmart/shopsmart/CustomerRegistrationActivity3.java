@@ -27,14 +27,14 @@ import io.realm.mongodb.sync.SyncConfiguration;
 public class CustomerRegistrationActivity3 extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
     private final String PARTITION = "ShopSmart";
     CustomerRegister3Binding binding;
-    private DatePickerDialog dpd;
     Intent currentIntent;
     App app;
     Address userAddress;
     Date userDOB;
+    private DatePickerDialog dpd;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.binding = CustomerRegister3Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -51,11 +51,11 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         this.binding.finishButton.setOnClickListener(this);
     }
 
-    private String makeDateString(int day, int month, int year){
+    private String makeDateString(int day, int month, int year) {
         return getMonthFormat(month) + " " + day + " " + year;
     }
 
-    private String getMonthFormat(int month){
+    private String getMonthFormat(int month) {
         switch (month) {
             case 1:
                 return "JAN";
@@ -89,26 +89,27 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         String choice = adapterView.getItemAtPosition(i).toString();
-        if(i != 0)
-            Toast.makeText(getApplication(),choice + " selected", Toast.LENGTH_SHORT).show();
-        else{
+        if (i != 0)
+            Toast.makeText(getApplication(), choice + " selected", Toast.LENGTH_SHORT).show();
+        else {
             Toast.makeText(getApplication(), "Please select a province/territory", Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {}
+    public void onNothingSelected(AdapterView<?> adapterView) {
+    }
 
     @Override
     public void onClick(View view) {
-        if(view != null){
-            switch (view.getId()){
-                case R.id.cancelButton3:{
+        if (view != null) {
+            switch (view.getId()) {
+                case R.id.cancelButton3: {
                     Intent mainIntent = new Intent(this, StartupActivity.class);
                     startActivity(mainIntent);
                     break;
                 }
-                case R.id.finishButton:{
+                case R.id.finishButton: {
                     if (this.validateData()) {
                         this.createUser();
                         //Intent CRegister3 = new Intent(this, StartupActivity.class);
@@ -120,34 +121,34 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         }
     }
 
-    private boolean validateData(){
+    private boolean validateData() {
         boolean valid = true;
         if (this.binding.cCardName.getText().toString().isEmpty()) {
             this.binding.cCardName.setError("Field cannot be empty");
             valid = false;
         }
-        if (this.binding.cCardPhoneNum.getText().toString().isEmpty()){
+        if (this.binding.cCardPhoneNum.getText().toString().isEmpty()) {
             this.binding.cCardPhoneNum.setError("Field cannot be empty");
             valid = false;
         }
-        if (this.binding.cCardCCV.getText().toString().isEmpty()){
+        if (this.binding.cCardCCV.getText().toString().isEmpty()) {
             this.binding.cCardCCV.setError("Field cannot be empty");
             valid = false;
         }
 
-        if(this.binding.cCardCCV.getText().toString().length() < 3){
+        if (this.binding.cCardCCV.getText().toString().length() < 3) {
             this.binding.cCardCCV.setError("Field must be 3 digits long");
             valid = false;
         }
 
-        if(this.binding.cCardPhoneNum.getText().toString().length() < 9){
+        if (this.binding.cCardPhoneNum.getText().toString().length() < 9) {
             this.binding.cCardPhoneNum.setError("Field must be 10 digits long");
             valid = false;
         }
 
         Calendar todaysDate = Calendar.getInstance();
-        if(!this.binding.expY.getText().toString().isEmpty() && !this.binding.expM.getText().toString().isEmpty()) {
-            if(Long.parseLong(this.binding.expY.getText().toString()) + 2000 + (Long.parseLong(this.binding.expM.getText().toString()) / 12) < todaysDate.get(Calendar.YEAR) + ((todaysDate.get(Calendar.MONTH) + 1) / 12)){
+        if (!this.binding.expY.getText().toString().isEmpty() && !this.binding.expM.getText().toString().isEmpty()) {
+            if (Long.parseLong(this.binding.expY.getText().toString()) + 2000 + (Long.parseLong(this.binding.expM.getText().toString()) / 12) < todaysDate.get(Calendar.YEAR) + ((todaysDate.get(Calendar.MONTH) + 1) / 12)) {
                 this.binding.expY.setError("Please enter a valid date");
                 valid = false;
             }
@@ -155,7 +156,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
             //    this.binding.expY.setError("Please enter a valid date");
             //    valid = false;
             //}
-            else if(Long.parseLong(this.binding.expM.getText().toString()) > 12){
+            else if (Long.parseLong(this.binding.expM.getText().toString()) > 12) {
                 this.binding.expM.setError("Please enter a valid date" + todaysDate.get(Calendar.YEAR));
                 valid = false;
             }
@@ -189,9 +190,9 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
             this.binding.cCardNum.setError("Must contain 16 digits");
             valid = false;
         }
-            return valid;
-        }
-        //return true;
+        return valid;
+    }
+    //return true;
 
     private void createUser() {
         AppUser appUser = new AppUser();
@@ -199,8 +200,8 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         String password = this.currentIntent.getStringExtra("EXTRA_PASSWORD");
 
 
-        if(currentIntent != null){
-            this.userAddress = (Address)this.currentIntent.getSerializableExtra("EXTRA_ADDRESS_OBJ");
+        if (currentIntent != null) {
+            this.userAddress = (Address) this.currentIntent.getSerializableExtra("EXTRA_ADDRESS_OBJ");
         }
 
         appUser.setEmail(this.currentIntent.getStringExtra("EXTRA_EMAIL"));
@@ -254,7 +255,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         });
     }
 
-    private PaymentMethod createPayment(){
+    private PaymentMethod createPayment() {
         PaymentMethod pMethod = new PaymentMethod();
         String cCardNum = this.binding.cCardNum.getText().toString();
 

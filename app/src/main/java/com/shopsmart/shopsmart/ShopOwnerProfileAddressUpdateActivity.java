@@ -4,16 +4,10 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.shopsmart.shopsmart.databinding.ShopownerDetailUpdateProfileActivityBinding;
 import com.shopsmart.shopsmart.databinding.ShopownerProfileUpdateAddressActivityBinding;
-
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -24,21 +18,15 @@ import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ShopOwnerProfileAddressUpdateActivity extends AppCompatActivity {
     private final String PARTITION = "ShopSmart";
-    private DatePickerDialog datePickerDialog;
-    private ShopownerProfileUpdateAddressActivityBinding binding;
-
     Intent currIntent;
-
     String userEmail;
     String userPass;
-
-    private App app;
-
-    private Realm realm;
-
     AppUser user;
-
     Address address;
+    private DatePickerDialog datePickerDialog;
+    private ShopownerProfileUpdateAddressActivityBinding binding;
+    private App app;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +71,8 @@ public class ShopOwnerProfileAddressUpdateActivity extends AppCompatActivity {
 
                 int index = 0;
                 String[] provinces = getResources().getStringArray(R.array.provinces);
-                for(int i = 0; i < provinces.length; i++){
-                    if(provinces[i].equals(address.getProvince())){
+                for (int i = 0; i < provinces.length; i++) {
+                    if (provinces[i].equals(address.getProvince())) {
                         index = i;
                         break;
                     }
@@ -96,8 +84,7 @@ public class ShopOwnerProfileAddressUpdateActivity extends AppCompatActivity {
                 binding.textAddLine1.setText(address.getAddress1());
                 binding.textAddLine2.setText(address.getAddress2());
 
-            }
-            else{
+            } else {
                 Log.v("LOGIN", "Failed to authenticate using email and password.");
             }
         });
@@ -150,7 +137,7 @@ public class ShopOwnerProfileAddressUpdateActivity extends AppCompatActivity {
             valid = false;
         }
 
-        if(!this.binding.textZipCode.getText().toString().matches("([A-Z]\\d[A-Z]\\s\\d[A-Z]\\d)")){
+        if (!this.binding.textZipCode.getText().toString().matches("([A-Z]\\d[A-Z]\\s\\d[A-Z]\\d)")) {
             this.binding.textZipCode.setError("Postal code does not match schema: A1A 1A1");
             valid = false;
         }

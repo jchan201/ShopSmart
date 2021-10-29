@@ -9,7 +9,6 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.ShopownerDetailUpdateProfileActivityBinding;
-import com.shopsmart.shopsmart.databinding.ShopownerSignupActivityBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -23,19 +22,14 @@ import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ShopOwnerDetailUpdateProfileActivity extends AppCompatActivity {
     private final String PARTITION = "ShopSmart";
-    private DatePickerDialog datePickerDialog;
-    private ShopownerDetailUpdateProfileActivityBinding binding;
-
     Intent currIntent;
-
     String userEmail;
     String userPass;
-
-    private App app;
-
-    private Realm realm;
-
     AppUser user;
+    private DatePickerDialog datePickerDialog;
+    private ShopownerDetailUpdateProfileActivityBinding binding;
+    private App app;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

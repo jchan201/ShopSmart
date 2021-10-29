@@ -17,10 +17,10 @@ public class Shop extends RealmObject implements Serializable {
     @Required private String phone;
     private String website = "";
     private Address address;
-    @Required private RealmList<String> startTimes = new RealmList<>();
-    @Required private RealmList<String> endTimes = new RealmList<>();
-    @Required private RealmList<ObjectId> salesOrders = new RealmList<>();
-    @Required private RealmList<ObjectId> owners = new RealmList<>();
+    @Required private final RealmList<String> startTimes = new RealmList<>();
+    @Required private final RealmList<String> endTimes = new RealmList<>();
+    @Required private final RealmList<ObjectId> salesOrders = new RealmList<>();
+    @Required private final RealmList<ObjectId> owners = new RealmList<>();
 
     public Shop() {}
     public Shop(String desc, String name, String email, String phone, String website,

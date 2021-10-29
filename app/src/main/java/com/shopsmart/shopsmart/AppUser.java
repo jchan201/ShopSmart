@@ -23,9 +23,9 @@ public class AppUser extends RealmObject {
     private Address address = new Address();
     private final RealmList<PaymentMethod> paymentMethods = new RealmList<>();
     private final RealmList<BankInformation> bankInfo = new RealmList<>();
-    private RealmList<ProductItem> shoppingCart = new RealmList<>();
-    @Required private RealmList<ObjectId> orders = new RealmList<>();
-    @Required private RealmList<ObjectId> shops = new RealmList<>();
+    private final RealmList<ProductItem> shoppingCart = new RealmList<>();
+    @Required private final RealmList<ObjectId> orders = new RealmList<>();
+    @Required private final RealmList<ObjectId> shops = new RealmList<>();
 
     public AppUser() {
         userType = "";

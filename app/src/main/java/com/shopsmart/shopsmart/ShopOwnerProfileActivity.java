@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.shopsmart.shopsmart.databinding.ShopownerProfileAddressActivityBinding;
 import com.shopsmart.shopsmart.databinding.ShopownerProfilePageActivityBinding;
 
 public class ShopOwnerProfileActivity extends AppCompatActivity {

@@ -2,34 +2,21 @@ package com.shopsmart.shopsmart;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.shopsmart.shopsmart.databinding.ShopownerProfileAddPaymentActivity1Binding;
 import com.shopsmart.shopsmart.databinding.ShopownerProfileUpdatePaymentActivity1Binding;
 
 import java.util.Calendar;
 
-import io.realm.Realm;
-import io.realm.RealmResults;
-import io.realm.mongodb.App;
-import io.realm.mongodb.AppConfiguration;
-import io.realm.mongodb.Credentials;
-import io.realm.mongodb.sync.SyncConfiguration;
-
 public class ShopOwnerProfileUpdatePaymentsActivity1 extends AppCompatActivity {
-    private ShopownerProfileUpdatePaymentActivity1Binding binding;
     Intent currIntent;
-
     String userEmail;
     String userPass;
-
     PaymentMethod paymentMethod;
     Address billingAddress;
     int updateIndex = 0;
-
+    private ShopownerProfileUpdatePaymentActivity1Binding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +39,8 @@ public class ShopOwnerProfileUpdatePaymentsActivity1 extends AppCompatActivity {
 
         int index = 0;
         String[] months = getResources().getStringArray(R.array.months);
-        for(int i = 0; i < months.length; i++){
-            if(months[i].equals(month)){
+        for (int i = 0; i < months.length; i++) {
+            if (months[i].equals(month)) {
                 index = i;
                 break;
             }
@@ -63,14 +50,14 @@ public class ShopOwnerProfileUpdatePaymentsActivity1 extends AppCompatActivity {
         this.binding.edtTextCardNum.setText(paymentMethod.getCardNumber());
         this.binding.edtTextCCV.setText(paymentMethod.getSecurityCode());
         this.binding.spinnerTextExpiryDateMonth.setSelection(index);
-        this.binding.edtTextExpiryDateYear.setText(paymentMethod.getExpiry().substring(paymentMethod.getExpiry().indexOf("/")+1).trim());
+        this.binding.edtTextExpiryDateYear.setText(paymentMethod.getExpiry().substring(paymentMethod.getExpiry().indexOf("/") + 1).trim());
 
         binding.btnNext.setOnClickListener(view -> {
-            if(validation()){
+            if (validation()) {
                 paymentMethod.setCardNumber(binding.edtTextCardNum.getText().toString());
                 paymentMethod.setName(binding.edtTextCardName.getText().toString());
                 paymentMethod.setSecurityCode(binding.edtTextCCV.getText().toString());
-                paymentMethod.setExpiry(this.binding.spinnerTextExpiryDateMonth.getSelectedItem().toString()+"/"+this.binding.edtTextExpiryDateYear.getText().toString());
+                paymentMethod.setExpiry(this.binding.spinnerTextExpiryDateMonth.getSelectedItem().toString() + "/" + this.binding.edtTextExpiryDateYear.getText().toString());
 
                 Intent intentToNext = new Intent(ShopOwnerProfileUpdatePaymentsActivity1.this, ShopOwnerProfileUpdatePaymentsActivity2.class);
                 intentToNext.putExtra("EXTRA_PASS", userPass);
@@ -95,27 +82,27 @@ public class ShopOwnerProfileUpdatePaymentsActivity1 extends AppCompatActivity {
         int year = cal.get(Calendar.YEAR);
         boolean valid = true;
 
-        if(this.binding.edtTextCardName.getText().toString().isEmpty()){
+        if (this.binding.edtTextCardName.getText().toString().isEmpty()) {
             this.binding.edtTextCardName.setError("Name on card cannot be empty");
             valid = false;
         }
 
-        if(this.binding.edtTextCardNum.getText().toString().isEmpty()){
+        if (this.binding.edtTextCardNum.getText().toString().isEmpty()) {
             this.binding.edtTextCardNum.setError("Card number cannot be empty");
             valid = false;
         }
 
-        if(this.binding.edtTextCCV.getText().toString().isEmpty()){
+        if (this.binding.edtTextCCV.getText().toString().isEmpty()) {
             this.binding.edtTextCCV.setError("CCV cannot be empty");
             valid = false;
         }
 
-        if(this.binding.edtTextExpiryDateYear.getText().toString().isEmpty()){
+        if (this.binding.edtTextExpiryDateYear.getText().toString().isEmpty()) {
             this.binding.edtTextExpiryDateYear.setError("Expire year cannot be empty");
             valid = false;
         }
 
-        if(Integer.parseInt(this.binding.edtTextExpiryDateYear.getText().toString()) < year){
+        if (Integer.parseInt(this.binding.edtTextExpiryDateYear.getText().toString()) < year) {
             this.binding.edtTextExpiryDateYear.setError("Card expired");
             valid = false;
         }

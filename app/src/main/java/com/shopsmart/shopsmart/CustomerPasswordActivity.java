@@ -9,21 +9,15 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.CustomerResetPasswordBinding;
-import com.shopsmart.shopsmart.databinding.ShopownerProfileDetailResetPasswordActivityBinding;
 
-import io.realm.Realm;
 import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
-import io.realm.mongodb.sync.SyncConfiguration;
 
 public class CustomerPasswordActivity extends AppCompatActivity {
-    private CustomerResetPasswordBinding binding;
-
     Intent currIntent;
-
     String userEmail;
     String userPass;
-
+    private CustomerResetPasswordBinding binding;
     private App app;
 
     @Override
@@ -52,7 +46,7 @@ public class CustomerPasswordActivity extends AppCompatActivity {
         );
 
         binding.confirmButton.setOnClickListener(view -> {
-            if(validation()) {
+            if (validation()) {
                 updatePassword();
             }
         });
@@ -101,12 +95,10 @@ public class CustomerPasswordActivity extends AppCompatActivity {
             valid = false;
         }
 
-        if(this.binding.password1.getText().toString().length() < 6){
+        if (this.binding.password1.getText().toString().length() < 6) {
             this.binding.password1.setError("Password must contain more than 6 or more characters");
             valid = false;
-        }
-
-        else if(!this.binding.password1.getText().toString().matches("(.*[A-Z].*)") || !this.binding.password1.getText().toString().matches("(.*[0-9].*)")){
+        } else if (!this.binding.password1.getText().toString().matches("(.*[A-Z].*)") || !this.binding.password1.getText().toString().matches("(.*[0-9].*)")) {
             this.binding.password1.setError("Password must contain 1 Uppercase and 1 Number");
             valid = false;
         }
@@ -123,9 +115,10 @@ public class CustomerPasswordActivity extends AppCompatActivity {
 
         return valid;
     }
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch(item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.Profile:
                 Intent settingsIntent = new Intent(CustomerPasswordActivity.this, CustomerManageProfileActivity.class);
                 settingsIntent.putExtra("EXTRA_EMAIL", userEmail);

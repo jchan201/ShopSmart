@@ -13,13 +13,10 @@ import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
 
 public class ShopOwnerDetailResetPasswordActivity extends AppCompatActivity {
-    private ShopownerProfileDetailResetPasswordActivityBinding binding;
-
     Intent currIntent;
-
     String userEmail;
     String userPass;
-
+    private ShopownerProfileDetailResetPasswordActivityBinding binding;
     private App app;
 
     @Override
@@ -48,7 +45,7 @@ public class ShopOwnerDetailResetPasswordActivity extends AppCompatActivity {
         );
 
         binding.btnSave.setOnClickListener(view -> {
-            if(validation()) {
+            if (validation()) {
                 updatePassword();
             }
         });
@@ -96,12 +93,10 @@ public class ShopOwnerDetailResetPasswordActivity extends AppCompatActivity {
             valid = false;
         }
 
-        if(this.binding.textNewPassword.getText().toString().length() < 6){
+        if (this.binding.textNewPassword.getText().toString().length() < 6) {
             this.binding.textNewPassword.setError("Password must contain more than 6 or more characters");
             valid = false;
-        }
-
-        else if(!this.binding.textNewPassword.getText().toString().matches("(.*[A-Z].*)") || !this.binding.textNewPassword.getText().toString().matches("(.*[0-9].*)")){
+        } else if (!this.binding.textNewPassword.getText().toString().matches("(.*[A-Z].*)") || !this.binding.textNewPassword.getText().toString().matches("(.*[0-9].*)")) {
             this.binding.textNewPassword.setError("Password must contain 1 Uppercase and 1 Number");
             valid = false;
         }

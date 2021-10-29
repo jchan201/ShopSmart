@@ -22,17 +22,13 @@ import io.realm.mongodb.sync.SyncConfiguration;
 
 public class CustomerDashboardActivity extends AppCompatActivity {
     private final String PARTITION = "ShopSmart";
-    private CustomerDashboard1Binding binding;
     Intent currentIntent;
-
     String userEmail;
     String userPass;
-
-    private App app;
-
-    private Realm realm;
-
     AppUser user;
+    private CustomerDashboard1Binding binding;
+    private App app;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +43,14 @@ public class CustomerDashboardActivity extends AppCompatActivity {
 
         this.currentIntent = this.getIntent();
 
-        if(this.currentIntent != null){
+        if (this.currentIntent != null) {
             this.userEmail = currentIntent.getStringExtra("EXTRA_EMAIL");
             this.userPass = currentIntent.getStringExtra("EXTRA_PASS");
         }
 
         Credentials credentials = Credentials.emailPassword(userEmail, userPass);
-        app.loginAsync(credentials, result ->{
-            if(result.isSuccess()){
+        app.loginAsync(credentials, result -> {
+            if (result.isSuccess()) {
                 Log.v("LOGIN", "Successfully authenticated using email and password.");
 
                 SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
@@ -62,8 +58,8 @@ public class CustomerDashboardActivity extends AppCompatActivity {
 
                 RealmResults<AppUser> users = realm.where(AppUser.class).findAll();
 
-                for(int x = 0; x < users.size(); x++){
-                    if(users.get(x).getEmail().equals(userEmail)){
+                for (int x = 0; x < users.size(); x++) {
+                    if (users.get(x).getEmail().equals(userEmail)) {
                         user = users.get(x);
                     }
                 }
@@ -73,15 +69,15 @@ public class CustomerDashboardActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater inflater=getMenuInflater();
-        inflater.inflate(R.menu.menu,menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch(item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.Profile:
                 realm.close();
                 Intent settingsIntent = new Intent(CustomerDashboardActivity.this, CustomerManageProfileActivity.class);
@@ -100,14 +96,14 @@ public class CustomerDashboardActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy(){
-        super.onDestroy();;
+    protected void onDestroy() {
+        super.onDestroy();
         binding = null;
 
         app.currentUser().logOutAsync(result -> {
-            if(result.isSuccess()){
+            if (result.isSuccess()) {
                 Log.v("LOGOUT", "Successfully logged out.");
-            }else{
+            } else {
                 Log.e("LOGOUT", "Failed to log out, error: " + result.getError());
             }
         });

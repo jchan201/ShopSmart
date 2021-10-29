@@ -1,17 +1,16 @@
 package com.shopsmart.shopsmart;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.ShopRegisterActivityBinding;
 
 public class ShopRegister extends AppCompatActivity {
-    private ShopRegisterActivityBinding binding;
     String userEmail;
     String userPass;
+    private ShopRegisterActivityBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +29,9 @@ public class ShopRegister extends AppCompatActivity {
                 .putExtra("EXTRA_PASS", userPass)));
 
         binding.btnNext.setOnClickListener(view -> {
-            if(validation()){
+            if (validation()) {
                 Intent nextSignUpScreen = new Intent(ShopRegister.this, ShopRegister2.class);
-                nextSignUpScreen.putExtra("EXTRA_NAME",binding.edtTextShopName.getText().toString());
+                nextSignUpScreen.putExtra("EXTRA_NAME", binding.edtTextShopName.getText().toString());
                 nextSignUpScreen.putExtra("EXTRA_DESC", binding.edtTextDesc.getText().toString());
                 nextSignUpScreen.putExtra("EXTRA_EMAIL", binding.edtTextEmail.getText().toString());
                 nextSignUpScreen.putExtra("EXTRA_PHONE", binding.edtTextPhoneNum.getText().toString());
@@ -47,27 +46,27 @@ public class ShopRegister extends AppCompatActivity {
     private boolean validation() {
         boolean valid = true;
 
-        if(this.binding.edtTextShopName.getText().toString().isEmpty()){
+        if (this.binding.edtTextShopName.getText().toString().isEmpty()) {
             this.binding.edtTextShopName.setError("Shop name cannot be empty");
             valid = false;
         }
 
-        if(this.binding.edtTextDesc.getText().toString().isEmpty()){
+        if (this.binding.edtTextDesc.getText().toString().isEmpty()) {
             this.binding.edtTextDesc.setError("Shop Description cannot be empty");
             valid = false;
         }
 
-        if(this.binding.edtTextEmail.getText().toString().isEmpty()){
+        if (this.binding.edtTextEmail.getText().toString().isEmpty()) {
             this.binding.edtTextEmail.setError("Shop Email cannot be empty");
             valid = false;
         }
 
-        if(this.binding.edtTextPhoneNum.getText().toString().isEmpty()){
+        if (this.binding.edtTextPhoneNum.getText().toString().isEmpty()) {
             this.binding.edtTextPhoneNum.setError("Shop phone number cannot be empty");
             valid = false;
         }
 
-        if(this.binding.edtTextWebsite.getText().toString().isEmpty()){
+        if (this.binding.edtTextWebsite.getText().toString().isEmpty()) {
             this.binding.edtTextWebsite.setError("Shop website link cannot be empty");
             valid = false;
         }

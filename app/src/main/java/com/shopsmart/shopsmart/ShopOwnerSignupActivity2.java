@@ -2,20 +2,19 @@ package com.shopsmart.shopsmart;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.ShopownerSignupActivity2Binding;
 
 public class ShopOwnerSignupActivity2 extends AppCompatActivity {
-    private ShopownerSignupActivity2Binding binding;
     String userFName;
     String userMName;
     String userLName;
     String userEmail;
     String userPass;
     String userDOB;
+    private ShopownerSignupActivity2Binding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +36,7 @@ public class ShopOwnerSignupActivity2 extends AppCompatActivity {
         binding.buttonCancel.setOnClickListener(view -> startActivity(new Intent(ShopOwnerSignupActivity2.this, ShopOwnerSignupActivity.class)));
 
         binding.buttonNext.setOnClickListener(view -> {
-            if(validation()){
+            if (validation()) {
                 //Create Address Object
                 Address address = new Address(binding.edtTextAdd1.getText().toString(),
                         binding.edtTextAdd2.getText().toString(), "Canada",
@@ -59,30 +58,30 @@ public class ShopOwnerSignupActivity2 extends AppCompatActivity {
         });
     }
 
-    private boolean validation(){
+    private boolean validation() {
         boolean valid = true;
 
-        if(this.binding.edtTextCity.getText().toString().isEmpty()){
+        if (this.binding.edtTextCity.getText().toString().isEmpty()) {
             this.binding.edtTextCity.setError("City cannot be empty");
             valid = false;
         }
 
-        if(this.binding.edtTextZip.getText().toString().isEmpty()){
+        if (this.binding.edtTextZip.getText().toString().isEmpty()) {
             this.binding.edtTextZip.setError("Postal Code cannot be empty");
             valid = false;
         }
 
-        if(!this.binding.edtTextZip.getText().toString().matches("([A-Z]\\d[A-Z]\\s\\d[A-Z]\\d)")){
+        if (!this.binding.edtTextZip.getText().toString().matches("([A-Z]\\d[A-Z]\\s\\d[A-Z]\\d)")) {
             this.binding.edtTextZip.setError("Postal code does not match schema: A1A 1A1");
             valid = false;
         }
 
-        if(this.binding.edtTextAdd1.getText().toString().isEmpty()){
+        if (this.binding.edtTextAdd1.getText().toString().isEmpty()) {
             this.binding.edtTextAdd1.setError("Address Line 1 cannot be empty");
             valid = false;
         }
 
-        if(this.binding.edtTextPhoneNum.getText().toString().isEmpty()){
+        if (this.binding.edtTextPhoneNum.getText().toString().isEmpty()) {
             this.binding.edtTextPhoneNum.setError("Phone cannot be empty");
             valid = false;
         }

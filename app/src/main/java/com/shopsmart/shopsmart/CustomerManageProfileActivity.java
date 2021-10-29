@@ -3,13 +3,10 @@ package com.shopsmart.shopsmart;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.CustomerManageProfileBinding;
-import com.shopsmart.shopsmart.databinding.CustomerRegister1Binding;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -21,17 +18,13 @@ import io.realm.mongodb.sync.SyncConfiguration;
 public class CustomerManageProfileActivity extends AppCompatActivity {
     //CustomerManageProfileBinding binding;
     private final String PARTITION = "ShopSmart";
-    private CustomerManageProfileBinding binding;
     Intent currentIntent;
-
     String userEmail;
     String userPass;
-
-    private App app;
-
-    private Realm realm;
-
     AppUser user;
+    private CustomerManageProfileBinding binding;
+    private App app;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +36,7 @@ public class CustomerManageProfileActivity extends AppCompatActivity {
 
         this.currentIntent = this.getIntent();
 
-        if(this.currentIntent != null){
+        if (this.currentIntent != null) {
             this.userEmail = currentIntent.getStringExtra("EXTRA_EMAIL");
             this.userPass = currentIntent.getStringExtra("EXTRA_PASS");
         }
@@ -86,7 +79,7 @@ public class CustomerManageProfileActivity extends AppCompatActivity {
             startActivity(intentProfile);
         });
 
-        binding.cancelButtonManage.setOnClickListener(view ->{
+        binding.cancelButtonManage.setOnClickListener(view -> {
             realm.close();
             Intent intentBack = new Intent(CustomerManageProfileActivity.this, CustomerDashboardActivity.class);
             intentBack.putExtra("EXTRA_EMAIL", userEmail);
@@ -94,7 +87,7 @@ public class CustomerManageProfileActivity extends AppCompatActivity {
             startActivity(intentBack);
         });
 
-        binding.passwordButton.setOnClickListener(view ->{
+        binding.passwordButton.setOnClickListener(view -> {
             realm.close();
             Intent intentPassword = new Intent(CustomerManageProfileActivity.this, CustomerPasswordActivity.class);
             intentPassword.putExtra("EXTRA_EMAIL", userEmail);

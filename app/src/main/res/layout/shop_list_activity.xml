@@ -57,7 +57,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="00"
         android:textSize="25dp"
         app:layout_constraintEnd_toStartOf="@+id/textSlash"
         app:layout_constraintTop_toBottomOf="@+id/textTitle" />
@@ -78,7 +77,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="00"
         android:textSize="25dp"
         app:layout_constraintStart_toEndOf="@+id/textSlash"
         app:layout_constraintTop_toBottomOf="@+id/textTitle" />
@@ -91,7 +89,8 @@
         android:background="@drawable/rectangle"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/textSlash" />
+        app:layout_constraintTop_toBottomOf="@+id/textSlash"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/textShopName"
@@ -102,6 +101,7 @@
         android:text="UNKNOWN SHOP NAME"
         android:textSize="15dp"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/singleShopView"
         app:layout_constraintTop_toTopOf="@+id/singleShopView" />
 
@@ -148,7 +148,8 @@
         android:text="View"
         app:layout_constraintBottom_toBottomOf="@+id/singleShopView"
         app:layout_constraintEnd_toEndOf="@+id/singleShopView"
-        app:layout_constraintTop_toTopOf="@+id/singleShopView" />
+        app:layout_constraintTop_toTopOf="@+id/singleShopView"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/buttonPrev"
@@ -159,7 +160,8 @@
         android:drawableLeft="@drawable/button_prev"
         android:paddingLeft="11dp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/singleShopView" />
+        app:layout_constraintTop_toBottomOf="@+id/singleShopView"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/buttonNext"
@@ -170,7 +172,8 @@
         android:drawableRight="@drawable/button_next"
         android:paddingRight="11dp"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/singleShopView" />
+        app:layout_constraintTop_toBottomOf="@+id/singleShopView"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/btnAdd"

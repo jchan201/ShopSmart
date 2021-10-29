@@ -19,21 +19,16 @@ import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ShopOwnerProfilePaymentsActivity extends AppCompatActivity {
     private final String PARTITION = "ShopSmart";
-    private ShopownerProfilePaymentsActivityBinding binding;
     Intent currIntent;
-
     String userEmail;
     String userPass;
-
-    private App app;
-
-    private Realm realm;
-
     AppUser user;
     PaymentMethod[] paymentMethods;
-
     int index = 0;
     int total = 0;
+    private ShopownerProfilePaymentsActivityBinding binding;
+    private App app;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,14 +82,13 @@ public class ShopOwnerProfilePaymentsActivity extends AppCompatActivity {
                 paymentMethods = user.getPaymentMethods().toArray(new PaymentMethod[0]);
                 total = paymentMethods.length;
                 binding.textPaymentTotal.setText(Integer.toString(total));
-                if(total == 0){
+                if (total == 0) {
                     binding.textPaymentIndex.setText(Integer.toString(index));
-                }
-                else{
-                    binding.textPaymentIndex.setText(Integer.toString(index+1));
+                } else {
+                    binding.textPaymentIndex.setText(Integer.toString(index + 1));
                 }
 
-                if(index == 0 && total == 0){
+                if (index == 0 && total == 0) {
                     binding.singlePaymentView.setVisibility(View.GONE);
                     binding.textCardNum.setVisibility(View.GONE);
                     binding.textCardName.setVisibility(View.GONE);
@@ -104,45 +98,43 @@ public class ShopOwnerProfilePaymentsActivity extends AppCompatActivity {
                     binding.btnRemove.setVisibility(View.GONE);
                     binding.buttonPrev.setVisibility(View.GONE);
                     binding.buttonNext.setVisibility(View.GONE);
-                }
-                else{
-                    if(index+1 == total){
+                } else {
+                    if (index + 1 == total) {
                         binding.buttonPrev.setVisibility(View.INVISIBLE);
                         binding.buttonNext.setVisibility(View.INVISIBLE);
                     }
 
-                    if(index+1 < total){
+                    if (index + 1 < total) {
                         binding.buttonPrev.setVisibility(View.INVISIBLE);
                     }
                     displayCardInfo(paymentMethods[index]);
                 }
-            }
-            else{
+            } else {
                 Log.v("LOGIN", "Failed to authenticate using email and password.");
             }
         });
 
         binding.buttonPrev.setOnClickListener(view -> {
-            if(index > 0){
-                index-=1;
+            if (index > 0) {
+                index -= 1;
                 binding.buttonNext.setVisibility(View.VISIBLE);
-                binding.textPaymentIndex.setText(Integer.toString(index+1));
+                binding.textPaymentIndex.setText(Integer.toString(index + 1));
                 displayCardInfo(paymentMethods[index]);
 
-                if(index == 0){
+                if (index == 0) {
                     binding.buttonPrev.setVisibility(View.INVISIBLE);
                 }
             }
         });
 
         binding.buttonNext.setOnClickListener(view -> {
-            if(index < total){
-                index+=1;
+            if (index < total) {
+                index += 1;
                 binding.buttonPrev.setVisibility(View.VISIBLE);
-                binding.textPaymentIndex.setText(Integer.toString(index+1));
+                binding.textPaymentIndex.setText(Integer.toString(index + 1));
                 displayCardInfo(paymentMethods[index]);
 
-                if(index+1 == total){
+                if (index + 1 == total) {
                     binding.buttonNext.setVisibility(View.INVISIBLE);
                 }
             }
@@ -207,8 +199,8 @@ public class ShopOwnerProfilePaymentsActivity extends AppCompatActivity {
         });
     }
 
-    private void displayCardInfo(PaymentMethod paymentMethod){
-        binding.textCardNum.setText("***"+paymentMethod.getCardNumber().substring(paymentMethod.getCardNumber().length()-4));
+    private void displayCardInfo(PaymentMethod paymentMethod) {
+        binding.textCardNum.setText("***" + paymentMethod.getCardNumber().substring(paymentMethod.getCardNumber().length() - 4));
         binding.textCardName.setText(paymentMethod.getName().toUpperCase());
         binding.textCardExpire.setText(paymentMethod.getExpiry());
     }

@@ -1,11 +1,11 @@
 package com.shopsmart.shopsmart;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.ActivityDriverSignup2Binding;
 
@@ -35,7 +35,7 @@ public class DriverSignup2Activity extends AppCompatActivity implements View.OnC
         if (currIntent != null) {
             // Grab objects from intent
             this.userPassword = currIntent.getStringExtra("EXTRA_PASSWORD");
-            this.appUser = (AppUser)currIntent.getSerializableExtra("EXTRA_APPUSER_OBJ");
+            this.appUser = (AppUser) currIntent.getSerializableExtra("EXTRA_APPUSER_OBJ");
         }
 
         // Initialize Date Picker
@@ -72,7 +72,7 @@ public class DriverSignup2Activity extends AppCompatActivity implements View.OnC
     }
 
     private String getMonthFormat(int month) {
-        switch(month) {
+        switch (month) {
             case 1:
                 return "JAN";
             case 2:

@@ -1,9 +1,9 @@
 package com.shopsmart.shopsmart;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.ActivityDriverProfileBinding;
 

@@ -18,17 +18,13 @@ import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ShopOwnerProfileDetailActivity extends AppCompatActivity {
     private final String PARTITION = "ShopSmart";
-    private ShopownerDetailActivityBinding binding;
     Intent currIntent;
-
     String userEmail;
     String userPass;
-
-    private App app;
-
-    private Realm realm;
-
     AppUser user;
+    private ShopownerDetailActivityBinding binding;
+    private App app;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +69,7 @@ public class ShopOwnerProfileDetailActivity extends AppCompatActivity {
                 binding.textName.setText(user.getFirstName() + " " + user.getMiddleInitial() + ". " + user.getLastName());
                 binding.textDOB.setText(user.getBirthdateString());
                 binding.textPhone.setText(user.getPhone());
-            }
-            else{
+            } else {
                 Log.v("LOGIN", "Failed to authenticate using email and password.");
             }
         });

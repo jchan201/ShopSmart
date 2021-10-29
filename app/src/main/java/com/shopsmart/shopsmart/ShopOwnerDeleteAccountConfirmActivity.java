@@ -7,31 +7,23 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.ShopownerDeleteAccountActivityBinding;
-import com.shopsmart.shopsmart.databinding.ShopownerProfileDeletePaymentConfirmationActivityBinding;
-
-import java.util.Calendar;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
 import io.realm.mongodb.Credentials;
-import io.realm.mongodb.User;
 import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ShopOwnerDeleteAccountConfirmActivity extends AppCompatActivity {
     private final String PARTITION = "ShopSmart";
-    private ShopownerDeleteAccountActivityBinding binding;
     Intent currIntent;
-
     String userEmail;
     String userPass;
-
-    private App app;
-
-    private Realm realm;
-
     AppUser user;
+    private ShopownerDeleteAccountActivityBinding binding;
+    private App app;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,14 +60,13 @@ public class ShopOwnerDeleteAccountConfirmActivity extends AppCompatActivity {
                         user = users.get(i);
                     }
                 }
-            }
-            else{
+            } else {
                 Log.v("LOGIN", "Failed to authenticate using email and password.");
             }
         });
 
         binding.btnConfirm.setOnClickListener(view -> {
-            if(validation()) {
+            if (validation()) {
                 deleteAccount();
                 realm.close();
                 Intent intentToProfile = new Intent(ShopOwnerDeleteAccountConfirmActivity.this, StartupActivity.class);
@@ -103,12 +94,12 @@ public class ShopOwnerDeleteAccountConfirmActivity extends AppCompatActivity {
     private boolean validation() {
         boolean valid = true;
 
-        if(this.binding.editTextPassword.getText().toString().isEmpty()){
+        if (this.binding.editTextPassword.getText().toString().isEmpty()) {
             this.binding.editTextPassword.setError("Password cannot be empty");
             valid = false;
         }
 
-        if(!this.binding.editTextPassword.getText().toString().equals(userPass)){
+        if (!this.binding.editTextPassword.getText().toString().equals(userPass)) {
             this.binding.editTextPassword.setError("Incorrect password");
             valid = false;
         }

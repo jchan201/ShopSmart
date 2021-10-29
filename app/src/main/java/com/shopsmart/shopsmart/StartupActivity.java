@@ -1,7 +1,5 @@
 package com.shopsmart.shopsmart;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,10 +8,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.shopsmart.shopsmart.databinding.ActivityStartupBinding;
+
 import org.bson.types.ObjectId;
 
+import java.util.ArrayList;
+
+import javax.annotation.Nullable;
+
 import io.realm.OrderedCollectionChangeSet;
-import io.realm.OrderedRealmCollectionChangeListener;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.mongodb.App;
@@ -22,19 +27,13 @@ import io.realm.mongodb.Credentials;
 import io.realm.mongodb.User;
 import io.realm.mongodb.sync.SyncConfiguration;
 
-import com.shopsmart.shopsmart.databinding.ActivityStartupBinding;
-
-import java.util.ArrayList;
-
-import javax.annotation.Nullable;
-
 public class StartupActivity extends AppCompatActivity {
+    final ArrayList<String> ATTEMPTS = new ArrayList<>();
     private final String PARTITION = "ShopSmart";
+    Intent currIntent;
     private ActivityStartupBinding binding;
     private Realm realm;
     private App app;
-    final ArrayList<String> ATTEMPTS = new ArrayList<>();
-    Intent currIntent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,9 +61,12 @@ public class StartupActivity extends AppCompatActivity {
         // Watches changes in certain EditTexts.
         TextWatcher textWatcher = new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
             @Override
-            public void afterTextChanged(Editable editable) {}
+            public void afterTextChanged(Editable editable) {
+            }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -120,7 +122,7 @@ public class StartupActivity extends AppCompatActivity {
 
                                 realm.close();
                                 startActivity(customerDashboardActivity);
-                                Log.v(PARTITION,"Successfully got to dashboard!");
+                                Log.v(PARTITION, "Successfully got to dashboard!");
                                 break;
                             case "Owner":
                                 // putExtra?
@@ -130,7 +132,7 @@ public class StartupActivity extends AppCompatActivity {
 
                                 realm.close();
                                 startActivity(intentToDashboard);
-                                Log.v(PARTITION,"Successfully got to dashboard!");
+                                Log.v(PARTITION, "Successfully got to dashboard!");
                                 break;
                             default:
                                 Log.wtf(PARTITION, "AppUser is neither a Customer nor ShopOwner.");
@@ -173,10 +175,12 @@ public class StartupActivity extends AppCompatActivity {
     // Objects of this class are intended to be executed by a thread, as denoted by "Runnable".
     public class SampleCode implements Runnable {
         User user;
+
         // constructor
         public SampleCode(User user) {
             this.user = user;
         }
+
         @Override
         public void run() {
             SyncConfiguration config = new SyncConfiguration.Builder(user, PARTITION).build();

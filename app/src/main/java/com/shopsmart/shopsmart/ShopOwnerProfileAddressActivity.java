@@ -7,9 +7,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.shopsmart.shopsmart.databinding.ShopownerDetailActivityBinding;
 import com.shopsmart.shopsmart.databinding.ShopownerProfileAddressActivityBinding;
-import com.shopsmart.shopsmart.databinding.ShopownerProfileUpdateAddressActivityBinding;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -20,18 +18,14 @@ import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ShopOwnerProfileAddressActivity extends AppCompatActivity {
     private final String PARTITION = "ShopSmart";
-    private ShopownerProfileAddressActivityBinding binding;
     Intent currIntent;
-
     String userEmail;
     String userPass;
-
-    private App app;
-
-    private Realm realm;
-
     AppUser user;
     Address address;
+    private ShopownerProfileAddressActivityBinding binding;
+    private App app;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +74,7 @@ public class ShopOwnerProfileAddressActivity extends AppCompatActivity {
                 binding.textAddLine1.setText(address.getAddress1());
                 binding.textAddLine2.setText(address.getAddress2());
                 binding.textCountry.setText(address.getCountry());
-            }
-            else{
+            } else {
                 Log.v("LOGIN", "Failed to authenticate using email and password.");
             }
         });

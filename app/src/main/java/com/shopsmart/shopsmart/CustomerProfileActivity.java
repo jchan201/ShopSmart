@@ -8,17 +8,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.DatePicker;
-import android.widget.Toast;
-
-import com.shopsmart.shopsmart.databinding.CustomerProfileBinding;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.shopsmart.shopsmart.databinding.CustomerProfileBinding;
 
 import java.util.Calendar;
 
 import io.realm.Realm;
-import io.realm.RealmList;
 import io.realm.RealmResults;
 import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
@@ -27,19 +24,15 @@ import io.realm.mongodb.sync.SyncConfiguration;
 
 public class CustomerProfileActivity extends AppCompatActivity {
     private final String PARTITION = "ShopSmart";
-    private DatePickerDialog dpd;
-    private CustomerProfileBinding binding;
     Intent currentIntent;
-
-    private Realm realm;
-    private App app;
-
     String userEmail;
     String userPass;
-
     AppUser user;
-
     boolean nameEdit = false, phoneEdit = false, cityEdit = false, addressEdit = false, provinceEdit = false, countryEdit = false, dobEdit = false, pCodeEdit = false;
+    private DatePickerDialog dpd;
+    private CustomerProfileBinding binding;
+    private Realm realm;
+    private App app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +46,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
 
         this.currentIntent = this.getIntent();
 
-        if(this.currentIntent != null){
+        if (this.currentIntent != null) {
             this.userEmail = currentIntent.getStringExtra("EXTRA_EMAIL");
             this.userPass = currentIntent.getStringExtra("EXTRA_PASS");
 
@@ -61,8 +54,8 @@ public class CustomerProfileActivity extends AppCompatActivity {
         }
 
         Credentials credentials = Credentials.emailPassword(userEmail, userPass);
-        app.loginAsync(credentials, result ->{
-            if(result.isSuccess()){
+        app.loginAsync(credentials, result -> {
+            if (result.isSuccess()) {
                 Log.v("LOGIN", "Successfully authenticated using email and password.");
 
                 SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), "ShopSmart")
@@ -72,8 +65,8 @@ public class CustomerProfileActivity extends AppCompatActivity {
 
                 RealmResults<AppUser> users = realm.where(AppUser.class).findAll();
 
-                for(int x = 0; x < users.size(); x++){
-                    if(users.get(x).getEmail().equals(userEmail)){
+                for (int x = 0; x < users.size(); x++) {
+                    if (users.get(x).getEmail().equals(userEmail)) {
                         user = users.get(x);
                     }
                 }
@@ -110,14 +103,12 @@ public class CustomerProfileActivity extends AppCompatActivity {
                 //DatePickerDialog.OnDateSetListener dsl =
                 //        ((datePicker, year, month, day) -> binding.)
 
-            }
-            
-            else{
+            } else {
                 Log.v("LOGIN", "Failed to authenticate using email and password.");
             }
         });
 
-        binding.cancelButton.setOnClickListener(view->{
+        binding.cancelButton.setOnClickListener(view -> {
             realm.close();
             Intent cancelIntent = new Intent(CustomerProfileActivity.this, CustomerProfileActivity.class);
             cancelIntent.putExtra("EXTRA_EMAIL", userEmail);
@@ -125,7 +116,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
             startActivity(cancelIntent);
         });
 
-        binding.editAddress.setOnClickListener(view->{
+        binding.editAddress.setOnClickListener(view -> {
             binding.queryAddress1.setVisibility(View.INVISIBLE);
             binding.queryAddress2.setVisibility(View.INVISIBLE);
             binding.addressLine1.setVisibility(View.VISIBLE);
@@ -133,25 +124,25 @@ public class CustomerProfileActivity extends AppCompatActivity {
             addressEdit = true;
         });
 
-        binding.editCity.setOnClickListener(view->{
+        binding.editCity.setOnClickListener(view -> {
             binding.city1.setVisibility(View.VISIBLE);
             binding.queryCity.setVisibility(View.INVISIBLE);
             cityEdit = true;
         });
 
-        binding.editCountry.setOnClickListener(view->{
+        binding.editCountry.setOnClickListener(view -> {
             binding.queryCity.setVisibility(View.INVISIBLE);
             binding.city1.setVisibility(View.VISIBLE);
             countryEdit = true;
         });
 
-        binding.editDob.setOnClickListener(view->{
+        binding.editDob.setOnClickListener(view -> {
             binding.dobProfile.setVisibility(View.VISIBLE);
             binding.queryDob.setVisibility(View.INVISIBLE);
             dobEdit = true;
         });
 
-        binding.editFullName.setOnClickListener(view->{
+        binding.editFullName.setOnClickListener(view -> {
             binding.fullName.setVisibility(View.INVISIBLE);
             binding.firstName.setVisibility(View.VISIBLE);
             binding.middleName.setVisibility(View.VISIBLE);
@@ -159,56 +150,56 @@ public class CustomerProfileActivity extends AppCompatActivity {
             nameEdit = true;
         });
 
-        binding.editPCode.setOnClickListener(view->{
+        binding.editPCode.setOnClickListener(view -> {
             binding.queryPostalCode.setVisibility(View.INVISIBLE);
             binding.userPostalCode.setVisibility(View.VISIBLE);
             pCodeEdit = true;
         });
 
-        binding.editProvince.setOnClickListener(view->{
+        binding.editProvince.setOnClickListener(view -> {
             binding.queryProvince.setVisibility(View.INVISIBLE);
             binding.provPickerProfile.setVisibility(View.VISIBLE);
             provinceEdit = true;
         });
 
-        binding.editPhoneNum.setOnClickListener(view->{
+        binding.editPhoneNum.setOnClickListener(view -> {
             binding.queryPhoneNum.setVisibility(View.INVISIBLE);
             binding.inputPhoneNumber.setVisibility(View.VISIBLE);
             phoneEdit = true;
         });
 
         binding.applyButton.setOnClickListener(view -> {
-            if(validation()) {
+            if (validation()) {
                 realm.executeTransaction(transactionRealm -> {
-                if(addressEdit){
-                    user.getAddress().setAddress1(binding.addressLine1.getText().toString());
-                    user.getAddress().setAddress2(binding.addressLine2.getText().toString());
-                    //Address City dob country name pCode prov phone)
-                }
-                if(cityEdit)
-                    user.getAddress().setCity(binding.city1.getText().toString());
+                    if (addressEdit) {
+                        user.getAddress().setAddress1(binding.addressLine1.getText().toString());
+                        user.getAddress().setAddress2(binding.addressLine2.getText().toString());
+                        //Address City dob country name pCode prov phone)
+                    }
+                    if (cityEdit)
+                        user.getAddress().setCity(binding.city1.getText().toString());
 
-                if(dobEdit){
-                    Calendar cal = Calendar.getInstance();
-                            cal.setTime(user.getBirthdate());
-                }
+                    if (dobEdit) {
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(user.getBirthdate());
+                    }
 
-                if(countryEdit)
-                    user.getAddress().setCountry("Canada");
+                    if (countryEdit)
+                        user.getAddress().setCountry("Canada");
 
-                if(nameEdit){
-                    user.setFirstName(binding.firstName.getText().toString());
-                    user.setMiddleInitial(binding.middleName.getText().toString());
-                    user.setLastName(binding.lastName.getText().toString());
-                }
+                    if (nameEdit) {
+                        user.setFirstName(binding.firstName.getText().toString());
+                        user.setMiddleInitial(binding.middleName.getText().toString());
+                        user.setLastName(binding.lastName.getText().toString());
+                    }
 
-                if(pCodeEdit){
-                    user.getAddress().setPostalCode(binding.userPostalCode.getText().toString());
+                    if (pCodeEdit) {
+                        user.getAddress().setPostalCode(binding.userPostalCode.getText().toString());
 
-                }
-                if(phoneEdit){
-                    user.setPhone(binding.inputPhoneNumber.getText().toString());
-                }
+                    }
+                    if (phoneEdit) {
+                        user.setPhone(binding.inputPhoneNumber.getText().toString());
+                    }
                 });
                 realm.close();
                 Intent goBack = new Intent(CustomerProfileActivity.this, CustomerProfileActivity.class);
@@ -230,29 +221,29 @@ public class CustomerProfileActivity extends AppCompatActivity {
         //setSupportActionBar(toolbar);
     }
 
-    private boolean validation(){
+    private boolean validation() {
         boolean valid = true;
 
         return valid;
     }
 
-    private void updateUser(){
-        realm.executeTransaction(transactionRealm ->{
+    private void updateUser() {
+        realm.executeTransaction(transactionRealm -> {
             user.setFirstName(binding.firstName.getText().toString());
             user.setMiddleInitial(binding.middleName.getText().toString());
         });
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater inflater=getMenuInflater();
-        inflater.inflate(R.menu.menu,menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch(item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.menuHome:
                 //realm.close();
                 Intent homeIntent = new Intent(CustomerProfileActivity.this, CustomerDashboardActivity.class);
@@ -273,7 +264,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
         binding = null;
 

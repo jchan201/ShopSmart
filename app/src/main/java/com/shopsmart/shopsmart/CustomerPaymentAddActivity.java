@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.CustomerAddPaymentBinding;
 
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -29,28 +28,23 @@ import io.realm.mongodb.sync.SyncConfiguration;
 public class CustomerPaymentAddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private final String PARTITION = "ShopSmart";
     CustomerAddPaymentBinding binding;
-    private DatePickerDialog dpd;
     Intent currentIntent;
     App app;
     Address userAddress;
     Date userDOB;
     String userEmail;
     String userPass;
-
-    private Realm realm;
-
     AppUser user;
+    String cCardPhone;
+    boolean editPMethod = false;
+    int updateIndex = 0;
+    private DatePickerDialog dpd;
+    private Realm realm;
     private PaymentMethod pMethod;
     private Address bAddress;
 
-    String cCardPhone;
-
-    boolean editPMethod = false;
-
-    int updateIndex = 0;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.binding = CustomerAddPaymentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -64,7 +58,7 @@ public class CustomerPaymentAddActivity extends AppCompatActivity implements Ada
         provSpinner.setAdapter(provList);
         provSpinner.setOnItemSelectedListener(this);
 
-        if(this.currentIntent!= null){
+        if (this.currentIntent != null) {
             this.userEmail = currentIntent.getStringExtra("EXTRA_EMAIL");
             this.userPass = currentIntent.getStringExtra("EXTRA_PASS");
             this.updateIndex = currentIntent.getIntExtra("EXTRA_INDEX", updateIndex);
@@ -75,13 +69,13 @@ public class CustomerPaymentAddActivity extends AppCompatActivity implements Ada
                 this.cCardPhone = this.currentIntent.getStringExtra("EXTRA_PMETHOD_PHONE");
 
                 editPMethod = true;
-                if(editPMethod){
+                if (editPMethod) {
 
                     binding.cCardName.setText(pMethod.getName());
 
                     binding.cCardNum.setText(pMethod.getCardNumber());
-                    binding.expM.setText(pMethod.getExpiry().substring(0,2));
-                    binding.expY.setText(pMethod.getExpiry().substring(3,5));
+                    binding.expM.setText(pMethod.getExpiry().substring(0, 2));
+                    binding.expY.setText(pMethod.getExpiry().substring(3, 5));
                     binding.cCardCCV.setText(pMethod.getSecurityCode());
 
                     binding.cCardAddress1.setText(bAddress.getAddress1());
@@ -113,8 +107,7 @@ public class CustomerPaymentAddActivity extends AppCompatActivity implements Ada
                         user = users.get(i);
                     }
                 }
-            }
-            else{
+            } else {
                 Log.v("LOGIN", "Failed to authenticate using email and password.");
             }
         });
@@ -128,8 +121,8 @@ public class CustomerPaymentAddActivity extends AppCompatActivity implements Ada
         });
 
         binding.buttonAdd.setOnClickListener(view -> {
-            if(validateData()){
-                if(!editPMethod) {
+            if (validateData()) {
+                if (!editPMethod) {
                     pMethod = new PaymentMethod();
                     pMethod.setCardNumber(binding.cCardNum.getText().toString());
                     pMethod.setName(binding.cCardName.getText().toString());
@@ -141,9 +134,7 @@ public class CustomerPaymentAddActivity extends AppCompatActivity implements Ada
                     realm.executeTransaction(transactionRealm -> {
                         user.addPaymentMethod(pMethod);
                     });
-                }
-
-                else{
+                } else {
                     pMethod.setCardNumber(binding.cCardNum.getText().toString());
                     pMethod.setName(binding.cCardName.getText().toString());
                     pMethod.setSecurityCode(binding.cCardCCV.getText().toString());
@@ -151,7 +142,7 @@ public class CustomerPaymentAddActivity extends AppCompatActivity implements Ada
 
                     addCCardAddress(pMethod);
 
-                    realm.executeTransaction(transactionRealm ->{
+                    realm.executeTransaction(transactionRealm -> {
                         user.updatePaymentMethod(pMethod, updateIndex);
                     });
                 }
@@ -167,11 +158,11 @@ public class CustomerPaymentAddActivity extends AppCompatActivity implements Ada
         });
     }
 
-    private String makeDateString(int day, int month, int year){
+    private String makeDateString(int day, int month, int year) {
         return getMonthFormat(month) + " " + day + " " + year;
     }
 
-    private String getMonthFormat(int month){
+    private String getMonthFormat(int month) {
         switch (month) {
             case 1:
                 return "JAN";
@@ -205,15 +196,15 @@ public class CustomerPaymentAddActivity extends AppCompatActivity implements Ada
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         String choice = adapterView.getItemAtPosition(i).toString();
-        if(i != 0)
-            Toast.makeText(getApplication(),choice + " selected", Toast.LENGTH_SHORT).show();
-        else{
+        if (i != 0)
+            Toast.makeText(getApplication(), choice + " selected", Toast.LENGTH_SHORT).show();
+        else {
             Toast.makeText(getApplication(), "Please select a province/territory", Toast.LENGTH_LONG).show();
         }
     }
 
-    private void addCCardAddress(PaymentMethod paymentMethod){
-        if(!editPMethod) {
+    private void addCCardAddress(PaymentMethod paymentMethod) {
+        if (!editPMethod) {
             bAddress = new Address();
             bAddress.setCity(binding.cCardCity.getText().toString());
             bAddress.setProvince(binding.provPicker3.getSelectedItem().toString());
@@ -223,8 +214,7 @@ public class CustomerPaymentAddActivity extends AppCompatActivity implements Ada
             bAddress.setCountry("Canada");
 
             paymentMethod.setBillingAddress(bAddress);
-        }
-        else{
+        } else {
             bAddress = new Address();
             bAddress.setCity(binding.cCardCity.getText().toString());
             bAddress.setProvince(binding.provPicker3.getSelectedItem().toString());
@@ -239,7 +229,8 @@ public class CustomerPaymentAddActivity extends AppCompatActivity implements Ada
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {}
+    public void onNothingSelected(AdapterView<?> adapterView) {
+    }
 
     //@Override
     //public void onClick(View view) {
@@ -262,34 +253,34 @@ public class CustomerPaymentAddActivity extends AppCompatActivity implements Ada
     //    }
     //}
 
-    private boolean validateData(){
+    private boolean validateData() {
         boolean valid = true;
         if (this.binding.cCardName.getText().toString().isEmpty()) {
             this.binding.cCardName.setError("Field cannot be empty");
             valid = false;
         }
-        if (this.binding.cCardPhoneNum.getText().toString().isEmpty()){
+        if (this.binding.cCardPhoneNum.getText().toString().isEmpty()) {
             this.binding.cCardPhoneNum.setError("Field cannot be empty");
             valid = false;
         }
-        if (this.binding.cCardCCV.getText().toString().isEmpty()){
+        if (this.binding.cCardCCV.getText().toString().isEmpty()) {
             this.binding.cCardCCV.setError("Field cannot be empty");
             valid = false;
         }
 
-        if(this.binding.cCardCCV.getText().toString().length() < 3){
+        if (this.binding.cCardCCV.getText().toString().length() < 3) {
             this.binding.cCardCCV.setError("Field must be 3 digits long");
             valid = false;
         }
 
-        if(this.binding.cCardPhoneNum.getText().toString().length() < 9){
+        if (this.binding.cCardPhoneNum.getText().toString().length() < 9) {
             this.binding.cCardPhoneNum.setError("Field must be 10 digits long");
             valid = false;
         }
 
         Calendar todaysDate = Calendar.getInstance();
-        if(!this.binding.expY.getText().toString().isEmpty() && !this.binding.expM.getText().toString().isEmpty()) {
-            if(Long.parseLong(this.binding.expY.getText().toString()) + 2000 + (Long.parseLong(this.binding.expM.getText().toString()) / 12) < todaysDate.get(Calendar.YEAR) + ((todaysDate.get(Calendar.MONTH) + 1) / 12)){
+        if (!this.binding.expY.getText().toString().isEmpty() && !this.binding.expM.getText().toString().isEmpty()) {
+            if (Long.parseLong(this.binding.expY.getText().toString()) + 2000 + (Long.parseLong(this.binding.expM.getText().toString()) / 12) < todaysDate.get(Calendar.YEAR) + ((todaysDate.get(Calendar.MONTH) + 1) / 12)) {
                 this.binding.expY.setError("Please enter a valid date");
                 valid = false;
             }
@@ -297,7 +288,7 @@ public class CustomerPaymentAddActivity extends AppCompatActivity implements Ada
             //    this.binding.expY.setError("Please enter a valid date");
             //    valid = false;
             //}
-            else if(Long.parseLong(this.binding.expM.getText().toString()) > 12){
+            else if (Long.parseLong(this.binding.expM.getText().toString()) > 12) {
                 this.binding.expM.setError("Please enter a valid date" + todaysDate.get(Calendar.YEAR));
                 valid = false;
             }
@@ -331,9 +322,9 @@ public class CustomerPaymentAddActivity extends AppCompatActivity implements Ada
             this.binding.cCardNum.setError("Must contain 16 digits");
             valid = false;
         }
-            return valid;
-        }
-        //return true;
+        return valid;
+    }
+    //return true;
 
     private void createUser() {
         AppUser appUser = new AppUser();
@@ -341,8 +332,8 @@ public class CustomerPaymentAddActivity extends AppCompatActivity implements Ada
         String password = this.currentIntent.getStringExtra("EXTRA_PASSWORD");
 
 
-        if(currentIntent != null){
-            this.userAddress = (Address)this.currentIntent.getSerializableExtra("EXTRA_ADDRESS_OBJ");
+        if (currentIntent != null) {
+            this.userAddress = (Address) this.currentIntent.getSerializableExtra("EXTRA_ADDRESS_OBJ");
         }
 
         //appUser.setEmail(this.currentIntent.getStringExtra("EXTRA_EMAIL"));
@@ -396,7 +387,7 @@ public class CustomerPaymentAddActivity extends AppCompatActivity implements Ada
         });
     }
 
-    private PaymentMethod createPayment(){
+    private PaymentMethod createPayment() {
         PaymentMethod pMethod = new PaymentMethod();
         String cCardNum = this.binding.cCardNum.getText().toString();
 

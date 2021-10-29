@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.shopsmart.shopsmart.databinding.CustomerAddPaymentBinding;
 import com.shopsmart.shopsmart.databinding.CustomerPaymentsBinding;
 
 import java.io.Serializable;
@@ -22,21 +21,16 @@ import io.realm.mongodb.sync.SyncConfiguration;
 
 public class CustomerPaymentsActivity extends AppCompatActivity implements Serializable {
     private final String PARTITION = "ShopSmart";
-    private CustomerPaymentsBinding binding;
     Intent currIntent;
-
     String userEmail;
     String userPass;
-
-    private App app;
-
-    private Realm realm;
-
     AppUser user;
     PaymentMethod[] paymentMethods;
-
     int index = 0;
     int total = 0;
+    private CustomerPaymentsBinding binding;
+    private App app;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,9 +81,9 @@ public class CustomerPaymentsActivity extends AppCompatActivity implements Seria
                 paymentMethods = user.getPaymentMethods().toArray(new PaymentMethod[0]);
                 total = paymentMethods.length;
                 binding.queryTotalIndex.setText(Integer.toString(total));
-                binding.queryCardIndex.setText(Integer.toString(index+1));
+                binding.queryCardIndex.setText(Integer.toString(index + 1));
 
-                if(index == 0 && total == 0){
+                if (index == 0 && total == 0) {
                     binding.customerPaymentView.setVisibility(View.GONE);
                     binding.queryCardNum.setVisibility(View.GONE);
                     binding.queryCardName.setVisibility(View.GONE);
@@ -99,45 +93,43 @@ public class CustomerPaymentsActivity extends AppCompatActivity implements Seria
                     binding.buttonRemove.setVisibility(View.GONE);
                     binding.buttonPrev.setVisibility(View.GONE);
                     binding.buttonNext.setVisibility(View.GONE);
-                }
-                else{
-                    if(index+1 == total){
+                } else {
+                    if (index + 1 == total) {
                         binding.buttonPrev.setVisibility(View.INVISIBLE);
                         binding.buttonNext.setVisibility(View.INVISIBLE);
                     }
 
-                    if(index+1 < total){
+                    if (index + 1 < total) {
                         binding.buttonPrev.setVisibility(View.INVISIBLE);
                     }
                     displayCardInfo(paymentMethods[index]);
                 }
-            }
-            else{
+            } else {
                 Log.v("LOGIN", "Failed to authenticate using email and password.");
             }
         });
 
         binding.buttonPrev.setOnClickListener(view -> {
-            if(index > 0){
-                index-=1;
+            if (index > 0) {
+                index -= 1;
                 binding.buttonNext.setVisibility(View.VISIBLE);
-                binding.queryCardIndex.setText(Integer.toString(index+1));
+                binding.queryCardIndex.setText(Integer.toString(index + 1));
                 displayCardInfo(paymentMethods[index]);
 
-                if(index == 0){
+                if (index == 0) {
                     binding.buttonPrev.setVisibility(View.INVISIBLE);
                 }
             }
         });
 
         binding.buttonNext.setOnClickListener(view -> {
-            if(index < total){
-                index+=1;
+            if (index < total) {
+                index += 1;
                 binding.buttonPrev.setVisibility(View.VISIBLE);
-                binding.queryCardIndex.setText(Integer.toString(index+1));
+                binding.queryCardIndex.setText(Integer.toString(index + 1));
                 displayCardInfo(paymentMethods[index]);
 
-                if(index+1 == total){
+                if (index + 1 == total) {
                     binding.buttonNext.setVisibility(View.INVISIBLE);
                 }
             }
@@ -208,8 +200,8 @@ public class CustomerPaymentsActivity extends AppCompatActivity implements Seria
         });
     }
 
-    private void displayCardInfo(PaymentMethod paymentMethod){
-        binding.queryCardNum.setText("***"+paymentMethod.getCardNumber().substring(paymentMethod.getCardNumber().length()-4));
+    private void displayCardInfo(PaymentMethod paymentMethod) {
+        binding.queryCardNum.setText("***" + paymentMethod.getCardNumber().substring(paymentMethod.getCardNumber().length() - 4));
         binding.queryCardName.setText(paymentMethod.getName().toUpperCase());
         binding.queryExpDate.setText(paymentMethod.getExpiry());
     }

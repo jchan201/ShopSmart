@@ -3,6 +3,7 @@ package com.shopsmart.shopsmart;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.ShopownerSignupActivity3Binding;
@@ -19,9 +20,7 @@ import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ShopOwnerSignupActivity3 extends AppCompatActivity {
     private final String PARTITION = "ShopSmart";
-    private ShopownerSignupActivity3Binding binding;
     Intent currIntent;
-
     Address userAddress;
     String userFName;
     String userMName;
@@ -31,6 +30,7 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
     Date userDOB;
     String userPhone;
     App app;
+    private ShopownerSignupActivity3Binding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
         this.currIntent = this.getIntent();
 
         if (this.currIntent != null) {
-            this.userAddress = (Address)this.currIntent.getSerializableExtra("EXTRA_ADDRESS_OBJ");
+            this.userAddress = (Address) this.currIntent.getSerializableExtra("EXTRA_ADDRESS_OBJ");
             this.userFName = currIntent.getStringExtra("EXTRA_FNAME");
             this.userMName = currIntent.getStringExtra("EXTRA_MNAME");
             this.userLName = currIntent.getStringExtra("EXTRA_LNAME");
@@ -77,47 +77,47 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
         int year = cal.get(Calendar.YEAR);
         boolean valid = true;
 
-        if(this.binding.edtTextCardName.getText().toString().isEmpty()){
+        if (this.binding.edtTextCardName.getText().toString().isEmpty()) {
             this.binding.edtTextCardName.setError("Name on card cannot be empty");
             valid = false;
         }
 
-        if(this.binding.edtTextCardNum.getText().toString().isEmpty()){
+        if (this.binding.edtTextCardNum.getText().toString().isEmpty()) {
             this.binding.edtTextCardNum.setError("Card number cannot be empty");
             valid = false;
         }
 
-        if(this.binding.edtTextCCV.getText().toString().isEmpty()){
+        if (this.binding.edtTextCCV.getText().toString().isEmpty()) {
             this.binding.edtTextCCV.setError("CCV cannot be empty");
             valid = false;
         }
 
-        if(this.binding.edtTextExpiryDateYear.getText().toString().isEmpty()){
+        if (this.binding.edtTextExpiryDateYear.getText().toString().isEmpty()) {
             this.binding.edtTextExpiryDateYear.setError("Expire year cannot be empty");
             valid = false;
         }
 
-        if(Integer.parseInt(this.binding.edtTextExpiryDateYear.getText().toString()) < year){
+        if (Integer.parseInt(this.binding.edtTextExpiryDateYear.getText().toString()) < year) {
             this.binding.edtTextExpiryDateYear.setError("Card expired");
             valid = false;
         }
 
-        if(this.binding.edtTextBillCity.getText().toString().isEmpty()){
+        if (this.binding.edtTextBillCity.getText().toString().isEmpty()) {
             this.binding.edtTextBillCity.setError("City cannot be empty");
             valid = false;
         }
 
-        if(this.binding.edtTextBillPostalCode.getText().toString().isEmpty()){
+        if (this.binding.edtTextBillPostalCode.getText().toString().isEmpty()) {
             this.binding.edtTextBillPostalCode.setError("Postal Code cannot be empty");
             valid = false;
         }
 
-        if(!this.binding.edtTextBillPostalCode.getText().toString().matches("([A-Z]\\d[A-Z]\\s\\d[A-Z]\\d)")){
+        if (!this.binding.edtTextBillPostalCode.getText().toString().matches("([A-Z]\\d[A-Z]\\s\\d[A-Z]\\d)")) {
             this.binding.edtTextBillPostalCode.setError("Postal code does not match schema: A1A 1A1");
             valid = false;
         }
 
-        if(this.binding.edtTextBillAdd1.getText().toString().isEmpty()){
+        if (this.binding.edtTextBillAdd1.getText().toString().isEmpty()) {
             this.binding.edtTextBillAdd1.setError("Address cannot be empty");
             valid = false;
         }
@@ -125,11 +125,11 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
         return valid;
     }
 
-    private PaymentMethod createPaymentMethod(){
+    private PaymentMethod createPaymentMethod() {
         PaymentMethod paymentMethod = new PaymentMethod();
         paymentMethod.setName(this.binding.edtTextCardName.getText().toString());
         paymentMethod.setCardNumber(this.binding.edtTextCardNum.getText().toString());
-        paymentMethod.setExpiry(this.binding.edtTextExpiryDateMonth.getSelectedItem().toString()+"/"+this.binding.edtTextExpiryDateYear.getText().toString());
+        paymentMethod.setExpiry(this.binding.edtTextExpiryDateMonth.getSelectedItem().toString() + "/" + this.binding.edtTextExpiryDateYear.getText().toString());
         paymentMethod.setSecurityCode(this.binding.edtTextCCV.getText().toString());
 
         Address billAddress = new Address();
@@ -144,7 +144,7 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
         return paymentMethod;
     }
 
-    private void createUser(){
+    private void createUser() {
         Calendar calendar = Calendar.getInstance();
         Calendar calendarDOB = Calendar.getInstance();
         calendarDOB.setTime(userDOB);

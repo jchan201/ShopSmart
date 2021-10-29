@@ -6,7 +6,6 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.shopsmart.shopsmart.databinding.ShopownerProfileAddPaymentActivity2Binding;
 import com.shopsmart.shopsmart.databinding.ShopownerProfileUpdatePaymentActivity2Binding;
 
 import io.realm.Realm;
@@ -18,22 +17,16 @@ import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ShopOwnerProfileUpdatePaymentsActivity2 extends AppCompatActivity {
     private final String PARTITION = "ShopSmart";
-    private ShopownerProfileUpdatePaymentActivity2Binding binding;
     Intent currIntent;
-
     String userEmail;
     String userPass;
-
-    private App app;
-
-    private Realm realm;
-
     AppUser user;
     PaymentMethod paymentMethod;
     Address billingAddress;
-
     int updateIndex = 0;
-
+    private ShopownerProfileUpdatePaymentActivity2Binding binding;
+    private App app;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +69,8 @@ public class ShopOwnerProfileUpdatePaymentsActivity2 extends AppCompatActivity {
 
                 int index = 0;
                 String[] provinces = getResources().getStringArray(R.array.provinces);
-                for(int i = 0; i < provinces.length; i++){
-                    if(provinces[i].equals(billingAddress.getProvince())){
+                for (int i = 0; i < provinces.length; i++) {
+                    if (provinces[i].equals(billingAddress.getProvince())) {
                         index = i;
                         break;
                     }
@@ -89,14 +82,13 @@ public class ShopOwnerProfileUpdatePaymentsActivity2 extends AppCompatActivity {
                 binding.textAddLine1.setText(billingAddress.getAddress1());
                 binding.textAddLine2.setText(billingAddress.getAddress2());
 
-            }
-            else{
+            } else {
                 Log.v("LOGIN", "Failed to authenticate using email and password.");
             }
         });
 
         binding.btnSave.setOnClickListener(view -> {
-            if(validation()) {
+            if (validation()) {
                 addPaymentMethod();
                 realm.close();
                 Intent intentToProfile = new Intent(ShopOwnerProfileUpdatePaymentsActivity2.this, ShopOwnerProfilePaymentsActivity.class);
@@ -127,7 +119,7 @@ public class ShopOwnerProfileUpdatePaymentsActivity2 extends AppCompatActivity {
         paymentMethod.setBillingAddress(billingAddress);
 
         realm.executeTransaction(transactionRealm -> {
-            user.updatePaymentMethod(paymentMethod,updateIndex);
+            user.updatePaymentMethod(paymentMethod, updateIndex);
         });
     }
 
@@ -144,7 +136,7 @@ public class ShopOwnerProfileUpdatePaymentsActivity2 extends AppCompatActivity {
             valid = false;
         }
 
-        if(!this.binding.textZipCode.getText().toString().matches("([A-Z]\\d[A-Z]\\s\\d[A-Z]\\d)")){
+        if (!this.binding.textZipCode.getText().toString().matches("([A-Z]\\d[A-Z]\\s\\d[A-Z]\\d)")) {
             this.binding.textZipCode.setError("Postal code does not match schema: A1A 1A1");
             valid = false;
         }

@@ -14,10 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.shopsmart.shopsmart.databinding.CustomerRegister2Binding;
 
 public class CustomerRegistrationActivity2 extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    private CustomerRegister2Binding binding;
-    private DatePickerDialog dpd;
     String currEmail;
     String currPassword;
+    private CustomerRegister2Binding binding;
+    private DatePickerDialog dpd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +61,7 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity implements 
     private String makeDateString(int day, int month, int year) {
         return getMonthFormat(month) + " " + day + " " + year;
     }
+
     private String getMonthFormat(int month) {
         switch (month) {
             case 0:
@@ -91,6 +92,7 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity implements 
                 return "";
         }
     }
+
     public void openDatePicker(View view) {
         dpd.show();
     }
@@ -105,8 +107,10 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity implements 
             Toast.makeText(getApplication(), "Please select a province/territory", Toast.LENGTH_LONG).show();
         }
     }
+
     @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {}
+    public void onNothingSelected(AdapterView<?> adapterView) {
+    }
 
     private void createUser() {
         Address address = new Address();

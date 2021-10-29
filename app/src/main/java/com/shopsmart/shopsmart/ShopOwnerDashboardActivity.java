@@ -3,6 +3,7 @@ package com.shopsmart.shopsmart;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.ShopownerDashboardActivityBinding;
@@ -16,17 +17,13 @@ import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ShopOwnerDashboardActivity extends AppCompatActivity {
     private final String PARTITION = "ShopSmart";
-    private ShopownerDashboardActivityBinding binding;
     Intent currIntent;
-
     String userEmail;
     String userPass;
-
-    private App app;
-
-    private Realm realm;
-
     AppUser user;
+    private ShopownerDashboardActivityBinding binding;
+    private App app;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

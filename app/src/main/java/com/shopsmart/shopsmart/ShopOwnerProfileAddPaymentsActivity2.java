@@ -17,19 +17,14 @@ import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ShopOwnerProfileAddPaymentsActivity2 extends AppCompatActivity {
     private final String PARTITION = "ShopSmart";
-    private ShopownerProfileAddPaymentActivity2Binding binding;
     Intent currIntent;
-
     String userEmail;
     String userPass;
-
-    private App app;
-
-    private Realm realm;
-
     AppUser user;
     PaymentMethod paymentMethod;
-
+    private ShopownerProfileAddPaymentActivity2Binding binding;
+    private App app;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,14 +62,13 @@ public class ShopOwnerProfileAddPaymentsActivity2 extends AppCompatActivity {
                         user = users.get(i);
                     }
                 }
-            }
-            else{
+            } else {
                 Log.v("LOGIN", "Failed to authenticate using email and password.");
             }
         });
 
         binding.btnSave.setOnClickListener(view -> {
-            if(validation()) {
+            if (validation()) {
                 addPaymentMethod();
                 realm.close();
                 Intent intentToProfile = new Intent(ShopOwnerProfileAddPaymentsActivity2.this, ShopOwnerProfilePaymentsActivity.class);
@@ -123,7 +117,7 @@ public class ShopOwnerProfileAddPaymentsActivity2 extends AppCompatActivity {
             valid = false;
         }
 
-        if(!this.binding.textZipCode.getText().toString().matches("([A-Z]\\d[A-Z]\\s\\d[A-Z]\\d)")){
+        if (!this.binding.textZipCode.getText().toString().matches("([A-Z]\\d[A-Z]\\s\\d[A-Z]\\d)")) {
             this.binding.textZipCode.setError("Postal code does not match schema: A1A 1A1");
             valid = false;
         }
