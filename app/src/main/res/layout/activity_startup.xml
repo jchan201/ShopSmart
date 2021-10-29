@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -29,6 +28,7 @@
         android:labelFor="@id/edtTxtEmail"
         android:text="Email"
         android:textSize="17sp" />
+
     <EditText
         android:id="@+id/edtTxtEmail"
         android:layout_width="match_parent"
@@ -47,6 +47,7 @@
         android:labelFor="@id/edtTxtPassword"
         android:text="Password"
         android:textSize="17sp" />
+
     <EditText
         android:id="@+id/edtTxtPassword"
         android:layout_width="match_parent"
@@ -63,7 +64,7 @@
         android:textAlignment="center"
         android:textColor="@color/red"
         android:textSize="15sp"
-        android:visibility="invisible"/>
+        android:visibility="invisible" />
 
     <Button
         android:id="@+id/btnLogin"
