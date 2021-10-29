@@ -63,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
     <CheckBox
-        android:id="@+id/txtMonday"
+        android:id="@+id/chkMonday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Monday"
@@ -79,11 +79,12 @@
         android:layout_height="wrap_content"
         android:hint="START TIME"
         android:inputType="time"
-        app:layout_constraintBottom_toTopOf="@+id/txtTuesday"
+        app:layout_constraintBottom_toTopOf="@+id/chkTuesday"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.55"
-        app:layout_constraintStart_toStartOf="@+id/txtMonday"
-        app:layout_constraintTop_toBottomOf="@+id/txtOpen" />
+        app:layout_constraintStart_toStartOf="@+id/chkMonday"
+        app:layout_constraintTop_toBottomOf="@+id/txtOpen"
+        android:visibility="gone"/>
 
     <EditText
         android:id="@+id/edtTxtMonday2"
@@ -91,12 +92,13 @@
         android:layout_height="wrap_content"
         android:hint="END TIME"
         android:inputType="time"
-        app:layout_constraintBottom_toTopOf="@+id/txtTuesday"
+        app:layout_constraintBottom_toTopOf="@+id/chkTuesday"
         app:layout_constraintStart_toEndOf="@+id/edtTxtMonday1"
-        app:layout_constraintTop_toBottomOf="@+id/txtOpen" />
+        app:layout_constraintTop_toBottomOf="@+id/txtOpen"
+        android:visibility="gone"/>
 
     <CheckBox
-        android:id="@+id/txtTuesday"
+        android:id="@+id/chkTuesday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tuesday"
@@ -104,7 +106,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.057"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMonday" />
+        app:layout_constraintTop_toBottomOf="@+id/chkMonday" />
 
     <EditText
         android:id="@+id/edtTxtTuesday1"
@@ -112,11 +114,12 @@
         android:layout_height="wrap_content"
         android:hint="START TIME"
         android:inputType="time"
-        app:layout_constraintBottom_toTopOf="@+id/txtWednesday"
+        app:layout_constraintBottom_toTopOf="@+id/chkWednesday"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.55"
-        app:layout_constraintStart_toStartOf="@+id/txtTuesday"
-        app:layout_constraintTop_toBottomOf="@+id/txtMonday" />
+        app:layout_constraintStart_toStartOf="@+id/chkTuesday"
+        app:layout_constraintTop_toBottomOf="@+id/chkMonday"
+        android:visibility="gone"/>
 
     <EditText
         android:id="@+id/edtTxtTuesday2"
@@ -124,12 +127,13 @@
         android:layout_height="wrap_content"
         android:hint="END TIME"
         android:inputType="time"
-        app:layout_constraintBottom_toTopOf="@+id/txtWednesday"
+        app:layout_constraintBottom_toTopOf="@+id/chkWednesday"
         app:layout_constraintStart_toEndOf="@+id/edtTxtTuesday1"
-        app:layout_constraintTop_toBottomOf="@+id/txtMonday" />
+        app:layout_constraintTop_toBottomOf="@+id/chkMonday"
+        android:visibility="gone"/>
 
     <CheckBox
-        android:id="@+id/txtWednesday"
+        android:id="@+id/chkWednesday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Wednesday"
@@ -137,7 +141,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.057"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTuesday" />
+        app:layout_constraintTop_toBottomOf="@+id/chkTuesday" />
 
     <EditText
         android:id="@+id/edtTxtWednesday1"
@@ -145,11 +149,12 @@
         android:layout_height="wrap_content"
         android:hint="START TIME"
         android:inputType="time"
-        app:layout_constraintBottom_toTopOf="@+id/txtThursday"
+        app:layout_constraintBottom_toTopOf="@+id/chkThursday"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.55"
-        app:layout_constraintStart_toStartOf="@+id/txtWednesday"
-        app:layout_constraintTop_toBottomOf="@+id/txtTuesday" />
+        app:layout_constraintStart_toStartOf="@+id/chkWednesday"
+        app:layout_constraintTop_toBottomOf="@+id/chkTuesday"
+        android:visibility="gone"/>
 
     <EditText
         android:id="@+id/edtTxtWednesday2"
@@ -157,12 +162,13 @@
         android:layout_height="wrap_content"
         android:hint="END TIME"
         android:inputType="time"
-        app:layout_constraintBottom_toTopOf="@+id/txtThursday"
+        app:layout_constraintBottom_toTopOf="@+id/chkThursday"
         app:layout_constraintStart_toEndOf="@+id/edtTxtWednesday1"
-        app:layout_constraintTop_toBottomOf="@+id/txtTuesday" />
+        app:layout_constraintTop_toBottomOf="@+id/chkTuesday"
+        android:visibility="gone"/>
 
     <CheckBox
-        android:id="@+id/txtThursday"
+        android:id="@+id/chkThursday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Thursday"
@@ -170,7 +176,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.057"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtWednesday" />
+        app:layout_constraintTop_toBottomOf="@+id/chkWednesday" />
 
     <EditText
         android:id="@+id/edtTxtThursday1"
@@ -178,11 +184,12 @@
         android:layout_height="wrap_content"
         android:hint="START TIME"
         android:inputType="time"
-        app:layout_constraintBottom_toTopOf="@+id/txtFriday"
+        app:layout_constraintBottom_toTopOf="@+id/chkFriday"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.55"
-        app:layout_constraintStart_toStartOf="@+id/txtThursday"
-        app:layout_constraintTop_toBottomOf="@+id/txtWednesday" />
+        app:layout_constraintStart_toStartOf="@+id/chkThursday"
+        app:layout_constraintTop_toBottomOf="@+id/chkWednesday"
+        android:visibility="gone"/>
 
     <EditText
         android:id="@+id/edtTxtThursday2"
@@ -190,12 +197,13 @@
         android:layout_height="wrap_content"
         android:hint="END TIME"
         android:inputType="time"
-        app:layout_constraintBottom_toTopOf="@+id/txtFriday"
+        app:layout_constraintBottom_toTopOf="@+id/chkFriday"
         app:layout_constraintStart_toEndOf="@+id/edtTxtThursday1"
-        app:layout_constraintTop_toBottomOf="@+id/txtWednesday" />
+        app:layout_constraintTop_toBottomOf="@+id/chkWednesday"
+        android:visibility="gone"/>
 
     <CheckBox
-        android:id="@+id/txtFriday"
+        android:id="@+id/chkFriday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Friday"
@@ -203,7 +211,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.057"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtThursday" />
+        app:layout_constraintTop_toBottomOf="@+id/chkThursday" />
 
     <EditText
         android:id="@+id/edtTxtFriday1"
@@ -211,11 +219,12 @@
         android:layout_height="wrap_content"
         android:hint="START TIME"
         android:inputType="time"
-        app:layout_constraintBottom_toTopOf="@+id/txtSaturday"
+        app:layout_constraintBottom_toTopOf="@+id/chkSaturday"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.55"
-        app:layout_constraintStart_toStartOf="@+id/txtFriday"
-        app:layout_constraintTop_toBottomOf="@+id/txtThursday" />
+        app:layout_constraintStart_toStartOf="@+id/chkFriday"
+        app:layout_constraintTop_toBottomOf="@+id/chkThursday"
+        android:visibility="gone"/>
 
     <EditText
         android:id="@+id/edtTxtFriday2"
@@ -223,12 +232,13 @@
         android:layout_height="wrap_content"
         android:hint="END TIME"
         android:inputType="time"
-        app:layout_constraintBottom_toTopOf="@+id/txtSaturday"
+        app:layout_constraintBottom_toTopOf="@+id/chkSaturday"
         app:layout_constraintStart_toEndOf="@+id/edtTxtFriday1"
-        app:layout_constraintTop_toBottomOf="@+id/txtThursday" />
+        app:layout_constraintTop_toBottomOf="@+id/chkThursday"
+        android:visibility="gone"/>
 
     <CheckBox
-        android:id="@+id/txtSaturday"
+        android:id="@+id/chkSaturday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Saturday"
@@ -236,7 +246,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.057"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtFriday" />
+        app:layout_constraintTop_toBottomOf="@+id/chkFriday" />
 
     <EditText
         android:id="@+id/edtTxtSaturday1"
@@ -244,11 +254,12 @@
         android:layout_height="wrap_content"
         android:hint="START TIME"
         android:inputType="time"
-        app:layout_constraintBottom_toTopOf="@+id/txtSunday"
+        app:layout_constraintBottom_toTopOf="@+id/chkSunday"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.55"
-        app:layout_constraintStart_toStartOf="@+id/txtSaturday"
-        app:layout_constraintTop_toBottomOf="@+id/txtFriday" />
+        app:layout_constraintStart_toStartOf="@+id/chkSaturday"
+        app:layout_constraintTop_toBottomOf="@+id/chkFriday"
+        android:visibility="gone"/>
 
     <EditText
         android:id="@+id/edtTxtSaturday2"
@@ -256,12 +267,13 @@
         android:layout_height="wrap_content"
         android:hint="END TIME"
         android:inputType="time"
-        app:layout_constraintBottom_toTopOf="@+id/txtSunday"
+        app:layout_constraintBottom_toTopOf="@+id/chkSunday"
         app:layout_constraintStart_toEndOf="@+id/edtTxtSaturday1"
-        app:layout_constraintTop_toBottomOf="@+id/txtFriday" />
+        app:layout_constraintTop_toBottomOf="@+id/chkFriday"
+        android:visibility="gone"/>
 
     <CheckBox
-        android:id="@+id/txtSunday"
+        android:id="@+id/chkSunday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sunday"
@@ -269,7 +281,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.057"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtSaturday" />
+        app:layout_constraintTop_toBottomOf="@+id/chkSaturday" />
 
     <EditText
         android:id="@+id/edtTxtSunday1"
@@ -277,11 +289,12 @@
         android:layout_height="wrap_content"
         android:hint="START TIME"
         android:inputType="time"
-        app:layout_constraintBottom_toBottomOf="@+id/txtSunday"
+        app:layout_constraintBottom_toBottomOf="@+id/chkSunday"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.55"
-        app:layout_constraintStart_toStartOf="@+id/txtSunday"
-        app:layout_constraintTop_toBottomOf="@+id/txtSaturday" />
+        app:layout_constraintStart_toStartOf="@+id/chkSunday"
+        app:layout_constraintTop_toBottomOf="@+id/chkSaturday"
+        android:visibility="gone"/>
 
     <EditText
         android:id="@+id/edtTxtSunday2"
@@ -289,9 +302,10 @@
         android:layout_height="wrap_content"
         android:hint="END TIME"
         android:inputType="time"
-        app:layout_constraintBottom_toBottomOf="@+id/txtSunday"
+        app:layout_constraintBottom_toBottomOf="@+id/chkSunday"
         app:layout_constraintStart_toEndOf="@+id/edtTxtSunday1"
-        app:layout_constraintTop_toBottomOf="@+id/txtSaturday" />
+        app:layout_constraintTop_toBottomOf="@+id/chkSaturday"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/btnSave"

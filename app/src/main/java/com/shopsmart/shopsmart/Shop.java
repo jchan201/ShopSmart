@@ -24,18 +24,13 @@ public class Shop extends RealmObject implements Serializable {
 
     public Shop() {}
     public Shop(String desc, String name, String email, String phone, String website,
-                Address address, RealmList<String> startTimes, RealmList<String> endTimes,
-                RealmList<ObjectId> salesOrders, RealmList<ObjectId> owners) {
+                Address address) {
         this.desc = desc;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.website = website;
         this.address = address;
-        this.startTimes = startTimes;
-        this.endTimes = endTimes;
-        this.salesOrders = salesOrders;
-        this.owners = owners;
     }
 
     public ObjectId getId() {
