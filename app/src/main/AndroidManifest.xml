@@ -82,6 +82,9 @@
             android:name=".ShopOwnerSignupActivity3"
             android:exported="true" />
         <activity
+            android:name=".ShopViewActivity"
+            android:exported="true" />
+        <activity
             android:name=".SignupActivity"
             android:exported="true" />
         <activity

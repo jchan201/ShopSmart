@@ -22,7 +22,7 @@ import io.realm.mongodb.AppConfiguration;
 import io.realm.mongodb.Credentials;
 import io.realm.mongodb.sync.SyncConfiguration;
 
-public class ShopListActivity extends AppCompatActivity {
+public class ShopViewActivity extends AppCompatActivity {
     private final String PARTITION = "ShopSmart";
     Intent currIntent;
     String userEmail;
@@ -51,10 +51,11 @@ public class ShopListActivity extends AppCompatActivity {
         if (this.currIntent != null) {
             this.userEmail = currIntent.getStringExtra("EXTRA_EMAIL");
             this.userPass = currIntent.getStringExtra("EXTRA_PASS");
+            this.index = currIntent.getIntExtra("EXTRA_INDEX", index);
 
-            boolean addSuccess = currIntent.getBooleanExtra("EXTRA_REGISTER_SHOP_SUCCESS", false);
-            if (addSuccess)
-                Toast.makeText(ShopListActivity.this, "Successfully register new shop to your name.", Toast.LENGTH_SHORT).show();
+//            boolean addSuccess = currIntent.getBooleanExtra("EXTRA_REGISTER_SHOP_SUCCESS", false);
+//            if (addSuccess)
+//                Toast.makeText(ShopListActivity.this, "Successfully register new shop to your name.", Toast.LENGTH_SHORT).show();
         }
 
         Credentials credentials = Credentials.emailPassword(userEmail, userPass);
@@ -150,16 +151,12 @@ public class ShopListActivity extends AppCompatActivity {
 
         binding.btnView.setOnClickListener(view -> {
             realm.close();
-            Intent intentToView = new Intent(ShopListActivity.this, ShopViewActivity.class);
-            intentToView.putExtra("EXTRA_EMAIL", userEmail);
-            intentToView.putExtra("EXTRA_PASS", userPass);
-            intentToView.putExtra("EXTRA_INDEX", index);
-            startActivity(intentToView);
+//            Intent intentToView = new Intent(ShopListActivity.this,)
         });
 
         binding.btnAdd.setOnClickListener(view -> {
             realm.close();
-            Intent intentToProfile = new Intent(ShopListActivity.this, ShopRegister.class);
+            Intent intentToProfile = new Intent(ShopViewActivity.this, ShopRegister.class);
             intentToProfile.putExtra("EXTRA_PASS", userPass);
             intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
             startActivity(intentToProfile);
@@ -167,7 +164,7 @@ public class ShopListActivity extends AppCompatActivity {
 
         binding.btnBack.setOnClickListener(view -> {
             realm.close();
-            Intent intentToBack = new Intent(ShopListActivity.this, ShopOwnerDashboardActivity.class);
+            Intent intentToBack = new Intent(ShopViewActivity.this, ShopOwnerDashboardActivity.class);
             intentToBack.putExtra("EXTRA_PASS", userPass);
             intentToBack.putExtra("EXTRA_EMAIL", userEmail);
             startActivity(intentToBack);
