@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/flSecondFragment"
+    tools:context=".SecondFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:background="@drawable/rectangle2"
+        android:gravity="center"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF">
+        <!--
+        <TextView
+            android:id="@+id/queryShopName"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:text="Shop Name"
+            android:textSize="20dp"
+            tools:layout_editor_absoluteX="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/queryShopDescription"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:text="Shop Description"
+            android:textSize="20dp"
+            tools:layout_editor_absoluteX="0dp"
+            app:layout_constraintTop_toBottomOf="@id/queryShopName"
+            />
+    -->
+
+        <!--app:layout_constraintTop_toBottomOf="@id/queryShopDescription" --><![CDATA[/>
+
+        ]]>
+
+        <TextView
+            android:id="@+id/queryShopAddress1"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:text="Shop Address Line 1"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/queryShopAddress2"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:text="Shop Address Line 2"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="@+id/queryShopAddress1"
+            app:layout_constraintTop_toBottomOf="@id/queryShopAddress1" />
+
+        <TextView
+            android:id="@+id/queryShopPCode"
+            android:layout_width="125dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:text="Shop PCode"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@id/queryShopAddress1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/queryShopCountry"
+            android:layout_width="125dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:text="Shop Country"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@id/queryShopAddress1"
+            app:layout_constraintTop_toBottomOf="@+id/queryShopPCode" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="Shop Hours"
+            android:textSize="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/queryShopAddress2" />
+
+        <TextView
+            android:id="@+id/textMonday"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="Monday"
+            android:textSize="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+        <TextView
+            android:id="@+id/textTuesday"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="Tuesday"
+            android:textSize="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textMonday" />
+
+        <TextView
+            android:id="@+id/textWednesday"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="Wednesday"
+            android:textSize="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textTuesday" />
+
+        <TextView
+            android:id="@+id/textThursday"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="Thursday"
+            android:textSize="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textWednesday" />
+
+        <TextView
+            android:id="@+id/textFriday"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="Friday"
+            android:textSize="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textThursday" />
+
+        <TextView
+            android:id="@+id/textSaturday"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="Saturday"
+            android:textSize="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textFriday" />
+
+        <TextView
+            android:id="@+id/textSunday"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="Sunday"
+            android:textSize="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textSaturday" />
+
+        <TextView
+            android:id="@+id/queryDay1Hours"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="00:00"
+            android:textSize="15dp"
+            app:layout_constraintStart_toEndOf="@id/textMonday"
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+        <TextView
+            android:id="@+id/queryDay2Hours"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="00:00"
+            android:textSize="15dp"
+            app:layout_constraintStart_toEndOf="@id/textTuesday"
+            app:layout_constraintTop_toBottomOf="@+id/queryDay1Hours" />
+
+        <TextView
+            android:id="@+id/queryDay3Hours"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="00:00"
+            android:textSize="15dp"
+            app:layout_constraintStart_toEndOf="@id/textWednesday"
+            app:layout_constraintTop_toBottomOf="@+id/queryDay2Hours" />
+
+        <TextView
+            android:id="@+id/queryDay4Hours"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="00:00"
+            android:textSize="15dp"
+            app:layout_constraintStart_toEndOf="@id/textThursday"
+            app:layout_constraintTop_toBottomOf="@+id/queryDay3Hours" />
+
+        <TextView
+            android:id="@+id/queryDay5Hours"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="00:00"
+            android:textSize="15dp"
+            app:layout_constraintStart_toEndOf="@id/textFriday"
+            app:layout_constraintTop_toBottomOf="@+id/queryDay4Hours" />
+
+        <TextView
+            android:id="@+id/queryDay6Hours"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="00:00"
+            android:textSize="15dp"
+            app:layout_constraintStart_toEndOf="@id/textSaturday"
+            app:layout_constraintTop_toBottomOf="@+id/queryDay5Hours" />
+
+        <TextView
+            android:id="@+id/queryDay7Hours"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="00:00"
+            android:textSize="15dp"
+            app:layout_constraintStart_toEndOf="@id/textSunday"
+            app:layout_constraintTop_toBottomOf="@+id/queryDay6Hours" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

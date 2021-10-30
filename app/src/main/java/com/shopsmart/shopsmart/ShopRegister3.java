@@ -179,7 +179,7 @@ public class ShopRegister3 extends AppCompatActivity {
 
     private boolean validation() {
         boolean valid = true;
-        String regex = "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$";
+        String regex = "^([0-1]?[0-9]|[2][0-3]):[0-5][0-9]$";
         if (monday.isChecked()) {
             startTimes.add(binding.edtTxtMonday1);
             endTimes.add(binding.edtTxtMonday2);
