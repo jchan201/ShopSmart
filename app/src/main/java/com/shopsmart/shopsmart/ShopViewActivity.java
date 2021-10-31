@@ -3,6 +3,10 @@ package com.shopsmart.shopsmart;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -143,9 +147,6 @@ public class ShopViewActivity extends AppCompatActivity {
         String address2 = address.getAddress2();
         String pCode = address.getPostalCode();
 
-//        paymentMethods = user.getPaymentMethods().toArray(new PaymentMethod[0]);
-
-//        String[] sTimes;
         RealmList<String> sTimes = shop.getStartTimes();
         RealmList<String> cTimes = shop.getEndTimes();
         RealmList<String> sRegexTimes = shop.getStartTimes();
@@ -178,6 +179,29 @@ public class ShopViewActivity extends AppCompatActivity {
 
 
 
+
+
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
+        Bundle bundle = new Bundle();
+        bundle.putString("SHOP_ADDRESS1", address1);
+        bundle.putString("SHOP_ADDRESS2", address2);
+        bundle.putString("PCODE", pCode);
+
+        bundle.putStringArray("DAYSOPEN", daysOpen);
+        bundle.putStringArray("DAYSCLOSED", daysClosed);
+
+        bundle.putString("EXTRA_USER", userEmail);
+        bundle.putString("EXTRA_PASS", userPass);
+
+
+        FirstFragment fragment = new FirstFragment();
+        fragment.setArguments(bundle);
+
+        ft.replace(R.id.flSecondFragment, fragment).commit();
+
 //        String MondayOpen = sTimes.get(0);
 //        String TuesdayOpen = sTimes.get(1);
 //        String WednesdayOpen = sTimes.get(2);
@@ -194,19 +218,6 @@ public class ShopViewActivity extends AppCompatActivity {
 //        String FridayC = cTimes.get(4);
 //        String SaturdayC = cTimes.get(5);
 //        String SundayC = cTimes.get(6);
-
-
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-
-        Bundle bundle = new Bundle();
-        bundle.putString("SHOP_ADDRESS1", address1);
-        bundle.putString("SHOP_ADDRESS2", address2);
-        bundle.putString("PCODE", pCode);
-
-        bundle.putStringArray("DAYSOPEN", daysOpen);
-        bundle.putStringArray("DAYSCLOSED", daysClosed);
 
 //        for(int x = 0; x < 7; x++){
 //            bundle.putString("DAYSOPEN" + x, daysOpen[x]);
@@ -229,12 +240,6 @@ public class ShopViewActivity extends AppCompatActivity {
 //        bundle.putString("SATURDAYC", SaturdayC);
 //        bundle.putString("SUNDAYC", SundayC);
 
-        FirstFragment fragment = new FirstFragment();
-        fragment.setArguments(bundle);
-
-        ft.replace(R.id.flSecondFragment, fragment).commit();
-
-
 //        Fragment f = SecondFragment.newInstance(address1, address2, pCode);
 //
 //        FragmentTransaction ft = getFragmentManager().beginTransaction();//.replace(R.id.tab_layout,new SecondFragment());
@@ -244,6 +249,48 @@ public class ShopViewActivity extends AppCompatActivity {
         //View tab1 = View.inflate(getBaseContext(), R.layout.)
         //TextView address1 = (TextView) vi
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuHome:
+                realm.close();
+                Intent listIntent = new Intent(ShopViewActivity.this, ShopListActivity.class);
+                listIntent.putExtra("EXTRA_EMAIL", userEmail);
+                listIntent.putExtra("EXTRA_PASS", userPass);
+                startActivity(listIntent);
+                break;
+
+            case R.id.menuPrev:
+                realm.close();
+                Intent prevIntent = new Intent(ShopViewActivity.this, ShopListActivity.class);
+                prevIntent.putExtra("EXTRA_PASS", userPass);
+                prevIntent.putExtra("EXTRA_EMAIL", userEmail);
+                startActivity(prevIntent);
+                break;
+//            case R.id.Profile:
+//                realm.close();
+//                Intent settingsIntent = new Intent(CustomerDashboardActivity.this, CustomerManageProfileActivity.class);
+//                settingsIntent.putExtra("EXTRA_EMAIL", userEmail);
+//                settingsIntent.putExtra("EXTRA_PASS", userPass);
+//                Toast.makeText(CustomerDashboardActivity.this, "Profile", Toast.LENGTH_SHORT).show();
+//                startActivity(settingsIntent);
+//                finish();
+//                break;
+            case R.id.LogOut:
+                realm.close();
+                Intent dashboardIntent = new Intent(ShopViewActivity.this, StartupActivity.class);
+                startActivity(dashboardIntent);
+        }
+        return true;
     }
 
     @Override

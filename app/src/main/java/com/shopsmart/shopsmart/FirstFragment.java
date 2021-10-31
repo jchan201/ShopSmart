@@ -25,11 +25,17 @@ public class FirstFragment extends Fragment {
     private static final String PCODE = "param3";
     private static final String DAYSOPEN = "param4";
     private static final String DAYSCLOSED = "param5";
+    private static final String EXTRA_EMAIL = "param6";
+    private static final String EXTRA_PASS = "param7";
 
     // TODO: Rename and change types of parameters
     private String shopAddress1;
     private String shopAddress2;
     private String pCode;
+
+    private String userEmail;
+    private String userPass;
+
 //    private String daysOpen;
 //    private String daysClosed;
 
@@ -57,17 +63,23 @@ public class FirstFragment extends Fragment {
      * @param pCode Parameter 3.
      * @param daysOpen Parameter 4.
      * @param daysClosed Parameter5.
+     * @param user Parameter6.
+     * @param pass Parameter7.
      * @return A new instance of fragment First_Fragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FirstFragment newInstance(String address1, String address2, String pCode, String daysOpen[], String daysClosed[]) {
+    public static FirstFragment newInstance(String address1, String address2, String pCode, String daysOpen[], String daysClosed[], String user, String pass) {
         FirstFragment fragment = new FirstFragment();
         Bundle args = new Bundle();
+
         args.putString(SHOP_ADDRESS1, address1);
         args.putString(SHOP_ADDRESS2, address2);
         args.putString(PCODE, pCode);
         args.putStringArray(DAYSOPEN, daysOpen);
         args.putStringArray(DAYSCLOSED, daysClosed);
+        args.putString(EXTRA_EMAIL, user);
+        args.putString(EXTRA_PASS, pass);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -92,6 +104,7 @@ public class FirstFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_first, container, false);
+        
         sAddress1 = v.findViewById(R.id.queryShopAddress1);
         sAddress2 = v.findViewById(R.id.queryShopAddress2);
         pCodeView = v.findViewById(R.id.queryShopPCode);
