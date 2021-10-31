@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2a47a7"
+    tools:context=".ShopRegister3">
+
+    <View
+        android:id="@+id/titleView"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/rectangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register Shop"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/titleView"
+        app:layout_constraintEnd_toEndOf="@+id/titleView"
+        app:layout_constraintStart_toStartOf="@+id/titleView"
+        app:layout_constraintTop_toTopOf="@+id/titleView" />
+
+    <View
+        android:id="@+id/bodyView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/rectangle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleView"
+        />
+
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Shop"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="@+id/bodyView"
+        app:layout_constraintStart_toStartOf="@+id/bodyView"
+        app:layout_constraintTop_toTopOf="@+id/bodyView" />
+
+    <TextView
+        android:id="@+id/txtOpen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Day and times your shop will be open:"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+
+    <CheckBox
+        android:id="@+id/chkMonday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Monday"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.057"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtOpen" />
+
+    <EditText
+        android:id="@+id/edtTxtMonday1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="START TIME"
+        android:inputType="text"
+        android:maxLength="5"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/chkTuesday"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintStart_toStartOf="@+id/chkMonday"
+        app:layout_constraintTop_toBottomOf="@+id/txtOpen"/>
+
+    <EditText
+        android:id="@+id/edtTxtMonday2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="END TIME"
+        android:inputType="text"
+        android:maxLength="5"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/chkTuesday"
+        app:layout_constraintStart_toEndOf="@+id/edtTxtMonday1"
+        app:layout_constraintTop_toBottomOf="@+id/txtOpen"/>
+
+    <CheckBox
+        android:id="@+id/chkTuesday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tuesday"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.057"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chkMonday" />
+
+    <EditText
+        android:id="@+id/edtTxtTuesday1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="START TIME"
+        android:inputType="text"
+        android:maxLength="5"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/chkWednesday"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintStart_toStartOf="@+id/chkTuesday"
+        app:layout_constraintTop_toBottomOf="@+id/chkMonday"/>
+
+    <EditText
+        android:id="@+id/edtTxtTuesday2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="END TIME"
+        android:inputType="text"
+        android:maxLength="5"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/chkWednesday"
+        app:layout_constraintStart_toEndOf="@+id/edtTxtTuesday1"
+        app:layout_constraintTop_toBottomOf="@+id/chkMonday"/>
+
+    <CheckBox
+        android:id="@+id/chkWednesday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wednesday"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.057"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chkTuesday" />
+
+    <EditText
+        android:id="@+id/edtTxtWednesday1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="START TIME"
+        android:inputType="text"
+        android:maxLength="5"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/chkThursday"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintStart_toStartOf="@+id/chkWednesday"
+        app:layout_constraintTop_toBottomOf="@+id/chkTuesday"/>
+
+    <EditText
+        android:id="@+id/edtTxtWednesday2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="END TIME"
+        android:inputType="text"
+        android:maxLength="5"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/chkThursday"
+        app:layout_constraintStart_toEndOf="@+id/edtTxtWednesday1"
+        app:layout_constraintTop_toBottomOf="@+id/chkTuesday"/>
+
+    <CheckBox
+        android:id="@+id/chkThursday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thursday"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.057"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chkWednesday" />
+
+    <EditText
+        android:id="@+id/edtTxtThursday1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="START TIME"
+        android:inputType="text"
+        android:maxLength="5"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/chkFriday"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintStart_toStartOf="@+id/chkThursday"
+        app:layout_constraintTop_toBottomOf="@+id/chkWednesday"/>
+
+    <EditText
+        android:id="@+id/edtTxtThursday2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="END TIME"
+        android:inputType="text"
+        android:maxLength="5"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/chkFriday"
+        app:layout_constraintStart_toEndOf="@+id/edtTxtThursday1"
+        app:layout_constraintTop_toBottomOf="@+id/chkWednesday"/>
+
+    <CheckBox
+        android:id="@+id/chkFriday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Friday"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.057"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chkThursday" />
+
+    <EditText
+        android:id="@+id/edtTxtFriday1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="START TIME"
+        android:inputType="text"
+        android:maxLength="5"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/chkSaturday"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintStart_toStartOf="@+id/chkFriday"
+        app:layout_constraintTop_toBottomOf="@+id/chkThursday"/>
+
+    <EditText
+        android:id="@+id/edtTxtFriday2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="END TIME"
+        android:inputType="text"
+        android:maxLength="5"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/chkSaturday"
+        app:layout_constraintStart_toEndOf="@+id/edtTxtFriday1"
+        app:layout_constraintTop_toBottomOf="@+id/chkThursday"/>
+
+    <CheckBox
+        android:id="@+id/chkSaturday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Saturday"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.057"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chkFriday" />
+
+    <EditText
+        android:id="@+id/edtTxtSaturday1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="START TIME"
+        android:inputType="text"
+        android:maxLength="5"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/chkSunday"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintStart_toStartOf="@+id/chkSaturday"
+        app:layout_constraintTop_toBottomOf="@+id/chkFriday"/>
+
+    <EditText
+        android:id="@+id/edtTxtSaturday2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="END TIME"
+        android:inputType="text"
+        android:maxLength="5"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/chkSunday"
+        app:layout_constraintStart_toEndOf="@+id/edtTxtSaturday1"
+        app:layout_constraintTop_toBottomOf="@+id/chkFriday"/>
+
+    <CheckBox
+        android:id="@+id/chkSunday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sunday"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.057"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chkSaturday" />
+
+    <EditText
+        android:id="@+id/edtTxtSunday1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="START TIME"
+        android:inputType="text"
+        android:maxLength="5"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/chkSunday"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintStart_toStartOf="@+id/chkSunday"
+        app:layout_constraintTop_toBottomOf="@+id/chkSaturday"/>
+
+    <EditText
+        android:id="@+id/edtTxtSunday2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="END TIME"
+        android:inputType="text"
+        android:maxLength="5"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/chkSunday"
+        app:layout_constraintStart_toEndOf="@+id/edtTxtSunday1"
+        app:layout_constraintTop_toBottomOf="@+id/chkSaturday"/>
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:ems="10"
+        android:padding="8dp"
+        android:text="FINISH"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnCancel"
+        app:layout_constraintEnd_toEndOf="@+id/bodyView"
+        app:layout_constraintStart_toStartOf="@+id/bodyView" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:ems="10"
+        android:padding="8dp"
+        android:text="CANCEL"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/bodyView"
+        app:layout_constraintStart_toStartOf="@+id/bodyView"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

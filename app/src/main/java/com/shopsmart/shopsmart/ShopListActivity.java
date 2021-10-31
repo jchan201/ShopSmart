@@ -93,12 +93,14 @@ public class ShopListActivity extends AppCompatActivity {
                     binding.singleShopView.setVisibility(View.GONE);
                     binding.textShopName.setVisibility(View.GONE);
                     binding.btnView.setVisibility(View.GONE);
+                    binding.btnEdit.setVisibility(View.GONE);
                     binding.buttonPrev.setVisibility(View.GONE);
                     binding.buttonNext.setVisibility(View.GONE);
                 } else {
                     binding.singleShopView.setVisibility(View.VISIBLE);
                     binding.textShopName.setVisibility(View.VISIBLE);
                     binding.btnView.setVisibility(View.VISIBLE);
+                    binding.btnEdit.setVisibility(View.VISIBLE);
                     binding.buttonPrev.setVisibility(View.VISIBLE);
                     binding.buttonNext.setVisibility(View.VISIBLE);
                     if (index + 1 == total)
