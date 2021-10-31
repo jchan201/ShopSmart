@@ -148,24 +148,30 @@ public class ShopViewActivity extends AppCompatActivity {
 //        String[] sTimes;
         RealmList<String> sTimes = shop.getStartTimes();
         RealmList<String> cTimes = shop.getEndTimes();
+        RealmList<String> sRegexTimes = shop.getStartTimes();
+        RealmList<String> cRegexTimes = shop.getEndTimes();
+
+        String regex = "^[c]$";
 
         String[] daysOpen = new String[7];
         String[] daysClosed = new String[7];
 
         for(int x = 0; x < 7; x++){
-            if(!sTimes.get(x).isEmpty() || sTimes.get(x) != null){
+            if(!sRegexTimes.get(x).matches(regex)){
                 daysOpen[x] = sTimes.get(x);
             }
             else{
+                daysOpen[x] = sTimes.get(x);
                 daysOpen[x] = "CLOSED";
             }
         }
 
         for(int x = 0; x < 7; x++){
-            if(!cTimes.get(x).isEmpty()){
+            if(!cRegexTimes.get(x).matches(regex)){
                 daysClosed[x] = " - " + cTimes.get(x);
             }
             else{
+                daysClosed[x] = cTimes.get(x);
                 daysClosed[x] = " ";
             }
         }
@@ -199,10 +205,13 @@ public class ShopViewActivity extends AppCompatActivity {
         bundle.putString("SHOP_ADDRESS2", address2);
         bundle.putString("PCODE", pCode);
 
-        for(int x = 0; x < 7; x++){
-            bundle.putString("DAYSOPEN" + x, daysOpen[x]);
-            bundle.putString("DAYSCLOSED" + x, daysClosed[x]);
-        }
+        bundle.putStringArray("DAYSOPEN", daysOpen);
+        bundle.putStringArray("DAYSCLOSED", daysClosed);
+
+//        for(int x = 0; x < 7; x++){
+//            bundle.putString("DAYSOPEN" + x, daysOpen[x]);
+//            bundle.putString("DAYSCLOSED" + x, daysClosed[x]);
+//        }
 
 //        bundle.putString("MONDAYOPEN", MondayOpen);
 //        bundle.putString("TUESDAYOPEN", TuesdayOpen);
