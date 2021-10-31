@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.shopsmart.shopsmart.databinding.FragmentFirstBinding;
-import com.shopsmart.shopsmart.databinding.FragmentSecondBinding;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,12 +28,8 @@ public class SecondFragment extends Fragment {
     private String shopAddress1;
     private String shopAddress2;
     private String pCode;
-
-    private TextView sAddress1;
-    private TextView sAddress2;
-    private TextView pCodeView;
-
-    private FragmentSecondBinding binding;
+    //
+    private FragmentFirstBinding binding;
 
     public SecondFragment() {
         // Required empty public constructor
@@ -59,40 +54,46 @@ public class SecondFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //
-        binding = FragmentSecondBinding.inflate(getLayoutInflater());
-        if (getArguments() != null) {
+//
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        //
+//        binding = FragmentFirstBinding.inflate(getLayoutInflater());
+//        if (getArguments() != null) {
 //            shopAddress1 = getArguments().getString(SHOP_ADDRESS1);
 //            shopAddress2 = getArguments().getString(SHOP_ADDRESS2);
 //            pCode = getArguments().getString(PCODE);
-        }
-//        binding.queryShopAddress1.setText(shopAddress1);
-//        binding.queryShopAddress2.setText(shopAddress2);
-//        binding.queryShopPCode.setText(pCode);
-    }
+//        }
+//
+//
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_second, container, false);
-        sAddress1 = v.findViewById(R.id.queryShopAddress1);
 
-        Bundle bundle = getArguments();
 
-        if(bundle != null){
-            shopAddress1 = bundle.getString("SHOP_ADDRESS1");
-            shopAddress2 = bundle.getString("SHOP_ADDRESS2");
-            pCode = bundle.getString("PCODE");
-        }
 
-        sAddress1.setText(shopAddress1);
+//        TextView sAddress1 = v.findViewById(R.id.queryShopAddress1);
+//        TextView sAddress2 = v.findViewById(R.id.queryShopAddress2);
+//        TextView pCodeView = v.findViewById(R.id.queryShopPCode);
+//
+//        Bundle bundle = getArguments();
+//
+//        if(bundle != null){
+//            shopAddress1 = bundle.getString("SHOP_ADDRESS1");
+//            shopAddress2 = bundle.getString("SHOP_ADDRESS2");
+//            pCode = bundle.getString("PCODE");
+//        }
+//
+//        sAddress1.setText(shopAddress1);
+//        sAddress2.setText(shopAddress2);
+//        pCodeView.setText(pCode);
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_second, container, false);
+        return v;
     }
 }

@@ -3,18 +3,13 @@ package com.shopsmart.shopsmart;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
-import com.shopsmart.shopsmart.databinding.FragmentSecondBinding;
 import com.shopsmart.shopsmart.databinding.ShopViewActivityBinding;
 
 import org.bson.types.ObjectId;
@@ -61,8 +56,8 @@ public class ShopViewActivity extends AppCompatActivity {
         adapter = new FragmentAdapter(fm, getLifecycle());
         view2.setAdapter(adapter);
 
-        tabLayout.addTab(tabLayout.newTab().setText("Products"));
         tabLayout.addTab(tabLayout.newTab().setText("Info"));
+        tabLayout.addTab(tabLayout.newTab().setText("Products"));
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -147,14 +142,16 @@ public class ShopViewActivity extends AppCompatActivity {
         String address2 = address.getAddress2();
         String pCode = address.getPostalCode();
 
-        SecondFragment fragment = new SecondFragment();
 
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
         Bundle bundle = new Bundle();
         bundle.putString("SHOP_ADDRESS1", address1);
-        bundle.putString("SHOP_ADDRESS2", address1);
-        bundle.putString("PCODE", address1);
+        bundle.putString("SHOP_ADDRESS2", address2);
+        bundle.putString("PCODE", pCode);
+        FirstFragment fragment = new FirstFragment();
         fragment.setArguments(bundle);
 
         ft.replace(R.id.flSecondFragment, fragment).commit();

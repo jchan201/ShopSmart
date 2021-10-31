@@ -20,7 +20,7 @@ public class FragmentAdapter extends FragmentStateAdapter {
 
         }
 
-        return new First_Fragment();
+        return new FirstFragment();
     }
 
     @Override
