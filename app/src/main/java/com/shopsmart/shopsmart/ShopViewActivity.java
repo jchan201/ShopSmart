@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmList;
 import io.realm.RealmResults;
 import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
@@ -142,6 +143,52 @@ public class ShopViewActivity extends AppCompatActivity {
         String address2 = address.getAddress2();
         String pCode = address.getPostalCode();
 
+//        paymentMethods = user.getPaymentMethods().toArray(new PaymentMethod[0]);
+
+//        String[] sTimes;
+        RealmList<String> sTimes = shop.getStartTimes();
+        RealmList<String> cTimes = shop.getEndTimes();
+
+        String[] daysOpen = new String[7];
+        String[] daysClosed = new String[7];
+
+        for(int x = 0; x < 7; x++){
+            if(!sTimes.get(x).isEmpty() || sTimes.get(x) != null){
+                daysOpen[x] = sTimes.get(x);
+            }
+            else{
+                daysOpen[x] = "CLOSED";
+            }
+        }
+
+        for(int x = 0; x < 7; x++){
+            if(!cTimes.get(x).isEmpty()){
+                daysClosed[x] = " - " + cTimes.get(x);
+            }
+            else{
+                daysClosed[x] = " ";
+            }
+        }
+
+
+
+//        String MondayOpen = sTimes.get(0);
+//        String TuesdayOpen = sTimes.get(1);
+//        String WednesdayOpen = sTimes.get(2);
+//        String ThursdayOpen = sTimes.get(3);
+//        String FridayOpen = sTimes.get(4);
+//        String SaturdayOpen = sTimes.get(5);
+//        String SundayOpen = sTimes.get(6);
+//
+//        RealmList<String> cTimes = shop.getEndTimes();
+//        String MondayC = cTimes.get(0);
+//        String TuesdayC = cTimes.get(1);
+//        String WednesdayC = cTimes.get(2);
+//        String ThursdayC = cTimes.get(3);
+//        String FridayC = cTimes.get(4);
+//        String SaturdayC = cTimes.get(5);
+//        String SundayC = cTimes.get(6);
+
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -151,10 +198,33 @@ public class ShopViewActivity extends AppCompatActivity {
         bundle.putString("SHOP_ADDRESS1", address1);
         bundle.putString("SHOP_ADDRESS2", address2);
         bundle.putString("PCODE", pCode);
+
+        for(int x = 0; x < 7; x++){
+            bundle.putString("DAYSOPEN" + x, daysOpen[x]);
+            bundle.putString("DAYSCLOSED" + x, daysClosed[x]);
+        }
+
+//        bundle.putString("MONDAYOPEN", MondayOpen);
+//        bundle.putString("TUESDAYOPEN", TuesdayOpen);
+//        bundle.putString("WEDNESDAYOPEN", WednesdayOpen);
+//        bundle.putString("THURSDAYOPEN", ThursdayOpen);
+//        bundle.putString("FRIDAYOPEN", FridayOpen);
+//        bundle.putString("SATURDAYOPEN", SaturdayOpen);
+//        bundle.putString("SUNDAYOPEN", SundayOpen);
+//
+//        bundle.putString("MONDAYC", MondayC);
+//        bundle.putString("TUESDAYC", TuesdayC);
+//        bundle.putString("WEDNESDAYC", WednesdayC);
+//        bundle.putString("THURSDAYC", ThursdayC);
+//        bundle.putString("FRIDAYOC", FridayC);
+//        bundle.putString("SATURDAYC", SaturdayC);
+//        bundle.putString("SUNDAYC", SundayC);
+
         FirstFragment fragment = new FirstFragment();
         fragment.setArguments(bundle);
 
         ft.replace(R.id.flSecondFragment, fragment).commit();
+
 
 //        Fragment f = SecondFragment.newInstance(address1, address2, pCode);
 //
@@ -165,6 +235,21 @@ public class ShopViewActivity extends AppCompatActivity {
         //View tab1 = View.inflate(getBaseContext(), R.layout.)
         //TextView address1 = (TextView) vi
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        binding = null;
+
+        // Log out.
+        app.currentUser().logOutAsync(result -> {
+            if (result.isSuccess()) {
+                Log.v("LOGOUT", "Successfully logged out.");
+            } else {
+                Log.e("LOGOUT", "Failed to log out, error: " + result.getError());
+            }
+        });
     }
 }
 /*

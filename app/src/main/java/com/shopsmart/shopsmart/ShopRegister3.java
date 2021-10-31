@@ -34,6 +34,8 @@ public class ShopRegister3 extends AppCompatActivity {
     private String shopPhone;
     private String shopWebsite;
     private CheckBox monday, tuesday, wednesday, thursday, friday, saturday, sunday;
+//    private final ArrayList<String> startTimes = new ArrayList<>();
+//    private final ArrayList<String> endTimes = new ArrayList<>();
     private final ArrayList<EditText> startTimes = new ArrayList<>();
     private final ArrayList<EditText> endTimes = new ArrayList<>();
 
@@ -179,8 +181,15 @@ public class ShopRegister3 extends AppCompatActivity {
 
     private boolean validation() {
         boolean valid = true;
-        String regex = "^([0-1]?[0-9]|[2][0-3]):[0-5][0-9]$";
+        String regex = "^(([0-1]?[0-9]|[2][0-3]):[0-5][0-9])|[c]$";
+//        String closed = "^[c]$";
         if (monday.isChecked()) {
+            startTimes.add(binding.edtTxtMonday1);
+            endTimes.add(binding.edtTxtMonday2);
+        }
+        else{
+            binding.edtTxtMonday1.setText("c");
+            binding.edtTxtMonday2.setText("c");
             startTimes.add(binding.edtTxtMonday1);
             endTimes.add(binding.edtTxtMonday2);
         }
@@ -188,7 +197,19 @@ public class ShopRegister3 extends AppCompatActivity {
             startTimes.add(binding.edtTxtTuesday1);
             endTimes.add(binding.edtTxtTuesday2);
         }
+        else{
+            binding.edtTxtTuesday1.setText("c");
+            binding.edtTxtTuesday2.setText("c");
+            startTimes.add(binding.edtTxtTuesday1);
+            endTimes.add(binding.edtTxtTuesday2);
+        }
         if (wednesday.isChecked()) {
+            startTimes.add(binding.edtTxtWednesday1);
+            endTimes.add(binding.edtTxtWednesday2);
+        }
+        else{
+            binding.edtTxtWednesday1.setText("c");
+            binding.edtTxtWednesday2.setText("c");
             startTimes.add(binding.edtTxtWednesday1);
             endTimes.add(binding.edtTxtWednesday2);
         }
@@ -196,7 +217,19 @@ public class ShopRegister3 extends AppCompatActivity {
             startTimes.add(binding.edtTxtThursday1);
             endTimes.add(binding.edtTxtThursday2);
         }
+        else{
+            binding.edtTxtThursday1.setText("c");
+            binding.edtTxtThursday2.setText("c");
+            startTimes.add(binding.edtTxtThursday1);
+            endTimes.add(binding.edtTxtThursday2);
+        }
         if (friday.isChecked()) {
+            startTimes.add(binding.edtTxtFriday1);
+            endTimes.add(binding.edtTxtFriday2);
+        }
+        else{
+            binding.edtTxtFriday1.setText("c");
+            binding.edtTxtFriday2.setText("c");
             startTimes.add(binding.edtTxtFriday1);
             endTimes.add(binding.edtTxtFriday2);
         }
@@ -204,18 +237,30 @@ public class ShopRegister3 extends AppCompatActivity {
             startTimes.add(binding.edtTxtSaturday1);
             endTimes.add(binding.edtTxtSaturday2);
         }
+        else{
+            binding.edtTxtSaturday1.setText("c");
+            binding.edtTxtSaturday2.setText("c");
+            startTimes.add(binding.edtTxtSaturday1);
+            endTimes.add(binding.edtTxtSaturday2);
+        }
         if (sunday.isChecked()) {
             startTimes.add(binding.edtTxtSunday1);
             endTimes.add(binding.edtTxtSunday2);
         }
+        else{
+            binding.edtTxtSunday1.setText("c");
+            binding.edtTxtSunday2.setText("c");
+            startTimes.add(binding.edtTxtSunday1);
+            endTimes.add(binding.edtTxtSunday2);
+        }
         for (EditText time : startTimes) {
-            if (!time.getText().toString().matches(regex)) {
+            if (!time.getText().toString().matches(regex)){// || !time.getText().toString().matches(closed)) {
                 time.setError("Field must be in HH:MM format");
                 valid = false;
             }
         }
         for (EditText time : endTimes) {
-            if (!time.getText().toString().matches(regex)) {
+            if (!time.getText().toString().matches(regex)){// || !time.getText().toString().matches(closed)) {
                 time.setError("Field must be in HH:MM format");
                 valid = false;
             }
