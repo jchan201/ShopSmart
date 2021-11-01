@@ -55,7 +55,7 @@
     <ScrollView
         android:id="@+id/bodyView"
         android:layout_width="match_parent"
-        android:layout_height="1000dp"
+        android:layout_height="800dp"
         app:layout_constraintEnd_toEndOf="@+id/bodyView2"
         app:layout_constraintStart_toStartOf="@+id/bodyView2"
         app:layout_constraintVertical_bias="1.0"

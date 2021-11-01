@@ -3,6 +3,9 @@ package com.shopsmart.shopsmart;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -25,7 +28,7 @@ import io.realm.mongodb.Credentials;
 import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ShopRegisterEdit extends AppCompatActivity {
-    private final String PARTITION = "SHOPSMART";
+    private final String PARTITION = "ShopSmart";
     String userEmail;
     String userPass;
     int index = 0;
@@ -36,15 +39,92 @@ public class ShopRegisterEdit extends AppCompatActivity {
     private ShopRegisterActivityEditBinding binding;
     private App app;
     private Realm realm;
+    private CheckBox monday, tuesday, wednesday, thursday, friday, saturday, sunday;
+    private final ArrayList<EditText> startTimes = new ArrayList<>();
+    private final ArrayList<EditText> endTimes = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ShopRegisterActivityEditBinding.inflate(getLayoutInflater());
+
+        monday = binding.chkMonday;
+        tuesday = binding.chkTuesday;
+        wednesday = binding.chkWednesday;
+        thursday = binding.chkThursday;
+        friday = binding.chkFriday;
+        saturday = binding.chkSaturday;
+        sunday = binding.chkSunday;
+
         setContentView(binding.getRoot());
 
         // Access realm
         app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
+
+        monday.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (compoundButton.isChecked()) {
+                binding.edtTxtMonday1.setVisibility(View.VISIBLE);
+                binding.edtTxtMonday2.setVisibility(View.VISIBLE);
+            } else {
+                binding.edtTxtMonday1.setVisibility(View.GONE);
+                binding.edtTxtMonday2.setVisibility(View.GONE);
+            }
+        });
+        tuesday.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (compoundButton.isChecked()) {
+                binding.edtTxtTuesday1.setVisibility(View.VISIBLE);
+                binding.edtTxtTuesday2.setVisibility(View.VISIBLE);
+            } else {
+                binding.edtTxtTuesday1.setVisibility(View.GONE);
+                binding.edtTxtTuesday2.setVisibility(View.GONE);
+            }
+        });
+        wednesday.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (compoundButton.isChecked()) {
+                binding.edtTxtWednesday1.setVisibility(View.VISIBLE);
+                binding.edtTxtWednesday2.setVisibility(View.VISIBLE);
+            } else {
+                binding.edtTxtWednesday1.setVisibility(View.GONE);
+                binding.edtTxtWednesday2.setVisibility(View.GONE);
+            }
+        });
+        thursday.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (compoundButton.isChecked()) {
+                binding.edtTxtThursday1.setVisibility(View.VISIBLE);
+                binding.edtTxtThursday2.setVisibility(View.VISIBLE);
+            } else {
+                binding.edtTxtThursday1.setVisibility(View.GONE);
+                binding.edtTxtThursday2.setVisibility(View.GONE);
+            }
+        });
+        friday.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (compoundButton.isChecked()) {
+                binding.edtTxtFriday1.setVisibility(View.VISIBLE);
+                binding.edtTxtFriday2.setVisibility(View.VISIBLE);
+            } else {
+                binding.edtTxtFriday1.setVisibility(View.GONE);
+                binding.edtTxtFriday2.setVisibility(View.GONE);
+            }
+        });
+        saturday.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (compoundButton.isChecked()) {
+                binding.edtTxtSaturday1.setVisibility(View.VISIBLE);
+                binding.edtTxtSaturday2.setVisibility(View.VISIBLE);
+            } else {
+                binding.edtTxtSaturday1.setVisibility(View.GONE);
+                binding.edtTxtSaturday2.setVisibility(View.GONE);
+            }
+        });
+        sunday.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (compoundButton.isChecked()) {
+                binding.edtTxtSunday1.setVisibility(View.VISIBLE);
+                binding.edtTxtSunday2.setVisibility(View.VISIBLE);
+            } else {
+                binding.edtTxtSunday1.setVisibility(View.GONE);
+                binding.edtTxtSunday2.setVisibility(View.GONE);
+            }
+        });
 
         Intent currIntent = this.getIntent();
         if (currIntent != null) {
@@ -86,7 +166,119 @@ public class ShopRegisterEdit extends AppCompatActivity {
                 Log.v("LOGIN", "Failed to authenticate using email and password.");
             }
         });
+
+        binding.btnSave.setOnClickListener(view -> {
+            realm.executeTransaction(realm -> {
+                Log.d("Something", "Executing transaction...");
+
+                Shop shop = shops.get(index);
+                int x = 0;
+                if (validation()) {
+                    while (x < 7) {
+                        for (EditText time : startTimes) {
+                            shop.setStartTime(x++, time.getText().toString());
+                        }
+                    }
+
+                    x = 0;
+                    for (EditText time : endTimes) {
+                        shop.setEndTime(x++, time.getText().toString());
+                    }
+                }
+            });
+
+        });
     }
+
+    private boolean validation(){
+        boolean valid = true;
+        String regex = "^(([0-1]?[0-9]|[2][0-3]):[0-5][0-9])|[c]$";
+//        String closed = "^[c]$";
+        if (monday.isChecked()) {
+            startTimes.add(binding.edtTxtMonday1);
+            endTimes.add(binding.edtTxtMonday2);
+        }
+        else{
+            binding.edtTxtMonday1.setText("c");
+            binding.edtTxtMonday2.setText("c");
+            startTimes.add(binding.edtTxtMonday1);
+            endTimes.add(binding.edtTxtMonday2);
+        }
+        if (tuesday.isChecked()) {
+            startTimes.add(binding.edtTxtTuesday1);
+            endTimes.add(binding.edtTxtTuesday2);
+        }
+        else{
+            binding.edtTxtTuesday1.setText("c");
+            binding.edtTxtTuesday2.setText("c");
+            startTimes.add(binding.edtTxtTuesday1);
+            endTimes.add(binding.edtTxtTuesday2);
+        }
+        if (wednesday.isChecked()) {
+            startTimes.add(binding.edtTxtWednesday1);
+            endTimes.add(binding.edtTxtWednesday2);
+        }
+        else{
+            binding.edtTxtWednesday1.setText("c");
+            binding.edtTxtWednesday2.setText("c");
+            startTimes.add(binding.edtTxtWednesday1);
+            endTimes.add(binding.edtTxtWednesday2);
+        }
+        if (thursday.isChecked()) {
+            startTimes.add(binding.edtTxtThursday1);
+            endTimes.add(binding.edtTxtThursday2);
+        }
+        else{
+            binding.edtTxtThursday1.setText("c");
+            binding.edtTxtThursday2.setText("c");
+            startTimes.add(binding.edtTxtThursday1);
+            endTimes.add(binding.edtTxtThursday2);
+        }
+        if (friday.isChecked()) {
+            startTimes.add(binding.edtTxtFriday1);
+            endTimes.add(binding.edtTxtFriday2);
+        }
+        else{
+            binding.edtTxtFriday1.setText("c");
+            binding.edtTxtFriday2.setText("c");
+            startTimes.add(binding.edtTxtFriday1);
+            endTimes.add(binding.edtTxtFriday2);
+        }
+        if (saturday.isChecked()) {
+            startTimes.add(binding.edtTxtSaturday1);
+            endTimes.add(binding.edtTxtSaturday2);
+        }
+        else{
+            binding.edtTxtSaturday1.setText("c");
+            binding.edtTxtSaturday2.setText("c");
+            startTimes.add(binding.edtTxtSaturday1);
+            endTimes.add(binding.edtTxtSaturday2);
+        }
+        if (sunday.isChecked()) {
+            startTimes.add(binding.edtTxtSunday1);
+            endTimes.add(binding.edtTxtSunday2);
+        }
+        else{
+            binding.edtTxtSunday1.setText("c");
+            binding.edtTxtSunday2.setText("c");
+            startTimes.add(binding.edtTxtSunday1);
+            endTimes.add(binding.edtTxtSunday2);
+        }
+        for (EditText time : startTimes) {
+            if (!time.getText().toString().matches(regex)){// || !time.getText().toString().matches(closed)) {
+                time.setError("Field must be in HH:MM format");
+                valid = false;
+            }
+        }
+        for (EditText time : endTimes) {
+            if (!time.getText().toString().matches(regex)){// || !time.getText().toString().matches(closed)) {
+                time.setError("Field must be in HH:MM format");
+                valid = false;
+            }
+        }
+        return valid;
+    }
+
     private void displayShopInfo(Shop shop){
 
         binding.edtTextShopName.setText(shop.getName());
@@ -147,42 +339,56 @@ public class ShopRegisterEdit extends AppCompatActivity {
             binding.chkMonday.setChecked(true);
             binding.edtTxtMonday1.setText(daysOpen[0]);
             binding.edtTxtMonday2.setText(daysClosed[0]);
+            binding.edtTxtMonday1.setVisibility(View.VISIBLE);
+            binding.edtTxtMonday2.setVisibility(View.VISIBLE);
         }
 
         if(!daysOpen[1].matches(regex)){
             binding.chkTuesday.setChecked(true);
             binding.edtTxtTuesday1.setText(daysOpen[1]);
-            binding.edtTxtTuesday2.setText(daysClosed[1]);
+            binding.edtTxtTuesday2.setText(daysClosed[1]);;
+            binding.edtTxtTuesday1.setVisibility(View.VISIBLE);
+            binding.edtTxtTuesday2.setVisibility(View.VISIBLE);
         }
 
         if(!daysOpen[2].matches(regex)){
             binding.chkWednesday.setChecked(true);
             binding.edtTxtWednesday1.setText(daysOpen[2]);
-            binding.edtTxtWednesday2.setText(daysClosed[2]);
+            binding.edtTxtWednesday2.setText(daysClosed[2]);;
+            binding.edtTxtWednesday1.setVisibility(View.VISIBLE);
+            binding.edtTxtWednesday2.setVisibility(View.VISIBLE);
         }
 
         if(!daysOpen[3].matches(regex)){
             binding.chkThursday.setChecked(true);
             binding.edtTxtThursday1.setText(daysOpen[3]);
-            binding.edtTxtThursday2.setText(daysClosed[3]);
+            binding.edtTxtThursday2.setText(daysClosed[3]);;
+            binding.edtTxtThursday1.setVisibility(View.VISIBLE);
+            binding.edtTxtThursday2.setVisibility(View.VISIBLE);
         }
 
         if(!daysOpen[4].matches(regex)){
             binding.chkFriday.setChecked(true);
             binding.edtTxtFriday1.setText(daysOpen[4]);
-            binding.edtTxtFriday2.setText(daysClosed[4]);
+            binding.edtTxtFriday2.setText(daysClosed[4]);;
+            binding.edtTxtFriday1.setVisibility(View.VISIBLE);
+            binding.edtTxtFriday2.setVisibility(View.VISIBLE);
         }
 
         if(!daysOpen[5].matches(regex)){
             binding.chkSaturday.setChecked(true);
             binding.edtTxtSaturday1.setText(daysOpen[5]);
-            binding.edtTxtSaturday2.setText(daysClosed[5]);
+            binding.edtTxtSaturday2.setText(daysClosed[5]);;
+            binding.edtTxtSaturday1.setVisibility(View.VISIBLE);
+            binding.edtTxtSaturday2.setVisibility(View.VISIBLE);
         }
 
         if(!daysOpen[6].matches(regex)){
             binding.chkSunday.setChecked(true);
             binding.edtTxtSunday1.setText(daysOpen[6]);
-            binding.edtTxtSunday2.setText(daysClosed[6]);
+            binding.edtTxtSunday2.setText(daysClosed[6]);;
+            binding.edtTxtSunday1.setVisibility(View.VISIBLE);
+            binding.edtTxtSunday2.setVisibility(View.VISIBLE);
         }
 
 
