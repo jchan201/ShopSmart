@@ -252,7 +252,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
                 //Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
                 startActivity(homeIntent);
                 //break;
-            case R.id.btnBack:
+            case R.id.menuPrev:
                 realm.close();
                 Intent goBack = new Intent(CustomerProfileActivity.this, CustomerDashboardActivity.class);
                 goBack.putExtra("EXTRA_EMAIL", userEmail);
