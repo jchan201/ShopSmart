@@ -174,7 +174,9 @@ public class ShopRegister3 extends AppCompatActivity {
         });
 
         binding.btnCancel.setOnClickListener(view ->
-                startActivity(new Intent(ShopRegister3.this, ShopRegister.class)));
+                startActivity(new Intent(ShopRegister3.this, ShopRegister2.class)
+                        .putExtra("EXTRA_PASS", userPass)
+                        .putExtra("EXTRA_EMAIL", userEmail)));
     }
 
     private boolean validation() {

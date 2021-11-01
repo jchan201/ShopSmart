@@ -25,7 +25,7 @@ public class ShopRegister extends AppCompatActivity {
         }
 
         binding.btnCancel.setOnClickListener(view -> startActivity(new Intent(ShopRegister.this, ShopListActivity.class)
-                .putExtra("EXTRA_EMAIL", userPass)
+                .putExtra("EXTRA_EMAIL", userEmail)
                 .putExtra("EXTRA_PASS", userPass)));
 
         binding.btnNext.setOnClickListener(view -> {
