@@ -182,14 +182,6 @@ public class ShopOwnerProfilePaymentsActivity extends AppCompatActivity {
             startActivity(intentToProfile);
         });
 
-        binding.btnAdd.setOnClickListener(view -> {
-            realm.close();
-            Intent intentToProfile = new Intent(ShopOwnerProfilePaymentsActivity.this, ShopOwnerProfileAddPaymentsActivity1.class);
-            intentToProfile.putExtra("EXTRA_PASS", userPass);
-            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
-            startActivity(intentToProfile);
-        });
-
         binding.btnBack.setOnClickListener(view -> {
             realm.close();
             Intent intentToBack = new Intent(ShopOwnerProfilePaymentsActivity.this, ShopOwnerProfileActivity.class);

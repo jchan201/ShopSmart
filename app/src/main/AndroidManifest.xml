@@ -22,6 +22,9 @@
             android:name=".ShopListActivity"
             android:exported="false" />
         <activity
+            android:name=".ShopDeleteConfirmActivity"
+            android:exported="true" />
+        <activity
             android:name=".ShopOwnerDashboardActivity"
             android:exported="true" />
         <activity
