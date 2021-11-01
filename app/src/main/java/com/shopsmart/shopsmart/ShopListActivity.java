@@ -55,6 +55,11 @@ public class ShopListActivity extends AppCompatActivity {
             boolean addSuccess = currIntent.getBooleanExtra("EXTRA_REGISTER_SHOP_SUCCESS", false);
             if (addSuccess)
                 Toast.makeText(ShopListActivity.this, "Successfully register new shop to your name.", Toast.LENGTH_SHORT).show();
+
+            boolean deleteSuccess = currIntent.getBooleanExtra("EXTRA_DELETE_SHOP_SUCCESS", false);
+            if (deleteSuccess)
+                Toast.makeText(ShopListActivity.this, "Successfully close down shop to your name.", Toast.LENGTH_SHORT).show();
+
         }
 
         Credentials credentials = Credentials.emailPassword(userEmail, userPass);
@@ -93,14 +98,14 @@ public class ShopListActivity extends AppCompatActivity {
                     binding.singleShopView.setVisibility(View.GONE);
                     binding.textShopName.setVisibility(View.GONE);
                     binding.btnView.setVisibility(View.GONE);
-                    binding.btnEdit.setVisibility(View.GONE);
+                    binding.btnDelete.setVisibility(View.GONE);
                     binding.buttonPrev.setVisibility(View.GONE);
                     binding.buttonNext.setVisibility(View.GONE);
                 } else {
                     binding.singleShopView.setVisibility(View.VISIBLE);
                     binding.textShopName.setVisibility(View.VISIBLE);
                     binding.btnView.setVisibility(View.VISIBLE);
-                    binding.btnEdit.setVisibility(View.VISIBLE);
+                    binding.btnDelete.setVisibility(View.VISIBLE);
                     binding.buttonPrev.setVisibility(View.VISIBLE);
                     binding.buttonNext.setVisibility(View.VISIBLE);
                     if (index + 1 == total)
@@ -150,22 +155,13 @@ public class ShopListActivity extends AppCompatActivity {
 //            startActivity(intentToProfile);
 //        });
 
-        binding.btnView.setOnClickListener(view -> {
+        binding.btnDelete.setOnClickListener(view -> {
             realm.close();
-            Intent intentToView = new Intent(ShopListActivity.this, ShopViewActivity.class);
-            intentToView.putExtra("EXTRA_EMAIL", userEmail);
-            intentToView.putExtra("EXTRA_PASS", userPass);
-            intentToView.putExtra("EXTRA_INDEX", index);
-            startActivity(intentToView);
-        });
-
-        binding.btnEdit.setOnClickListener(view -> {
-            realm.close();
-            Intent intentToEdit = new Intent(ShopListActivity.this, ShopRegisterEdit.class);
-            intentToEdit.putExtra("EXTRA_EMAIL", userEmail);
-            intentToEdit.putExtra("EXTRA_PASS", userPass);
-            intentToEdit.putExtra("EXTRA_INDEX", index);
-            startActivity(intentToEdit);
+            Intent intentToProfile = new Intent(ShopListActivity.this, ShopDeleteConfirmActivity.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+            intentToProfile.putExtra("EXTRA_REMOVE_INDEX", index);
+            startActivity(intentToProfile);
         });
 
         binding.btnAdd.setOnClickListener(view -> {
