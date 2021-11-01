@@ -2,6 +2,7 @@ package com.shopsmart.shopsmart;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -57,7 +58,7 @@ public class ShopRegister2 extends AppCompatActivity {
         });
 
         binding.btnBack.setOnClickListener(view -> startActivity(new Intent(ShopRegister2.this, ShopRegister.class)
-                .putExtra("EXTRA_EMAIL", userPass)
+                .putExtra("EXTRA_EMAIL", userEmail)
                 .putExtra("EXTRA_PASS", userPass)));
     }
 

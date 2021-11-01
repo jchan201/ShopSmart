@@ -25,13 +25,7 @@
             android:name=".ShopListActivity"
             android:exported="false" />
         <activity
-            android:name=".DriverSignup3Activity"
-            android:exported="true" />
-        <activity
-            android:name=".DriverSignup2Activity"
-            android:exported="true" />
-        <activity
-            android:name=".DriverSignupActivity"
+            android:name=".ShopDeleteConfirmActivity"
             android:exported="true" />
         <activity
             android:name=".ShopOwnerDashboardActivity"

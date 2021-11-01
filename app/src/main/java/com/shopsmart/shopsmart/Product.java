@@ -11,15 +11,15 @@ import io.realm.annotations.Required;
 public class Product extends RealmObject implements Serializable {
     @PrimaryKey @Required private ObjectId _id = new ObjectId();
     @Required private ObjectId shop_id;
-    @Required private ObjectId type_id;
+    @Required private String productType;
     @Required private String name;
     @Required private String desc;
     private double price;
 
     public Product() {}
-    public Product(ObjectId shop_id, ObjectId type_id, String name, String desc, double price) {
+    public Product(ObjectId shop_id, String productType, String name, String desc, double price) {
         this.shop_id = shop_id;
-        this.type_id = type_id;
+        this.productType = productType;
         this.name = name;
         this.desc = desc;
         this.price = price;
@@ -31,8 +31,12 @@ public class Product extends RealmObject implements Serializable {
     public ObjectId getShopId() {
         return shop_id;
     }
-    public ObjectId getTypeId() {
-        return type_id;
+
+    public String getProductType() {
+        return productType;
+    }
+    public void setProductType(String productType) {
+        this.productType = productType;
     }
 
     public String getName() {
