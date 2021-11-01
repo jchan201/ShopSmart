@@ -159,6 +159,15 @@ public class ShopListActivity extends AppCompatActivity {
             startActivity(intentToView);
         });
 
+        binding.btnEdit.setOnClickListener(view -> {
+            realm.close();
+            Intent intentToEdit = new Intent(ShopListActivity.this, ShopRegisterEdit.class);
+            intentToEdit.putExtra("EXTRA_EMAIL", userEmail);
+            intentToEdit.putExtra("EXTRA_PASS", userPass);
+            intentToEdit.putExtra("EXTRA_INDEX", index);
+            startActivity(intentToEdit);
+        });
+
         binding.btnAdd.setOnClickListener(view -> {
             realm.close();
             Intent intentToProfile = new Intent(ShopListActivity.this, ShopRegister.class);

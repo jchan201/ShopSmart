@@ -19,6 +19,9 @@
             android:name=".ShopRegister"
             android:exported="false" />
         <activity
+            android:name=".ShopRegisterEdit"
+            android:exported="false" />
+        <activity
             android:name=".ShopListActivity"
             android:exported="false" />
         <activity
