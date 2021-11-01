@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.shopsmart.shopsmart.databinding.ShopDeleteConfirmationActivityBinding;
 import com.shopsmart.shopsmart.databinding.ShopownerProfileDeletePaymentConfirmationActivityBinding;
 
+import org.bson.types.ObjectId;
+
 import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.mongodb.App;
@@ -22,6 +24,7 @@ public class ShopDeleteConfirmActivity extends AppCompatActivity {
     String userEmail;
     String userPass;
     AppUser user;
+    Shop shop;
     int index = 0;
     private ShopDeleteConfirmationActivityBinding binding;
     private App app;
@@ -89,6 +92,9 @@ public class ShopDeleteConfirmActivity extends AppCompatActivity {
 
     private void deletePaymentMethod() {
         realm.executeTransaction(transactionRealm -> {
+            Shop deleteShop = transactionRealm.where(Shop.class).equalTo("_id", user.getShops().get(index)).findFirst();
+            deleteShop.deleteFromRealm();
+
             user.removeShop(index);
         });
     }
