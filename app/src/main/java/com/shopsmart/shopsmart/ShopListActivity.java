@@ -42,6 +42,8 @@ public class ShopListActivity extends AppCompatActivity {
         binding = ShopListActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        Realm.init(this);
+
         // Access realm
         app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
 

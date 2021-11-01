@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.RealmList;
 import io.realm.RealmResults;
 import io.realm.mongodb.App;
@@ -167,7 +168,13 @@ public class ShopRegisterEdit extends AppCompatActivity {
             }
         });
 
-        binding.btnSave.setOnClickListener(view -> {
+        binding.btnSave2.setOnClickListener(view -> {
+            SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION)
+                    .allowWritesOnUiThread(true)
+                    .allowQueriesOnUiThread(true)
+                    .build();
+//            RealmConfiguration config = new RealmConfiguration.Builder().allowWritesOnUiThread(true).allowQueriesOnUiThread(true).build();
+            realm = Realm.getInstanceAsync(config);
             realm.executeTransaction(realm -> {
                 Log.d("Something", "Executing transaction...");
 

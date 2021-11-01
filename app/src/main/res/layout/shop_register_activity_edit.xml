@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#2a47a7"
-    tools:context=".ShopRegister">
+    tools:context=".ShopRegisterEdit">
 
     <View
         android:id="@+id/titleView"
@@ -559,7 +559,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/chkSaturday" />
 
             <Button
-                android:id="@+id/btnSave"
+                android:id="@+id/btnSave2"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
@@ -586,7 +586,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnSave" />
+                app:layout_constraintTop_toBottomOf="@+id/btnSave2" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
