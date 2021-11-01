@@ -174,7 +174,7 @@ public class ShopRegisterEdit extends AppCompatActivity {
                     .allowQueriesOnUiThread(true)
                     .build();
 //            RealmConfiguration config = new RealmConfiguration.Builder().allowWritesOnUiThread(true).allowQueriesOnUiThread(true).build();
-            realm = Realm.getInstanceAsync(config);
+//            realm = Realm.getInstanceAsync(config);
             realm.executeTransaction(realm -> {
                 Log.d("Something", "Executing transaction...");
 
