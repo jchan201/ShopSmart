@@ -19,6 +19,9 @@
             android:name=".ShopRegister"
             android:exported="false" />
         <activity
+            android:name=".ShopRegisterEdit"
+            android:exported="false" />
+        <activity
             android:name=".ShopListActivity"
             android:exported="false" />
         <activity
@@ -71,6 +74,9 @@
             android:exported="true" />
         <activity
             android:name=".ShopOwnerSignupActivity3"
+            android:exported="true" />
+        <activity
+            android:name=".ShopViewActivity"
             android:exported="true" />
         <activity
             android:name=".SignupActivity"

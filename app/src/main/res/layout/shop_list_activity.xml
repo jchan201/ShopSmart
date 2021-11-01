@@ -105,40 +105,40 @@
         app:layout_constraintStart_toStartOf="@+id/singleShopView"
         app:layout_constraintTop_toTopOf="@+id/singleShopView" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/textCardName"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:paddingLeft="10dp"-->
-<!--        android:paddingTop="10dp"-->
-<!--        android:text="UNKNOWN"-->
-<!--        android:textSize="15dp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/singlePaymentView"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textShopName" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/textCardName"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:paddingLeft="10dp"-->
+    <!--        android:paddingTop="10dp"-->
+    <!--        android:text="UNKNOWN"-->
+    <!--        android:textSize="15dp"-->
+    <!--        android:textStyle="bold"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/singlePaymentView"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textShopName" />-->
 
-<!--    <TextView-->
-<!--        android:id="@+id/textCardExpireTitle"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:paddingLeft="10dp"-->
-<!--        android:paddingTop="10dp"-->
-<!--        android:text="Expires "-->
-<!--        android:textSize="15dp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/singlePaymentView"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textCardName" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/textCardExpireTitle"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:paddingLeft="10dp"-->
+    <!--        android:paddingTop="10dp"-->
+    <!--        android:text="Expires "-->
+    <!--        android:textSize="15dp"-->
+    <!--        android:textStyle="bold"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/singlePaymentView"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textCardName" />-->
 
-<!--    <TextView-->
-<!--        android:id="@+id/textCardExpire"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:paddingTop="10dp"-->
-<!--        android:text="00/00 "-->
-<!--        android:textSize="15dp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/textCardExpireTitle"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textCardName" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/textCardExpire"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:paddingTop="10dp"-->
+    <!--        android:text="00/00 "-->
+    <!--        android:textSize="15dp"-->
+    <!--        android:textStyle="bold"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/textCardExpireTitle"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textCardName" />-->
 
     <Button
         android:id="@+id/btnView"
@@ -146,9 +146,20 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
         android:text="View"
-        app:layout_constraintBottom_toBottomOf="@+id/singleShopView"
         app:layout_constraintEnd_toEndOf="@+id/singleShopView"
         app:layout_constraintTop_toTopOf="@+id/singleShopView"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/btnEdit"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:text="Edit"
+        android:layout_marginTop="45dp"
+        app:layout_constraintBottom_toBottomOf="@+id/singleShopView"
+        app:layout_constraintEnd_toEndOf="@+id/singleShopView"
+        app:layout_constraintTop_toTopOf="@+id/btnView"
         android:visibility="gone"/>
 
     <Button
@@ -205,134 +216,134 @@
         />
 
     <!--    <TextView-->
-<!--        android:id="@+id/textCityTitle"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="32dp"-->
-<!--        android:layout_marginLeft="32dp"-->
-<!--        android:text="City: "-->
-<!--        android:textSize="15dp"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/bodyView"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textTitle" />-->
+    <!--        android:id="@+id/textCityTitle"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="32dp"-->
+    <!--        android:layout_marginLeft="32dp"-->
+    <!--        android:text="City: "-->
+    <!--        android:textSize="15dp"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/bodyView"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textTitle" />-->
 
-<!--    <TextView-->
-<!--        android:id="@+id/textCity"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="32dp"-->
-<!--        android:textSize="15dp"-->
-<!--        android:text="UNKNOWN"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/textCityTitle"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textTitle" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/textCity"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="32dp"-->
+    <!--        android:textSize="15dp"-->
+    <!--        android:text="UNKNOWN"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/textCityTitle"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textTitle" />-->
 
-<!--    <TextView-->
-<!--        android:id="@+id/textProvinceTitle"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="32dp"-->
-<!--        android:layout_marginLeft="32dp"-->
-<!--        android:textSize="15dp"-->
-<!--        android:text="Province: "-->
-<!--        app:layout_constraintStart_toStartOf="@+id/bodyView"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textCityTitle" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/textProvinceTitle"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="32dp"-->
+    <!--        android:layout_marginLeft="32dp"-->
+    <!--        android:textSize="15dp"-->
+    <!--        android:text="Province: "-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/bodyView"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textCityTitle" />-->
 
-<!--    <TextView-->
-<!--        android:id="@+id/textProvince"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="32dp"-->
-<!--        android:layout_marginLeft="5dp"-->
-<!--        android:textSize="15dp"-->
-<!--        android:text="UNKNOWN"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/textProvinceTitle"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textCity" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/textProvince"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="32dp"-->
+    <!--        android:layout_marginLeft="5dp"-->
+    <!--        android:textSize="15dp"-->
+    <!--        android:text="UNKNOWN"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/textProvinceTitle"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textCity" />-->
 
-<!--    <TextView-->
-<!--        android:id="@+id/textZipCodeTitle"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="32dp"-->
-<!--        android:layout_marginLeft="32dp"-->
-<!--        android:textSize="15dp"-->
-<!--        android:text="Postal Code: "-->
-<!--        app:layout_constraintStart_toStartOf="@+id/bodyView"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textProvinceTitle" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/textZipCodeTitle"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="32dp"-->
+    <!--        android:layout_marginLeft="32dp"-->
+    <!--        android:textSize="15dp"-->
+    <!--        android:text="Postal Code: "-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/bodyView"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textProvinceTitle" />-->
 
-<!--    <TextView-->
-<!--        android:id="@+id/textZipCode"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="32dp"-->
-<!--        android:layout_marginLeft="5dp"-->
-<!--        android:textSize="15dp"-->
-<!--        android:text="UNKNOWN"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/textZipCodeTitle"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textProvince" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/textZipCode"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="32dp"-->
+    <!--        android:layout_marginLeft="5dp"-->
+    <!--        android:textSize="15dp"-->
+    <!--        android:text="UNKNOWN"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/textZipCodeTitle"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textProvince" />-->
 
-<!--    <TextView-->
-<!--        android:id="@+id/textAddLine1Title"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="32dp"-->
-<!--        android:layout_marginLeft="32dp"-->
-<!--        android:textSize="15dp"-->
-<!--        android:text="Address Line 1: "-->
-<!--        app:layout_constraintStart_toStartOf="@+id/bodyView"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textZipCodeTitle" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/textAddLine1Title"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="32dp"-->
+    <!--        android:layout_marginLeft="32dp"-->
+    <!--        android:textSize="15dp"-->
+    <!--        android:text="Address Line 1: "-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/bodyView"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textZipCodeTitle" />-->
 
-<!--    <TextView-->
-<!--        android:id="@+id/textAddLine1"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="32dp"-->
-<!--        android:layout_marginLeft="5dp"-->
-<!--        android:textSize="15dp"-->
-<!--        android:text="UNKNOWN"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/textAddLine1Title"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textZipCode" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/textAddLine1"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="32dp"-->
+    <!--        android:layout_marginLeft="5dp"-->
+    <!--        android:textSize="15dp"-->
+    <!--        android:text="UNKNOWN"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/textAddLine1Title"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textZipCode" />-->
 
-<!--    <TextView-->
-<!--        android:id="@+id/textAddLine2Title"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="32dp"-->
-<!--        android:layout_marginLeft="32dp"-->
-<!--        android:textSize="15dp"-->
-<!--        android:text="Address Line 2: "-->
-<!--        app:layout_constraintStart_toStartOf="@+id/bodyView"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textAddLine1Title" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/textAddLine2Title"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="32dp"-->
+    <!--        android:layout_marginLeft="32dp"-->
+    <!--        android:textSize="15dp"-->
+    <!--        android:text="Address Line 2: "-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/bodyView"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textAddLine1Title" />-->
 
-<!--    <TextView-->
-<!--        android:id="@+id/textAddLine2"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="32dp"-->
-<!--        android:layout_marginLeft="5dp"-->
-<!--        android:textSize="15dp"-->
-<!--        android:text="UNKNOWN"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/textAddLine1Title"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textAddLine1" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/textAddLine2"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="32dp"-->
+    <!--        android:layout_marginLeft="5dp"-->
+    <!--        android:textSize="15dp"-->
+    <!--        android:text="UNKNOWN"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/textAddLine1Title"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textAddLine1" />-->
 
-<!--    <TextView-->
-<!--        android:id="@+id/textCountryTitle"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="32dp"-->
-<!--        android:layout_marginLeft="32dp"-->
-<!--        android:textSize="15dp"-->
-<!--        android:text="Country: "-->
-<!--        app:layout_constraintStart_toStartOf="@+id/bodyView"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textAddLine2Title" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/textCountryTitle"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="32dp"-->
+    <!--        android:layout_marginLeft="32dp"-->
+    <!--        android:textSize="15dp"-->
+    <!--        android:text="Country: "-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/bodyView"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textAddLine2Title" />-->
 
-<!--    <TextView-->
-<!--        android:id="@+id/textCountry"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="32dp"-->
-<!--        android:layout_marginLeft="5dp"-->
-<!--        android:textSize="15dp"-->
-<!--        android:text="UNKNOWN"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/textCountryTitle"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textAddLine2" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/textCountry"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="32dp"-->
+    <!--        android:layout_marginLeft="5dp"-->
+    <!--        android:textSize="15dp"-->
+    <!--        android:text="UNKNOWN"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/textCountryTitle"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textAddLine2" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

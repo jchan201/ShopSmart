@@ -93,12 +93,14 @@ public class ShopListActivity extends AppCompatActivity {
                     binding.singleShopView.setVisibility(View.GONE);
                     binding.textShopName.setVisibility(View.GONE);
                     binding.btnView.setVisibility(View.GONE);
+                    binding.btnEdit.setVisibility(View.GONE);
                     binding.buttonPrev.setVisibility(View.GONE);
                     binding.buttonNext.setVisibility(View.GONE);
                 } else {
                     binding.singleShopView.setVisibility(View.VISIBLE);
                     binding.textShopName.setVisibility(View.VISIBLE);
                     binding.btnView.setVisibility(View.VISIBLE);
+                    binding.btnEdit.setVisibility(View.VISIBLE);
                     binding.buttonPrev.setVisibility(View.VISIBLE);
                     binding.buttonNext.setVisibility(View.VISIBLE);
                     if (index + 1 == total)
@@ -147,6 +149,24 @@ public class ShopListActivity extends AppCompatActivity {
 //            intentToProfile.putExtra("EXTRA_REMOVE_INDEX", index);
 //            startActivity(intentToProfile);
 //        });
+
+        binding.btnView.setOnClickListener(view -> {
+            realm.close();
+            Intent intentToView = new Intent(ShopListActivity.this, ShopViewActivity.class);
+            intentToView.putExtra("EXTRA_EMAIL", userEmail);
+            intentToView.putExtra("EXTRA_PASS", userPass);
+            intentToView.putExtra("EXTRA_INDEX", index);
+            startActivity(intentToView);
+        });
+
+        binding.btnEdit.setOnClickListener(view -> {
+            realm.close();
+            Intent intentToEdit = new Intent(ShopListActivity.this, ShopRegisterEdit.class);
+            intentToEdit.putExtra("EXTRA_EMAIL", userEmail);
+            intentToEdit.putExtra("EXTRA_PASS", userPass);
+            intentToEdit.putExtra("EXTRA_INDEX", index);
+            startActivity(intentToEdit);
+        });
 
         binding.btnAdd.setOnClickListener(view -> {
             realm.close();

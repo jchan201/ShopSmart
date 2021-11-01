@@ -153,6 +153,7 @@ public class StartupActivity extends AppCompatActivity {
         binding.btnRegister.setOnClickListener(view -> {
             // Go to Signup Activity
             startActivity(new Intent(StartupActivity.this, SignupActivity.class));
+//            startActivity(new Intent(StartupActivity.this, ShopViewActivity.class));
         });
     }
 

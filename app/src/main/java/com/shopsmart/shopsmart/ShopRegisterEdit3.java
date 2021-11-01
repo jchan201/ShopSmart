@@ -20,7 +20,7 @@ import io.realm.mongodb.AppConfiguration;
 import io.realm.mongodb.Credentials;
 import io.realm.mongodb.sync.SyncConfiguration;
 
-public class ShopRegister3 extends AppCompatActivity {
+public class ShopRegisterEdit3 extends AppCompatActivity {
     private final String PARTITION = "ShopSmart";
     private ShopRegisterActivity3Binding binding;
     private App app;
@@ -163,20 +163,20 @@ public class ShopRegister3 extends AppCompatActivity {
                         realm.close();
                     }
                 });
-                startActivity(new Intent(ShopRegister3.this, ShopListActivity.class)
+                startActivity(new Intent(ShopRegisterEdit3.this, ShopListActivity.class)
                         .putExtra("EXTRA_REGISTER_SHOP_SUCCESS", true)
                         .putExtra("EXTRA_PASS", userPass)
                         .putExtra("EXTRA_EMAIL", userEmail));
             } else {
                 realm.close();
-                startActivity(new Intent(ShopRegister3.this, ShopListActivity.class)
+                startActivity(new Intent(ShopRegisterEdit3.this, ShopListActivity.class)
                         .putExtra("EXTRA_PASS", userPass)
                         .putExtra("EXTRA_EMAIL", userEmail));
             }
         });
 
         binding.btnCancel.setOnClickListener(view ->
-                startActivity(new Intent(ShopRegister3.this, ShopRegister.class)));
+                startActivity(new Intent(ShopRegisterEdit3.this, ShopRegister.class)));
     }
 
     private boolean validation() {
