@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Clothing">
+        <item>Women</item>
+        <item>Men</item>
+        <item>Girls</item>
+        <item>Boys</item>
+        <item>Baby</item>
+    </string-array>
+    
+    <string-array name="Kitchen">
+        <item>Bakeware &amp; Cookware</item>
+        <item>Cutlery &amp; Tabletop</item>
+        <item>Linens &amp; Towels</item>
+        <item>Storage Containers</item>
+        <item>Wraps &amp; Storage Bags</item>
+    </string-array>
+
+    <string-array name="Food">
+        <item>Raw Meat</item>
+        <item>Seafood</item>
+        <item>Veggies</item>
+        <item>Baked Goods</item>
+        <item>Canned Goods</item>
+        <item>Beverages</item>
+        <item>Snacks &amp; Sweets</item>
+    </string-array>
+
+    <string-array name="Electronics">
+        <item>Video Games</item>
+        <item>Printer Supplies</item>
+        <item>Earphones, Headphones &amp; Speakers</item>
+        <item>Cellphones &amp; Mobile Accessories</item>
+        <item>Bluetooth &amp; Wireless</item>
+        <item>TV &amp; Home Theatre</item>
+        <item>Camera, Photo, &amp; Video</item>
+        <item>Computer Hardware</item>
+    </string-array>
+    
+    <string-array name="Household">
+        <item>Cleaning Supplies</item>
+        <item>Furniture</item>
+        <item>Bedroom Supplies</item>
+        <item>Storage &amp; Organization</item>
+        <item>Home Decor</item>
+        <item>Tools</item>
+    </string-array>
+    
+    <string-array name="Pharmaceutical">
+        <item>Beauty</item>
+        <item>Health &amp; Personal Care</item>
+    </string-array>
+    
+    <string-array name="Pets">
+        <item>Pet Food</item>
+        <item>Pet Medication</item>
+        <item>Pet Toys</item>
+        <item>Clothing</item>
+        <item>Bed &amp; Cages</item>
+    </string-array>
+
+    <string-array name="OfficeArtSchool">
+        <item>Binders &amp; Organizers</item>
+        <item>Calenders &amp; Planners</item>
+        <item>Pencils, Pens, &amp; Markers</item>
+        <item>Notebooks</item>
+        <item>Mailing</item>
+        <item>Tape &amp; Glue</item>
+        <item>Art &amp; Crafts</item>
+        <item>Printer Supplies</item>
+    </string-array>
+
+    <string-array name="Toys">
+        <item>Building Toys</item>
+        <items>Outdoor Play</items>
+        <item>Tabletops</item>
+        <item>Action Figures</item>
+    </string-array>
+
+    <string-array name="SportsOutdoors">
+        <item>Exercise &amp; Fitness</item>
+        <item>Hunting &amp; Fishing</item>
+        <item>Team Sports</item>
+        <item>Sports Apparel</item>
+        <item>Golf</item>
+        <item>Fan Shop</item>
+        <item>Leisure Sports &amp; Game Room</item>
+        <item>Outdoor Gear</item>
+        <item>Camping &amp; Hiking</item>
+        <item>Cycling</item>
+        <item>Boating &amp; Water Sports</item>
+        <item>Winter Sports</item>
+    </string-array>
+</resources>
+
