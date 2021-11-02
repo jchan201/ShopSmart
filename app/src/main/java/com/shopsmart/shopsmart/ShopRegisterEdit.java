@@ -43,6 +43,8 @@ public class ShopRegisterEdit extends AppCompatActivity {
     private CheckBox monday, tuesday, wednesday, thursday, friday, saturday, sunday;
     private final ArrayList<EditText> startTimes = new ArrayList<>();
     private final ArrayList<EditText> endTimes = new ArrayList<>();
+    SyncConfiguration config;
+    Shop shop;
 
 
     @Override
@@ -59,6 +61,7 @@ public class ShopRegisterEdit extends AppCompatActivity {
         sunday = binding.chkSunday;
 
         setContentView(binding.getRoot());
+        Realm.init(this);
 
         // Access realm
         app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
@@ -139,7 +142,10 @@ public class ShopRegisterEdit extends AppCompatActivity {
             if (result.isSuccess()) {
                 Log.v("LOGIN", "Successfully authenticated using email and password.");
 
-                SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
+                SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION)
+                        .allowWritesOnUiThread(true)
+                        .allowQueriesOnUiThread(true)
+                        .build();
                 realm = Realm.getInstance(config);
 
                 RealmResults<AppUser> users = realm.where(AppUser.class).findAll();
@@ -161,40 +167,109 @@ public class ShopRegisterEdit extends AppCompatActivity {
                 total = shops.size();
 
                 if (index >= 0) {
-                    displayShopInfo(shops.get(index));
+                    shop = shops.get(index);
+                    displayShopInfo(shop);
                 }
             } else {
                 Log.v("LOGIN", "Failed to authenticate using email and password.");
             }
         });
 
-        binding.btnSave2.setOnClickListener(view -> {
-            SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION)
-                    .allowWritesOnUiThread(true)
-                    .allowQueriesOnUiThread(true)
-                    .build();
-//            RealmConfiguration config = new RealmConfiguration.Builder().allowWritesOnUiThread(true).allowQueriesOnUiThread(true).build();
-//            realm = Realm.getInstanceAsync(config);
-            realm.executeTransaction(realm -> {
-                Log.d("Something", "Executing transaction...");
+        binding.btnCancel.setOnClickListener(view -> {
+            realm.close();
+            Intent intentBack = new Intent(ShopRegisterEdit.this, ShopListActivity.class);
+            intentBack.putExtra("EXTRA_EMAIL", userEmail);
+            intentBack.putExtra("EXTRA_PASS", userPass);
+            startActivity(intentBack);
+        });
 
-                Shop shop = shops.get(index);
-                int x = 0;
-                if (validation()) {
-                    while (x < 7) {
-                        for (EditText time : startTimes) {
-                            shop.setStartTime(x++, time.getText().toString());
+        binding.btnSave2.setOnClickListener(view -> {
+//            Credentials credentials2 = Credentials.emailPassword(userEmail, userPass);
+//            app.loginAsync(credentials2, result -> {
+//                        if (result.isSuccess()) {
+//                            Log.v("LOGIN", "Successfully authenticated using email and password.");
+//
+//                            config = new SyncConfiguration.Builder(app.currentUser(), PARTITION)
+//                                    .allowWritesOnUiThread(true)
+//                                    .allowQueriesOnUiThread(true)
+//                                    .build();
+//                            realm = Realm.getInstance(config);
+//
+//                            RealmResults<AppUser> users = realm.where(AppUser.class).findAll();
+//                            for (AppUser u : users) {
+//                                if (u.getEmail().equals(userEmail)) {
+//                                    user = u;
+//                                }
+//                            }
+//
+//                            RealmResults<Shop> allShops = realm.where(Shop.class).findAll();
+//                            shopIds = user.getShops();
+//                            shops = new ArrayList<>();
+//                            for (Shop s : allShops) {
+//                                for (ObjectId o : shopIds) {
+//                                    if (s.getId().equals(o))
+//                                        shops.add(s);
+//                                }
+//                            }
+//
+//                            total = shops.size();
+//
+//                            if (index >= 0) {
+//                                shop = shops.get(index);
+////                        displayShopInfo(shop);
+//                            }
+//                        } else {
+//                            Log.v("LOGIN", "Failed to authenticate using email and password.");
+//                        }
+
+//                SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION)
+//                        .allowWritesOnUiThread(true)
+//                        .allowQueriesOnUiThread(true)
+//                        .build();
+//                RealmConfiguration config2 = new RealmConfiguration.Builder().allowWritesOnUiThread(true).allowQueriesOnUiThread(true).build();
+//                realm = Realm.getInstance(config);
+                realm.executeTransaction(realm -> {
+                    Log.d("Something", "Executing transaction...");
+
+//                Shop shop = shops.get(index);
+                    int x = 0;
+                    if (validation()) {
+                        shop.setName(binding.edtTextShopName.getText().toString());
+                        shop.setDesc(binding.edtTextDesc.getText().toString());
+                        shop.setEmail(binding.edtTextEmail.getText().toString());
+                        shop.setPhone(binding.edtTextPhoneNum.getText().toString());
+                        shop.setWebsite(binding.edtTextWebsite.getText().toString());
+
+                        Address address = new Address();
+
+                        address.setCity(binding.textCity.getText().toString());
+                        address.setPostalCode(binding.textZipCode.getText().toString());
+                        address.setAddress1(binding.textAddLine1.getText().toString());
+                        address.setAddress2(binding.textAddLine2.getText().toString());
+                        //address.setProvince();
+                        shop.setAddress(address);
+
+                        while (x < 7) {
+                            for (EditText time : startTimes) {
+                                shop.setStartTime(x++, time.getText().toString());
+                            }
+                        }
+
+                        x = 0;
+                        for (EditText time : endTimes) {
+                            shop.setEndTime(x++, time.getText().toString());
                         }
                     }
-
-                    x = 0;
-                    for (EditText time : endTimes) {
-                        shop.setEndTime(x++, time.getText().toString());
-                    }
-                }
+//                });
             });
-
+//            realm.close();
+            realm.close();
+            Intent intentDone = new Intent(ShopRegisterEdit.this, ShopListActivity.class);
+            intentDone.putExtra("EXTRA_EMAIL", userEmail);
+            intentDone.putExtra("EXTRA_PASS", userPass);
+            startActivity(intentDone);
         });
+
     }
 
     private boolean validation(){
