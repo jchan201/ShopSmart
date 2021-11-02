@@ -57,7 +57,7 @@
         android:id="@+id/edtTextShopName"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/basic_rectangle"
         android:ems="10"
         android:hint="SHOP NAME"
@@ -70,28 +70,37 @@
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
 
-    <EditText
-        android:id="@+id/edtTextDesc"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edtTextDescLayout"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/basic_rectangle"
-        android:ems="10"
-        android:hint="DESCRIPTION"
-        android:inputType="text"
-        android:maxLines="1"
-        android:padding="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/edtTextShopName" />
+        app:layout_constraintTop_toBottomOf="@+id/edtTextShopName">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtTextDesc"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="DESCRIPTION"
+            android:background="@drawable/basic_rectangle"
+            android:inputType="textMultiLine"
+            android:lines="3"
+            android:gravity="top"
+            android:overScrollMode="always"
+            android:scrollbarStyle="insideInset"
+            android:scrollHorizontally="false"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <EditText
         android:id="@+id/edtTextEmail"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/basic_rectangle"
         android:ems="10"
         android:hint="EMAIL"
@@ -102,13 +111,13 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/edtTextDesc" />
+        app:layout_constraintTop_toBottomOf="@+id/edtTextDescLayout" />
 
     <EditText
         android:id="@+id/edtTextPhoneNum"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/basic_rectangle"
         android:ems="10"
         android:hint="PHONE NUMBER"
@@ -125,7 +134,7 @@
         android:id="@+id/edtTextWebsite"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/basic_rectangle"
         android:ems="10"
         android:hint="WEBSITE"

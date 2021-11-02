@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="Clothing">
         <item>Women</item>
@@ -72,7 +71,7 @@
 
     <string-array name="Toys">
         <item>Building Toys</item>
-        <items>Outdoor Play</items>
+        <item>Outdoor Play</item>
         <item>Tabletops</item>
         <item>Action Figures</item>
     </string-array>
