@@ -35,6 +35,9 @@
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/layout/customer_registration_main2.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/layout/customer_reset_password.xml" value="0.12730263157894736" />
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/layout/customermain.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/layout/product_add_activity.xml" value="0.23157894736842105" />
+        <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/layout/shop_list_activity.xml" value="0.1680327868852459" />
+        <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/layout/shop_register_activity_edit.xml" value="0.1" />
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/layout/shopowner_dashboard_activity.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/layout/shopowner_detail_activity.xml" value="0.1" />
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/layout/shopowner_profile_add_payment_activity1.xml" value="0.125" />
@@ -75,7 +78,13 @@
         <entry key="..\:/Users/josep/AndroidStudioProjects/ShopSmart/app/src/main/res/layout/activity_driver_signup3.xml" value="0.2546875" />
         <entry key="..\:/Users/josep/AndroidStudioProjects/ShopSmart/app/src/main/res/layout/activity_main.xml" value="0.2546875" />
         <entry key="..\:/Users/josep/AndroidStudioProjects/ShopSmart/app/src/main/res/layout/activity_startup.xml" value="0.2546875" />
+        <entry key="..\:/Users/josep/AndroidStudioProjects/ShopSmart/app/src/main/res/layout/customer_add_payment.xml" value="0.2546875" />
+        <entry key="..\:/Users/josep/AndroidStudioProjects/ShopSmart/app/src/main/res/layout/customer_dashboard1.xml" value="0.2546875" />
+        <entry key="..\:/Users/josep/AndroidStudioProjects/ShopSmart/app/src/main/res/layout/customer_manage_profile.xml" value="0.2546875" />
+        <entry key="..\:/Users/josep/AndroidStudioProjects/ShopSmart/app/src/main/res/layout/customer_payments.xml" value="0.2546875" />
+        <entry key="..\:/Users/josep/AndroidStudioProjects/ShopSmart/app/src/main/res/layout/customer_profile.xml" value="0.3" />
         <entry key="..\:/Users/josep/AndroidStudioProjects/ShopSmart/app/src/main/res/layout/customer_register1.xml" value="0.2546875" />
+        <entry key="..\:/Users/josep/AndroidStudioProjects/ShopSmart/app/src/main/res/layout/customer_reset_password.xml" value="0.2546875" />
         <entry key="..\:/Users/josep/AndroidStudioProjects/ShopSmart/app/src/main/res/layout/shop_list_activity.xml" value="0.2546875" />
         <entry key="..\:/Users/josep/AndroidStudioProjects/ShopSmart/app/src/main/res/layout/shop_register_activity.xml" value="0.2546875" />
         <entry key="..\:/Users/josep/AndroidStudioProjects/ShopSmart/app/src/main/res/layout/shop_register_activity2.xml" value="0.2546875" />
