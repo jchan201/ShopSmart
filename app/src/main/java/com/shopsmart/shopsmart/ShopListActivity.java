@@ -42,6 +42,8 @@ public class ShopListActivity extends AppCompatActivity {
         binding = ShopListActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        Realm.init(this);
+
         // Access realm
         app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
 
@@ -98,6 +100,7 @@ public class ShopListActivity extends AppCompatActivity {
                     binding.singleShopView.setVisibility(View.GONE);
                     binding.textShopName.setVisibility(View.GONE);
                     binding.btnView.setVisibility(View.GONE);
+                    binding.btnEdit.setVisibility(View.GONE);
                     binding.btnDelete.setVisibility(View.GONE);
                     binding.buttonPrev.setVisibility(View.GONE);
                     binding.buttonNext.setVisibility(View.GONE);
@@ -105,6 +108,7 @@ public class ShopListActivity extends AppCompatActivity {
                     binding.singleShopView.setVisibility(View.VISIBLE);
                     binding.textShopName.setVisibility(View.VISIBLE);
                     binding.btnView.setVisibility(View.VISIBLE);
+                    binding.btnEdit.setVisibility(View.VISIBLE);
                     binding.btnDelete.setVisibility(View.VISIBLE);
                     binding.buttonPrev.setVisibility(View.VISIBLE);
                     binding.buttonNext.setVisibility(View.VISIBLE);
@@ -146,14 +150,23 @@ public class ShopListActivity extends AppCompatActivity {
             }
         });
 
-//        binding.btnView.setOnClickListener(view -> {
-//            realm.close();
-//            Intent intentToProfile = new Intent(ShopListActivity.this, ShopOwnerProfileDeletePaymentsConfirmActivity.class);
-//            intentToProfile.putExtra("EXTRA_PASS", userPass);
-//            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
-//            intentToProfile.putExtra("EXTRA_REMOVE_INDEX", index);
-//            startActivity(intentToProfile);
-//        });
+        binding.btnView.setOnClickListener(view -> {
+            realm.close();
+            Intent intentToProfile = new Intent(ShopListActivity.this, ShopViewActivity.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+            intentToProfile.putExtra("EXTRA_INDEX", index);
+            startActivity(intentToProfile);
+        });
+
+        binding.btnEdit.setOnClickListener(view -> {
+            realm.close();
+            Intent intentToProfile = new Intent(ShopListActivity.this, ShopRegisterEdit.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+            intentToProfile.putExtra("EXTRA_INDEX", index);
+            startActivity(intentToProfile);
+        });
 
         binding.btnDelete.setOnClickListener(view -> {
             realm.close();

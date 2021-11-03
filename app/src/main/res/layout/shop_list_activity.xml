@@ -150,6 +150,15 @@
         app:layout_constraintEnd_toEndOf="@+id/singleShopView"
         app:layout_constraintTop_toTopOf="@+id/singleShopView"
         android:visibility="gone"/>
+    <Button
+        android:id="@+id/btnEdit"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:text="Edit"
+        app:layout_constraintTop_toBottomOf="@+id/btnView"
+        android:visibility="gone"
+        app:layout_constraintRight_toLeftOf="@id/btnDelete"/>
 
     <Button
         android:id="@+id/btnDelete"

@@ -21,6 +21,7 @@ public class Shop extends RealmObject implements Serializable {
     @Required private final RealmList<String> endTimes = new RealmList<>();
     @Required private final RealmList<ObjectId> salesOrders = new RealmList<>();
     @Required private final RealmList<ObjectId> owners = new RealmList<>();
+    private final RealmList<ObjectId> products = new RealmList<>();
 
     public Shop() {}
     public Shop(String desc, String name, String email, String phone, String website,
@@ -118,4 +119,8 @@ public class Shop extends RealmObject implements Serializable {
     public void removeOwner(int pos) {
         owners.remove(pos);
     }
+
+    public RealmList<ObjectId> getProducts(){ return products;}
+    public void addProduct(ObjectId product){ products.add(product);}
+    public void removeProduct(int pos) { products.remove(pos);}
 }
