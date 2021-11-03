@@ -98,6 +98,8 @@ public class ProductAddActivity extends AppCompatActivity {
 
         binding.btnSave.setOnClickListener(view -> {
             if (validation()) {
+                product = new Product();
+
                 product.setName(binding.edtTextProductName.getText().toString());
                 product.setDesc(binding.edtTextDesc.getText().toString());
                 product.setPrice(Integer.parseInt(binding.edtTextPrice.getText().toString()));
@@ -105,7 +107,8 @@ public class ProductAddActivity extends AppCompatActivity {
                 //TODO set product type
 //                product.setProductType();
 
-                shop.addProduct(product);
+                realm.insert(product);
+                shop.addProduct(product.getId());
 
                 Intent nextSignUpScreen = new Intent(ProductAddActivity.this, ShopRegister2.class);
                 nextSignUpScreen.putExtra("EXTRA_EMAIL", userEmail);
