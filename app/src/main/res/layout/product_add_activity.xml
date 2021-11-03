@@ -22,7 +22,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register Shop"
+        android:text="Add Product"
         android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/titleView"
@@ -54,13 +54,13 @@
         />
 
     <EditText
-        android:id="@+id/edtTextShopName"
+        android:id="@+id/edtTextProductName"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@drawable/basic_rectangle"
         android:ems="10"
-        android:hint="SHOP NAME"
+        android:hint="PRODUCT NAME"
         android:inputType="textPersonName"
         android:maxLength="16"
         android:padding="8dp"
@@ -77,7 +77,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/edtTextShopName">
+        app:layout_constraintTop_toBottomOf="@+id/edtTextProductName">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtTextDesc"
@@ -92,69 +92,64 @@
             android:scrollbarStyle="insideInset"
             android:scrollHorizontally="false"
             />
-
     </com.google.android.material.textfield.TextInputLayout>
 
-
-    <EditText
-        android:id="@+id/edtTextEmail"
+    <Spinner
+        android:id="@+id/spinnerMain"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/basic_rectangle"
-        android:ems="10"
-        android:hint="EMAIL"
-        android:inputType="textEmailAddress"
-        android:maxLength="30"
+        android:entries="@array/MainType"
         android:padding="8dp"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/edtTextDescLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/edtTextDescLayout"
+        />
 
-    <EditText
-        android:id="@+id/edtTextPhoneNum"
+    <Spinner
+        android:id="@+id/spinnerSub"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/basic_rectangle"
-        android:ems="10"
-        android:hint="PHONE NUMBER"
-        android:inputType="phone"
-        android:maxLength="10"
+        android:entries="@array/Clothing"
         android:padding="8dp"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/edtTextEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerMain"
+        />
 
     <EditText
-        android:id="@+id/edtTextWebsite"
+        android:id="@+id/edtTextPrice"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/basic_rectangle"
         android:ems="10"
-        android:hint="WEBSITE"
-        android:inputType="text"
-        android:maxLines="1"
+        android:hint="PRICE"
+        android:inputType="numberDecimal"
+        android:maxLength="16"
         android:padding="8dp"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/edtTextPhoneNum" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerSub" />
+
 
     <Button
-        android:id="@+id/btnNext"
+        android:id="@+id/btnSave"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:ems="10"
         android:padding="8dp"
-        android:text="SHOP ADDRESS"
+        android:text="ADD PRODUCT"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/btnCancel"

@@ -138,7 +138,6 @@ public class ShopRegister3 extends AppCompatActivity {
                         Log.d("ShopCreation", "Log in success!");
                         SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION)
                                 .allowWritesOnUiThread(true)
-                                .allowQueriesOnUiThread(true)
                                 .build();
                         realm = Realm.getInstance(config);
                         realm.executeTransaction(realm -> {
