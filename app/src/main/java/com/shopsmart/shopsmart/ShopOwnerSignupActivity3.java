@@ -41,6 +41,7 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
         binding.edtTextExpiryDateYear.setText(Integer.toString(year));
+        binding.spinnerExpiryDateMonth.setSelection(cal.get(Calendar.MONTH));
 
         // Access realm
         app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
@@ -129,7 +130,7 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
         PaymentMethod paymentMethod = new PaymentMethod();
         paymentMethod.setName(this.binding.edtTextCardName.getText().toString());
         paymentMethod.setCardNumber(this.binding.edtTextCardNum.getText().toString());
-        paymentMethod.setExpiry(this.binding.edtTextExpiryDateMonth.getSelectedItem().toString() + "/" + this.binding.edtTextExpiryDateYear.getText().toString());
+        paymentMethod.setExpiry(this.binding.spinnerExpiryDateMonth.getSelectedItem().toString() + "/" + this.binding.edtTextExpiryDateYear.getText().toString());
         paymentMethod.setSecurityCode(this.binding.edtTextCCV.getText().toString());
 
         Address billAddress = new Address();
