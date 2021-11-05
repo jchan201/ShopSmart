@@ -21,7 +21,7 @@ public class Shop extends RealmObject implements Serializable {
     @Required private final RealmList<String> endTimes = new RealmList<>();
     @Required private final RealmList<ObjectId> salesOrders = new RealmList<>();
     @Required private final RealmList<ObjectId> owners = new RealmList<>();
-    private final RealmList<ObjectId> products = new RealmList<>();
+    @Required private final RealmList<ObjectId> products = new RealmList<>();
 
     public Shop() {}
     public Shop(String desc, String name, String email, String phone, String website,
