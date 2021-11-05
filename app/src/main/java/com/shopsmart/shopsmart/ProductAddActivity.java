@@ -42,6 +42,7 @@ public class ProductAddActivity extends AppCompatActivity {
     private ProductAddActivityBinding binding;
     private App app;
     private Realm realm;
+    SyncConfiguration config;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,8 +112,13 @@ public class ProductAddActivity extends AppCompatActivity {
                 //TODO set product type
                 product.setProductType(binding.spinnerSub.getSelectedItem().toString());
 
-                realm.insert(product);
-                shop.addProduct(product.getId());
+                realm.executeTransaction(realm -> {
+                    Log.d("Something", "Executing transaction...");
+
+                    realm.insert(product);
+                    shop.addProduct(product.getId());
+
+                });
 
                 Intent nextSignUpScreen = new Intent(ProductAddActivity.this, ShopRegister2.class);
                 nextSignUpScreen.putExtra("EXTRA_EMAIL", userEmail);
