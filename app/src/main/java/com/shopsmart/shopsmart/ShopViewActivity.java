@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -200,7 +199,16 @@ public class ShopViewActivity extends AppCompatActivity {
         FirstFragment fragment = new FirstFragment();
         fragment.setArguments(bundle);
 
-        ft.replace(R.id.flSecondFragment, fragment).commit();
+        ft.replace(R.id.flFirstFragment, fragment).commit();
+
+        Bundle bundle2 = new Bundle();
+        bundle.putString("EXTRA_USER", userEmail);
+        bundle.putString("EXTRA_PASS", userPass);
+
+        SecondFragment fragment2 = new SecondFragment();
+        fragment.setArguments(bundle2);
+
+        ft.replace(R.id.flSecondFragment, fragment2).commit();
 
 //        String MondayOpen = sTimes.get(0);
 //        String TuesdayOpen = sTimes.get(1);
