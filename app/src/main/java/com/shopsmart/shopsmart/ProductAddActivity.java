@@ -106,7 +106,7 @@ public class ProductAddActivity extends AppCompatActivity {
 
                 product.setName(binding.edtTextProductName.getText().toString());
                 product.setDesc(binding.edtTextDesc.getText().toString());
-                product.setPrice(Integer.parseInt(binding.edtTextPrice.getText().toString()));
+                product.setPrice(Double.parseDouble(binding.edtTextPrice.getText().toString()));
 
                 //TODO set product type
                 product.setProductType(binding.spinnerSub.getSelectedItem().toString());
@@ -194,6 +194,21 @@ public class ProductAddActivity extends AppCompatActivity {
 
     private boolean validation() {
         boolean valid = true;
+
+        if (this.binding.edtTextProductName.getText().toString().isEmpty()) {
+            this.binding.edtTextProductName.setError("Product name cannot be empty");
+            valid = false;
+        }
+
+        if (this.binding.edtTextPrice.getText().toString().isEmpty()) {
+            this.binding.edtTextPrice.setError("Product price cannot be empty");
+            valid = false;
+        }
+
+        if (Double.parseDouble(this.binding.edtTextPrice.getText().toString()) < 0) {
+            this.binding.edtTextPrice.setError("Product price cannot be negative value");
+            valid = false;
+        }
 
         return valid;
     }

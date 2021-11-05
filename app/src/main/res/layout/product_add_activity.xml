@@ -131,7 +131,7 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/basic_rectangle"
         android:ems="10"
-        android:hint="PRICE"
+        android:hint="00.00"
         android:inputType="numberDecimal"
         android:maxLength="16"
         android:padding="8dp"
