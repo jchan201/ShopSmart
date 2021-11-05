@@ -62,6 +62,10 @@ public class ShopListActivity extends AppCompatActivity {
             if (deleteSuccess)
                 Toast.makeText(ShopListActivity.this, "Successfully close down shop to your name.", Toast.LENGTH_SHORT).show();
 
+            boolean addProductSuccess = currIntent.getBooleanExtra("EXTRA_ADD_PRODUCT_SUCCESS", false);
+            if (addProductSuccess)
+                Toast.makeText(ShopListActivity.this, "Successfully add product to selected shop.", Toast.LENGTH_SHORT).show();
+
         }
 
         Credentials credentials = Credentials.emailPassword(userEmail, userPass);

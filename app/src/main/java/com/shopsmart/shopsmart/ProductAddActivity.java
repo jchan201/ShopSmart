@@ -67,7 +67,7 @@ public class ProductAddActivity extends AppCompatActivity {
             if (result.isSuccess()) {
                 Log.v("LOGIN", "Successfully authenticated using email and password.");
 
-                SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
+                SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).allowWritesOnUiThread(true).build();
                 realm = Realm.getInstance(config);
 
                 RealmResults<AppUser> users = realm.where(AppUser.class).findAll();
@@ -120,9 +120,11 @@ public class ProductAddActivity extends AppCompatActivity {
 
                 });
 
-                Intent nextSignUpScreen = new Intent(ProductAddActivity.this, ShopRegister2.class);
+                realm.close();
+                Intent nextSignUpScreen = new Intent(ProductAddActivity.this, ShopListActivity.class);
                 nextSignUpScreen.putExtra("EXTRA_EMAIL", userEmail);
                 nextSignUpScreen.putExtra("EXTRA_PASS", userPass);
+                nextSignUpScreen.putExtra("EXTRA_ADD_PRODUCT_SUCCESS", true);
                 startActivity(nextSignUpScreen);
             }
         });

@@ -25,9 +25,6 @@
             android:name=".ShopListActivity"
             android:exported="false" />
         <activity
-            android:name=".ProductAddActivity"
-            android:exported="true" />
-        <activity
             android:name=".ShopDeleteConfirmActivity"
             android:exported="true" />
         <activity
