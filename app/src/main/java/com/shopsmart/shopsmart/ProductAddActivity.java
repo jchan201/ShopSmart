@@ -121,68 +121,73 @@ public class ProductAddActivity extends AppCompatActivity {
             }
         });
 
-        binding.spinnerMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        binding.spinnerMain.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 if(position == 0){
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.Clothing, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    binding.spinnerMain.setAdapter(adapter);
+                    binding.spinnerSub.setAdapter(adapter);
                 }
 
                 if(position == 1){
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.Kitchen, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    binding.spinnerMain.setAdapter(adapter);
+                    binding.spinnerSub.setAdapter(adapter);
                 }
 
                 if(position == 2){
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.Food, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    binding.spinnerMain.setAdapter(adapter);
+                    binding.spinnerSub.setAdapter(adapter);
                 }
 
                 if(position == 3){
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.Electronics, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    binding.spinnerMain.setAdapter(adapter);
+                    binding.spinnerSub.setAdapter(adapter);
                 }
 
                 if(position == 4){
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.Household, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    binding.spinnerMain.setAdapter(adapter);
+                    binding.spinnerSub.setAdapter(adapter);
                 }
 
                 if(position == 5){
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.Pharmaceutical, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    binding.spinnerMain.setAdapter(adapter);
+                    binding.spinnerSub.setAdapter(adapter);
                 }
 
                 if(position == 6){
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.Pets, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    binding.spinnerMain.setAdapter(adapter);
+                    binding.spinnerSub.setAdapter(adapter);
                 }
 
                 if(position == 7){
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.OfficeArtSchool, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    binding.spinnerMain.setAdapter(adapter);
+                    binding.spinnerSub.setAdapter(adapter);
                 }
 
                 if(position == 8){
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.Toys, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    binding.spinnerMain.setAdapter(adapter);
+                    binding.spinnerSub.setAdapter(adapter);
                 }
 
                 if(position == 9){
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.SportsOutdoors, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    binding.spinnerMain.setAdapter(adapter);
+                    binding.spinnerSub.setAdapter(adapter);
                 }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
     }
