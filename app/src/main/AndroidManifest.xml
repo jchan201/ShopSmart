@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.shopsmart.shopsmart">
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -24,6 +23,9 @@
         <activity
             android:name=".ShopListActivity"
             android:exported="false" />
+        <activity
+            android:name=".ProductAddActivity"
+            android:exported="true" />
         <activity
             android:name=".ShopDeleteConfirmActivity"
             android:exported="true" />
@@ -112,5 +114,4 @@
             android:name=".CustomerManageProfileActivity"
             android:label="Profile Menu" />
     </application>
-
 </manifest>
