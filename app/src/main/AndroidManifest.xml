@@ -111,9 +111,6 @@
         <activity
             android:name=".CustomerManageProfileActivity"
             android:label="Profile Menu" />
-        <activity
-            android:name=".ProductAddActivity"
-            android:label="Product Add" />
     </application>
 
 </manifest>
