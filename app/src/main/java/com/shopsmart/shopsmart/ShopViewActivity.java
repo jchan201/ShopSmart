@@ -36,6 +36,7 @@ public class ShopViewActivity extends AppCompatActivity {
     AppUser user;
     List<ObjectId> shopIds;
     ArrayList<Shop> shops;
+    Shop shop;
     Address address;
     int index = 0;
     int total = 0;
@@ -67,6 +68,61 @@ public class ShopViewActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 view2.setCurrentItem(tab.getPosition());
+                FragmentTransaction ft;
+                if (tab.getPosition() == 0) {
+                    Address address = shop.getAddress();
+                    String address1 = address.getAddress1();
+                    String address2 = address.getAddress2();
+                    String pCode = address.getPostalCode();
+
+                    RealmList<String> sTimes = shop.getStartTimes();
+                    RealmList<String> cTimes = shop.getEndTimes();
+                    RealmList<String> sRegexTimes = shop.getStartTimes();
+                    RealmList<String> cRegexTimes = shop.getEndTimes();
+
+                    String regex = "^[c]$";
+
+                    String[] daysOpen = new String[7];
+                    String[] daysClosed = new String[7];
+
+                    for(int x = 0; x < 7; x++){
+                        if(!sRegexTimes.get(x).matches(regex)){
+                            daysOpen[x] = sTimes.get(x);
+                        }
+                        else{
+                            daysOpen[x] = sTimes.get(x);
+                            daysOpen[x] = "CLOSED";
+                        }
+                    }
+
+                    for(int x = 0; x < 7; x++){
+                        if(!cRegexTimes.get(x).matches(regex)){
+                            daysClosed[x] = " - " + cTimes.get(x);
+                        }
+                        else{
+                            daysClosed[x] = cTimes.get(x);
+                            daysClosed[x] = " ";
+                        }
+                    }
+
+                    ft = fm.beginTransaction();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("SHOP_ADDRESS1", address1);
+                    bundle.putString("SHOP_ADDRESS2", address2);
+                    bundle.putString("PCODE", pCode);
+
+                    bundle.putStringArray("DAYSOPEN", daysOpen);
+                    bundle.putStringArray("DAYSCLOSED", daysClosed);
+
+                    bundle.putString("EXTRA_USER", userEmail);
+                    bundle.putString("EXTRA_PASS", userPass);
+
+                    FirstFragment fragment = new FirstFragment();
+                    fragment.setArguments(bundle);
+
+                    ft.replace(R.id.flFirstFragment, fragment).commit();
+                }
             }
 
             @Override
@@ -126,7 +182,8 @@ public class ShopViewActivity extends AppCompatActivity {
                 total = shops.size();
 
                 if(index >= 0){
-                    displayShopInfo(shops.get(index));
+                    shop = shops.get(index);
+                    displayShopInfo(0);
                 }
             } else {
                 Log.v("LOGIN", "Failed to authenticate using email and password.");
@@ -134,82 +191,79 @@ public class ShopViewActivity extends AppCompatActivity {
         });
     }
 
-    private void displayShopInfo(Shop shop){
+    private void displayShopInfo(int tabIdx){
         binding.queryShopName.setText(shop.getName());
         binding.queryShopDescription.setText(shop.getDesc());
         binding.queryShopPhone.setText(shop.getPhone());
         binding.queryShopWebsite.setText(shop.getWebsite());
         binding.queryShopEmail.setText(shop.getEmail());
 
-        Address address = shop.getAddress();
-        String address1 = address.getAddress1();
-        String address2 = address.getAddress2();
-        String pCode = address.getPostalCode();
-
-        RealmList<String> sTimes = shop.getStartTimes();
-        RealmList<String> cTimes = shop.getEndTimes();
-        RealmList<String> sRegexTimes = shop.getStartTimes();
-        RealmList<String> cRegexTimes = shop.getEndTimes();
-
-        String regex = "^[c]$";
-
-        String[] daysOpen = new String[7];
-        String[] daysClosed = new String[7];
-
-        for(int x = 0; x < 7; x++){
-            if(!sRegexTimes.get(x).matches(regex)){
-                daysOpen[x] = sTimes.get(x);
-            }
-            else{
-                daysOpen[x] = sTimes.get(x);
-                daysOpen[x] = "CLOSED";
-            }
-        }
-
-        for(int x = 0; x < 7; x++){
-            if(!cRegexTimes.get(x).matches(regex)){
-                daysClosed[x] = " - " + cTimes.get(x);
-            }
-            else{
-                daysClosed[x] = cTimes.get(x);
-                daysClosed[x] = " ";
-            }
-        }
-
-
-
-
-
         FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction ft;
+        if (tabIdx == 0) {
+            Address address = shop.getAddress();
+            String address1 = address.getAddress1();
+            String address2 = address.getAddress2();
+            String pCode = address.getPostalCode();
 
-        Bundle bundle = new Bundle();
-        bundle.putString("SHOP_ADDRESS1", address1);
-        bundle.putString("SHOP_ADDRESS2", address2);
-        bundle.putString("PCODE", pCode);
+            RealmList<String> sTimes = shop.getStartTimes();
+            RealmList<String> cTimes = shop.getEndTimes();
+            RealmList<String> sRegexTimes = shop.getStartTimes();
+            RealmList<String> cRegexTimes = shop.getEndTimes();
 
-        bundle.putStringArray("DAYSOPEN", daysOpen);
-        bundle.putStringArray("DAYSCLOSED", daysClosed);
+            String regex = "^[c]$";
 
-        bundle.putString("EXTRA_USER", userEmail);
-        bundle.putString("EXTRA_PASS", userPass);
+            String[] daysOpen = new String[7];
+            String[] daysClosed = new String[7];
 
+            for(int x = 0; x < 7; x++){
+                if(!sRegexTimes.get(x).matches(regex)){
+                    daysOpen[x] = sTimes.get(x);
+                }
+                else{
+                    daysOpen[x] = sTimes.get(x);
+                    daysOpen[x] = "CLOSED";
+                }
+            }
 
-        FirstFragment fragment = new FirstFragment();
-        fragment.setArguments(bundle);
+            for(int x = 0; x < 7; x++){
+                if(!cRegexTimes.get(x).matches(regex)){
+                    daysClosed[x] = " - " + cTimes.get(x);
+                }
+                else{
+                    daysClosed[x] = cTimes.get(x);
+                    daysClosed[x] = " ";
+                }
+            }
 
-        ft.replace(R.id.flFirstFragment, fragment).commit();
+            ft = fm.beginTransaction();
 
-        ft = fm.beginTransaction();
-        Bundle bundle2 = new Bundle();
-        bundle.putString("EXTRA_USER", userEmail);
-        bundle.putString("EXTRA_PASS", userPass);
+            Bundle bundle = new Bundle();
+            bundle.putString("SHOP_ADDRESS1", address1);
+            bundle.putString("SHOP_ADDRESS2", address2);
+            bundle.putString("PCODE", pCode);
 
-        SecondFragment fragment2 = new SecondFragment();
-        fragment.setArguments(bundle2);
+            bundle.putStringArray("DAYSOPEN", daysOpen);
+            bundle.putStringArray("DAYSCLOSED", daysClosed);
 
-        ft.replace(R.id.flSecondFragment, fragment2).commit();
+            bundle.putString("EXTRA_USER", userEmail);
+            bundle.putString("EXTRA_PASS", userPass);
+
+            FirstFragment fragment = new FirstFragment();
+            fragment.setArguments(bundle);
+
+            ft.replace(R.id.flFirstFragment, fragment).commit();
+        }
+        else if (tabIdx == 1) {
+            ft = fm.beginTransaction();
+            Bundle bundle = new Bundle();
+            bundle.putString("EXTRA_USER", userEmail);
+            bundle.putString("EXTRA_PASS", userPass);
+
+            SecondFragment fragment2 = new SecondFragment();
+            fragment2.setArguments(bundle);
+            ft.replace(R.id.flSecondFragment, fragment2).commit();
+        }
 
 //        String MondayOpen = sTimes.get(0);
 //        String TuesdayOpen = sTimes.get(1);
