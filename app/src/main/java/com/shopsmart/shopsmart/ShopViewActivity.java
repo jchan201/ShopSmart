@@ -201,6 +201,7 @@ public class ShopViewActivity extends AppCompatActivity {
 
         ft.replace(R.id.flFirstFragment, fragment).commit();
 
+        ft = fm.beginTransaction();
         Bundle bundle2 = new Bundle();
         bundle.putString("EXTRA_USER", userEmail);
         bundle.putString("EXTRA_PASS", userPass);
