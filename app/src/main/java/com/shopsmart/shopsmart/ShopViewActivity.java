@@ -67,9 +67,9 @@ public class ShopViewActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                view2.setCurrentItem(tab.getPosition());
-                FragmentTransaction ft;
-                if (tab.getPosition() == 0) {
+                int position = tab.getPosition();
+                view2.setCurrentItem(position);
+                if (position == 0) {
                     Address address = shop.getAddress();
                     String address1 = address.getAddress1();
                     String address2 = address.getAddress2();
@@ -105,7 +105,7 @@ public class ShopViewActivity extends AppCompatActivity {
                         }
                     }
 
-                    ft = fm.beginTransaction();
+                    FragmentTransaction ft = fm.beginTransaction();
 
                     Bundle bundle = new Bundle();
                     bundle.putString("SHOP_ADDRESS1", address1);
@@ -122,6 +122,44 @@ public class ShopViewActivity extends AppCompatActivity {
                     fragment.setArguments(bundle);
 
                     ft.replace(R.id.flFirstFragment, fragment).commit();
+                }
+                else if (position == 1) {
+                    Credentials credentials = Credentials.emailPassword(userEmail, userPass);
+                    app.loginAsync(credentials, result -> {
+                        if (result.isSuccess()) {
+                            Log.v("LOGIN", "Successfully authenticated using email and password.");
+
+                            SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
+                            realm = Realm.getInstance(config);
+
+                            FragmentManager fm = getSupportFragmentManager();
+                            FragmentTransaction ft = fm.beginTransaction();
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("EXTRA_USER", userEmail);
+                            bundle.putString("EXTRA_PASS", userPass);
+
+                            //TODO: Need to work on products query and send it to second fragment
+                            /*RealmList<ObjectId> productIds = shop.getProducts();
+                            RealmResults<Product> allProducts = realm.where(Product.class).findAll();
+                            ArrayList<Product> products = new ArrayList<>();
+                            for (ObjectId id : productIds) {
+                                for (Product p : allProducts) {
+                                    if (p.getId().equals(id)) {
+                                        products.add(p);
+                                        break;
+                                    }
+                                }
+                            }*/
+                            //bundle.putParcelableArrayList("PRODUCT_IDS", productIds);
+
+                            SecondFragment fragment2 = new SecondFragment();
+                            fragment2.setArguments(bundle);
+                            ft.replace(R.id.flSecondFragment, fragment2).commit();
+                        } else {
+                            Log.v("LOGIN", "Failed to authenticate using email and password.");
+                        }
+                    });
                 }
             }
 
@@ -183,7 +221,7 @@ public class ShopViewActivity extends AppCompatActivity {
 
                 if(index >= 0){
                     shop = shops.get(index);
-                    displayShopInfo(0);
+                    displayShopInfo();
                 }
             } else {
                 Log.v("LOGIN", "Failed to authenticate using email and password.");
@@ -191,79 +229,66 @@ public class ShopViewActivity extends AppCompatActivity {
         });
     }
 
-    private void displayShopInfo(int tabIdx){
+    private void displayShopInfo(){
         binding.queryShopName.setText(shop.getName());
         binding.queryShopDescription.setText(shop.getDesc());
         binding.queryShopPhone.setText(shop.getPhone());
         binding.queryShopWebsite.setText(shop.getWebsite());
         binding.queryShopEmail.setText(shop.getEmail());
 
+        Address address = shop.getAddress();
+        String address1 = address.getAddress1();
+        String address2 = address.getAddress2();
+        String pCode = address.getPostalCode();
+
+        RealmList<String> sTimes = shop.getStartTimes();
+        RealmList<String> cTimes = shop.getEndTimes();
+        RealmList<String> sRegexTimes = shop.getStartTimes();
+        RealmList<String> cRegexTimes = shop.getEndTimes();
+
+        String regex = "^[c]$";
+
+        String[] daysOpen = new String[7];
+        String[] daysClosed = new String[7];
+
+        for(int x = 0; x < 7; x++){
+            if(!sRegexTimes.get(x).matches(regex)){
+                daysOpen[x] = sTimes.get(x);
+            }
+            else{
+                daysOpen[x] = sTimes.get(x);
+                daysOpen[x] = "CLOSED";
+            }
+        }
+
+        for(int x = 0; x < 7; x++){
+            if(!cRegexTimes.get(x).matches(regex)){
+                daysClosed[x] = " - " + cTimes.get(x);
+            }
+            else{
+                daysClosed[x] = cTimes.get(x);
+                daysClosed[x] = " ";
+            }
+        }
+
         FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft;
-        if (tabIdx == 0) {
-            Address address = shop.getAddress();
-            String address1 = address.getAddress1();
-            String address2 = address.getAddress2();
-            String pCode = address.getPostalCode();
+        FragmentTransaction ft = fm.beginTransaction();
 
-            RealmList<String> sTimes = shop.getStartTimes();
-            RealmList<String> cTimes = shop.getEndTimes();
-            RealmList<String> sRegexTimes = shop.getStartTimes();
-            RealmList<String> cRegexTimes = shop.getEndTimes();
+        Bundle bundle = new Bundle();
+        bundle.putString("SHOP_ADDRESS1", address1);
+        bundle.putString("SHOP_ADDRESS2", address2);
+        bundle.putString("PCODE", pCode);
 
-            String regex = "^[c]$";
+        bundle.putStringArray("DAYSOPEN", daysOpen);
+        bundle.putStringArray("DAYSCLOSED", daysClosed);
 
-            String[] daysOpen = new String[7];
-            String[] daysClosed = new String[7];
+        bundle.putString("EXTRA_USER", userEmail);
+        bundle.putString("EXTRA_PASS", userPass);
 
-            for(int x = 0; x < 7; x++){
-                if(!sRegexTimes.get(x).matches(regex)){
-                    daysOpen[x] = sTimes.get(x);
-                }
-                else{
-                    daysOpen[x] = sTimes.get(x);
-                    daysOpen[x] = "CLOSED";
-                }
-            }
+        FirstFragment fragment = new FirstFragment();
+        fragment.setArguments(bundle);
 
-            for(int x = 0; x < 7; x++){
-                if(!cRegexTimes.get(x).matches(regex)){
-                    daysClosed[x] = " - " + cTimes.get(x);
-                }
-                else{
-                    daysClosed[x] = cTimes.get(x);
-                    daysClosed[x] = " ";
-                }
-            }
-
-            ft = fm.beginTransaction();
-
-            Bundle bundle = new Bundle();
-            bundle.putString("SHOP_ADDRESS1", address1);
-            bundle.putString("SHOP_ADDRESS2", address2);
-            bundle.putString("PCODE", pCode);
-
-            bundle.putStringArray("DAYSOPEN", daysOpen);
-            bundle.putStringArray("DAYSCLOSED", daysClosed);
-
-            bundle.putString("EXTRA_USER", userEmail);
-            bundle.putString("EXTRA_PASS", userPass);
-
-            FirstFragment fragment = new FirstFragment();
-            fragment.setArguments(bundle);
-
-            ft.replace(R.id.flFirstFragment, fragment).commit();
-        }
-        else if (tabIdx == 1) {
-            ft = fm.beginTransaction();
-            Bundle bundle = new Bundle();
-            bundle.putString("EXTRA_USER", userEmail);
-            bundle.putString("EXTRA_PASS", userPass);
-
-            SecondFragment fragment2 = new SecondFragment();
-            fragment2.setArguments(bundle);
-            ft.replace(R.id.flSecondFragment, fragment2).commit();
-        }
+        ft.replace(R.id.flFirstFragment, fragment).commit();
 
 //        String MondayOpen = sTimes.get(0);
 //        String TuesdayOpen = sTimes.get(1);
