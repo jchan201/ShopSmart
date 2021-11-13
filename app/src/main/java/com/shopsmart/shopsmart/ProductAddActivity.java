@@ -103,14 +103,19 @@ public class ProductAddActivity extends AppCompatActivity {
 
         binding.btnSave.setOnClickListener(view -> {
             if (validation()) {
-                product = new Product();
+                String name = binding.edtTextProductName.getText().toString();
+                String desc = binding.edtTextDesc.getText().toString();
+                Double price = Double.parseDouble(binding.edtTextPrice.getText().toString());
 
-                product.setName(binding.edtTextProductName.getText().toString());
-                product.setDesc(binding.edtTextDesc.getText().toString());
-                product.setPrice(Double.parseDouble(binding.edtTextPrice.getText().toString()));
+//                product.setName(binding.edtTextProductName.getText().toString());
+//                product.setDesc(binding.edtTextDesc.getText().toString());
+//                product.setPrice(Double.parseDouble(binding.edtTextPrice.getText().toString()));
 
                 //TODO set product type
-                product.setProductType(binding.spinnerSub.getSelectedItem().toString());
+                String productType = binding.spinnerSub.getSelectedItem().toString();
+//                product.setProductType(binding.spinnerSub.getSelectedItem().toString());
+
+                product = new Product(shop.getId(), productType, name, desc, price);
 
                 realm.executeTransaction(realm -> {
                     Log.d("Something", "Executing transaction...");
