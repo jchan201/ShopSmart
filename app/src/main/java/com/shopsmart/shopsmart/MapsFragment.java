@@ -33,10 +33,33 @@ import java.util.List;
 
 public class MapsFragment extends Fragment {
     private static final String TAG = "";
+    private static final String USEREMAIL = "param1";
+    private static final String USERPASS = "param2";
+
+    private String userEmail;
+    private String userPass;
 
     GoogleMap map;
     SupportMapFragment supportMapFragment;
     SearchView searchView;
+
+    /**
+     * @param userName Parameter 1.
+     * @param userPass Parameter 2.
+     * @return
+     */
+
+    public static MapsFragment newInstance(String userName, String userPass){
+        MapsFragment mapsFragment = new MapsFragment();
+        Bundle args = new Bundle();
+
+        args.putString(USEREMAIL, userName);
+        args.putString(USERPASS, userPass);
+
+        mapsFragment.setArguments(args);
+
+        return mapsFragment;
+    }
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -95,6 +118,13 @@ public class MapsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
 
+        Bundle bundle = this.getArguments();
+
+        if(bundle != null){
+            userEmail = bundle.getString("USERNAME");
+            userPass = bundle.getString("USERPASS");
+        }
+
         searchView = view.findViewById(R.id.searchInput);
 
         SupportMapFragment supportMapFragment = (SupportMapFragment)
@@ -152,6 +182,7 @@ public class MapsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         if (mapFragment != null) {

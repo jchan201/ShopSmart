@@ -94,9 +94,20 @@ public class CustomerDashboardActivity extends AppCompatActivity {
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
 
+//                ft.remove(fragment);
+//
+                Fragment newInstance = recreateFragment(fragment);
+                ft.add(R.id.rlMaps, newInstance);
+
                 Bundle bundle = new Bundle();
-                bundle.putString("EXTRA_USER", userEmail);
-                bundle.putString("EXTRA_PASS", userPass);
+                bundle.putString("USERNAME", userEmail);
+                bundle.putString("USERPASS", userPass);
+
+                newInstance.setArguments(bundle);
+
+                ft.replace(R.id.rlMaps, newInstance).commit();
+
+
 
 //                RealmResults<Shop> allShops = realm.where(Shop.class).findAll();
 //                shopIds = user.getShops();
@@ -151,5 +162,21 @@ public class CustomerDashboardActivity extends AppCompatActivity {
                 Log.e("LOGOUT", "Failed to log out, error: " + result.getError());
             }
         });
+    }
+
+    private Fragment recreateFragment(Fragment f)
+    {
+        try {
+            Fragment.SavedState savedState = getSupportFragmentManager().saveFragmentInstanceState(f);
+
+            Fragment newInstance = f.getClass().newInstance();
+            newInstance.setInitialSavedState(savedState);
+
+            return newInstance;
+        }
+        catch (Exception e) // InstantiationException, IllegalAccessException
+        {
+            throw new RuntimeException("Cannot reinstantiate fragment " + f.getClass().getName(), e);
+        }
     }
 }
