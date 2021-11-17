@@ -10,21 +10,25 @@ public class FragmentAdapter extends FragmentStateAdapter {
     String userEmail;
     String userPass;
     int index;
+    FirstFragment first;
+    SecondFragment second;
     public FragmentAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle,
                            String userEmail, String userPass, int index) {
         super(fragmentManager, lifecycle);
         this.userEmail = userEmail;
         this.userPass = userPass;
         this.index = index;
+        first = FirstFragment.newInstance(userEmail, userPass, index);
+        second = SecondFragment.newInstance(userEmail, userPass, index);
     }
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        switch(position){
-            case 1:
-                return SecondFragment.newInstance(userEmail, userPass, index);
-            default:
-                return FirstFragment.newInstance(userEmail, userPass, index);
+        if (position == 0) {
+            return first;
+        }
+        else {
+            return second;
         }
     }
     @Override

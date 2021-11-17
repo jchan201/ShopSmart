@@ -18,12 +18,10 @@ import com.shopsmart.shopsmart.databinding.ShopViewActivityBinding;
 
 import org.bson.types.ObjectId;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmList;
 import io.realm.RealmResults;
 import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
@@ -48,7 +46,6 @@ public class ShopViewActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager2 view2;
     FragmentAdapter adapter;
-    Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,21 +72,27 @@ public class ShopViewActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                FragmentManager fm = getSupportFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
                 int position = tab.getPosition();
                 view2.setCurrentItem(position);
                 if (position == 0) {
-                    displayFirstFragment(ft);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("EXTRA_USER", userEmail);
+                    bundle.putString("EXTRA_PASS", userPass);
+                    bundle.putInt("EXTRA_INDEX", index);
+                    adapter.first.setArguments(bundle);
                 }
                 else if (position == 1) {
-                    displaySecondFragment(ft);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("EXTRA_USER", userEmail);
+                    bundle.putString("EXTRA_PASS", userPass);
+                    bundle.putInt("EXTRA_INDEX", index);
+                    adapter.second.setArguments(bundle);
                 }
             }
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {}
             @Override
-            public void onTabReselected(TabLayout.Tab tab) { }
+            public void onTabReselected(TabLayout.Tab tab) {}
         });
         view2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -153,51 +156,11 @@ public class ShopViewActivity extends AppCompatActivity {
         binding.queryShopPhone.setText(shop.getPhone());
         binding.queryShopWebsite.setText(shop.getWebsite());
         binding.queryShopEmail.setText(shop.getEmail());
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        displayFirstFragment(ft);
-    }
-
-    private void displayFirstFragment(FragmentTransaction ft) {
-        Bundle bundle;
-        if (fragment == null) {
-            bundle = new Bundle();
-            bundle.putString("EXTRA_USER", userEmail);
-            bundle.putString("EXTRA_PASS", userPass);
-            bundle.putSerializable("EXTRA_SHOP", shop);
-        }
-        else if (fragment.getClass().equals(FirstFragment.class)) {
-            bundle = ((FirstFragment) fragment).passData();
-        } else if (fragment.getClass().equals(SecondFragment.class)) {
-            bundle = ((SecondFragment) fragment).passData();
-        } else {
-            bundle = null;
-            Log.wtf("ERROR", "Unable to display first fragment!");
-        }
-        fragment = FirstFragment.newInstance(userEmail, userPass, index);
-        fragment.setArguments(bundle);
-        ft.replace(R.id.flFirstFragment, fragment).commit();
-    }
-
-    private void displaySecondFragment(FragmentTransaction ft) {
-        Bundle bundle;
-        if (fragment == null) {
-            bundle = new Bundle();
-            bundle.putString("EXTRA_USER", userEmail);
-            bundle.putString("EXTRA_PASS", userPass);
-            bundle.putSerializable("EXTRA_SHOP", shop);
-        }
-        else if (fragment.getClass().equals(FirstFragment.class)) {
-            bundle = ((FirstFragment) fragment).passData();
-        } else if (fragment.getClass().equals(SecondFragment.class)) {
-            bundle = ((SecondFragment) fragment).passData();
-        } else {
-            bundle = null;
-            Log.wtf("ERROR", "Unable to display second fragment!");
-        }
-        fragment = new SecondFragment();
-        fragment.setArguments(bundle);
-        ft.replace(R.id.flSecondFragment, fragment).commit();
+        Bundle bundle = new Bundle();
+        bundle.putString("EXTRA_USER", userEmail);
+        bundle.putString("EXTRA_PASS", userPass);
+        bundle.putInt("EXTRA_INDEX", index);
+        adapter.first.setArguments(bundle);
     }
 
     @Override

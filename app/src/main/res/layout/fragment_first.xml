@@ -3,52 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:id="@+id/flFirstFragment"
-    tools:context=".FirstFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="550dp"
-        android:background="@drawable/rectangle2"
-        android:gravity="center"/>
+    tools:context=".FirstFragment"
+    android:elevation="9dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#FFFFFF">
-        <!--
-        <TextView
-            android:id="@+id/queryShopName"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:text="Shop Name"
-            android:textSize="20dp"
-            tools:layout_editor_absoluteX="0dp"
-            app:layout_constraintTop_toTopOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/queryShopDescription"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:text="Shop Description"
-            android:textSize="20dp"
-            tools:layout_editor_absoluteX="0dp"
-            app:layout_constraintTop_toBottomOf="@id/queryShopName"
-            />
-    -->
-
-        <!--app:layout_constraintTop_toBottomOf="@id/queryShopDescription" --><![CDATA[/>
-
-        ]]>
 
         <TextView
             android:id="@+id/queryShopAddress1"

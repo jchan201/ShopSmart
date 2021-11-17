@@ -56,7 +56,7 @@ public class FirstFragment extends Fragment {
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, email);
         args.putString(ARG_PARAM2, password);
-        args.putSerializable(ARG_PARAM3, index);
+        args.putInt(ARG_PARAM3, index);
         fragment.setArguments(args);
         return fragment;
     }
@@ -128,12 +128,5 @@ public class FirstFragment extends Fragment {
             });
         }
         return v;
-    }
-    public Bundle passData() {
-        Bundle bundle = new Bundle();
-        bundle.putString("EXTRA_USER", userEmail);
-        bundle.putString("EXTRA_PASS", userPass);
-        bundle.putSerializable("EXTRA_SHOP", shop);
-        return bundle;
     }
 }
