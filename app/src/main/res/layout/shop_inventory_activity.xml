@@ -31,57 +31,57 @@
         app:layout_constraintStart_toStartOf="@+id/titleView"
         app:layout_constraintTop_toTopOf="@+id/titleView" />
 
-        <ListView
-            android:id="@+id/lstProducts"
-            android:background="@drawable/rectangle"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleView"
-            tools:listitem="@layout/product_list_item"/>
+    <ListView
+        android:id="@+id/lstProducts"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleView"
+        tools:listitem="@layout/product_list_item" />
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/buttonsLayout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="vertical"-->
-<!--        android:weightSum="1.0"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent">-->
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/buttonsLayout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="vertical"-->
+    <!--        android:weightSum="1.0"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent">-->
 
-        <Button
-            android:id="@+id/btnAddProduct"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_weight="0.5"
-            android:ems="10"
-            android:padding="8dp"
-            android:text="ADD PRODUCT"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/btnBack"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+    <Button
+        android:id="@+id/btnAddProduct"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_weight="0.5"
+        android:ems="10"
+        android:padding="8dp"
+        android:text="ADD PRODUCT"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/btnBack"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_weight="0.5"
-            android:ems="10"
-            android:padding="8dp"
-            android:text="BACK"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_weight="0.5"
+        android:ems="10"
+        android:padding="8dp"
+        android:text="BACK"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-<!--    </LinearLayout>-->
+    <!--    </LinearLayout>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
