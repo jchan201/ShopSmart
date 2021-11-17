@@ -7,22 +7,26 @@ import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class FragmentAdapter extends FragmentStateAdapter {
-    public FragmentAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+    String userEmail;
+    String userPass;
+    int index;
+    public FragmentAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle,
+                           String userEmail, String userPass, int index) {
         super(fragmentManager, lifecycle);
+        this.userEmail = userEmail;
+        this.userPass = userPass;
+        this.index = index;
     }
-
     @NonNull
     @Override
     public Fragment createFragment(int position) {
         switch(position){
             case 1:
-                return new SecondFragment();
-
+                return SecondFragment.newInstance(userEmail, userPass, index);
+            default:
+                return FirstFragment.newInstance(userEmail, userPass, index);
         }
-
-        return new FirstFragment();
     }
-
     @Override
     public int getItemCount() {
         return 2;
