@@ -1,6 +1,7 @@
 package com.shopsmart.shopsmart;
 
 import android.content.Intent;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;

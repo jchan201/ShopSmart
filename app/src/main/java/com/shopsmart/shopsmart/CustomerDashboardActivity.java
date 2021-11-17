@@ -6,11 +6,21 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.shopsmart.shopsmart.databinding.CustomerDashboard1Binding;
+
+import org.bson.types.ObjectId;
+
+import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -26,15 +36,24 @@ public class CustomerDashboardActivity extends AppCompatActivity {
     String userEmail;
     String userPass;
     AppUser user;
+    ArrayList<Shop> shops;
     private CustomerDashboard1Binding binding;
     private App app;
     private Realm realm;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = CustomerDashboard1Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        Fragment fragment = new MapsFragment();
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frame_layout, fragment)
+                .commit();
 
         //Toolbar toolbar = findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
@@ -64,6 +83,31 @@ public class CustomerDashboardActivity extends AppCompatActivity {
                     }
                 }
                 binding.userName.setText(user.getEmail());
+
+                RealmResults<Shop> allShops = realm.where(Shop.class).findAll();
+                shops = new ArrayList<>();
+
+                for(Shop s : allShops){
+                    shops.add(s);
+                }
+
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("EXTRA_USER", userEmail);
+                bundle.putString("EXTRA_PASS", userPass);
+
+//                RealmResults<Shop> allShops = realm.where(Shop.class).findAll();
+//                shopIds = user.getShops();
+//                shops = new ArrayList<>();
+//                for (Shop s : allShops) {
+//                    for (ObjectId o : shopIds) {
+//                        if (s.getId().equals(o))
+//                            shops.add(s);
+//                    }
+//                }
+
             }
         });
     }
