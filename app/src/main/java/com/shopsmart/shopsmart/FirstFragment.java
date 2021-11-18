@@ -1,14 +1,13 @@
 package com.shopsmart.shopsmart;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import org.bson.types.ObjectId;
 
@@ -24,32 +23,29 @@ import io.realm.mongodb.Credentials;
 import io.realm.mongodb.sync.SyncConfiguration;
 
 public class FirstFragment extends Fragment {
-    private final String PARTITION = "ShopSmart";
     private static final String ARG_PARAM1 = "EXTRA_USER";
     private static final String ARG_PARAM2 = "EXTRA_PASS";
     private static final String ARG_PARAM3 = "EXTRA_INDEX";
-
-    private String userEmail;
-    private String userPass;
-    private int index;
+    private final String PARTITION = "ShopSmart";
+    private final TextView[] tvDaysOpen = new TextView[7];
     AppUser user;
     List<ObjectId> shopIds;
     ArrayList<Shop> shops;
+    private String userEmail;
+    private String userPass;
+    private int index;
     private Shop shop;
-
     private RealmList<String> shopDaysOpen;
     private RealmList<String> shopDaysClosed;
-
     private TextView sAddress1;
     private TextView sAddress2;
     private TextView pCodeView;
     private TextView sCountry;
-    private TextView[] tvDaysOpen = new TextView[7];
-
     private App app;
     private Realm realm;
 
-    public FirstFragment() {}
+    public FirstFragment() {
+    }
 
     public static FirstFragment newInstance(String email, String password, int index) {
         FirstFragment fragment = new FirstFragment();
@@ -117,7 +113,7 @@ public class FirstFragment extends Fragment {
                         sAddress2.setText(shop.getAddress().getAddress2());
                         pCodeView.setText(shop.getAddress().getPostalCode());
                         sCountry.setText("Canada");
-                        for (int x = 0; x < 7; x++){
+                        for (int x = 0; x < 7; x++) {
                             tvDaysOpen[x].setText(shopDaysOpen.get(x) + " - " + shopDaysClosed.get(x));
                         }
                     }

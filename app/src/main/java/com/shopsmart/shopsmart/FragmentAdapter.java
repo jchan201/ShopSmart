@@ -12,6 +12,7 @@ public class FragmentAdapter extends FragmentStateAdapter {
     int index;
     FirstFragment first;
     SecondFragment second;
+
     public FragmentAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle,
                            String userEmail, String userPass, int index) {
         super(fragmentManager, lifecycle);
@@ -21,16 +22,17 @@ public class FragmentAdapter extends FragmentStateAdapter {
         first = FirstFragment.newInstance(userEmail, userPass, index);
         second = SecondFragment.newInstance(userEmail, userPass, index);
     }
+
     @NonNull
     @Override
     public Fragment createFragment(int position) {
         if (position == 0) {
             return first;
-        }
-        else {
+        } else {
             return second;
         }
     }
+
     @Override
     public int getItemCount() {
         return 2;

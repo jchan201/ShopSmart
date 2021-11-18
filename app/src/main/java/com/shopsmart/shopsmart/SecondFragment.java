@@ -10,16 +10,12 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import com.shopsmart.shopsmart.databinding.FragmentSecondBinding;
-import com.shopsmart.shopsmart.databinding.ShopViewActivityBinding;
-
 import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmList;
 import io.realm.RealmResults;
 import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
@@ -27,23 +23,23 @@ import io.realm.mongodb.Credentials;
 import io.realm.mongodb.sync.SyncConfiguration;
 
 public class SecondFragment extends Fragment {
-    private final String PARTITION = "ShopSmart";
     private static final String ARG_PARAM1 = "EXTRA_USER";
     private static final String ARG_PARAM2 = "EXTRA_PASS";
     private static final String ARG_PARAM3 = "EXTRA_INDEX";
-
-    private String userEmail;
-    private String userPass;
-    private int index;
+    private final String PARTITION = "ShopSmart";
     AppUser user;
     List<ObjectId> shopIds;
     ArrayList<Shop> shops;
+    private String userEmail;
+    private String userPass;
+    private int index;
     private Shop shop;
 
     private App app;
     private Realm realm;
 
-    public SecondFragment() {}
+    public SecondFragment() {
+    }
 
     public static SecondFragment newInstance(String email, String password, int index) {
         SecondFragment fragment = new SecondFragment();
@@ -101,9 +97,15 @@ public class SecondFragment extends Fragment {
                                 products.add(p);
                             }
                         }
-                        ListView productsList = (ListView) v.findViewById(R.id.lstProducts);
-                        ProductAdapter adapter = new ProductAdapter(this.getContext(), products);
-                        productsList.setAdapter(adapter);
+                        if (products.isEmpty()) {
+                            TextView txtMsg = (TextView) v.findViewById(R.id.txtMsg);
+                            txtMsg.setText("No products found.");
+                            txtMsg.setVisibility(View.VISIBLE);
+                        } else {
+                            ListView productsList = (ListView) v.findViewById(R.id.lstProducts);
+                            ProductAdapter adapter = new ProductAdapter(this.getContext(), products);
+                            productsList.setAdapter(adapter);
+                        }
                     }
                     realm.close();
                 } else {

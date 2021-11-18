@@ -2,7 +2,6 @@ package com.shopsmart.shopsmart;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 

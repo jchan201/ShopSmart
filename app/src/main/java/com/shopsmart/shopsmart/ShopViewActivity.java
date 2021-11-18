@@ -8,9 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
@@ -39,13 +37,12 @@ public class ShopViewActivity extends AppCompatActivity {
     Shop shop;
     int index = 0;
     int total = 0;
-    private ShopViewActivityBinding binding;
-    private App app;
-    private Realm realm;
-
     TabLayout tabLayout;
     ViewPager2 view2;
     FragmentAdapter adapter;
+    private ShopViewActivityBinding binding;
+    private App app;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +77,7 @@ public class ShopViewActivity extends AppCompatActivity {
                     bundle.putString("EXTRA_PASS", userPass);
                     bundle.putInt("EXTRA_INDEX", index);
                     adapter.first.setArguments(bundle);
-                }
-                else if (position == 1) {
+                } else if (position == 1) {
                     Bundle bundle = new Bundle();
                     bundle.putString("EXTRA_USER", userEmail);
                     bundle.putString("EXTRA_PASS", userPass);
@@ -89,10 +85,14 @@ public class ShopViewActivity extends AppCompatActivity {
                     adapter.second.setArguments(bundle);
                 }
             }
+
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {}
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {}
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
         });
         view2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -139,7 +139,7 @@ public class ShopViewActivity extends AppCompatActivity {
 
                 total = shops.size();
 
-                if(index >= 0){
+                if (index >= 0) {
                     shop = shops.get(index);
                     displayShopInfo();
                 }
@@ -150,7 +150,7 @@ public class ShopViewActivity extends AppCompatActivity {
         });
     }
 
-    private void displayShopInfo(){
+    private void displayShopInfo() {
         binding.queryShopName.setText(shop.getName());
         binding.queryShopDescription.setText(shop.getDesc());
         binding.queryShopPhone.setText(shop.getPhone());
