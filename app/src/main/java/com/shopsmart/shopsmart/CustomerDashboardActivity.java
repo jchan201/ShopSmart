@@ -23,6 +23,7 @@ import org.bson.types.ObjectId;
 import java.util.ArrayList;
 
 import io.realm.Realm;
+import io.realm.RealmList;
 import io.realm.RealmResults;
 import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
@@ -37,6 +38,7 @@ public class CustomerDashboardActivity extends AppCompatActivity {
     String userPass;
     AppUser user;
     ArrayList<Shop> shops;
+
     private CustomerDashboard1Binding binding;
     private App app;
     private Realm realm;
@@ -86,9 +88,24 @@ public class CustomerDashboardActivity extends AppCompatActivity {
 
                 RealmResults<Shop> allShops = realm.where(Shop.class).findAll();
                 shops = new ArrayList<>();
-
+                RealmList<String> shopsId;
+                int x = 0;
                 for(Shop s : allShops){
                     shops.add(s);
+//                    shopsId.get(x) = shops.get(x++).getId();
+                    x++;
+                }
+
+                String[] shopsId2 = new String[x];
+                String[] shopNames = new String[x];
+
+                String[] shopAddressPCode = new String[x];
+                int numShops = x;
+
+                for(int n = 0; n < x; n++){
+                    shopsId2[n] = String.valueOf(shops.get(n).getId());
+                    shopNames[n] = shops.get(n).getName();
+                    shopAddressPCode[n] = shops.get(n).getAddress().getPostalCode();
                 }
 
                 FragmentManager fm = getSupportFragmentManager();
@@ -102,6 +119,15 @@ public class CustomerDashboardActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putString("USERNAME", userEmail);
                 bundle.putString("USERPASS", userPass);
+                bundle.putInt("NUMSHOPS", numShops);
+                bundle.putStringArray("SHOPID", shopsId2);
+                bundle.putStringArray("SHOPNAMES", shopNames);
+                bundle.putStringArray("SHOPPCODES", shopAddressPCode);
+
+//                bundle.putInt("EXTRA_NUMSHOPS", numShops);
+//                bundle.putStringArray("EXTRA_SHOPID", shopsId2);
+//                bundle.putStringArray("EXTRA_SHOPNAMES", shopNames);
+//                bundle.putStringArray("EXTRA_SHOPADDRESSPCODES", shopAddressPCode);
 
                 newInstance.setArguments(bundle);
 

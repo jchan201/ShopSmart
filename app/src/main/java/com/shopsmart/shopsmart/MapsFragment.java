@@ -26,35 +26,71 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.tabs.TabLayout;
 
+import org.bson.types.ObjectId;
+
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
+import io.realm.mongodb.App;
+import io.realm.mongodb.AppConfiguration;
+import io.realm.mongodb.Credentials;
+import io.realm.mongodb.sync.SyncConfiguration;
+
 public class MapsFragment extends Fragment {
+    private final String PARTITION = "ShopSmart";
     private static final String TAG = "";
-    private static final String USEREMAIL = "param1";
+    private static final String USERNAME = "param1";
     private static final String USERPASS = "param2";
+    private static final String NUMSHOPS = "param3";
+    private static final String SHOPID = "param4";
+    private static final String SHOPNAMES = "param5";
+    private static final String SHOPPCODES = "param6";
 
     private String userEmail;
     private String userPass;
+    private Integer numShops = 0;
+    private String[] shopIds;
+    private String[] shopNames;
+    private String[] shopPCodes;
+
+
+    AppUser user;
+    ArrayList<Shop> shops;
+    Shop shop;
+    Address address;
+
+    private App app;
+    private Realm realm;
 
     GoogleMap map;
     SupportMapFragment supportMapFragment;
     SearchView searchView;
 
     /**
+     *
      * @param userName Parameter 1.
      * @param userPass Parameter 2.
+     * @param num Parameter 3.
+     * @param shopId Parameter 4.
+     * @param shopName Parameter 5.
+     * @param shopPCode Parameter 6.
      * @return
      */
 
-    public static MapsFragment newInstance(String userName, String userPass){
+    public static MapsFragment newInstance(String userName, String userPass, Integer num, String shopId[], String shopName[], String shopPCode[]){
         MapsFragment mapsFragment = new MapsFragment();
         Bundle args = new Bundle();
 
-        args.putString(USEREMAIL, userName);
+        args.putString(USERNAME, userName);
         args.putString(USERPASS, userPass);
+        args.putInt(NUMSHOPS, num);
+        args.putStringArray(SHOPID, shopId);
+        args.putStringArray(SHOPNAMES, shopName);
+        args.putStringArray(SHOPPCODES, shopPCode);
 
         mapsFragment.setArguments(args);
 
@@ -120,10 +156,67 @@ public class MapsFragment extends Fragment {
 
         Bundle bundle = this.getArguments();
 
+        // Access realm
+        app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
+
         if(bundle != null){
             userEmail = bundle.getString("USERNAME");
             userPass = bundle.getString("USERPASS");
+            numShops = bundle.getInt("NUMSHOPS");
+            shopIds = new String[numShops];
+            shopIds = bundle.getStringArray("SHOPID");
+            shopNames = new String[numShops];
+            shopNames = bundle.getStringArray("SHOPNAMES");
+            shopPCodes = new String[numShops];
+            shopPCodes = bundle.getStringArray("SHOPPCODES");
+
+            for(int x = 0; x < numShops; x++){
+                Log.i("HELLO", shopPCodes[x]);
+            }
+
+//                map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+
+//            if(userEmail != null) {
+//
+//                Credentials credentials = Credentials.emailPassword(userEmail, userPass);
+//                app.loginAsync(credentials, result -> {
+//                    if (result.isSuccess()) {
+//                        Log.v("LOGIN", "Successfully authenticated using email and password.");
+//
+//                        SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
+//                        realm = Realm.getInstance(config);
+//
+//                        RealmResults<AppUser> users = realm.where(AppUser.class).findAll();
+//                        for (AppUser u : users) {
+//                            if (u.getEmail().equals(userEmail)) {
+//                                user = u;
+//                            }
+//                        }
+////                        RealmResults<Shop> allShops = realm.where(Shop.class).findAll();
+//////                        shopIds = user.getShops();
+////                        shops = new ArrayList<>();
+////                        for (Shop s : allShops) {
+//////                    for (ObjectId o : shopIds) {
+//////                        if (s.getId().equals(o))
+////                            shops.add(s);
+//////                    }
+////                        }
+//
+////                total = shops.size();
+////
+////                if(index >= 0){
+////                    shop = shops.get(index);
+////                    displayShopInfo();
+////                }
+//                    } else {
+//                        Log.v("LOGIN", "Failed to authenticate using email and password.");
+//                    }
+//                });
+//            }
         }
+
+
+
 
         searchView = view.findViewById(R.id.searchInput);
 
