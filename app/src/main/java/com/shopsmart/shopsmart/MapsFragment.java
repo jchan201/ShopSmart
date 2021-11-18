@@ -49,6 +49,7 @@ public class MapsFragment extends Fragment {
     private static final String SHOPID = "param4";
     private static final String SHOPNAMES = "param5";
     private static final String SHOPPCODES = "param6";
+    private static final String HOMEADDRESS = "param7";
 
     private String userEmail;
     private String userPass;
@@ -56,6 +57,7 @@ public class MapsFragment extends Fragment {
     private String[] shopIds;
     private String[] shopNames;
     private String[] shopPCodes;
+    private String userAddress;
 
 
     AppUser user;
@@ -78,10 +80,11 @@ public class MapsFragment extends Fragment {
      * @param shopId Parameter 4.
      * @param shopName Parameter 5.
      * @param shopPCode Parameter 6.
+     * @param homeAddress Parameter 7.
      * @return
      */
 
-    public static MapsFragment newInstance(String userName, String userPass, Integer num, String shopId[], String shopName[], String shopPCode[]){
+    public static MapsFragment newInstance(String userName, String userPass, Integer num, String shopId[], String shopName[], String shopPCode[], String homeAddress){
         MapsFragment mapsFragment = new MapsFragment();
         Bundle args = new Bundle();
 
@@ -91,6 +94,7 @@ public class MapsFragment extends Fragment {
         args.putStringArray(SHOPID, shopId);
         args.putStringArray(SHOPNAMES, shopName);
         args.putStringArray(SHOPPCODES, shopPCode);
+        args.putString(HOMEADDRESS, homeAddress);
 
         mapsFragment.setArguments(args);
 
@@ -110,10 +114,10 @@ public class MapsFragment extends Fragment {
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            map = googleMap;
-            LatLng sydney = new LatLng(-34, 151);
-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+//            map = googleMap;
+//            LatLng sydney = new LatLng(-34, 151);
+//            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+//            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
         }
     };
@@ -169,10 +173,12 @@ public class MapsFragment extends Fragment {
             shopNames = bundle.getStringArray("SHOPNAMES");
             shopPCodes = new String[numShops];
             shopPCodes = bundle.getStringArray("SHOPPCODES");
+            userAddress = bundle.getString("USERADDRESS");
 
             for(int x = 0; x < numShops; x++){
                 Log.i("HELLO", shopPCodes[x]);
             }
+            Log.i("HELLO USERADDRESS", userAddress);
 
 //                map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
 
@@ -214,6 +220,11 @@ public class MapsFragment extends Fragment {
 //                });
 //            }
         }
+
+
+        view.findViewById(R.id.home).setOnClickListener(view1 -> {
+
+        });
 
 
 

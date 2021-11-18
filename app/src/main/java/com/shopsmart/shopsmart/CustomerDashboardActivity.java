@@ -36,6 +36,7 @@ public class CustomerDashboardActivity extends AppCompatActivity {
     Intent currentIntent;
     String userEmail;
     String userPass;
+    String userAddress;
     AppUser user;
     ArrayList<Shop> shops;
 
@@ -108,6 +109,8 @@ public class CustomerDashboardActivity extends AppCompatActivity {
                     shopAddressPCode[n] = shops.get(n).getAddress().getPostalCode();
                 }
 
+                userAddress = user.getAddress().getPostalCode();
+
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
 
@@ -123,6 +126,7 @@ public class CustomerDashboardActivity extends AppCompatActivity {
                 bundle.putStringArray("SHOPID", shopsId2);
                 bundle.putStringArray("SHOPNAMES", shopNames);
                 bundle.putStringArray("SHOPPCODES", shopAddressPCode);
+                bundle.putString("USERADDRESS", userAddress);
 
 //                bundle.putInt("EXTRA_NUMSHOPS", numShops);
 //                bundle.putStringArray("EXTRA_SHOPID", shopsId2);
