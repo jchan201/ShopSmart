@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -40,7 +41,7 @@ import io.realm.mongodb.AppConfiguration;
 import io.realm.mongodb.Credentials;
 import io.realm.mongodb.sync.SyncConfiguration;
 
-public class MapsFragment extends Fragment {
+public class MapsFragment extends Fragment implements View.OnClickListener {
     private final String PARTITION = "ShopSmart";
     private static final String TAG = "";
     private static final String USERNAME = "param1";
@@ -57,7 +58,9 @@ public class MapsFragment extends Fragment {
     private String[] shopIds;
     private String[] shopNames;
     private String[] shopPCodes;
-    private String userAddress;
+    String userAddress;
+
+    Button homeBtn;
 
 
     AppUser user;
@@ -114,10 +117,10 @@ public class MapsFragment extends Fragment {
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
-//            map = googleMap;
-//            LatLng sydney = new LatLng(-34, 151);
-//            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-//            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            map = googleMap;
+            LatLng sydney = new LatLng(-34, 151);
+            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
         }
     };
@@ -175,10 +178,7 @@ public class MapsFragment extends Fragment {
             shopPCodes = bundle.getStringArray("SHOPPCODES");
             userAddress = bundle.getString("USERADDRESS");
 
-            for(int x = 0; x < numShops; x++){
-                Log.i("HELLO", shopPCodes[x]);
-            }
-            Log.i("HELLO USERADDRESS", userAddress);
+
 
 //                map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
 
@@ -219,14 +219,25 @@ public class MapsFragment extends Fragment {
 //                    }
 //                });
 //            }
+            for(int x = 0; x < numShops; x++){
+                Log.i("HELLO", shopPCodes[x]);
+            }
+            Log.i("HELLO USERADDRESS", userAddress);
         }
+        homeBtn = (Button) view.findViewById(R.id.buttonHome);
 
-
-        view.findViewById(R.id.home).setOnClickListener(view1 -> {
-
+        homeBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                getLocation();
+            }
         });
 
 
+//
+//        view.findViewById(R.id.home).setOnClickListener(view1 -> {
+//            Log.i("HELLO", "BUTTON WORKS");
+//        });
 
 
         searchView = view.findViewById(R.id.searchInput);
@@ -237,6 +248,7 @@ public class MapsFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
             @Override
             public boolean onQueryTextSubmit(String s) {
+                Log.i("HELLO USERADDRESS", userAddress);
                 String location = searchView.getQuery().toString();
                 List<Address> addressList = null;
 
@@ -292,5 +304,28 @@ public class MapsFragment extends Fragment {
         if (mapFragment != null) {
             mapFragment.getMapAsync(callback);
         }
+    }
+
+    public void getLocation(){
+        String homeAddress = userAddress;
+        Log.i("HELLO BUTTON", homeAddress);
+        List<Address> addressList = null;
+        String location = "A1A 1A1";
+        Geocoder geocoder = new Geocoder(getActivity().getApplicationContext());
+        try{
+            addressList = geocoder.getFromLocationName(location, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Address address = addressList.get(0);
+        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+        map.addMarker(new MarkerOptions().position(latLng).title("Home"));
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }
