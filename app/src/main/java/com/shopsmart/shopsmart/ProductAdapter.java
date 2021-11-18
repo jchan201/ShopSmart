@@ -39,7 +39,7 @@ public class ProductAdapter extends BaseAdapter {
             view = LayoutInflater.from(context).inflate(R.layout.product_list_item, null);
 
         Product product = products.get(i);
-        TextView name = (TextView) view.findViewById(R.id.name);
+        TextView name = (TextView) view.findViewById(R.id.productName);
         name.setText(product.getName());
 
         view.findViewById(R.id.btnView).setOnClickListener(new View.OnClickListener() {

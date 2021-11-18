@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -96,7 +97,7 @@ public class ShopInventoryActivity extends AppCompatActivity {
                     productIds = shop.getProducts();
 
                     RealmResults<Product> allProducts = realm.where(Product.class).findAll();
-                    products = new ArrayList<>();
+                    products = new ArrayList<Product>();
 
                     for(Product p : allProducts){
                         for(ObjectId o : productIds){
@@ -106,7 +107,7 @@ public class ShopInventoryActivity extends AppCompatActivity {
                         }
                     }
 
-                    ListAdapter listAdapter = new ListAdapter(ShopInventoryActivity.this, products);
+                    ListAdapter listAdapter = new ListAdapter(this, products, userEmail, userPass, app, shop);
 
                     binding.lstProducts.setAdapter(listAdapter);
                 }
