@@ -1,63 +1,118 @@
 package com.shopsmart.shopsmart;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import com.shopsmart.shopsmart.databinding.FragmentFirstBinding;
+import androidx.fragment.app.Fragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SecondFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import org.bson.types.ObjectId;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
+import io.realm.mongodb.App;
+import io.realm.mongodb.AppConfiguration;
+import io.realm.mongodb.Credentials;
+import io.realm.mongodb.sync.SyncConfiguration;
+
 public class SecondFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String EXTRA_USER = "param1";
-    private static final String EXTRA_PASS = "param2";
-
-    // TODO: Rename and change types of parameters
+    private static final String ARG_PARAM1 = "EXTRA_USER";
+    private static final String ARG_PARAM2 = "EXTRA_PASS";
+    private static final String ARG_PARAM3 = "EXTRA_INDEX";
+    private final String PARTITION = "ShopSmart";
+    AppUser user;
+    List<ObjectId> shopIds;
+    ArrayList<Shop> shops;
     private String userEmail;
     private String userPass;
-    //
-    private FragmentFirstBinding binding;
+    private int index;
+    private Shop shop;
+
+    private App app;
+    private Realm realm;
 
     public SecondFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param userEmail Parameter 1.
-     * @param userPass Parameter 2.
-     * @return A new instance of fragment First_Fragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SecondFragment newInstance(String userEmail, String userPass) {
+    public static SecondFragment newInstance(String email, String password, int index) {
         SecondFragment fragment = new SecondFragment();
         Bundle args = new Bundle();
-        args.putString(EXTRA_USER, userEmail);
-        args.putString(EXTRA_PASS, userPass);
+        args.putString(ARG_PARAM1, email);
+        args.putString(ARG_PARAM2, password);
+        args.putInt(ARG_PARAM3, index);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_second, container, false);
+        if (getArguments() != null) {
+            app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
+            userEmail = getArguments().getString(ARG_PARAM1);
+            userPass = getArguments().getString(ARG_PARAM2);
+            index = getArguments().getInt(ARG_PARAM3);
 
-        // Inflate the layout for this fragment
+            Credentials credentials = Credentials.emailPassword(userEmail, userPass);
+            app.loginAsync(credentials, result -> {
+                if (result.isSuccess()) {
+                    Log.v("LOGIN", "Successfully authenticated using email and password.");
+
+                    SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
+                    realm = Realm.getInstance(config);
+
+                    RealmResults<AppUser> users = realm.where(AppUser.class).findAll();
+                    for (AppUser u : users) {
+                        if (u.getEmail().equals(userEmail)) {
+                            user = u;
+                        }
+                    }
+                    RealmResults<Shop> allShops = realm.where(Shop.class).findAll();
+                    shopIds = user.getShops();
+                    shops = new ArrayList<>();
+                    for (Shop s : allShops) {
+                        for (ObjectId o : shopIds) {
+                            if (s.getId().equals(o))
+                                shops.add(s);
+                        }
+                    }
+                    if (index >= 0) {
+                        shop = shops.get(index);
+                        RealmResults<Product> allProducts = realm.where(Product.class).findAll();
+                        ArrayList<Product> products = new ArrayList<>();
+                        for (Product p : allProducts) {
+                            if (p.getId().equals(shop.getId())) {
+                                products.add(p);
+                            }
+                        }
+                        if (products.isEmpty()) {
+                            TextView txtMsg = (TextView) v.findViewById(R.id.txtMsg);
+                            txtMsg.setText("No products found.");
+                            txtMsg.setVisibility(View.VISIBLE);
+                        } else {
+                            ListView productsList = (ListView) v.findViewById(R.id.lstProducts);
+                            ProductAdapter adapter = new ProductAdapter(this.getContext(), products);
+                            productsList.setAdapter(adapter);
+                        }
+                    }
+                    realm.close();
+                } else {
+                    Log.v("LOGIN", "Failed to authenticate using email and password.");
+                }
+            });
+        }
         return v;
     }
 }

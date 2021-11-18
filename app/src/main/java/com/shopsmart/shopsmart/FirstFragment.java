@@ -1,85 +1,58 @@
 package com.shopsmart.shopsmart;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.shopsmart.shopsmart.databinding.FragmentSecondBinding;
+import androidx.fragment.app.Fragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FirstFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import org.bson.types.ObjectId;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmList;
+import io.realm.RealmResults;
+import io.realm.mongodb.App;
+import io.realm.mongodb.AppConfiguration;
+import io.realm.mongodb.Credentials;
+import io.realm.mongodb.sync.SyncConfiguration;
+
 public class FirstFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String SHOP_ADDRESS1 = "param1";
-    private static final String SHOP_ADDRESS2 = "param2";
-    private static final String PCODE = "param3";
-    private static final String DAYSOPEN = "param4";
-    private static final String DAYSCLOSED = "param5";
-    private static final String EXTRA_EMAIL = "param6";
-    private static final String EXTRA_PASS = "param7";
-
-    // TODO: Rename and change types of parameters
-    private String shopAddress1;
-    private String shopAddress2;
-    private String pCode;
-
+    private static final String ARG_PARAM1 = "EXTRA_USER";
+    private static final String ARG_PARAM2 = "EXTRA_PASS";
+    private static final String ARG_PARAM3 = "EXTRA_INDEX";
+    private final String PARTITION = "ShopSmart";
+    private final TextView[] tvDaysOpen = new TextView[7];
+    AppUser user;
+    List<ObjectId> shopIds;
+    ArrayList<Shop> shops;
     private String userEmail;
     private String userPass;
-
-//    private String daysOpen;
-//    private String daysClosed;
-
-    private String[] shopDaysOpen = new String[7];
-    private String[] shopDaysClosed = new String[7];
-
+    private int index;
+    private Shop shop;
+    private RealmList<String> shopDaysOpen;
+    private RealmList<String> shopDaysClosed;
     private TextView sAddress1;
     private TextView sAddress2;
     private TextView pCodeView;
     private TextView sCountry;
-    private TextView[] tvDaysOpen = new TextView[7];
-
-    private FragmentSecondBinding binding;
+    private App app;
+    private Realm realm;
 
     public FirstFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param address1 Parameter 1.
-     * @param address2 Parameter 2.
-     * @param pCode Parameter 3.
-     * @param daysOpen Parameter 4.
-     * @param daysClosed Parameter5.
-     * @param user Parameter6.
-     * @param pass Parameter7.
-     * @return A new instance of fragment First_Fragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FirstFragment newInstance(String address1, String address2, String pCode, String daysOpen[], String daysClosed[], String user, String pass) {
+    public static FirstFragment newInstance(String email, String password, int index) {
         FirstFragment fragment = new FirstFragment();
         Bundle args = new Bundle();
-
-        args.putString(SHOP_ADDRESS1, address1);
-        args.putString(SHOP_ADDRESS2, address2);
-        args.putString(PCODE, pCode);
-        args.putStringArray(DAYSOPEN, daysOpen);
-        args.putStringArray(DAYSCLOSED, daysClosed);
-        args.putString(EXTRA_EMAIL, user);
-        args.putString(EXTRA_PASS, pass);
-
+        args.putString(ARG_PARAM1, email);
+        args.putString(ARG_PARAM2, password);
+        args.putInt(ARG_PARAM3, index);
         fragment.setArguments(args);
         return fragment;
     }
@@ -87,62 +60,69 @@ public class FirstFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //
-        binding = FragmentSecondBinding.inflate(getLayoutInflater());
-        if (getArguments() != null) {
-//            shopAddress1 = getArguments().getString(SHOP_ADDRESS1);
-//            shopAddress2 = getArguments().getString(SHOP_ADDRESS2);
-//            pCode = getArguments().getString(PCODE);
-        }
-//        binding.queryShopAddress1.setText(shopAddress1);
-//        binding.queryShopAddress2.setText(shopAddress2);
-//        binding.queryShopPCode.setText(pCode);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_first, container, false);
-        
-        sAddress1 = v.findViewById(R.id.queryShopAddress1);
-        sAddress2 = v.findViewById(R.id.queryShopAddress2);
-        pCodeView = v.findViewById(R.id.queryShopPCode);
-        sCountry = v.findViewById(R.id.queryShopCountry);
+        if (getArguments() != null) {
+            app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
+            userEmail = getArguments().getString(ARG_PARAM1);
+            userPass = getArguments().getString(ARG_PARAM2);
+            index = getArguments().getInt(ARG_PARAM3);
 
-        tvDaysOpen[0] = v.findViewById(R.id.queryDay1Hours);
-        tvDaysOpen[1] = v.findViewById(R.id.queryDay2Hours);
-        tvDaysOpen[2] = v.findViewById(R.id.queryDay3Hours);
-        tvDaysOpen[3] = v.findViewById(R.id.queryDay4Hours);
-        tvDaysOpen[4] = v.findViewById(R.id.queryDay5Hours);
-        tvDaysOpen[5] = v.findViewById(R.id.queryDay6Hours);
-        tvDaysOpen[6] = v.findViewById(R.id.queryDay7Hours);
+            Credentials credentials = Credentials.emailPassword(userEmail, userPass);
+            app.loginAsync(credentials, result -> {
+                if (result.isSuccess()) {
+                    Log.v("LOGIN", "Successfully authenticated using email and password.");
 
-        Bundle bundle = this.getArguments();
+                    SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
+                    realm = Realm.getInstance(config);
 
-        if(bundle != null){
-            shopAddress1 = bundle.getString("SHOP_ADDRESS1");
-            shopAddress2 = bundle.getString("SHOP_ADDRESS2");
-            pCode = bundle.getString("PCODE");
-            shopDaysOpen = bundle.getStringArray("DAYSOPEN");
-            shopDaysClosed = bundle.getStringArray("DAYSCLOSED");
+                    RealmResults<AppUser> users = realm.where(AppUser.class).findAll();
+                    for (AppUser u : users) {
+                        if (u.getEmail().equals(userEmail)) {
+                            user = u;
+                        }
+                    }
+                    RealmResults<Shop> allShops = realm.where(Shop.class).findAll();
+                    shopIds = user.getShops();
+                    shops = new ArrayList<>();
+                    for (Shop s : allShops) {
+                        for (ObjectId o : shopIds) {
+                            if (s.getId().equals(o))
+                                shops.add(s);
+                        }
+                    }
+                    if (index >= 0) {
+                        shop = shops.get(index);
+                        shopDaysOpen = shop.getStartTimes();
+                        shopDaysClosed = shop.getEndTimes();
+                        sAddress1 = v.findViewById(R.id.queryShopAddress1);
+                        sAddress2 = v.findViewById(R.id.queryShopAddress2);
+                        pCodeView = v.findViewById(R.id.queryShopPCode);
+                        sCountry = v.findViewById(R.id.queryShopCountry);
+                        tvDaysOpen[0] = v.findViewById(R.id.queryDay1Hours);
+                        tvDaysOpen[1] = v.findViewById(R.id.queryDay2Hours);
+                        tvDaysOpen[2] = v.findViewById(R.id.queryDay3Hours);
+                        tvDaysOpen[3] = v.findViewById(R.id.queryDay4Hours);
+                        tvDaysOpen[4] = v.findViewById(R.id.queryDay5Hours);
+                        tvDaysOpen[5] = v.findViewById(R.id.queryDay6Hours);
+                        tvDaysOpen[6] = v.findViewById(R.id.queryDay7Hours);
+                        sAddress1.setText(shop.getAddress().getAddress1());
+                        sAddress2.setText(shop.getAddress().getAddress2());
+                        pCodeView.setText(shop.getAddress().getPostalCode());
+                        sCountry.setText("Canada");
+                        for (int x = 0; x < 7; x++) {
+                            tvDaysOpen[x].setText(shopDaysOpen.get(x) + " - " + shopDaysClosed.get(x));
+                        }
+                    }
+                    realm.close();
+                } else {
+                    Log.v("LOGIN", "Failed to authenticate using email and password.");
+                }
+            });
         }
-
-        sAddress1.setText(shopAddress1);
-        sAddress2.setText(shopAddress2);
-        pCodeView.setText(pCode);
-        sCountry.setText("Canada");
-
-        for(int x = 0; x < 7; x++){
-            tvDaysOpen[x].setText(shopDaysOpen[x] + shopDaysClosed[x]);
-        }
-
-//        for(int x = 0; x < 7; x++){
-//            daysOpen[x] = bundle.getString("DAYSOPEN" + x);
-//            daysClosed[x] = bundle.getString("DAYSCLOSED" + x);
-//        }
-
-        // Inflate the layout for this fragment
         return v;
     }
 }

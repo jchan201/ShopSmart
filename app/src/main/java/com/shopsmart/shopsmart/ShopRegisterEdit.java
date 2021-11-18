@@ -8,10 +8,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import com.shopsmart.shopsmart.databinding.ShopRegisterActivityBinding;
 import com.shopsmart.shopsmart.databinding.ShopRegisterActivityEditBinding;
 
 import org.bson.types.ObjectId;
@@ -20,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import io.realm.RealmList;
 import io.realm.RealmResults;
 import io.realm.mongodb.App;
@@ -30,6 +26,8 @@ import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ShopRegisterEdit extends AppCompatActivity {
     private final String PARTITION = "ShopSmart";
+    private final ArrayList<EditText> startTimes = new ArrayList<>();
+    private final ArrayList<EditText> endTimes = new ArrayList<>();
     String userEmail;
     String userPass;
     int index = 0;
@@ -37,15 +35,12 @@ public class ShopRegisterEdit extends AppCompatActivity {
     AppUser user;
     List<ObjectId> shopIds;
     ArrayList<Shop> shops;
+    SyncConfiguration config;
+    Shop shop;
     private ShopRegisterActivityEditBinding binding;
     private App app;
     private Realm realm;
     private CheckBox monday, tuesday, wednesday, thursday, friday, saturday, sunday;
-    private final ArrayList<EditText> startTimes = new ArrayList<>();
-    private final ArrayList<EditText> endTimes = new ArrayList<>();
-    SyncConfiguration config;
-    Shop shop;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -228,38 +223,38 @@ public class ShopRegisterEdit extends AppCompatActivity {
 //                        .build();
 //                RealmConfiguration config2 = new RealmConfiguration.Builder().allowWritesOnUiThread(true).allowQueriesOnUiThread(true).build();
 //                realm = Realm.getInstance(config);
-                realm.executeTransaction(realm -> {
-                    Log.d("Something", "Executing transaction...");
+            realm.executeTransaction(realm -> {
+                Log.d("Something", "Executing transaction...");
 
 //                Shop shop = shops.get(index);
-                    int x = 0;
-                    if (validation()) {
-                        shop.setName(binding.edtTextShopName.getText().toString());
-                        shop.setDesc(binding.edtTextDesc.getText().toString());
-                        shop.setEmail(binding.edtTextEmail.getText().toString());
-                        shop.setPhone(binding.edtTextPhoneNum.getText().toString());
-                        shop.setWebsite(binding.edtTextWebsite.getText().toString());
+                int x = 0;
+                if (validation()) {
+                    shop.setName(binding.edtTextShopName.getText().toString());
+                    shop.setDesc(binding.edtTextDesc.getText().toString());
+                    shop.setEmail(binding.edtTextEmail.getText().toString());
+                    shop.setPhone(binding.edtTextPhoneNum.getText().toString());
+                    shop.setWebsite(binding.edtTextWebsite.getText().toString());
 
-                        Address address = new Address();
+                    Address address = new Address();
 
-                        address.setCity(binding.textCity.getText().toString());
-                        address.setPostalCode(binding.textZipCode.getText().toString());
-                        address.setAddress1(binding.textAddLine1.getText().toString());
-                        address.setAddress2(binding.textAddLine2.getText().toString());
-                        //address.setProvince();
-                        shop.setAddress(address);
+                    address.setCity(binding.textCity.getText().toString());
+                    address.setPostalCode(binding.textZipCode.getText().toString());
+                    address.setAddress1(binding.textAddLine1.getText().toString());
+                    address.setAddress2(binding.textAddLine2.getText().toString());
+                    //address.setProvince();
+                    shop.setAddress(address);
 
-                        while (x < 7) {
-                            for (EditText time : startTimes) {
-                                shop.setStartTime(x++, time.getText().toString());
-                            }
-                        }
-
-                        x = 0;
-                        for (EditText time : endTimes) {
-                            shop.setEndTime(x++, time.getText().toString());
+                    while (x < 7) {
+                        for (EditText time : startTimes) {
+                            shop.setStartTime(x++, time.getText().toString());
                         }
                     }
+
+                    x = 0;
+                    for (EditText time : endTimes) {
+                        shop.setEndTime(x++, time.getText().toString());
+                    }
+                }
 //                });
             });
 //            realm.close();
@@ -272,15 +267,14 @@ public class ShopRegisterEdit extends AppCompatActivity {
 
     }
 
-    private boolean validation(){
+    private boolean validation() {
         boolean valid = true;
         String regex = "^(([0-1]?[0-9]|[2][0-3]):[0-5][0-9])|[c]$";
 //        String closed = "^[c]$";
         if (monday.isChecked()) {
             startTimes.add(binding.edtTxtMonday1);
             endTimes.add(binding.edtTxtMonday2);
-        }
-        else{
+        } else {
             binding.edtTxtMonday1.setText("c");
             binding.edtTxtMonday2.setText("c");
             startTimes.add(binding.edtTxtMonday1);
@@ -289,8 +283,7 @@ public class ShopRegisterEdit extends AppCompatActivity {
         if (tuesday.isChecked()) {
             startTimes.add(binding.edtTxtTuesday1);
             endTimes.add(binding.edtTxtTuesday2);
-        }
-        else{
+        } else {
             binding.edtTxtTuesday1.setText("c");
             binding.edtTxtTuesday2.setText("c");
             startTimes.add(binding.edtTxtTuesday1);
@@ -299,8 +292,7 @@ public class ShopRegisterEdit extends AppCompatActivity {
         if (wednesday.isChecked()) {
             startTimes.add(binding.edtTxtWednesday1);
             endTimes.add(binding.edtTxtWednesday2);
-        }
-        else{
+        } else {
             binding.edtTxtWednesday1.setText("c");
             binding.edtTxtWednesday2.setText("c");
             startTimes.add(binding.edtTxtWednesday1);
@@ -309,8 +301,7 @@ public class ShopRegisterEdit extends AppCompatActivity {
         if (thursday.isChecked()) {
             startTimes.add(binding.edtTxtThursday1);
             endTimes.add(binding.edtTxtThursday2);
-        }
-        else{
+        } else {
             binding.edtTxtThursday1.setText("c");
             binding.edtTxtThursday2.setText("c");
             startTimes.add(binding.edtTxtThursday1);
@@ -319,8 +310,7 @@ public class ShopRegisterEdit extends AppCompatActivity {
         if (friday.isChecked()) {
             startTimes.add(binding.edtTxtFriday1);
             endTimes.add(binding.edtTxtFriday2);
-        }
-        else{
+        } else {
             binding.edtTxtFriday1.setText("c");
             binding.edtTxtFriday2.setText("c");
             startTimes.add(binding.edtTxtFriday1);
@@ -329,8 +319,7 @@ public class ShopRegisterEdit extends AppCompatActivity {
         if (saturday.isChecked()) {
             startTimes.add(binding.edtTxtSaturday1);
             endTimes.add(binding.edtTxtSaturday2);
-        }
-        else{
+        } else {
             binding.edtTxtSaturday1.setText("c");
             binding.edtTxtSaturday2.setText("c");
             startTimes.add(binding.edtTxtSaturday1);
@@ -339,21 +328,20 @@ public class ShopRegisterEdit extends AppCompatActivity {
         if (sunday.isChecked()) {
             startTimes.add(binding.edtTxtSunday1);
             endTimes.add(binding.edtTxtSunday2);
-        }
-        else{
+        } else {
             binding.edtTxtSunday1.setText("c");
             binding.edtTxtSunday2.setText("c");
             startTimes.add(binding.edtTxtSunday1);
             endTimes.add(binding.edtTxtSunday2);
         }
         for (EditText time : startTimes) {
-            if (!time.getText().toString().matches(regex)){// || !time.getText().toString().matches(closed)) {
+            if (!time.getText().toString().matches(regex)) {// || !time.getText().toString().matches(closed)) {
                 time.setError("Field must be in HH:MM format");
                 valid = false;
             }
         }
         for (EditText time : endTimes) {
-            if (!time.getText().toString().matches(regex)){// || !time.getText().toString().matches(closed)) {
+            if (!time.getText().toString().matches(regex)) {// || !time.getText().toString().matches(closed)) {
                 time.setError("Field must be in HH:MM format");
                 valid = false;
             }
@@ -361,7 +349,7 @@ public class ShopRegisterEdit extends AppCompatActivity {
         return valid;
     }
 
-    private void displayShopInfo(Shop shop){
+    private void displayShopInfo(Shop shop) {
 
         binding.edtTextShopName.setText(shop.getName());
         binding.edtTextDesc.setText(shop.getDesc());
@@ -397,27 +385,25 @@ public class ShopRegisterEdit extends AppCompatActivity {
         String[] daysOpen = new String[7];
         String[] daysClosed = new String[7];
 //
-        for(int x = 0; x < 7; x++){
-            if(!sRegexTimes.get(x).matches(regex)){
+        for (int x = 0; x < 7; x++) {
+            if (!sRegexTimes.get(x).matches(regex)) {
                 daysOpen[x] = sTimes.get(x);
-            }
-            else{
+            } else {
                 daysOpen[x] = sTimes.get(x);
                 daysOpen[x] = "c";
             }
         }
 
-        for(int x = 0; x < 7; x++){
-            if(!cRegexTimes.get(x).matches(regex)){
+        for (int x = 0; x < 7; x++) {
+            if (!cRegexTimes.get(x).matches(regex)) {
                 daysClosed[x] = cTimes.get(x);
-            }
-            else{
+            } else {
                 daysClosed[x] = cTimes.get(x);
                 daysClosed[x] = "c";
             }
         }
 
-        if(!daysOpen[0].matches(regex)){
+        if (!daysOpen[0].matches(regex)) {
             binding.chkMonday.setChecked(true);
             binding.edtTxtMonday1.setText(daysOpen[0]);
             binding.edtTxtMonday2.setText(daysClosed[0]);
@@ -425,55 +411,53 @@ public class ShopRegisterEdit extends AppCompatActivity {
             binding.edtTxtMonday2.setVisibility(View.VISIBLE);
         }
 
-        if(!daysOpen[1].matches(regex)){
+        if (!daysOpen[1].matches(regex)) {
             binding.chkTuesday.setChecked(true);
             binding.edtTxtTuesday1.setText(daysOpen[1]);
-            binding.edtTxtTuesday2.setText(daysClosed[1]);;
+            binding.edtTxtTuesday2.setText(daysClosed[1]);
             binding.edtTxtTuesday1.setVisibility(View.VISIBLE);
             binding.edtTxtTuesday2.setVisibility(View.VISIBLE);
         }
 
-        if(!daysOpen[2].matches(regex)){
+        if (!daysOpen[2].matches(regex)) {
             binding.chkWednesday.setChecked(true);
             binding.edtTxtWednesday1.setText(daysOpen[2]);
-            binding.edtTxtWednesday2.setText(daysClosed[2]);;
+            binding.edtTxtWednesday2.setText(daysClosed[2]);
             binding.edtTxtWednesday1.setVisibility(View.VISIBLE);
             binding.edtTxtWednesday2.setVisibility(View.VISIBLE);
         }
 
-        if(!daysOpen[3].matches(regex)){
+        if (!daysOpen[3].matches(regex)) {
             binding.chkThursday.setChecked(true);
             binding.edtTxtThursday1.setText(daysOpen[3]);
-            binding.edtTxtThursday2.setText(daysClosed[3]);;
+            binding.edtTxtThursday2.setText(daysClosed[3]);
             binding.edtTxtThursday1.setVisibility(View.VISIBLE);
             binding.edtTxtThursday2.setVisibility(View.VISIBLE);
         }
 
-        if(!daysOpen[4].matches(regex)){
+        if (!daysOpen[4].matches(regex)) {
             binding.chkFriday.setChecked(true);
             binding.edtTxtFriday1.setText(daysOpen[4]);
-            binding.edtTxtFriday2.setText(daysClosed[4]);;
+            binding.edtTxtFriday2.setText(daysClosed[4]);
             binding.edtTxtFriday1.setVisibility(View.VISIBLE);
             binding.edtTxtFriday2.setVisibility(View.VISIBLE);
         }
 
-        if(!daysOpen[5].matches(regex)){
+        if (!daysOpen[5].matches(regex)) {
             binding.chkSaturday.setChecked(true);
             binding.edtTxtSaturday1.setText(daysOpen[5]);
-            binding.edtTxtSaturday2.setText(daysClosed[5]);;
+            binding.edtTxtSaturday2.setText(daysClosed[5]);
             binding.edtTxtSaturday1.setVisibility(View.VISIBLE);
             binding.edtTxtSaturday2.setVisibility(View.VISIBLE);
         }
 
-        if(!daysOpen[6].matches(regex)){
+        if (!daysOpen[6].matches(regex)) {
             binding.chkSunday.setChecked(true);
             binding.edtTxtSunday1.setText(daysOpen[6]);
-            binding.edtTxtSunday2.setText(daysClosed[6]);;
+            binding.edtTxtSunday2.setText(daysClosed[6]);
             binding.edtTxtSunday1.setVisibility(View.VISIBLE);
             binding.edtTxtSunday2.setVisibility(View.VISIBLE);
         }
-
-
 
 
 //        FragmentManager fm = getSupportFragmentManager();

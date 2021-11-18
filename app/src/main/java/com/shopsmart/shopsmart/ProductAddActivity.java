@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.ProductAddActivityBinding;
-import com.shopsmart.shopsmart.databinding.ShopRegisterActivityBinding;
 
 import org.bson.types.ObjectId;
 
@@ -39,10 +38,10 @@ public class ProductAddActivity extends AppCompatActivity {
     Shop shop;
     int index = 0;
     int total = 0;
+    SyncConfiguration config;
     private ProductAddActivityBinding binding;
     private App app;
     private Realm realm;
-    SyncConfiguration config;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +87,7 @@ public class ProductAddActivity extends AppCompatActivity {
 
                 total = shops.size();
 
-                if(index >= 0){
+                if (index >= 0) {
                     shop = shops.get(index);
                     address = shop.getAddress();
                 }
@@ -137,61 +136,61 @@ public class ProductAddActivity extends AppCompatActivity {
         binding.spinnerMain.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                if(position == 0){
+                if (position == 0) {
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.Clothing, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.spinnerSub.setAdapter(adapter);
                 }
 
-                if(position == 1){
+                if (position == 1) {
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.Kitchen, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.spinnerSub.setAdapter(adapter);
                 }
 
-                if(position == 2){
+                if (position == 2) {
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.Food, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.spinnerSub.setAdapter(adapter);
                 }
 
-                if(position == 3){
+                if (position == 3) {
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.Electronics, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.spinnerSub.setAdapter(adapter);
                 }
 
-                if(position == 4){
+                if (position == 4) {
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.Household, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.spinnerSub.setAdapter(adapter);
                 }
 
-                if(position == 5){
+                if (position == 5) {
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.Pharmaceutical, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.spinnerSub.setAdapter(adapter);
                 }
 
-                if(position == 6){
+                if (position == 6) {
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.Pets, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.spinnerSub.setAdapter(adapter);
                 }
 
-                if(position == 7){
+                if (position == 7) {
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.OfficeArtSchool, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.spinnerSub.setAdapter(adapter);
                 }
 
-                if(position == 8){
+                if (position == 8) {
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.Toys, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.spinnerSub.setAdapter(adapter);
                 }
 
-                if(position == 9){
+                if (position == 9) {
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.SportsOutdoors, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.spinnerSub.setAdapter(adapter);
