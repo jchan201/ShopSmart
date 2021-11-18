@@ -96,7 +96,7 @@ public class ProductAddActivity extends AppCompatActivity {
             }
         });
 
-        binding.btnCancel.setOnClickListener(view -> startActivity(new Intent(ProductAddActivity.this, ShopListActivity.class)
+        binding.btnCancel.setOnClickListener(view -> startActivity(new Intent(ProductAddActivity.this, ShopInventoryActivity.class)
                 .putExtra("EXTRA_EMAIL", userEmail)
                 .putExtra("EXTRA_PASS", userPass)));
 
@@ -125,7 +125,7 @@ public class ProductAddActivity extends AppCompatActivity {
                 });
 
                 realm.close();
-                Intent nextSignUpScreen = new Intent(ProductAddActivity.this, ShopListActivity.class);
+                Intent nextSignUpScreen = new Intent(ProductAddActivity.this, ShopInventoryActivity.class);
                 nextSignUpScreen.putExtra("EXTRA_EMAIL", userEmail);
                 nextSignUpScreen.putExtra("EXTRA_PASS", userPass);
                 nextSignUpScreen.putExtra("EXTRA_ADD_PRODUCT_SUCCESS", true);

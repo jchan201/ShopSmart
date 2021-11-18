@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -63,6 +64,11 @@ public class ShopInventoryActivity extends AppCompatActivity {
             this.userEmail = currIntent.getStringExtra("EXTRA_EMAIL");
             this.userPass = currIntent.getStringExtra("EXTRA_PASS");
             this.index = currIntent.getIntExtra("EXTRA_INDEX", index);
+
+            boolean addProductSuccess = currIntent.getBooleanExtra("EXTRA_ADD_PRODUCT_SUCCESS", false);
+            if (addProductSuccess)
+                Toast.makeText(ShopInventoryActivity.this, "Successfully add product to shop.", Toast.LENGTH_SHORT).show();
+
         }
 
         Credentials credentials = Credentials.emailPassword(userEmail, userPass);
@@ -115,6 +121,15 @@ public class ShopInventoryActivity extends AppCompatActivity {
             } else {
                 Log.v("LOGIN", "Failed to authenticate using email and password.");
             }
+        });
+
+        binding.btnAddProduct.setOnClickListener(view -> {
+            realm.close();
+            Intent intentToProfile = new Intent(ShopInventoryActivity.this, ProductAddActivity.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+            intentToProfile.putExtra("EXTRA_INDEX", index);
+            startActivity(intentToProfile);
         });
     }
 }
