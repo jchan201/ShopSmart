@@ -98,11 +98,11 @@ public class ListAdapter extends ArrayAdapter<Product> {
                     }
                 }
 
-                ((Activity)getContext()).finish();
                 Intent nextScreen = new Intent(getContext(), ProductViewActivity.class);
                 nextScreen.putExtra("EXTRA_PASS", userPassword);
                 nextScreen.putExtra("EXTRA_EMAIL", userEmail);
                 nextScreen.putExtra("EXTRA_PRODUCT_ID", productArrayList.get(position).getId());
+                ((ShopInventoryActivity)getContext()).killActivity();
                 getContext().startActivity(nextScreen);
             }
         });

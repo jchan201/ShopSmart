@@ -117,11 +117,7 @@ public class ShopInventoryActivity extends AppCompatActivity {
         });
 
         binding.btnAddProduct.setOnClickListener(view -> {
-            if(realm != null) {
-                if (!realm.isClosed()) {
-                    realm.close();
-                }
-            }
+            killActivity();
             Intent intentToProfile = new Intent(ShopInventoryActivity.this, ProductAddActivity.class);
             intentToProfile.putExtra("EXTRA_PASS", userPass);
             intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
@@ -130,9 +126,11 @@ public class ShopInventoryActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        realm.close();
+    public void killActivity(){
+        if(realm != null) {
+            if (!realm.isClosed()) {
+                realm.close();
+            }
+        }
     }
 }
