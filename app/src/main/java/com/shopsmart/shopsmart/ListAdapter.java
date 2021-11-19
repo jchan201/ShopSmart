@@ -1,6 +1,8 @@
 package com.shopsmart.shopsmart;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,8 +47,6 @@ public class ListAdapter extends ArrayAdapter<Product> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        //Product product = getItem(position);
-
         Product product = productArrayList.get(position);
 
         if(convertView == null){
@@ -55,9 +55,11 @@ public class ListAdapter extends ArrayAdapter<Product> {
 
         TextView productName = (TextView) convertView.findViewById(R.id.productName);
         Button deleteBtn = (Button) convertView.findViewById(R.id.btnDelete);
+        Button viewBtn = (Button) convertView.findViewById(R.id.btnView);
 
         productName.setText(product.getName());
         deleteBtn.setTag(position);
+        viewBtn.setTag(position);
 
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,11 +78,32 @@ public class ListAdapter extends ArrayAdapter<Product> {
                         deleteProduct(position);
                         productArrayList.remove(position);
                         ListAdapter.this.notifyDataSetChanged();
+                        realm.close();
 
                     } else {
                         Log.v("LOGIN", "Failed to authenticate using email and password.");
                     }
                 });
+            }
+        });
+
+        viewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position = (Integer) view.getTag();
+
+                if(realm != null) {
+                    if (!realm.isClosed()) {
+                        realm.close();
+                    }
+                }
+
+                ((Activity)getContext()).finish();
+                Intent nextScreen = new Intent(getContext(), ProductViewActivity.class);
+                nextScreen.putExtra("EXTRA_PASS", userPassword);
+                nextScreen.putExtra("EXTRA_EMAIL", userEmail);
+                nextScreen.putExtra("EXTRA_PRODUCT_ID", productArrayList.get(position).getId());
+                getContext().startActivity(nextScreen);
             }
         });
 

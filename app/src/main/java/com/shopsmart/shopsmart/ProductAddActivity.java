@@ -106,13 +106,8 @@ public class ProductAddActivity extends AppCompatActivity {
                 String desc = binding.edtTextDesc.getText().toString();
                 Double price = Double.parseDouble(binding.edtTextPrice.getText().toString());
 
-//                product.setName(binding.edtTextProductName.getText().toString());
-//                product.setDesc(binding.edtTextDesc.getText().toString());
-//                product.setPrice(Double.parseDouble(binding.edtTextPrice.getText().toString()));
-
                 //TODO set product type
                 String productType = binding.spinnerSub.getSelectedItem().toString();
-//                product.setProductType(binding.spinnerSub.getSelectedItem().toString());
 
                 product = new Product(shop.getId(), productType, name, desc, price);
 
