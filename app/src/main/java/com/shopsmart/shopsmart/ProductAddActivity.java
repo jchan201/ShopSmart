@@ -97,7 +97,8 @@ public class ProductAddActivity extends AppCompatActivity {
 
         binding.btnCancel.setOnClickListener(view -> startActivity(new Intent(ProductAddActivity.this, ShopInventoryActivity.class)
                 .putExtra("EXTRA_EMAIL", userEmail)
-                .putExtra("EXTRA_PASS", userPass)));
+                .putExtra("EXTRA_PASS", userPass)
+                .putExtra("EXTRA_INDEX", index)));
 
         binding.btnSave.setOnClickListener(view -> {
             if (validation()) {
@@ -122,6 +123,7 @@ public class ProductAddActivity extends AppCompatActivity {
                 Intent nextSignUpScreen = new Intent(ProductAddActivity.this, ShopInventoryActivity.class);
                 nextSignUpScreen.putExtra("EXTRA_EMAIL", userEmail);
                 nextSignUpScreen.putExtra("EXTRA_PASS", userPass);
+                nextSignUpScreen.putExtra("EXTRA_INDEX", index);
                 nextSignUpScreen.putExtra("EXTRA_ADD_PRODUCT_SUCCESS", true);
                 startActivity(nextSignUpScreen);
             }
