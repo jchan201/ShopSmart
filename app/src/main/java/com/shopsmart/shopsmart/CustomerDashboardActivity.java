@@ -115,7 +115,7 @@ public class CustomerDashboardActivity extends AppCompatActivity {
                 FragmentTransaction ft = fm.beginTransaction();
 
 //                ft.remove(fragment);
-//
+//              TEST
                 Fragment newInstance = recreateFragment(fragment);
                 ft.add(R.id.rlMaps, newInstance);
 

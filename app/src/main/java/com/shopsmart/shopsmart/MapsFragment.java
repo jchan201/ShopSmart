@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -166,6 +167,19 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
         // Access realm
         app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
 
+        RelativeLayout mapLayout = (RelativeLayout) view.findViewById(R.id.rlMaps);
+
+        searchView = view.findViewById(R.id.searchInput);
+
+        homeBtn = (Button) view.findViewById(R.id.buttonHome);
+
+        homeBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                getLocation();
+            }
+        });
+
         if(bundle != null){
             userEmail = bundle.getString("USERNAME");
             userPass = bundle.getString("USERPASS");
@@ -219,19 +233,18 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
 //                    }
 //                });
 //            }
+//            searchView.setBackgroundColor(0);
             for(int x = 0; x < numShops; x++){
                 Log.i("HELLO", shopPCodes[x]);
             }
             Log.i("HELLO USERADDRESS", userAddress);
-        }
-        homeBtn = (Button) view.findViewById(R.id.buttonHome);
+        }else{
+            homeBtn.setVisibility(View.GONE);
+            searchView.setVisibility(View.GONE);
+//            searchView.setBackgroundColor(0);
+//            mapLayout.setVisibility(View.GONE);
 
-        homeBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                getLocation();
-            }
-        });
+        }
 
 
 //
@@ -240,7 +253,6 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
 //        });
 
 
-        searchView = view.findViewById(R.id.searchInput);
 
         SupportMapFragment supportMapFragment = (SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.map);
@@ -310,17 +322,45 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
         String homeAddress = userAddress;
         Log.i("HELLO BUTTON", homeAddress);
         List<Address> addressList = null;
-        String location = "A1A 1A1";
+        Address address = null;
+        String location = userAddress;
+        location = location.replaceAll("\\s+", "");
+        Log.i("HELLO BUTTON", location);
         Geocoder geocoder = new Geocoder(getActivity().getApplicationContext());
         try{
             addressList = geocoder.getFromLocationName(location, 1);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Address address = addressList.get(0);
-        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-        map.addMarker(new MarkerOptions().position(latLng).title("Home"));
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+        if(addressList != null) {
+            address = addressList.get(0);
+            LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+            map.addMarker(new MarkerOptions().position(latLng).title("Home"));
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+            address = null;
+            addressList = null;
+        }
+
+        for(int x = 0; x < numShops; x++){
+            //List<Address>
+            addressList = null;
+            location = shopPCodes[3].replaceAll("\\s+", "");
+
+            Log.i("HELLO BUTTON", location);
+//            //Geocoder
+            geocoder = new Geocoder(getActivity().getApplicationContext());
+            try{
+                addressList = geocoder.getFromLocationName(location, 1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(addressList != null) {
+                address = addressList.get(0);
+                LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                map.addMarker(new MarkerOptions().position(latLng).title("Home"));
+            }
+
+        }
 
     }
 
