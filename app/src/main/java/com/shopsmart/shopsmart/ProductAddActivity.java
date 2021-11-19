@@ -104,7 +104,8 @@ public class ProductAddActivity extends AppCompatActivity {
             if (validation()) {
                 String name = binding.edtTextProductName.getText().toString();
                 String desc = binding.edtTextDesc.getText().toString();
-                Double price = Double.parseDouble(binding.edtTextPrice.getText().toString());
+                double price = Double.parseDouble(binding.edtTextPrice.getText().toString());
+                int stock = Integer.parseInt(binding.edtTextStock.getText().toString());
 
 //                product.setName(binding.edtTextProductName.getText().toString());
 //                product.setDesc(binding.edtTextDesc.getText().toString());
@@ -114,7 +115,7 @@ public class ProductAddActivity extends AppCompatActivity {
                 String productType = binding.spinnerSub.getSelectedItem().toString();
 //                product.setProductType(binding.spinnerSub.getSelectedItem().toString());
 
-                product = new Product(shop.getId(), productType, name, desc, price);
+                product = new Product(shop.getId(), productType, name, desc, price, stock);
 
                 realm.executeTransaction(realm -> {
                     Log.d("Something", "Executing transaction...");
@@ -219,6 +220,16 @@ public class ProductAddActivity extends AppCompatActivity {
 
         if (Double.parseDouble(this.binding.edtTextPrice.getText().toString()) < 0) {
             this.binding.edtTextPrice.setError("Product price cannot be negative value");
+            valid = false;
+        }
+
+        if (this.binding.edtTextStock.getText().toString().isEmpty()) {
+            this.binding.edtTextStock.setError("Stock cannot be empty");
+            valid = false;
+        }
+
+        if (Integer.parseInt(this.binding.edtTextStock.getText().toString()) < 0) {
+            this.binding.edtTextStock.setError("Stock cannot be negative value");
             valid = false;
         }
 

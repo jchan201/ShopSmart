@@ -39,8 +39,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleView"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/titleView" />
 
     <TextView
         android:id="@+id/txtTitle"
@@ -50,8 +49,7 @@
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toTopOf="@+id/bodyView"
-        />
+        app:layout_constraintTop_toTopOf="@+id/bodyView" />
 
     <EditText
         android:id="@+id/edtTextProductName"
@@ -83,15 +81,14 @@
             android:id="@+id/edtTextDesc"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:hint="DESCRIPTION"
             android:background="@drawable/basic_rectangle"
+            android:gravity="top"
+            android:hint="DESCRIPTION"
             android:inputType="textMultiLine"
             android:lines="3"
-            android:gravity="top"
             android:overScrollMode="always"
             android:scrollbarStyle="insideInset"
-            android:scrollHorizontally="false"
-            />
+            android:scrollHorizontally="false" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Spinner
@@ -106,8 +103,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/edtTextDescLayout"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/edtTextDescLayout" />
 
     <Spinner
         android:id="@+id/spinnerSub"
@@ -121,8 +117,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerMain"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerMain" />
 
     <EditText
         android:id="@+id/edtTextPrice"
@@ -141,6 +136,22 @@
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/spinnerSub" />
 
+    <EditText
+        android:id="@+id/edtTextStock"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/basic_rectangle"
+        android:ems="10"
+        android:hint="STOCK"
+        android:inputType="numberPassword"
+        android:maxLength="16"
+        android:padding="8dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtTextPrice" />
 
     <Button
         android:id="@+id/btnSave"
@@ -168,7 +179,6 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
-        app:layout_constraintStart_toStartOf="@+id/bodyView"
-        />
+        app:layout_constraintStart_toStartOf="@+id/bodyView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

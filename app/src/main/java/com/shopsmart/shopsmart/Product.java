@@ -15,9 +15,10 @@ public class Product extends RealmObject implements Serializable {
     @Required private String name;
     @Required private String desc;
     private double price;
+    private int stock;
 
     public Product() {}
-    public Product(ObjectId shop_id, String productType, String name, String desc, double price) {
+    public Product(ObjectId shop_id, String productType, String name, String desc, double price, int stock) {
         this.shop_id = shop_id;
         this.productType = productType;
         this.name = name;
@@ -58,5 +59,12 @@ public class Product extends RealmObject implements Serializable {
     }
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 }
