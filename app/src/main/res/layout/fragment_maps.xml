@@ -27,12 +27,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:iconifiedByDefault="false"
             android:background="@null"
+            android:elevation="5dp"
+            android:iconifiedByDefault="false"
             android:queryHint="Enter Shop Name"
             android:textColor="@color/black"
-            android:textSize="15sp"
-            android:elevation="5dp"/>
+            android:textSize="15sp" />
 
     </RelativeLayout>
 
@@ -45,5 +45,19 @@
         android:layout_marginStart="18dp"
         android:layout_marginBottom="9dp"
         android:text="Home" />
+
+    <TextView
+        android:id="@+id/textLocation"
+        android:layout_width="300dp"
+        android:layout_height="46dp"
+        android:layout_below="@+id/relLayout1"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="100dp"
+        android:text=" "
+        android:textColor="#d11"
+        android:textSize="15dp" />
 
 </RelativeLayout>

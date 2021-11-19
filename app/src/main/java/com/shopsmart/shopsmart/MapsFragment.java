@@ -24,6 +24,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.tabs.TabLayout;
@@ -34,6 +35,8 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -119,8 +122,8 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
         @Override
         public void onMapReady(GoogleMap googleMap) {
             map = googleMap;
-            LatLng sydney = new LatLng(-34, 151);
-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+            LatLng sydney = new LatLng(60, -90);
+//            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
         }
@@ -263,18 +266,42 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
                 Log.i("HELLO USERADDRESS", userAddress);
                 String location = searchView.getQuery().toString();
                 List<Address> addressList = null;
+                boolean place = true;
 
                 if(location != null || !location.equals("")){
                     Geocoder geocoder = new Geocoder(getActivity().getApplicationContext());
                     try{
                         addressList = geocoder.getFromLocationName(location, 1);
-                    } catch (IOException e) {
+                    }
+                    catch (IOException e) {
                         e.printStackTrace();
                     }
-                    Address address = addressList.get(0);
-                    LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                    map.addMarker(new MarkerOptions().position(latLng).title(location));
-                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+                    finally {
+                        place = false;
+                        if(addressList != null && addressList.size() > 0){
+                            place = true;
+                        }
+                        searchView.setQuery("", false);
+                    }
+                    if(place) {
+                        TextView textLocation = view.findViewById(R.id.textLocation);
+                        textLocation.setText(" ");
+                        Address address = addressList.get(0);
+                        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+//                    map.addMarker(new MarkerOptions().position(latLng).title(location));
+                        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+                    }
+                    else{
+                        TextView textLocation = view.findViewById(R.id.textLocation);
+                        textLocation.setText("Shop/Location not found");
+                        Timer timer = new Timer();
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                textLocation.setText(" ");
+                            }
+                        }, 1500);
+                    }
                 }
                 return false;
             }
@@ -294,11 +321,11 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
                         MarkerOptions markerOptions = new MarkerOptions();
                         markerOptions.position(latLng);
                         markerOptions.title(latLng.latitude + " : " + latLng.longitude);
-                        googleMap.clear();
+//                        googleMap.clear();
                         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                                 latLng, 10
                         ));
-                        googleMap.addMarker(markerOptions);
+//                        googleMap.addMarker(markerOptions);
                     }
                 });
             }
@@ -324,42 +351,67 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
         List<Address> addressList = null;
         Address address = null;
         String location = userAddress;
+        boolean place = true;
         location = location.replaceAll("\\s+", "");
         Log.i("HELLO BUTTON", location);
         Geocoder geocoder = new Geocoder(getActivity().getApplicationContext());
+
         try{
             addressList = geocoder.getFromLocationName(location, 1);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
+        finally {
+            place = false;
+            if(addressList != null && addressList.size() > 0){
+                place = true;
+            }
+        }
         if(addressList != null) {
-            address = addressList.get(0);
-            LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-            map.addMarker(new MarkerOptions().position(latLng).title("Home"));
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
-            address = null;
-            addressList = null;
+            if(place) {
+                address = addressList.get(0);
+                LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                MarkerOptions marker = new MarkerOptions().position(new LatLng(address.getLatitude(), address.getLongitude())).title("Home");
+
+//            marker.icon();
+                map.addMarker(new MarkerOptions().position(latLng).title("Home"));
+//            map.addMarker(marker);
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+                address = null;
+                addressList = null;
+            }
         }
 
         for(int x = 0; x < numShops; x++){
             //List<Address>
             addressList = null;
-            location = shopPCodes[3].replaceAll("\\s+", "");
+            location = shopPCodes[x].replaceAll("\\s+", "");
+
+            place = true;
 
             Log.i("HELLO BUTTON", location);
 //            //Geocoder
             geocoder = new Geocoder(getActivity().getApplicationContext());
             try{
                 addressList = geocoder.getFromLocationName(location, 1);
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 e.printStackTrace();
             }
-            if(addressList != null) {
-                address = addressList.get(0);
-                LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                map.addMarker(new MarkerOptions().position(latLng).title("Home"));
+            finally {
+                place = false;
+                if(addressList != null && addressList.size() > 0){
+                    place = true;
+                }
             }
-
+            if(addressList != null) {
+                if(place) {
+                    address = addressList.get(0);
+                    LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                    map.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title(shopNames[x]));
+                }
+            }
         }
 
     }

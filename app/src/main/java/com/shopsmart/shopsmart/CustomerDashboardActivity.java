@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -90,6 +91,9 @@ public class CustomerDashboardActivity extends AppCompatActivity {
                 RealmResults<Shop> allShops = realm.where(Shop.class).findAll();
                 shops = new ArrayList<>();
                 RealmList<String> shopsId;
+
+                String shopString = "";
+
                 int x = 0;
                 for(Shop s : allShops){
                     shops.add(s);
@@ -107,7 +111,16 @@ public class CustomerDashboardActivity extends AppCompatActivity {
                     shopsId2[n] = String.valueOf(shops.get(n).getId());
                     shopNames[n] = shops.get(n).getName();
                     shopAddressPCode[n] = shops.get(n).getAddress().getPostalCode();
+
+                    shopString = shopString + "Name: " + shops.get(n).getName() + "\n";
+                    shopString = shopString + "Description: " + shops.get(n).getDesc() + "\n";
+                    shopString = shopString + "Phone: " + shops.get(n).getPhone() +  "\n" + "\n";
+
                 }
+
+                TextView shopText = (TextView) findViewById(R.id.shopInfoText);
+                shopText.setText(shopString);
+
 
                 userAddress = user.getAddress().getPostalCode();
 

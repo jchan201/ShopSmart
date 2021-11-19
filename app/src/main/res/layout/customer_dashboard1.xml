@@ -49,8 +49,8 @@
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="415dp"
-        android:layout_height="211dp"
+        android:layout_width="412dp"
+        android:layout_height="189dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -65,12 +65,14 @@
             tools:context=".CustomerDashboardActivity">
 
             <TextView
-                android:id="@+id/sampleText"
+                android:id="@+id/shopInfoText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="NOT YET IMPLEMENTED\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text\nSample Text"
+                android:gravity="left"
+                android:text="Shop Information"
+                android:textSize="18dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

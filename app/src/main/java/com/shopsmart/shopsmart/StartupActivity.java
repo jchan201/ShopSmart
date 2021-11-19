@@ -42,6 +42,10 @@ public class StartupActivity extends AppCompatActivity {
         binding = ActivityStartupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        //quick login
+        binding.edtTxtEmail.setText("sherlock@sh.com");
+        binding.edtTxtPassword.setText("1234512345A");
+
         this.currIntent = this.getIntent();
         if (this.currIntent != null) {
             boolean signup_success = currIntent.getBooleanExtra("EXTRA_SIGNUP_SUCCESS", false);
