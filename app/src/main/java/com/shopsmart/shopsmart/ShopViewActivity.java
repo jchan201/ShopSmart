@@ -71,17 +71,13 @@ public class ShopViewActivity extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 int position = tab.getPosition();
                 view2.setCurrentItem(position);
+                Bundle bundle = new Bundle();
+                bundle.putString("EXTRA_USER", userEmail);
+                bundle.putString("EXTRA_PASS", userPass);
+                bundle.putInt("EXTRA_INDEX", index);
                 if (position == 0) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("EXTRA_USER", userEmail);
-                    bundle.putString("EXTRA_PASS", userPass);
-                    bundle.putInt("EXTRA_INDEX", index);
                     adapter.first.setArguments(bundle);
                 } else if (position == 1) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("EXTRA_USER", userEmail);
-                    bundle.putString("EXTRA_PASS", userPass);
-                    bundle.putInt("EXTRA_INDEX", index);
                     adapter.second.setArguments(bundle);
                 }
             }
