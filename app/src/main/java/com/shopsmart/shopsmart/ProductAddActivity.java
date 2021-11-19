@@ -33,7 +33,6 @@ public class ProductAddActivity extends AppCompatActivity {
     ArrayList<Shop> shops;
     Product product;
     Address address;
-    String productType;
 
     Shop shop;
     int index = 0;
@@ -107,13 +106,8 @@ public class ProductAddActivity extends AppCompatActivity {
                 double price = Double.parseDouble(binding.edtTextPrice.getText().toString());
                 int stock = Integer.parseInt(binding.edtTextStock.getText().toString());
 
-//                product.setName(binding.edtTextProductName.getText().toString());
-//                product.setDesc(binding.edtTextDesc.getText().toString());
-//                product.setPrice(Double.parseDouble(binding.edtTextPrice.getText().toString()));
-
                 //TODO set product type
                 String productType = binding.spinnerSub.getSelectedItem().toString();
-//                product.setProductType(binding.spinnerSub.getSelectedItem().toString());
 
                 product = new Product(shop.getId(), productType, name, desc, price, stock);
 

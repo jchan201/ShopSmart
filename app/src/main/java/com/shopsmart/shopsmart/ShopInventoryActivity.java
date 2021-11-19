@@ -3,15 +3,10 @@ package com.shopsmart.shopsmart;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.shopsmart.shopsmart.databinding.ProductAddActivityBinding;
 import com.shopsmart.shopsmart.databinding.ShopInventoryActivityBinding;
 
 import org.bson.types.ObjectId;
@@ -34,9 +29,7 @@ public class ShopInventoryActivity extends AppCompatActivity {
     AppUser user;
     List<ObjectId> shopIds;
     ArrayList<Shop> shops;
-    Product product;
     Address address;
-    String productType;
     List<ObjectId> productIds;
     ArrayList<Product> products;
 
@@ -69,6 +62,9 @@ public class ShopInventoryActivity extends AppCompatActivity {
             if (addProductSuccess)
                 Toast.makeText(ShopInventoryActivity.this, "Successfully add product to shop.", Toast.LENGTH_SHORT).show();
 
+            boolean updateProductSuccess = currIntent.getBooleanExtra("EXTRA_UPDATE_PRODUCT_SUCCESS", false);
+            if (updateProductSuccess)
+                Toast.makeText(ShopInventoryActivity.this, "Successfully update product info.", Toast.LENGTH_SHORT).show();
         }
 
         Credentials credentials = Credentials.emailPassword(userEmail, userPass);
@@ -124,12 +120,28 @@ public class ShopInventoryActivity extends AppCompatActivity {
         });
 
         binding.btnAddProduct.setOnClickListener(view -> {
-            realm.close();
+            killActivity();
             Intent intentToProfile = new Intent(ShopInventoryActivity.this, ProductAddActivity.class);
             intentToProfile.putExtra("EXTRA_PASS", userPass);
             intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
             intentToProfile.putExtra("EXTRA_INDEX", index);
             startActivity(intentToProfile);
         });
+
+        binding.btnBack.setOnClickListener(view -> {
+            killActivity();
+            Intent intentToProfile = new Intent(ShopInventoryActivity.this, ShopListActivity.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+            startActivity(intentToProfile);
+        });
+    }
+
+    public void killActivity(){
+        if(realm != null) {
+            if (!realm.isClosed()) {
+                realm.close();
+            }
+        }
     }
 }
