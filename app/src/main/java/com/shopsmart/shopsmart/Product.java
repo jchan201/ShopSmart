@@ -24,6 +24,7 @@ public class Product extends RealmObject implements Serializable {
         this.name = name;
         this.desc = desc;
         this.price = price;
+        this.stock = stock;
     }
 
     public ObjectId getId() {
