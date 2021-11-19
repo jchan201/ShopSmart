@@ -68,6 +68,7 @@ public class ProductViewActivity extends AppCompatActivity {
                 binding.edtTextDesc.setText(product.getDesc());
                 binding.typeText.setText(product.getProductType());
                 binding.priceText.setText(Double.toString(product.getPrice()));
+                binding.stockCountText.setText(Integer.toString(product.getStock()));
 
             } else {
                 Log.v("LOGIN", "Failed to authenticate using email and password.");
@@ -79,6 +80,54 @@ public class ProductViewActivity extends AppCompatActivity {
             startActivity(new Intent(ProductViewActivity.this, ShopInventoryActivity.class)
                     .putExtra("EXTRA_EMAIL", userEmail)
                     .putExtra("EXTRA_PASS", userPass));
+        });
+
+        binding.btnEdit.setOnClickListener(view -> {
+            realm.close();
+            startActivity(new Intent(ProductViewActivity.this, ProductUpdateActivity.class)
+                    .putExtra("EXTRA_EMAIL", userEmail)
+                    .putExtra("EXTRA_PASS", userPass)
+                    .putExtra("EXTRA_PRODUCT_ID", productId));
+        });
+
+        binding.addStockBtn.setOnClickListener(view -> {
+            binding.addStockBtn.setVisibility(View.INVISIBLE);
+            binding.stockCountText.setVisibility(View.INVISIBLE);
+
+            binding.stockCountEditText.setVisibility(View.VISIBLE);
+            binding.stockCountEditText.setText(Integer.toString(product.getStock()));
+
+            binding.saveStockBtn.setVisibility(View.VISIBLE);
+            binding.cancelBtn.setVisibility(View.VISIBLE);
+        });
+
+        binding.cancelBtn.setOnClickListener(view -> {
+            binding.addStockBtn.setVisibility(View.VISIBLE);
+            binding.stockCountText.setVisibility(View.VISIBLE);
+
+            binding.stockCountEditText.setVisibility(View.INVISIBLE);
+            binding.saveStockBtn.setVisibility(View.INVISIBLE);
+            binding.cancelBtn.setVisibility(View.INVISIBLE);
+        });
+
+        binding.saveStockBtn.setOnClickListener(view -> {
+            if(Integer.parseInt(binding.stockCountEditText.getText().toString()) >= 0){
+
+                realm.executeTransaction(transactionRealm -> {
+                    product.setStock(Integer.parseInt(binding.stockCountEditText.getText().toString()));
+                });
+
+                binding.addStockBtn.setVisibility(View.VISIBLE);
+                binding.stockCountText.setVisibility(View.VISIBLE);
+                binding.stockCountText.setText(Integer.toString(product.getStock()));
+
+                binding.stockCountEditText.setVisibility(View.INVISIBLE);
+                binding.saveStockBtn.setVisibility(View.INVISIBLE);
+                binding.cancelBtn.setVisibility(View.INVISIBLE);
+            }
+            else{
+                binding.stockCountEditText.setError("Stock count cannot be less than 0");
+            }
         });
     }
 }

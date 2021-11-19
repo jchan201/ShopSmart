@@ -33,7 +33,6 @@ public class ProductAddActivity extends AppCompatActivity {
     ArrayList<Shop> shops;
     Product product;
     Address address;
-    String productType;
 
     Shop shop;
     int index = 0;

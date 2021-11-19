@@ -78,7 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="40dp"
-        android:textSize="15sp"
+        android:textSize="17sp"
         android:text="Name: "
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
@@ -89,7 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="5dp"
-        android:textSize="15sp"
+        android:textSize="17sp"
         android:text="UNKNOWN PRODUCT NAME"
         app:layout_constraintStart_toEndOf="@+id/productNameTitle"
         app:layout_constraintTop_toBottomOf="@+id/txtTitle"/>
@@ -100,7 +100,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="40dp"
-        android:textSize="15sp"
+        android:textSize="17sp"
         android:text="Description: "
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/productNameTitle" />
@@ -138,7 +138,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="40dp"
-        android:textSize="15sp"
+        android:textSize="17sp"
         android:text="Main type: "
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/edtTextDescLayout" />
@@ -149,7 +149,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="5dp"
-        android:textSize="15sp"
+        android:textSize="17sp"
         android:text="UNKNOWN MAIN TYPE"
         app:layout_constraintStart_toEndOf="@+id/typeTitle"
         app:layout_constraintTop_toBottomOf="@+id/edtTextDescLayout"/>
@@ -160,7 +160,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="40dp"
-        android:textSize="15sp"
+        android:textSize="17sp"
         android:text="Price: "
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/typeTitle" />
@@ -171,10 +171,77 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="5dp"
-        android:textSize="15sp"
+        android:textSize="17sp"
         android:text="00.00"
         app:layout_constraintStart_toEndOf="@+id/priceTitle"
         app:layout_constraintTop_toBottomOf="@+id/typeTitle"/>
+
+    <TextView
+        android:id="@+id/stockCountTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="40dp"
+        android:textSize="17sp"
+        android:text="Stock count: "
+        app:layout_constraintStart_toStartOf="@+id/bodyView"
+        app:layout_constraintTop_toBottomOf="@+id/priceTitle" />
+
+    <TextView
+        android:id="@+id/stockCountText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="5dp"
+        android:textSize="17sp"
+        android:text="0"
+        app:layout_constraintStart_toEndOf="@+id/stockCountTitle"
+        app:layout_constraintTop_toBottomOf="@+id/priceTitle"/>
+
+    <EditText
+        android:id="@+id/stockCountEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="2dp"
+        android:hint="000"
+        android:inputType="number"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/stockCountTitle"
+        app:layout_constraintTop_toBottomOf="@+id/priceTitle"/>
+
+
+    <Button
+        android:id="@+id/addStockBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="50dp"
+        android:text="Add Stock"
+        app:layout_constraintEnd_toEndOf="@+id/bodyView"
+        app:layout_constraintTop_toBottomOf="@+id/priceTitle" />
+
+    <Button
+        android:id="@+id/saveStockBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="20dp"
+        android:text="Save"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/cancelBtn"
+        app:layout_constraintTop_toBottomOf="@+id/priceTitle" />
+
+    <Button
+        android:id="@+id/cancelBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="20dp"
+        android:text="Cancel"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/bodyView"
+        app:layout_constraintTop_toBottomOf="@+id/priceTitle" />
 
     <Button
         android:id="@+id/btnEdit"
