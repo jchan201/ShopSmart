@@ -62,6 +62,9 @@ public class ShopInventoryActivity extends AppCompatActivity {
             if (addProductSuccess)
                 Toast.makeText(ShopInventoryActivity.this, "Successfully add product to shop.", Toast.LENGTH_SHORT).show();
 
+            boolean updateProductSuccess = currIntent.getBooleanExtra("EXTRA_UPDATE_PRODUCT_SUCCESS", false);
+            if (updateProductSuccess)
+                Toast.makeText(ShopInventoryActivity.this, "Successfully update product info.", Toast.LENGTH_SHORT).show();
         }
 
         Credentials credentials = Credentials.emailPassword(userEmail, userPass);
@@ -122,6 +125,14 @@ public class ShopInventoryActivity extends AppCompatActivity {
             intentToProfile.putExtra("EXTRA_PASS", userPass);
             intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
             intentToProfile.putExtra("EXTRA_INDEX", index);
+            startActivity(intentToProfile);
+        });
+
+        binding.btnBack.setOnClickListener(view -> {
+            killActivity();
+            Intent intentToProfile = new Intent(ShopInventoryActivity.this, ShopListActivity.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
             startActivity(intentToProfile);
         });
     }

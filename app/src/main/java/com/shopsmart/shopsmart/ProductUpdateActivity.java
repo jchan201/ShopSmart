@@ -9,17 +9,11 @@ import android.widget.ArrayAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.shopsmart.shopsmart.databinding.ProductAddActivityBinding;
 import com.shopsmart.shopsmart.databinding.ProductUpdateActivityBinding;
-import com.shopsmart.shopsmart.databinding.ProductViewActivityBinding;
 
 import org.bson.types.ObjectId;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import io.realm.Realm;
-import io.realm.RealmResults;
 import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
 import io.realm.mongodb.Credentials;
@@ -32,6 +26,7 @@ public class ProductUpdateActivity extends AppCompatActivity {
     String userPass;
     ObjectId productId;
     Product product;
+    int subIndex = 0;
 
     private ProductUpdateActivityBinding binding;
     private App app;
@@ -161,6 +156,8 @@ public class ProductUpdateActivity extends AppCompatActivity {
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.spinnerSub.setAdapter(adapter);
                 }
+
+                binding.spinnerSub.setSelection(subIndex, false);
             }
 
             @Override
@@ -191,71 +188,6 @@ public class ProductUpdateActivity extends AppCompatActivity {
         }
 
         return valid;
-    }
-
-    private void productSubTypeSetting(int position, int subIndex){
-
-        if (position == 0) {
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductUpdateActivity.this, R.array.Clothing, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            binding.spinnerSub.setAdapter(adapter);
-        }
-
-        if (position == 1) {
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductUpdateActivity.this, R.array.Kitchen, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            binding.spinnerSub.setAdapter(adapter);
-        }
-
-        if (position == 2) {
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductUpdateActivity.this, R.array.Food, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            binding.spinnerSub.setAdapter(adapter);
-        }
-
-        if (position == 3) {
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductUpdateActivity.this, R.array.Electronics, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            binding.spinnerSub.setAdapter(adapter);
-        }
-
-        if (position == 4) {
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductUpdateActivity.this, R.array.Household, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            binding.spinnerSub.setAdapter(adapter);
-        }
-
-        if (position == 5) {
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductUpdateActivity.this, R.array.Pharmaceutical, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            binding.spinnerSub.setAdapter(adapter);
-        }
-
-        if (position == 6) {
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductUpdateActivity.this, R.array.Pets, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            binding.spinnerSub.setAdapter(adapter);
-        }
-
-        if (position == 7) {
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductUpdateActivity.this, R.array.OfficeArtSchool, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            binding.spinnerSub.setAdapter(adapter);
-        }
-
-        if (position == 8) {
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductUpdateActivity.this, R.array.Toys, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            binding.spinnerSub.setAdapter(adapter);
-        }
-
-        if (position == 9) {
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductUpdateActivity.this, R.array.SportsOutdoors, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            binding.spinnerSub.setAdapter(adapter);
-        }
-
-        binding.spinnerSub.setSelection(subIndex, false);
     }
 
     private void productTypeSetting(){
@@ -376,7 +308,7 @@ public class ProductUpdateActivity extends AppCompatActivity {
             }
         }
 
+        subIndex = sub;
         binding.spinnerMain.setSelection(main, false);
-        productSubTypeSetting(main, sub);
     }
 }

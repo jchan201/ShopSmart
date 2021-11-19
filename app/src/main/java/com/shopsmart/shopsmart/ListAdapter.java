@@ -1,6 +1,5 @@
 package com.shopsmart.shopsmart;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -17,7 +16,6 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 import io.realm.mongodb.App;
 import io.realm.mongodb.Credentials;
 import io.realm.mongodb.sync.SyncConfiguration;
@@ -56,10 +54,12 @@ public class ListAdapter extends ArrayAdapter<Product> {
         TextView productName = (TextView) convertView.findViewById(R.id.productName);
         Button deleteBtn = (Button) convertView.findViewById(R.id.btnDelete);
         Button viewBtn = (Button) convertView.findViewById(R.id.btnView);
+        Button editBtn = (Button) convertView.findViewById(R.id.btnEdit);
 
         productName.setText(product.getName());
         deleteBtn.setTag(position);
         viewBtn.setTag(position);
+        editBtn.setTag(position);
 
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +99,26 @@ public class ListAdapter extends ArrayAdapter<Product> {
                 }
 
                 Intent nextScreen = new Intent(getContext(), ProductViewActivity.class);
+                nextScreen.putExtra("EXTRA_PASS", userPassword);
+                nextScreen.putExtra("EXTRA_EMAIL", userEmail);
+                nextScreen.putExtra("EXTRA_PRODUCT_ID", productArrayList.get(position).getId());
+                ((ShopInventoryActivity)getContext()).killActivity();
+                getContext().startActivity(nextScreen);
+            }
+        });
+
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position = (Integer) view.getTag();
+
+                if(realm != null) {
+                    if (!realm.isClosed()) {
+                        realm.close();
+                    }
+                }
+
+                Intent nextScreen = new Intent(getContext(), ProductUpdateActivity.class);
                 nextScreen.putExtra("EXTRA_PASS", userPassword);
                 nextScreen.putExtra("EXTRA_EMAIL", userEmail);
                 nextScreen.putExtra("EXTRA_PRODUCT_ID", productArrayList.get(position).getId());
