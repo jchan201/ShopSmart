@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -59,6 +60,7 @@ public class SecondFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_second, container, false);
+        Button btnProductDetails = v.findViewById(R.id.btnProductDetails);
         if (getArguments() != null) {
             app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
             userEmail = getArguments().getString(ARG_PARAM1);
@@ -98,14 +100,25 @@ public class SecondFragment extends Fragment {
                             }
                         }
                         if (products.isEmpty()) {
-                            TextView txtMsg = (TextView) v.findViewById(R.id.txtMsg);
+                            TextView txtMsg = v.findViewById(R.id.txtMsg);
                             txtMsg.setText("No products found.");
                             txtMsg.setVisibility(View.VISIBLE);
                         } else {
-                            ListView productsList = (ListView) v.findViewById(R.id.lstProducts);
-                            ProductAdapter adapter = new ProductAdapter(this.getContext(), products);
-                            productsList.setAdapter(adapter);
+                            ListView productsList = v.findViewById(R.id.lstProducts);
+                            if (user.getUserType().equals("Shop Owner")) {
+                                ProductAdapter adapter = new ProductAdapter(this.getContext(), products);
+                                productsList.setAdapter(adapter);
+                            } else if (user.getUserType().equals("Customer")) {
+                                ProductViewAdapter adapter = new ProductViewAdapter(this.getContext(), products);
+                                productsList.setAdapter(adapter);
+                            }
                         }
+                    }
+                    if (user.getUserType().equals("Shop Owner")) {
+                        btnProductDetails.setVisibility(View.VISIBLE);
+                        btnProductDetails.setOnClickListener(view -> {
+                            // TODO: Go to Product Details activity
+                        });
                     }
                     realm.close();
                 } else {

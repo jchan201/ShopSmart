@@ -14,11 +14,22 @@
         android:layout_gravity="center"
         android:textSize="20sp"
         android:visibility="gone"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:layout_weight="1"/>
 
     <ListView
         android:id="@+id/lstProducts"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="15dp" />
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/btnProductDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone"
+        android:text="Product Details"
+        android:layout_marginBottom="15dp"/>
 </LinearLayout>
