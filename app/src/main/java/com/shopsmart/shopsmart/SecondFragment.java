@@ -60,7 +60,6 @@ public class SecondFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_second, container, false);
-        Button btnProductDetails = v.findViewById(R.id.btnProductDetails);
         if (getArguments() != null) {
             app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
             userEmail = getArguments().getString(ARG_PARAM1);
@@ -95,7 +94,7 @@ public class SecondFragment extends Fragment {
                         RealmResults<Product> allProducts = realm.where(Product.class).findAll();
                         ArrayList<Product> products = new ArrayList<>();
                         for (Product p : allProducts) {
-                            if (p.getId().equals(shop.getId())) {
+                            if (p.getShopId().equals(shop.getId())) {
                                 products.add(p);
                             }
                         }
@@ -105,22 +104,10 @@ public class SecondFragment extends Fragment {
                             txtMsg.setVisibility(View.VISIBLE);
                         } else {
                             ListView productsList = v.findViewById(R.id.lstProducts);
-                            if (user.getUserType().equals("Shop Owner")) {
-                                ProductAdapter adapter = new ProductAdapter(this.getContext(), products);
-                                productsList.setAdapter(adapter);
-                            } else if (user.getUserType().equals("Customer")) {
-                                ProductViewAdapter adapter = new ProductViewAdapter(this.getContext(), products);
-                                productsList.setAdapter(adapter);
-                            }
+                            ProductViewAdapter adapter = new ProductViewAdapter(this.getContext(), products);
+                            productsList.setAdapter(adapter);
                         }
                     }
-                    if (user.getUserType().equals("Shop Owner")) {
-                        btnProductDetails.setVisibility(View.VISIBLE);
-                        btnProductDetails.setOnClickListener(view -> {
-                            // TODO: Go to Product Details activity
-                        });
-                    }
-                    realm.close();
                 } else {
                     Log.v("LOGIN", "Failed to authenticate using email and password.");
                 }

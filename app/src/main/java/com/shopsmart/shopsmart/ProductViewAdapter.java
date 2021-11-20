@@ -36,7 +36,7 @@ public class ProductViewAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         if (view == null)
-            view = LayoutInflater.from(context).inflate(R.layout.product_view_list_item, null);
+            view = LayoutInflater.from(context).inflate(R.layout.product_view_list_item, viewGroup, false);
 
         Product product = products.get(i);
         TextView txtName = (TextView) view.findViewById(R.id.txtName);
@@ -45,11 +45,9 @@ public class ProductViewAdapter extends BaseAdapter {
         TextView txtStock = (TextView) view.findViewById(R.id.txtStock);
         txtName.setText(product.getName());
         txtDescription.setText(product.getDesc());
-        txtPrice.setText(Double.toString(product.getPrice()));
-        //if (stock > 0)
-            txtStock.setText("?? / None in Stock");
-        //else
-            //txtStock.setText("None in Stock");
+        txtPrice.setText(String.format("Price: $%.2f", product.getPrice()));
+        if (product.getStock() > 0) txtStock.setText(String.format("%d in Stock", product.getStock()));
+        else txtStock.setText("None in Stock");
         view.findViewById(R.id.btnAddToCart).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

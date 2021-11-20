@@ -114,7 +114,10 @@ public class FirstFragment extends Fragment {
                         pCodeView.setText(shop.getAddress().getPostalCode());
                         sCountry.setText("Canada");
                         for (int x = 0; x < 7; x++) {
-                            tvDaysOpen[x].setText(shopDaysOpen.get(x) + " - " + shopDaysClosed.get(x));
+                            if (!shopDaysOpen.get(x).equals("c"))
+                                tvDaysOpen[x].setText(shopDaysOpen.get(x) + " - " + shopDaysClosed.get(x));
+                            else
+                                tvDaysOpen[x].setText("Closed");
                         }
                     }
                     realm.close();
