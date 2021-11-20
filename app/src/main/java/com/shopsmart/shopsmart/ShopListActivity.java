@@ -103,6 +103,7 @@ public class ShopListActivity extends AppCompatActivity {
                     binding.btnDelete.setVisibility(View.GONE);
                     binding.buttonPrev.setVisibility(View.GONE);
                     binding.buttonNext.setVisibility(View.GONE);
+                    binding.textSlash.setVisibility(View.GONE);
                 } else {
                     binding.singleShopView.setVisibility(View.VISIBLE);
                     binding.textShopName.setVisibility(View.VISIBLE);
@@ -111,6 +112,7 @@ public class ShopListActivity extends AppCompatActivity {
                     binding.btnDelete.setVisibility(View.VISIBLE);
                     binding.buttonPrev.setVisibility(View.VISIBLE);
                     binding.buttonNext.setVisibility(View.VISIBLE);
+                    binding.textSlash.setVisibility(View.VISIBLE);
                     if (index + 1 == total)
                         binding.buttonNext.setVisibility(View.GONE);
                     if (index == 0) {
@@ -199,6 +201,7 @@ public class ShopListActivity extends AppCompatActivity {
             intentToBack.putExtra("EXTRA_PASS", userPass);
             intentToBack.putExtra("EXTRA_EMAIL", userEmail);
             startActivity(intentToBack);
+
         });
     }
 
