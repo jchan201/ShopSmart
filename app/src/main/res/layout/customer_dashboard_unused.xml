@@ -33,7 +33,6 @@
         android:layout_width="match_parent"
         android:layout_height="193dp"
         android:layout_above="@+id/imageView"
-        android:layout_below="@+id/toolbar"
         android:layout_marginTop="-3dp"
         android:layout_marginBottom="10dp"
         app:srcCompat="@drawable/shopsmart"

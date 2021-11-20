@@ -51,6 +51,15 @@
             android:name=".ProductAddActivity"
             android:exported="true" />
         <activity
+            android:name=".ProductViewActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ProductUpdateActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ShopInventoryActivity"
+            android:exported="true" />
+        <activity
             android:name=".ShopDeleteConfirmActivity"
             android:exported="true" />
         <activity

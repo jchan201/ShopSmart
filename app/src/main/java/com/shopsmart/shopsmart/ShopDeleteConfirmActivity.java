@@ -7,9 +7,6 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.ShopDeleteConfirmationActivityBinding;
-import com.shopsmart.shopsmart.databinding.ShopownerProfileDeletePaymentConfirmationActivityBinding;
-
-import org.bson.types.ObjectId;
 
 import io.realm.Realm;
 import io.realm.RealmResults;

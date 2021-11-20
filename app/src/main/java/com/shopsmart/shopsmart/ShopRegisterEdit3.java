@@ -22,6 +22,10 @@ import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ShopRegisterEdit3 extends AppCompatActivity {
     private final String PARTITION = "ShopSmart";
+    //    private final ArrayList<String> startTimes = new ArrayList<>();
+//    private final ArrayList<String> endTimes = new ArrayList<>();
+    private final ArrayList<EditText> startTimes = new ArrayList<>();
+    private final ArrayList<EditText> endTimes = new ArrayList<>();
     private ShopRegisterActivity3Binding binding;
     private App app;
     private Realm realm;
@@ -34,10 +38,6 @@ public class ShopRegisterEdit3 extends AppCompatActivity {
     private String shopPhone;
     private String shopWebsite;
     private CheckBox monday, tuesday, wednesday, thursday, friday, saturday, sunday;
-//    private final ArrayList<String> startTimes = new ArrayList<>();
-//    private final ArrayList<String> endTimes = new ArrayList<>();
-    private final ArrayList<EditText> startTimes = new ArrayList<>();
-    private final ArrayList<EditText> endTimes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,8 +186,7 @@ public class ShopRegisterEdit3 extends AppCompatActivity {
         if (monday.isChecked()) {
             startTimes.add(binding.edtTxtMonday1);
             endTimes.add(binding.edtTxtMonday2);
-        }
-        else{
+        } else {
             binding.edtTxtMonday1.setText("c");
             binding.edtTxtMonday2.setText("c");
             startTimes.add(binding.edtTxtMonday1);
@@ -196,8 +195,7 @@ public class ShopRegisterEdit3 extends AppCompatActivity {
         if (tuesday.isChecked()) {
             startTimes.add(binding.edtTxtTuesday1);
             endTimes.add(binding.edtTxtTuesday2);
-        }
-        else{
+        } else {
             binding.edtTxtTuesday1.setText("c");
             binding.edtTxtTuesday2.setText("c");
             startTimes.add(binding.edtTxtTuesday1);
@@ -206,8 +204,7 @@ public class ShopRegisterEdit3 extends AppCompatActivity {
         if (wednesday.isChecked()) {
             startTimes.add(binding.edtTxtWednesday1);
             endTimes.add(binding.edtTxtWednesday2);
-        }
-        else{
+        } else {
             binding.edtTxtWednesday1.setText("c");
             binding.edtTxtWednesday2.setText("c");
             startTimes.add(binding.edtTxtWednesday1);
@@ -216,8 +213,7 @@ public class ShopRegisterEdit3 extends AppCompatActivity {
         if (thursday.isChecked()) {
             startTimes.add(binding.edtTxtThursday1);
             endTimes.add(binding.edtTxtThursday2);
-        }
-        else{
+        } else {
             binding.edtTxtThursday1.setText("c");
             binding.edtTxtThursday2.setText("c");
             startTimes.add(binding.edtTxtThursday1);
@@ -226,8 +222,7 @@ public class ShopRegisterEdit3 extends AppCompatActivity {
         if (friday.isChecked()) {
             startTimes.add(binding.edtTxtFriday1);
             endTimes.add(binding.edtTxtFriday2);
-        }
-        else{
+        } else {
             binding.edtTxtFriday1.setText("c");
             binding.edtTxtFriday2.setText("c");
             startTimes.add(binding.edtTxtFriday1);
@@ -236,8 +231,7 @@ public class ShopRegisterEdit3 extends AppCompatActivity {
         if (saturday.isChecked()) {
             startTimes.add(binding.edtTxtSaturday1);
             endTimes.add(binding.edtTxtSaturday2);
-        }
-        else{
+        } else {
             binding.edtTxtSaturday1.setText("c");
             binding.edtTxtSaturday2.setText("c");
             startTimes.add(binding.edtTxtSaturday1);
@@ -246,21 +240,20 @@ public class ShopRegisterEdit3 extends AppCompatActivity {
         if (sunday.isChecked()) {
             startTimes.add(binding.edtTxtSunday1);
             endTimes.add(binding.edtTxtSunday2);
-        }
-        else{
+        } else {
             binding.edtTxtSunday1.setText("c");
             binding.edtTxtSunday2.setText("c");
             startTimes.add(binding.edtTxtSunday1);
             endTimes.add(binding.edtTxtSunday2);
         }
         for (EditText time : startTimes) {
-            if (!time.getText().toString().matches(regex)){// || !time.getText().toString().matches(closed)) {
+            if (!time.getText().toString().matches(regex)) {// || !time.getText().toString().matches(closed)) {
                 time.setError("Field must be in HH:MM format");
                 valid = false;
             }
         }
         for (EditText time : endTimes) {
-            if (!time.getText().toString().matches(regex)){// || !time.getText().toString().matches(closed)) {
+            if (!time.getText().toString().matches(regex)) {// || !time.getText().toString().matches(closed)) {
                 time.setError("Field must be in HH:MM format");
                 valid = false;
             }
