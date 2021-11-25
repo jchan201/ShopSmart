@@ -104,6 +104,9 @@ public class ShopListActivity extends AppCompatActivity {
                     binding.buttonPrev.setVisibility(View.GONE);
                     binding.buttonNext.setVisibility(View.GONE);
                     binding.textSlash.setVisibility(View.GONE);
+                    binding.textShopIndex.setVisibility(View.GONE);
+                    binding.textShopTotal.setVisibility(View.GONE);
+                    binding.btnInventory.setVisibility(View.GONE);
                 } else {
                     binding.singleShopView.setVisibility(View.VISIBLE);
                     binding.textShopName.setVisibility(View.VISIBLE);
@@ -113,6 +116,9 @@ public class ShopListActivity extends AppCompatActivity {
                     binding.buttonPrev.setVisibility(View.VISIBLE);
                     binding.buttonNext.setVisibility(View.VISIBLE);
                     binding.textSlash.setVisibility(View.VISIBLE);
+                    binding.textShopIndex.setVisibility(View.VISIBLE);
+                    binding.textShopTotal.setVisibility(View.VISIBLE);
+                    binding.btnInventory.setVisibility(View.VISIBLE);
                     if (index + 1 == total)
                         binding.buttonNext.setVisibility(View.GONE);
                     if (index == 0) {
