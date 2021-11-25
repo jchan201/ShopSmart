@@ -107,7 +107,6 @@ public class ProductAddActivity extends AppCompatActivity {
                 double price = Double.parseDouble(binding.edtTextPrice.getText().toString());
                 int stock = Integer.parseInt(binding.edtTextStock.getText().toString());
 
-                //TODO set product type
                 String productType = binding.spinnerSub.getSelectedItem().toString();
 
                 product = new Product(shop.getId(), productType, name, desc, price, stock);

@@ -104,7 +104,8 @@ public class SecondFragment extends Fragment {
                             txtMsg.setVisibility(View.VISIBLE);
                         } else {
                             ListView productsList = v.findViewById(R.id.lstProducts);
-                            ProductViewAdapter adapter = new ProductViewAdapter(this.getContext(), products);
+                            ProductViewAdapter adapter = new ProductViewAdapter(this.getContext(),
+                                    products, userEmail, userPass, app, user);
                             productsList.setAdapter(adapter);
                         }
                     }
