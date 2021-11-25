@@ -141,4 +141,10 @@ public class FirstFragment extends Fragment {
         }
         return v;
     }
+
+    @Override
+    public void onDestroy() {
+        realm.close();
+        super.onDestroy();
+    }
 }

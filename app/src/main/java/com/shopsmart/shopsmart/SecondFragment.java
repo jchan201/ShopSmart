@@ -128,4 +128,10 @@ public class SecondFragment extends Fragment {
         }
         return v;
     }
+
+    @Override
+    public void onDestroy() {
+        realm.close();
+        super.onDestroy();
+    }
 }

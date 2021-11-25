@@ -197,12 +197,14 @@ public class ShopViewActivity extends AppCompatActivity {
                     listIntent.putExtra("EXTRA_EMAIL", userEmail);
                     listIntent.putExtra("EXTRA_PASS", userPass);
                     startActivity(listIntent);
+                    finish();
                 }
                 else{
                     Intent listIntent = new Intent(ShopViewActivity.this, CustomerDashboardActivity.class);
                     listIntent.putExtra("EXTRA_EMAIL", userEmail);
                     listIntent.putExtra("EXTRA_PASS", userPass);
                     startActivity(listIntent);
+                    finish();
                 }
                 break;
 
