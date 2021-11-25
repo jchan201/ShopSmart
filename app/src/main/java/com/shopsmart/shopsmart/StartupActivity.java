@@ -1,6 +1,7 @@
 package com.shopsmart.shopsmart;
 
 import android.content.Intent;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -40,6 +41,10 @@ public class StartupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityStartupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        //quick login
+        binding.edtTxtEmail.setText("sherlock@sh.com");
+        binding.edtTxtPassword.setText("1234512345A");
 
         this.currIntent = this.getIntent();
         if (this.currIntent != null) {
