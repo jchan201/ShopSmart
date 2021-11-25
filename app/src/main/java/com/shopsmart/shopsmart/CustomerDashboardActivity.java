@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,19 +34,95 @@ import io.realm.mongodb.Credentials;
 import io.realm.mongodb.sync.SyncConfiguration;
 
 
-public class CustomerDashboardActivity extends AppCompatActivity {
+public class CustomerDashboardActivity extends AppCompatActivity implements MapsFragment.FragmentMapsListener {
     private final String PARTITION = "ShopSmart";
     Intent currentIntent;
     String userEmail;
     String userPass;
     String userAddress;
+    String shopAddress;
     AppUser user;
     ArrayList<Shop> shops;
+    Fragment fragment;
+
+    TextView shopNameText;
+    TextView shopPhoneText;
+    TextView shopEmailText;
+    TextView shopAddressText;
+
+    String[] shopsId2;
+    String[] shopNames;
+
+    String[] shopAddressPCode;
+
+    int numShops;
 
     private CustomerDashboard1Binding binding;
     private App app;
     private Realm realm;
 
+    @Override
+    public void onInputMapSent(CharSequence input) {
+//        String shopId;
+        boolean shopIdBool = false;
+        ImageView imgView = (ImageView) findViewById(R.id.imageViewShop);
+
+        int getInt = -1;
+        Log.i("HELLO INPUT", input.toString());
+        for(int x = 0; x < numShops && !shopIdBool; x++){
+            if(input.toString().equals(shopsId2[x])){
+//                shopId = input.toString();
+                shopIdBool = true;
+                getInt = x;
+            }
+        }
+
+        if(shopIdBool){
+            shopNameText = (TextView) findViewById(R.id.shopNameView);
+            shopPhoneText = (TextView) findViewById(R.id.shopPhoneView);
+            shopEmailText = (TextView) findViewById(R.id.shopEmailView);
+            shopAddressText = (TextView) findViewById(R.id.shopAddressView);
+
+            shopNameText.setVisibility(View.VISIBLE);
+            shopPhoneText.setVisibility(View.VISIBLE);
+            shopEmailText.setVisibility(View.VISIBLE);
+            shopAddressText.setVisibility(View.VISIBLE);
+            imgView.setVisibility(View.VISIBLE);
+
+            shopNameText.setText("Name: " + shops.get(getInt).getName());
+            shopPhoneText.setText("Phone: " + shops.get(getInt).getPhone());
+            shopEmailText.setText("Email: " + shops.get(getInt).getEmail());
+            shopAddressText.setText("Address: " + shops.get(getInt).getAddress().getAddress1() + " " + shops.get(getInt).getAddress().getAddress2());
+        }
+
+        else{
+            shopNameText.setVisibility(View.GONE);
+            shopPhoneText.setVisibility(View.GONE);
+            shopEmailText.setVisibility(View.GONE);
+            shopAddressText.setVisibility(View.GONE);
+            imgView.setVisibility(View.GONE);
+
+        }
+    }
+
+    @Override
+    public void onViewMapSent(int idx){
+        realm.close();
+        Intent intentShopView = new Intent(CustomerDashboardActivity.this, ShopViewActivity.class);
+        intentShopView.putExtra("EXTRA_EMAIL", userEmail);
+        intentShopView.putExtra("EXTRA_PASS", userPass);
+        intentShopView.putExtra("EXTRA_INDEX", idx);
+        intentShopView.putExtra("EXTRA_USER_CUSTOMER", true);
+        startActivity(intentShopView);
+        finish();
+//        Intent settingsIntent = new Intent(CustomerDashboardActivity.this, CustomerManageProfileActivity.class);
+//        settingsIntent.putExtra("EXTRA_EMAIL", userEmail);
+//        settingsIntent.putExtra("EXTRA_PASS", userPass);
+//        Toast.makeText(CustomerDashboardActivity.this, "Profile", Toast.LENGTH_SHORT).show();
+//        startActivity(settingsIntent);
+//        finish();
+//        break;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +130,7 @@ public class CustomerDashboardActivity extends AppCompatActivity {
         binding = CustomerDashboard1Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Fragment fragment = new MapsFragment();
+        fragment = new MapsFragment();
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -101,16 +179,18 @@ public class CustomerDashboardActivity extends AppCompatActivity {
                     x++;
                 }
 
-                String[] shopsId2 = new String[x];
-                String[] shopNames = new String[x];
+                shopsId2 = new String[x];
+                shopNames = new String[x];
 
-                String[] shopAddressPCode = new String[x];
-                int numShops = x;
+                shopAddressPCode = new String[x];
+                numShops = x;
 
                 for(int n = 0; n < x; n++){
                     shopsId2[n] = String.valueOf(shops.get(n).getId());
                     shopNames[n] = shops.get(n).getName();
                     shopAddressPCode[n] = shops.get(n).getAddress().getPostalCode();
+                    shopAddress = shops.get(n).getAddress().getAddress1();
+                    shopAddress = shopAddress + " " + shops.get(n).getAddress().getAddress2();
 
                     shopString = shopString + "Name: " + shops.get(n).getName() + "\n";
                     shopString = shopString + "Description: " + shops.get(n).getDesc() + "\n";
@@ -118,9 +198,22 @@ public class CustomerDashboardActivity extends AppCompatActivity {
 
                 }
 
-                TextView shopText = (TextView) findViewById(R.id.shopInfoText);
-                shopText.setText(shopString);
+                shopNameText = (TextView) findViewById(R.id.shopNameView);
+                shopPhoneText = (TextView) findViewById(R.id.shopPhoneView);
+                shopEmailText = (TextView) findViewById(R.id.shopEmailView);
+                shopAddressText = (TextView) findViewById(R.id.shopAddressView);
 
+//                shopText.setText(shopString);
+
+//                shopNameText.setText("Shop Name: ");
+//                shopPhoneText.setText(" ");
+//                shopEmailText.setText(" ");
+//                shopAddressText.setText(" ");
+
+                shopNameText.setVisibility(View.GONE);
+                shopPhoneText.setVisibility(View.GONE);
+                shopEmailText.setVisibility(View.GONE);
+                shopAddressText.setVisibility(View.GONE);
 
                 userAddress = user.getAddress().getPostalCode();
 

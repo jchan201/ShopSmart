@@ -5,15 +5,25 @@
       <map>
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3828125" />
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/drawable/basic_rectangle.xml" value="0.13519736842105262" />
+        <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/drawable/button_add_white.xml" value="0.13980263157894737" />
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/drawable/button_bg.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/drawable/button_bg2.xml" value="0.13980263157894737" />
+        <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/drawable/button_edit.xml" value="0.13980263157894737" />
+        <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/drawable/button_home.xml" value="0.13980263157894737" />
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/drawable/button_next.xml" value="0.13843648208469056" />
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/drawable/button_next_white.xml" value="0.13843648208469056" />
+        <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/drawable/gray_rectangle2.xml" value="0.13980263157894737" />
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3828125" />
+        <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/drawable/map_icon_foreground.xml" value="0.13980263157894737" />
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/drawable/rectangle.xml" value="0.13519736842105262" />
+        <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/drawable/rectangle2.xml" value="0.13980263157894737" />
+        <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/drawable/rectangle3.xml" value="0.13980263157894737" />
+        <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/drawable/rectangle_button.xml" value="0.13980263157894737" />
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/drawable/toolbar_home.xml" value="0.13843648208469056" />
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/drawable/whiteRectangle.xml" value="0.13519736842105262" />
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/drawable/white_rectangle.xml" value="0.13980263157894737" />
+        <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/drawable/white_rectangle2.xml" value="0.13980263157894737" />
+        <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/drawable/whiterectangle.xml" value="0.13980263157894737" />
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/layout/activity_driver_profile.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/layout/activity_driver_signup2.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/layout/activity_driver_signup3.xml" value="0.20520833333333333" />
@@ -37,6 +47,8 @@
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/layout/customermain.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/layout/fragment_first.xml" value="0.12960526315789472" />
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/layout/fragment_maps.xml" value="0.2" />
+        <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/layout/product_add_activity.xml" value="0.12236842105263158" />
+        <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/layout/product_list_item.xml" value="0.12236842105263158" />
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/layout/shopowner_dashboard_activity.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/layout/shopowner_detail_activity.xml" value="0.1" />
         <entry key="..\:/Users/aron_/Documents/GitHub/ShopSmart/app/src/main/res/layout/shopowner_profile_add_payment_activity1.xml" value="0.125" />
@@ -69,7 +81,6 @@
         <entry key="..\:/Users/artph/Desktop/PRJ666/ShopSmart/app/src/main/res/layout/product_update_activity.xml" value="0.19427083333333334" />
         <entry key="..\:/Users/artph/Desktop/PRJ666/ShopSmart/app/src/main/res/layout/product_view_activity.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/artph/Desktop/PRJ666/ShopSmart/app/src/main/res/layout/shop_delete_confirmation_activity.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/artph/Desktop/PRJ666/ShopSmart/app/src/main/res/layout/shop_list_activity.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/artph/Desktop/PRJ666/ShopSmart/app/src/main/res/layout/shop_inventory_activity.xml" value="0.2" />
         <entry key="..\:/Users/artph/Desktop/PRJ666/ShopSmart/app/src/main/res/layout/shop_list_activity.xml" value="0.264" />
         <entry key="..\:/Users/artph/Desktop/PRJ666/ShopSmart/app/src/main/res/layout/shop_register_activity3.xml" value="0.20364583333333333" />

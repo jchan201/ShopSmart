@@ -2,8 +2,10 @@ package com.shopsmart.shopsmart;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.nfc.Tag;
@@ -26,6 +28,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.tabs.TabLayout;
 
@@ -35,6 +38,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -46,6 +50,8 @@ import io.realm.mongodb.Credentials;
 import io.realm.mongodb.sync.SyncConfiguration;
 
 public class MapsFragment extends Fragment implements View.OnClickListener {
+    private FragmentMapsListener listener;
+
     private final String PARTITION = "ShopSmart";
     private static final String TAG = "";
     private static final String USERNAME = "param1";
@@ -65,12 +71,19 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
     String userAddress;
 
     Button homeBtn;
+    Button viewBtn;
 
+    TextView locationView;
+
+    CharSequence shopAddress;
+    String shopId;
 
     AppUser user;
     ArrayList<Shop> shops;
     Shop shop;
     Address address;
+
+    boolean clickable = true;
 
     private App app;
     private Realm realm;
@@ -114,6 +127,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
          * Manipulates the map once available.
          * This callback is triggered when the map is ready to be used.
          * This is where we can add markers or lines, add listeners or move the camera.
+         location = shopPCodes[x].replaceAll("\\s+", "");
          * In this case, we just add a marker near Sydney, Australia.
          * If Google Play services is not installed on the device, the user will be prompted to
          * install it inside the SupportMapFragment. This method will only be triggered once the
@@ -174,12 +188,40 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
 
         searchView = view.findViewById(R.id.searchInput);
 
+        viewBtn = (Button) view.findViewById(R.id.buttonView2);
         homeBtn = (Button) view.findViewById(R.id.buttonHome);
+
+        viewBtn = (Button) view.findViewById(R.id.buttonView2);
+        viewBtn.setClickable(false);
+        viewBtn.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.gray));
+
+        locationView = (TextView) view.findViewById(R.id.textLocation2);
 
         homeBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                viewBtn = (Button) view.findViewById(R.id.buttonView2);
+                viewBtn.setClickable(false);
+                viewBtn.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.gray));
                 getLocation();
+                listener.onInputMapSent("Home");
+            }
+        });
+
+        viewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int idx = -1;
+                if(!locationView.getText().toString().equals("Location: Home")) {
+                    for (int x = 0; x < numShops; x++) {
+                        if (locationView.getText().toString().equals("Location: " + shopNames[x])) {//shopNames[x].equals("Location: " + locationView.getText().toString())){
+                            Log.i("HELLO", shopIds[x]);
+                            idx = x;
+                        }
+                    }
+
+                    listener.onViewMapSent(idx);
+                }
             }
         });
 
@@ -244,6 +286,8 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
         }else{
             homeBtn.setVisibility(View.GONE);
             searchView.setVisibility(View.GONE);
+            viewBtn.setVisibility(View.GONE);
+            locationView.setVisibility(View.GONE);
 //            searchView.setBackgroundColor(0);
 //            mapLayout.setVisibility(View.GONE);
 
@@ -265,6 +309,26 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
             public boolean onQueryTextSubmit(String s) {
                 Log.i("HELLO USERADDRESS", userAddress);
                 String location = searchView.getQuery().toString();
+                boolean shopName = false;
+                int idx = -1;
+                Log.i("HELLO SEARCH", location);
+
+                for(int x = 0; x < numShops && !shopName; x++){
+                    Log.i("HELLO SHOP", shopNames[x]);
+//                    if(location.toUpperCase(Locale.ROOT).contains(shopNames[x].toUpperCase(Locale.ROOT))){
+//                    if(shopNames[x].toUpperCase(Locale.ROOT).equals(location.toUpperCase(Locale.ROOT))){
+//                        location = shopPCodes[x].replaceAll("\\s+", "");
+//                        idx = x;
+//                        shopName = true;
+//                    }
+                    if(shopNames[x].toUpperCase(Locale.ROOT).contains(location.toUpperCase(Locale.ROOT))){
+                        location = shopPCodes[x].replaceAll("\\s+", "");
+                        idx = x;
+                        shopName = true;
+                    }
+                }
+                Log.i("HELLO SEARCH 2", location);
+
                 List<Address> addressList = null;
                 boolean place = true;
 
@@ -289,7 +353,19 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
                         Address address = addressList.get(0);
                         LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
 //                    map.addMarker(new MarkerOptions().position(latLng).title(location));
+                        if(shopName){
+                            map.clear();
+                            getLocation();
+//                            map.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title(shopNames[idx]));
+                            Marker marker = map.addMarker(new MarkerOptions().position(latLng)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                                    .title(shopNames[idx]));
+                            marker.showInfoWindow();
+                            locationView.setText("Location: " + shopNames[idx]);
+                            listener.onInputMapSent(shopIds[idx]);
+                        }
                         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+
                     }
                     else{
                         TextView textLocation = view.findViewById(R.id.textLocation);
@@ -312,6 +388,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
             }
         });
 
+
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
@@ -325,7 +402,49 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
                         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                                 latLng, 10
                         ));
-//                        googleMap.addMarker(markerOptions);
+                    }
+                });
+
+                googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(@NonNull Marker marker) {
+                        boolean shopNameGet = false;
+
+                        locationView = (TextView) view.findViewById(R.id.textLocation2);
+                        locationView.setText("Location: " + marker.getTitle());
+                        viewBtn = (Button) view.findViewById(R.id.buttonView2);
+                        if(marker.getTitle().toString().equals("Home")){
+                            viewBtn.setClickable(false);
+                            viewBtn.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.gray));
+                            Log.i("HELLO", "Button False");
+                        }
+                        else{
+                            viewBtn.setClickable(true);
+                            viewBtn.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.teal));
+                            Log.i("HELLO", "Button True");
+
+//                            for(int x = 0; x < numShops && !shopNameGet; x++){
+//                                if(locationView.getText().toString().equals("Location: " + shopNames[x])){//shopNames[x].equals("Location: " + locationView.getText().toString())){
+//                                    Log.i("HELLO", shopIds[x]);
+//                                    shopId = shopIds[x];
+//                                }
+//                            }
+                        }
+                if(!locationView.getText().toString().equals("Location: Home")) {
+                    for (int x = 0; x < numShops; x++) {
+                        if (locationView.getText().toString().equals("Location: " + shopNames[x])) {//shopNames[x].equals("Location: " + locationView.getText().toString())){
+                            Log.i("HELLO", shopIds[x]);
+                            shopId = shopIds[x];
+                        }
+                    }
+
+                }
+                else{
+                    shopId = "HOME";
+                }
+                        listener.onInputMapSent(shopId);
+
+                        return false;
                     }
                 });
             }
@@ -347,10 +466,11 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
 
     public void getLocation(){
         String homeAddress = userAddress;
+        String location = userAddress;
+        String check = userAddress.substring(0, 2);
         Log.i("HELLO BUTTON", homeAddress);
         List<Address> addressList = null;
         Address address = null;
-        String location = userAddress;
         boolean place = true;
         location = location.replaceAll("\\s+", "");
         Log.i("HELLO BUTTON", location);
@@ -375,7 +495,9 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
                 MarkerOptions marker = new MarkerOptions().position(new LatLng(address.getLatitude(), address.getLongitude())).title("Home");
 
 //            marker.icon();
-                map.addMarker(new MarkerOptions().position(latLng).title("Home"));
+                locationView.setText("Location: Home");
+                Marker markerHome = map.addMarker(new MarkerOptions().position(latLng).title("Home"));
+                markerHome.showInfoWindow();
 //            map.addMarker(marker);
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
                 address = null;
@@ -386,6 +508,11 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
         for(int x = 0; x < numShops; x++){
             //List<Address>
             addressList = null;
+            boolean checkAddress = false;
+
+            if(shopPCodes[x].contains(check)){
+                checkAddress = true;
+            }
             location = shopPCodes[x].replaceAll("\\s+", "");
 
             place = true;
@@ -405,7 +532,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
                     place = true;
                 }
             }
-            if(addressList != null) {
+            if(addressList != null && checkAddress) {
                 if(place) {
                     address = addressList.get(0);
                     LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
@@ -416,8 +543,35 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    public void updateEditText(CharSequence newText){
+        //editText.setText(newText);
+    }
+
+    public interface FragmentMapsListener{
+        void onInputMapSent(CharSequence input);
+        void onViewMapSent(int idx);
+    }
+
     @Override
     public void onClick(View view) {
 
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof FragmentMapsListener){
+            listener = (FragmentMapsListener) context;
+        }
+        else{
+            throw new RuntimeException(context.toString()
+            + " implement FragmentMapsListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
     }
 }
