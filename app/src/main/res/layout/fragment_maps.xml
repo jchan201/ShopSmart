@@ -46,6 +46,28 @@
         android:layout_marginBottom="9dp"
         android:text="Home" />
 
+    <Button
+        android:id="@+id/buttonView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonHome"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="18dp"
+        android:layout_marginBottom="14dp"
+        android:text="View" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="17dp"
+        android:layout_toEndOf="@+id/buttonHome"
+        android:id="@+id/textLocation2"
+        android:background="@drawable/white_rectangle2"
+        android:text="Location: "
+        android:textSize="15dp" />
+
     <TextView
         android:id="@+id/textLocation"
         android:layout_width="300dp"

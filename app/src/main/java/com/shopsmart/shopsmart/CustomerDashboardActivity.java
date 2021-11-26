@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -96,6 +99,61 @@ public class CustomerDashboardActivity extends AppCompatActivity {
         else if (id == R.id.LogOut)
             startActivity(new Intent(CustomerDashboardActivity.this, StartupActivity.class));
         return true;
+    }
+
+    @Override
+    public void onInputMapSent(CharSequence input) {
+        boolean shopIdBool = false;
+        ImageView imgView = (ImageView) findViewById(R.id.imageViewShop);
+
+        int getInt = -1;
+        Log.i("HELLO INPUT", input.toString());
+        for(int x = 0; x < numShops && !shopIdBool; x++){
+            if(input.toString().equals(shopsId2[x])){
+//                shopId = input.toString();
+                shopIdBool = true;
+                getInt = x;
+            }
+        }
+
+        if(shopIdBool){
+            shopNameText = (TextView) findViewById(R.id.shopNameView);
+            shopPhoneText = (TextView) findViewById(R.id.shopPhoneView);
+            shopEmailText = (TextView) findViewById(R.id.shopEmailView);
+            shopAddressText = (TextView) findViewById(R.id.shopAddressView);
+
+            shopNameText.setVisibility(View.VISIBLE);
+            shopPhoneText.setVisibility(View.VISIBLE);
+            shopEmailText.setVisibility(View.VISIBLE);
+            shopAddressText.setVisibility(View.VISIBLE);
+            imgView.setVisibility(View.VISIBLE);
+
+            shopNameText.setText("Name: " + shops.get(getInt).getName());
+            shopPhoneText.setText("Phone: " + shops.get(getInt).getPhone());
+            shopEmailText.setText("Email: " + shops.get(getInt).getEmail());
+            shopAddressText.setText("Address: " + shops.get(getInt).getAddress().getAddress1() + " " + shops.get(getInt).getAddress().getAddress2());
+        }
+
+        else{
+            shopNameText.setVisibility(View.GONE);
+            shopPhoneText.setVisibility(View.GONE);
+            shopEmailText.setVisibility(View.GONE);
+            shopAddressText.setVisibility(View.GONE);
+            imgView.setVisibility(View.GONE);
+
+        }
+    }
+
+    @Override
+    public void onViewMapSent(int idx){
+        realm.close();
+        Intent intentShopView = new Intent(CustomerDashboardActivity.this, ShopViewActivity.class);
+        intentShopView.putExtra("EXTRA_EMAIL", userEmail);
+        intentShopView.putExtra("EXTRA_PASS", userPass);
+        intentShopView.putExtra("EXTRA_INDEX", idx);
+        intentShopView.putExtra("EXTRA_USER_CUSTOMER", true);
+        startActivity(intentShopView);
+        finish();
     }
 
     private Fragment recreateFragment(Fragment f) {

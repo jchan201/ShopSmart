@@ -40,6 +40,7 @@ public class ShopViewActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager2 view2;
     FragmentAdapter adapter;
+    boolean userType;
     private ShopViewActivityBinding binding;
     private App app;
     private Realm realm;
@@ -56,6 +57,13 @@ public class ShopViewActivity extends AppCompatActivity {
             this.userEmail = currIntent.getStringExtra("EXTRA_EMAIL");
             this.userPass = currIntent.getStringExtra("EXTRA_PASS");
             this.index = currIntent.getIntExtra("EXTRA_INDEX", index);
+            this.userType = currIntent.getBooleanExtra("EXTRA_USER_CUSTOMER", false);
+            if(!userType) {
+                Log.i("HELLO", "SHOP OWNER");
+            }
+            else{
+                Log.i("HELLO", "CUSTOMER");
+            }
         }
 
         FragmentManager fm = getSupportFragmentManager();
@@ -123,13 +131,26 @@ public class ShopViewActivity extends AppCompatActivity {
                         user = u;
                     }
                 }
-                RealmResults<Shop> allShops = realm.where(Shop.class).findAll();
-                shopIds = user.getShops();
-                shops = new ArrayList<>();
-                for (Shop s : allShops) {
-                    for (ObjectId o : shopIds) {
-                        if (s.getId().equals(o))
-                            shops.add(s);
+                if(user.getUserType().equals("Customer")){
+                    RealmResults<Shop> allShops = realm.where(Shop.class).findAll();
+//                    shopIds = user.getShops();
+                    shops = new ArrayList<>();
+                    for (Shop s : allShops) {
+//                        for (ObjectId o : shopIds) {
+//                            if (s.getId().equals(o))
+                                shops.add(s);
+//                        }
+                    }
+                }
+                else {
+                    RealmResults<Shop> allShops = realm.where(Shop.class).findAll();
+                    shopIds = user.getShops();
+                    shops = new ArrayList<>();
+                    for (Shop s : allShops) {
+                        for (ObjectId o : shopIds) {
+                            if (s.getId().equals(o))
+                                shops.add(s);
+                        }
                     }
                 }
 
@@ -171,18 +192,39 @@ public class ShopViewActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menuHome:
                 realm.close();
-                Intent listIntent = new Intent(ShopViewActivity.this, ShopListActivity.class);
-                listIntent.putExtra("EXTRA_EMAIL", userEmail);
-                listIntent.putExtra("EXTRA_PASS", userPass);
-                startActivity(listIntent);
+                if(!userType) {
+                    Intent listIntent = new Intent(ShopViewActivity.this, ShopListActivity.class);
+                    listIntent.putExtra("EXTRA_EMAIL", userEmail);
+                    listIntent.putExtra("EXTRA_PASS", userPass);
+                    startActivity(listIntent);
+                    finish();
+                }
+                else{
+                    Intent listIntent = new Intent(ShopViewActivity.this, CustomerDashboardActivity.class);
+                    listIntent.putExtra("EXTRA_EMAIL", userEmail);
+                    listIntent.putExtra("EXTRA_PASS", userPass);
+                    startActivity(listIntent);
+                    finish();
+                }
                 break;
 
             case R.id.menuPrev:
-                realm.close();
-                Intent prevIntent = new Intent(ShopViewActivity.this, ShopListActivity.class);
-                prevIntent.putExtra("EXTRA_PASS", userPass);
-                prevIntent.putExtra("EXTRA_EMAIL", userEmail);
-                startActivity(prevIntent);
+                if(!userType) {
+                    realm.close();
+                    Intent prevIntent = new Intent(ShopViewActivity.this, ShopListActivity.class);
+                    prevIntent.putExtra("EXTRA_PASS", userPass);
+                    prevIntent.putExtra("EXTRA_EMAIL", userEmail);
+                    startActivity(prevIntent);
+                    finish();
+                }
+                else {
+                    realm.close();
+                    Intent prevIntent = new Intent(ShopViewActivity.this, CustomerDashboardActivity.class);
+                    prevIntent.putExtra("EXTRA_PASS", userPass);
+                    prevIntent.putExtra("EXTRA_EMAIL", userEmail);
+                    startActivity(prevIntent);
+                    finish();
+                }
                 break;
 //            case R.id.Profile:
 //                realm.close();
