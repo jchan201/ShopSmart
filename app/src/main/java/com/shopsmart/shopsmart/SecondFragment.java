@@ -80,13 +80,26 @@ public class SecondFragment extends Fragment {
                             user = u;
                         }
                     }
-                    RealmResults<Shop> allShops = realm.where(Shop.class).findAll();
-                    shopIds = user.getShops();
-                    shops = new ArrayList<>();
-                    for (Shop s : allShops) {
-                        for (ObjectId o : shopIds) {
-                            if (s.getId().equals(o))
-                                shops.add(s);
+                    if(user.getUserType().equals("Customer")){
+                        RealmResults<Shop> allShops = realm.where(Shop.class).findAll();
+//                    shopIds = user.getShops();
+                        shops = new ArrayList<>();
+                        for (Shop s : allShops) {
+//                        for (ObjectId o : shopIds) {
+//                            if (s.getId().equals(o))
+                            shops.add(s);
+//                        }
+                        }
+                    }
+                    else {
+                        RealmResults<Shop> allShops = realm.where(Shop.class).findAll();
+                        shopIds = user.getShops();
+                        shops = new ArrayList<>();
+                        for (Shop s : allShops) {
+                            for (ObjectId o : shopIds) {
+                                if (s.getId().equals(o))
+                                    shops.add(s);
+                            }
                         }
                     }
                     if (index >= 0) {
@@ -115,5 +128,11 @@ public class SecondFragment extends Fragment {
             });
         }
         return v;
+    }
+
+    @Override
+    public void onDestroy() {
+        realm.close();
+        super.onDestroy();
     }
 }
