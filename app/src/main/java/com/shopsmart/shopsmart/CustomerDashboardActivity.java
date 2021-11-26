@@ -7,7 +7,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,8 +18,13 @@ import com.shopsmart.shopsmart.databinding.CustomerDashboard1Binding;
 
 import io.realm.RealmResults;
 
-public class CustomerDashboardActivity extends AppCompatActivity {
+public class CustomerDashboardActivity extends AppCompatActivity implements MapsFragment.FragmentMapsListener {
     private CustomerDashboard1Binding binding;
+    private RealmResults<Shop> allShops;
+    private int numShops;
+    private String[] shopIds;
+    private String[] shopNames;
+    private String[] shopAddressPCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,15 +50,15 @@ public class CustomerDashboardActivity extends AppCompatActivity {
                 }
                 if (user != null) binding.userName.setText(user.getEmail());
 
-                RealmResults<Shop> allShops = ShopSmartApp.realm.where(Shop.class).findAll();
-                int size = allShops.size();
-                String[] shopsId2 = new String[size];
-                String[] shopNames = new String[size];
-                String[] shopAddressPCode = new String[size];
+                allShops = ShopSmartApp.realm.where(Shop.class).findAll();
+                numShops = allShops.size();
+                shopIds = new String[numShops];
+                shopNames = new String[numShops];
+                shopAddressPCode = new String[numShops];
 
                 StringBuilder shopString = new StringBuilder();
-                for(int n = 0; n < size; n++){
-                    shopsId2[n] = String.valueOf(allShops.get(n).getId());
+                for (int n = 0; n < numShops; n++) {
+                    shopIds[n] = String.valueOf(allShops.get(n).getId());
                     shopNames[n] = allShops.get(n).getName();
                     shopAddressPCode[n] = allShops.get(n).getAddress().getPostalCode();
 
@@ -62,14 +66,14 @@ public class CustomerDashboardActivity extends AppCompatActivity {
                     shopString.append("Description: ").append(allShops.get(n).getDesc()).append("\n");
                     shopString.append("Phone: ").append(allShops.get(n).getPhone()).append("\n").append("\n");
                 }
-                TextView shopText = (TextView) findViewById(R.id.shopInfoText);
-                shopText.setText(shopString.toString());
+                /*TextView shopText = (TextView) findViewById(R.id.shopInfoText);
+                shopText.setText(shopString.toString());*/
 
                 Bundle bundle = new Bundle();
                 bundle.putString("USERNAME", ShopSmartApp.email);
                 bundle.putString("USERPASS", ShopSmartApp.password);
-                bundle.putInt("NUMSHOPS", size);
-                bundle.putStringArray("SHOPID", shopsId2);
+                bundle.putInt("NUMSHOPS", numShops);
+                bundle.putStringArray("SHOPID", shopIds);
                 bundle.putStringArray("SHOPNAMES", shopNames);
                 bundle.putStringArray("SHOPPCODES", shopAddressPCode);
                 bundle.putString("USERADDRESS", user.getAddress().getPostalCode());
@@ -103,38 +107,33 @@ public class CustomerDashboardActivity extends AppCompatActivity {
 
     @Override
     public void onInputMapSent(CharSequence input) {
-        boolean shopIdBool = false;
         ImageView imgView = (ImageView) findViewById(R.id.imageViewShop);
+        boolean shopIdBool = false;
 
         int getInt = -1;
-        Log.i("HELLO INPUT", input.toString());
-        for(int x = 0; x < numShops && !shopIdBool; x++){
-            if(input.toString().equals(shopsId2[x])){
-//                shopId = input.toString();
+        for (int x = 0; x < numShops && !shopIdBool; x++) {
+            if (input.toString().equals(shopIds[x])) {
                 shopIdBool = true;
                 getInt = x;
             }
         }
 
-        if(shopIdBool){
-            shopNameText = (TextView) findViewById(R.id.shopNameView);
-            shopPhoneText = (TextView) findViewById(R.id.shopPhoneView);
-            shopEmailText = (TextView) findViewById(R.id.shopEmailView);
-            shopAddressText = (TextView) findViewById(R.id.shopAddressView);
-
+        TextView shopNameText = (TextView) findViewById(R.id.shopNameView);
+        TextView shopPhoneText = (TextView) findViewById(R.id.shopPhoneView);
+        TextView shopEmailText = (TextView) findViewById(R.id.shopEmailView);
+        TextView shopAddressText = (TextView) findViewById(R.id.shopAddressView);
+        if (shopIdBool) {
             shopNameText.setVisibility(View.VISIBLE);
             shopPhoneText.setVisibility(View.VISIBLE);
             shopEmailText.setVisibility(View.VISIBLE);
             shopAddressText.setVisibility(View.VISIBLE);
             imgView.setVisibility(View.VISIBLE);
 
-            shopNameText.setText("Name: " + shops.get(getInt).getName());
-            shopPhoneText.setText("Phone: " + shops.get(getInt).getPhone());
-            shopEmailText.setText("Email: " + shops.get(getInt).getEmail());
-            shopAddressText.setText("Address: " + shops.get(getInt).getAddress().getAddress1() + " " + shops.get(getInt).getAddress().getAddress2());
-        }
-
-        else{
+            shopNameText.setText("Name: " + allShops.get(getInt).getName());
+            shopPhoneText.setText("Phone: " + allShops.get(getInt).getPhone());
+            shopEmailText.setText("Email: " + allShops.get(getInt).getEmail());
+            shopAddressText.setText("Address: " + allShops.get(getInt).getAddress().getAddress1() + " " + allShops.get(getInt).getAddress().getAddress2());
+        } else {
             shopNameText.setVisibility(View.GONE);
             shopPhoneText.setVisibility(View.GONE);
             shopEmailText.setVisibility(View.GONE);
@@ -145,15 +144,11 @@ public class CustomerDashboardActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onViewMapSent(int idx){
-        realm.close();
-        Intent intentShopView = new Intent(CustomerDashboardActivity.this, ShopViewActivity.class);
-        intentShopView.putExtra("EXTRA_EMAIL", userEmail);
-        intentShopView.putExtra("EXTRA_PASS", userPass);
-        intentShopView.putExtra("EXTRA_INDEX", idx);
-        intentShopView.putExtra("EXTRA_USER_CUSTOMER", true);
-        startActivity(intentShopView);
-        finish();
+    public void onViewMapSent(int idx) {
+        Intent intent = new Intent(CustomerDashboardActivity.this, ShopViewActivity.class);
+        intent.putExtra("EXTRA_INDEX", idx);
+        intent.putExtra("EXTRA_USER_CUSTOMER", true);
+        startActivity(intent);
     }
 
     private Fragment recreateFragment(Fragment f) {
@@ -162,8 +157,7 @@ public class CustomerDashboardActivity extends AppCompatActivity {
             Fragment newInstance = f.getClass().newInstance();
             newInstance.setInitialSavedState(savedState);
             return newInstance;
-        }
-        catch (Exception e) { // InstantiationException, IllegalAccessException
+        } catch (Exception e) { // InstantiationException, IllegalAccessException
             throw new RuntimeException("Cannot reinstantiate fragment " + f.getClass().getName(), e);
         }
     }
