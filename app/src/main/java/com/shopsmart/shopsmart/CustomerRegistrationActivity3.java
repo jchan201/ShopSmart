@@ -192,9 +192,11 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
             if (registerResult.isSuccess()) {
                 // Create AppUser with associated User
                 ShopSmartApp.login(email, password);
+                ShopSmartApp.instantiateRealm();
                 ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, loginResult ->
                         ShopSmartApp.realm.executeTransaction(transactionRealm ->
                                 transactionRealm.insert(appUser)));
+                ShopSmartApp.logout();
                 loginScreen.putExtra("EXTRA_SIGNUP_SUCCESS", true);
                 Log.i("REGISTER", "Successfully registered user.");
             } else {

@@ -27,7 +27,11 @@ public class StartupActivity extends AppCompatActivity {
         binding = ActivityStartupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Intent currIntent = this.getIntent();
+        //quick login
+        binding.edtTxtEmail.setText("sherlock@sh.com");
+        binding.edtTxtPassword.setText("1234512345A");
+
+        Intent currIntent = getIntent();
         if (currIntent != null) {
             boolean signup_success = currIntent.getBooleanExtra("EXTRA_SIGNUP_SUCCESS", false);
             if (signup_success)
@@ -73,6 +77,7 @@ public class StartupActivity extends AppCompatActivity {
                 ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
                     if (result.isSuccess()) {
                         // Retrieve all users in the Realm.
+                        ShopSmartApp.instantiateRealm();
                         RealmResults<AppUser> users = ShopSmartApp.realm.where(AppUser.class).findAll();
                         AppUser user = null;
 

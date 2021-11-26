@@ -22,26 +22,13 @@ public class ShopSmartApp extends Application {
         email = userEmail;
         password = userPassword;
         credentials = Credentials.emailPassword(email, password);
-        app.loginAsync(credentials, result -> {
-            if (result.isSuccess()) {
-                Log.v("LOGIN", "Successfully authenticated using email and password.");
-                if (realm != null)
-                    realm.close();
-                // initialize Synced Realm
-                config = new SyncConfiguration.Builder(app.currentUser(), "ShopSmart")
-                        .allowQueriesOnUiThread(true)
-                        .allowWritesOnUiThread(true)
-                        .build();
-                realm = Realm.getInstance(config);
-            } else Log.e("LOGIN", "Failed to authenticate using email and password.");
-        });
+        config = new SyncConfiguration.Builder(app.currentUser(), "ShopSmart")
+                .allowQueriesOnUiThread(true)
+                .allowWritesOnUiThread(true)
+                .build();
     }
 
     public static void logout() {
-        // close the Synced Realm
-        realm.close();
-
-        // log out
         if (app.currentUser() != null)
             app.currentUser().logOut();
         credentials = null;
