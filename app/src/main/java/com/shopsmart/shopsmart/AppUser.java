@@ -167,6 +167,7 @@ public class AppUser extends RealmObject {
     public void removeOrder(int pos) {
         orders.remove(pos);
     }
+    public void removeAllOrders() { orders.removeAll(orders);}
 
     public RealmList<ObjectId> getShops() {
         return shops;
