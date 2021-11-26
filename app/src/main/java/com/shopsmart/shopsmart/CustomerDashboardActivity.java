@@ -98,18 +98,14 @@ public class CustomerDashboardActivity extends AppCompatActivity {
         return true;
     }
 
-    private Fragment recreateFragment(Fragment f)
-    {
+    private Fragment recreateFragment(Fragment f) {
         try {
             Fragment.SavedState savedState = getSupportFragmentManager().saveFragmentInstanceState(f);
-
             Fragment newInstance = f.getClass().newInstance();
             newInstance.setInitialSavedState(savedState);
-
             return newInstance;
         }
-        catch (Exception e) // InstantiationException, IllegalAccessException
-        {
+        catch (Exception e) { // InstantiationException, IllegalAccessException
             throw new RuntimeException("Cannot reinstantiate fragment " + f.getClass().getName(), e);
         }
     }

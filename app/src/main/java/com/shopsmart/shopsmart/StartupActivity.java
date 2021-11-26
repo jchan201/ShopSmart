@@ -28,8 +28,8 @@ public class StartupActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         //quick login
-        binding.edtTxtEmail.setText("sherlock@sh.com");
-        binding.edtTxtPassword.setText("1234512345A");
+        binding.edtTxtEmail.setText("testestest");
+        binding.edtTxtPassword.setText("abcABC123");
 
         Intent currIntent = getIntent();
         if (currIntent != null) {
