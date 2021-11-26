@@ -462,7 +462,6 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
         Boolean check = false;
 
         return check;
-
     }
 
     @Override
