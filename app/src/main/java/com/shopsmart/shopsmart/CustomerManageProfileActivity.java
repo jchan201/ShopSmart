@@ -89,7 +89,7 @@ public class CustomerManageProfileActivity extends AppCompatActivity {
 
         binding.orderButtonManage.setOnClickListener(view -> {
             realm.close();
-            Intent intentBack = new Intent(CustomerManageProfileActivity.this, StartupActivity.class);
+            Intent intentBack = new Intent(CustomerManageProfileActivity.this, OrderListActivity.class);
             intentBack.putExtra("EXTRA_EMAIL", userEmail);
             intentBack.putExtra("EXTRA_PASS", userPass);
             startActivity(intentBack);
@@ -137,29 +137,6 @@ public class CustomerManageProfileActivity extends AppCompatActivity {
                 Log.e("LOGOUT", "Failed to log out, error: " + result.getError());
             }
         });
-    }
-
-
-    private boolean validateData() {
-
-        //if (this.binding.email.getText().toString().isEmpty()) {
-        //    Toast.makeText(CustomerManageProfileActivity.this, "Must have an email", Toast.LENGTH_SHORT).show();
-        //    return false;
-        //} else if (!this.binding.password1.getText().toString().equals(this.binding.password2.getText().toString())) {
-        //    Toast.makeText(CustomerManageProfileActivity.this, "Passwords must match", Toast.LENGTH_SHORT).show();
-        //    return false;
-        //} else if (this.binding.password1.getText().toString().isEmpty() && this.binding.password2.getText().toString().isEmpty()) {
-        //    Toast.makeText(CustomerManageProfileActivity.this, "Must have a password", Toast.LENGTH_SHORT).show();
-        //    return false;
-        //} else if (this.binding.password1.getText().toString().length() < 8) {
-        //    Toast.makeText(CustomerManageProfileActivity.this, "Password must contain 8 or more characters", Toast.LENGTH_SHORT).show();
-        //    return false;
-        //} else if (!this.binding.password1.getText().toString().matches("(.*[A-Z].*)") || !this.binding.password1.getText().toString().matches("(.*[0-9].*)")) {
-        //    Toast.makeText(CustomerManageProfileActivity.this, "Password must contain 1 Uppercase and 1 Number", Toast.LENGTH_SHORT).show();
-        //    return false;
-        //}
-//
-        return true;
     }
 
     //private void writeDataUser() {

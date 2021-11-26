@@ -101,7 +101,7 @@ public class OrderListActivity extends AppCompatActivity {
 
         binding.btnBack.setOnClickListener(view -> {
             killActivity();
-            Intent intentToProfile = new Intent(OrderListActivity.this, ShopListActivity.class);
+            Intent intentToProfile = new Intent(OrderListActivity.this, CustomerManageProfileActivity.class);
             intentToProfile.putExtra("EXTRA_PASS", userPass);
             intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
             startActivity(intentToProfile);

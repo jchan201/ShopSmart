@@ -149,6 +149,9 @@
         <activity
             android:name=".CustomerManageProfileActivity"
             android:label="Profile Menu" />
+        <activity
+            android:name=".OrderListActivity"
+            android:label="Order List" />
     </application>
 
 </manifest>
