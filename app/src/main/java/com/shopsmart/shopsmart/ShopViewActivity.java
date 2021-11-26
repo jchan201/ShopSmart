@@ -214,6 +214,7 @@ public class ShopViewActivity extends AppCompatActivity {
                 prevIntent.putExtra("EXTRA_PASS", userPass);
                 prevIntent.putExtra("EXTRA_EMAIL", userEmail);
                 startActivity(prevIntent);
+                finish();
                 break;
 //            case R.id.Profile:
 //                realm.close();

@@ -291,13 +291,13 @@ public class CustomerDashboardActivity extends AppCompatActivity implements Maps
         super.onDestroy();
         binding = null;
 
-        app.currentUser().logOutAsync(result -> {
-            if (result.isSuccess()) {
-                Log.v("LOGOUT", "Successfully logged out.");
-            } else {
-                Log.e("LOGOUT", "Failed to log out, error: " + result.getError());
-            }
-        });
+//        app.currentUser().logOutAsync(result -> {
+//            if (result.isSuccess()) {
+//                Log.v("LOGOUT", "Successfully logged out.");
+//            } else {
+//                Log.e("LOGOUT", "Failed to log out, error: " + result.getError());
+//            }
+//        });
     }
 
     private Fragment recreateFragment(Fragment f)
