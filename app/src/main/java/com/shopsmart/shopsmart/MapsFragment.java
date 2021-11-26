@@ -200,6 +200,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
         homeBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                map.clear();
                 viewBtn = (Button) view.findViewById(R.id.buttonView2);
                 viewBtn.setClickable(false);
                 viewBtn.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.gray));
@@ -363,6 +364,9 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
                             marker.showInfoWindow();
                             locationView.setText("Location: " + shopNames[idx]);
                             listener.onInputMapSent(shopIds[idx]);
+
+                            viewBtn.setClickable(true);
+                            viewBtn.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.teal));
                         }
                         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
 
