@@ -10,8 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.shopsmart.shopsmart.databinding.ShopownerSignupActivityBinding;
 
 public class ShopOwnerSignupActivity extends AppCompatActivity {
-    private DatePickerDialog datePickerDialog;
     private ShopownerSignupActivityBinding binding;
+    private DatePickerDialog datePickerDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +25,9 @@ public class ShopOwnerSignupActivity extends AppCompatActivity {
                 (datePicker, year, month, day) -> binding.datePickerButton.setText(makeDateString(day, month, year));
         datePickerDialog = new DatePickerDialog(this, dateSetListener, 2000, 0, 1);
 
-        //cancel go back sign up selection page
         binding.buttonCancel.setOnClickListener(view ->
                 startActivity(new Intent(ShopOwnerSignupActivity.this, SignupActivity.class)));
 
-        //next
         binding.buttonNext.setOnClickListener(view -> {
             if (validation()) {
                 Intent nextSignUpScreen = new Intent(ShopOwnerSignupActivity.this, ShopOwnerSignupActivity2.class);
@@ -46,32 +44,26 @@ public class ShopOwnerSignupActivity extends AppCompatActivity {
 
     private boolean validation() {
         boolean valid = true;
-
         if (this.binding.edtTextFName.getText().toString().isEmpty()) {
             this.binding.edtTextFName.setError("First name cannot be empty");
             valid = false;
         }
-
         if (this.binding.edtTextLName.getText().toString().isEmpty()) {
             this.binding.edtTextLName.setError("Last name cannot be empty");
             valid = false;
         }
-
         if (this.binding.editTextEmailAddress.getText().toString().isEmpty()) {
             this.binding.editTextEmailAddress.setError("Email cannot be empty");
             valid = false;
         }
-
         if (this.binding.editTextEmailAddress.getText().toString().isEmpty()) {
             this.binding.editTextEmailAddress.setError("Email cannot be empty");
             valid = false;
         }
-
         if (this.binding.editTextPassword.getText().toString().isEmpty()) {
             this.binding.editTextPassword.setError("Password cannot be empty");
             valid = false;
         }
-
         if (this.binding.editTextPassword.getText().toString().length() < 6) {
             this.binding.editTextPassword.setError("Password must contain more than 6 or more characters");
             valid = false;
@@ -79,17 +71,14 @@ public class ShopOwnerSignupActivity extends AppCompatActivity {
             this.binding.editTextPassword.setError("Password must contain 1 Uppercase and 1 Number");
             valid = false;
         }
-
         if (this.binding.editTextConfirmPassword.getText().toString().isEmpty()) {
             this.binding.editTextConfirmPassword.setError("Confirm password cannot be empty");
             valid = false;
         }
-
         if (!this.binding.editTextPassword.getText().toString().equals(this.binding.editTextConfirmPassword.getText().toString())) {
             this.binding.editTextConfirmPassword.setError("Confirm password does not match password");
             valid = false;
         }
-
         return valid;
     }
 

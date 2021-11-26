@@ -14,22 +14,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.shopsmart.shopsmart.databinding.CustomerRegister2Binding;
 
 public class CustomerRegistrationActivity2 extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    String currEmail;
-    String currPassword;
     private CustomerRegister2Binding binding;
     private DatePickerDialog dpd;
+    private Intent currentIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.binding = CustomerRegister2Binding.inflate(getLayoutInflater());
+        binding = CustomerRegister2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        Intent currentIntent = this.getIntent();
-        if (currentIntent != null) {
-            this.currEmail = currentIntent.getStringExtra("EXTRA_EMAIL");
-            this.currPassword = currentIntent.getStringExtra("EXTRA_PASSWORD");
-        }
+        currentIntent = getIntent();
 
         // Date picker
         binding.dob.setText(makeDateString(1, 0, 2000));
@@ -44,16 +38,10 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity implements 
         provSpinner.setAdapter(provList);
         provSpinner.setOnItemSelectedListener(this);
 
-        binding.cancelButton2.setOnClickListener(view -> {
-            //if(validateData()){
-            createUser();
-            startActivity(new Intent(CustomerRegistrationActivity2.this, SignupActivity.class));
-            //}
-        });
+        binding.cancelButton2.setOnClickListener(view ->
+                startActivity(new Intent(CustomerRegistrationActivity2.this, SignupActivity.class)));
         binding.nextButton2.setOnClickListener(view -> {
-            if (validateData()) {
-                createUser();
-            }
+            if (validateData()) createUser();
         });
     }
 
@@ -102,76 +90,69 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity implements 
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         String choice = adapterView.getItemAtPosition(i).toString();
         if (i != 0)
-            Toast.makeText(getApplication(), choice + " selected", Toast.LENGTH_SHORT).show();
-        else {
-            Toast.makeText(getApplication(), "Please select a province/territory", Toast.LENGTH_LONG).show();
-        }
+            Toast.makeText(this, choice + " selected", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(this, "Please select a province/territory", Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-    }
+    public void onNothingSelected(AdapterView<?> adapterView) {}
 
     private void createUser() {
         Address address = new Address();
-        address.setCity(this.binding.city.getText().toString());
-        address.setProvince(this.binding.provPicker.getSelectedItem().toString());
-        address.setPostalCode(this.binding.zipCode.getText().toString());
-        address.setAddress1(this.binding.address1.getText().toString());
-        address.setAddress2(this.binding.address2.getText().toString());
+        address.setCity(binding.city.getText().toString());
+        address.setProvince(binding.provPicker.getSelectedItem().toString());
+        address.setPostalCode(binding.zipCode.getText().toString());
+        address.setAddress1(binding.address1.getText().toString());
+        address.setAddress2(binding.address2.getText().toString());
         address.setCountry("Canada");
 
         Intent CRegister3 = new Intent(this, CustomerRegistrationActivity3.class);
         CRegister3.putExtra("EXTRA_ADDRESS_OBJ", address);
-        CRegister3.putExtra("EXTRA_EMAIL", this.currEmail);
-        CRegister3.putExtra("EXTRA_PASSWORD", this.currPassword);
-        CRegister3.putExtra("EXTRA_FNAME", this.binding.nameFirst.getText().toString());
-        CRegister3.putExtra("EXTRA_MNAME", this.binding.nameMiddle.getText().toString());
-        CRegister3.putExtra("EXTRA_LNAME", this.binding.nameLast.getText().toString());
-        CRegister3.putExtra("EXTRA_PHONE", this.binding.phoneNum.getText().toString());
-        CRegister3.putExtra("EXTRA_DATE", this.binding.dob.getText().toString());
+        CRegister3.putExtra("EXTRA_EMAIL", currentIntent.getStringExtra("EXTRA_EMAIL"));
+        CRegister3.putExtra("EXTRA_PASSWORD", currentIntent.getStringExtra("EXTRA_PASSWORD"));
+        CRegister3.putExtra("EXTRA_FNAME", binding.nameFirst.getText().toString());
+        CRegister3.putExtra("EXTRA_MNAME", binding.nameMiddle.getText().toString());
+        CRegister3.putExtra("EXTRA_LNAME", binding.nameLast.getText().toString());
+        CRegister3.putExtra("EXTRA_PHONE", binding.phoneNum.getText().toString());
+        CRegister3.putExtra("EXTRA_DATE", binding.dob.getText().toString());
         startActivity(CRegister3);
     }
 
     private boolean validateData() {
         boolean valid = true;
-        if (this.binding.nameFirst.getText().toString().isEmpty()) {
-            this.binding.nameFirst.setError("Field cannot be empty");
+        if (binding.nameFirst.getText().toString().isEmpty()) {
+            binding.nameFirst.setError("Field cannot be empty");
             valid = false;
         }
-        if (this.binding.nameLast.getText().toString().isEmpty()) {
-            this.binding.nameLast.setError("Field cannot be empty");
+        if (binding.nameLast.getText().toString().isEmpty()) {
+            binding.nameLast.setError("Field cannot be empty");
             valid = false;
         }
-        if (this.binding.city.getText().toString().isEmpty()) {
-            this.binding.city.setError("Field cannot be empty");
+        if (binding.city.getText().toString().isEmpty()) {
+            binding.city.setError("Field cannot be empty");
             valid = false;
         }
-        if (this.binding.zipCode.getText().toString().isEmpty()) {
-            this.binding.zipCode.setError("Field cannot be empty");
+        if (binding.zipCode.getText().toString().isEmpty()) {
+            binding.zipCode.setError("Field cannot be empty");
             valid = false;
         }
-        if (!this.binding.zipCode.getText().toString().matches("([A-Z]\\d[A-Z]\\s\\d[A-Z]\\d)")) {
-            this.binding.zipCode.setError("Postal code must match schema A1A 1A1");
+        if (!binding.zipCode.getText().toString().matches("([A-Z]\\d[A-Z]\\s\\d[A-Z]\\d)")) {
+            binding.zipCode.setError("Postal code must match schema A1A 1A1");
             valid = false;
         }
-        if (this.binding.address1.getText().toString().isEmpty()) {
-            this.binding.address1.setError("Field cannot be empty");
+        if (binding.address1.getText().toString().isEmpty()) {
+            binding.address1.setError("Field cannot be empty");
             valid = false;
         }
-        if (this.binding.phoneNum.getText().toString().isEmpty()) {
-            this.binding.phoneNum.setError("Phone number cannot be empty");
+        if (binding.phoneNum.getText().toString().isEmpty()) {
+            binding.phoneNum.setError("Phone number cannot be empty");
             valid = false;
         }
-        if (!this.binding.phoneNum.getText().toString().matches("\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d")) {
-            this.binding.phoneNum.setError("Must contain 10 digits");
+        if (!binding.phoneNum.getText().toString().matches("\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d")) {
+            binding.phoneNum.setError("Must contain 10 digits");
             valid = false;
         }
-        //|| this.binding.address2.getText().toString().isEmpty()
-        //|| this.binding.phoneNum.getText().toString().isEmpty()){
-
-        //Toast.makeText(CustomerRegistrationActivity2.this, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
-        //}
         return valid;
     }
 }

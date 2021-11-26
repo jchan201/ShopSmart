@@ -21,14 +21,7 @@ import io.realm.mongodb.sync.SyncConfiguration;
 
 
 public class CustomerDashboardActivity extends AppCompatActivity {
-    private final String PARTITION = "ShopSmart";
-    Intent currentIntent;
-    String userEmail;
-    String userPass;
-    AppUser user;
     private CustomerDashboard1Binding binding;
-    private App app;
-    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,34 +29,17 @@ public class CustomerDashboardActivity extends AppCompatActivity {
         binding = CustomerDashboard1Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //Toolbar toolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-
-        app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
-
-        this.currentIntent = this.getIntent();
-
-        if (this.currentIntent != null) {
-            this.userEmail = currentIntent.getStringExtra("EXTRA_EMAIL");
-            this.userPass = currentIntent.getStringExtra("EXTRA_PASS");
-        }
-
-        Credentials credentials = Credentials.emailPassword(userEmail, userPass);
-        app.loginAsync(credentials, result -> {
+        ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
             if (result.isSuccess()) {
-                Log.v("LOGIN", "Successfully authenticated using email and password.");
-
-                SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
-                realm = Realm.getInstance(config);
-
-                RealmResults<AppUser> users = realm.where(AppUser.class).findAll();
-
+                ShopSmartApp.instantiateRealm();
+                RealmResults<AppUser> users = ShopSmartApp.realm.where(AppUser.class).findAll();
+                AppUser user = null;
                 for (int x = 0; x < users.size(); x++) {
-                    if (users.get(x).getEmail().equals(userEmail)) {
+                    if (users.get(x).getEmail().equals(ShopSmartApp.email)) {
                         user = users.get(x);
                     }
                 }
-                binding.userName.setText(user.getEmail());
+                if (user != null) binding.userName.setText(user.getEmail());
             }
         });
     }
@@ -77,35 +53,11 @@ public class CustomerDashboardActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.Profile:
-                realm.close();
-                Intent settingsIntent = new Intent(CustomerDashboardActivity.this, CustomerManageProfileActivity.class);
-                settingsIntent.putExtra("EXTRA_EMAIL", userEmail);
-                settingsIntent.putExtra("EXTRA_PASS", userPass);
-                Toast.makeText(CustomerDashboardActivity.this, "Profile", Toast.LENGTH_SHORT).show();
-                startActivity(settingsIntent);
-                finish();
-                break;
-            case R.id.LogOut:
-                realm.close();
-                Intent dashboardIntent = new Intent(CustomerDashboardActivity.this, StartupActivity.class);
-                startActivity(dashboardIntent);
-        }
+        int id = item.getItemId();
+        if (id == R.id.Profile)
+            startActivity(new Intent(CustomerDashboardActivity.this, CustomerManageProfileActivity.class));
+        else if (id == R.id.LogOut)
+            startActivity(new Intent(CustomerDashboardActivity.this, StartupActivity.class));
         return true;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        binding = null;
-
-        app.currentUser().logOutAsync(result -> {
-            if (result.isSuccess()) {
-                Log.v("LOGOUT", "Successfully logged out.");
-            } else {
-                Log.e("LOGOUT", "Failed to log out, error: " + result.getError());
-            }
-        });
     }
 }
