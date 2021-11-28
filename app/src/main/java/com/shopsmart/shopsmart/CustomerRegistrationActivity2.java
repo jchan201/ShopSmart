@@ -4,16 +4,14 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.CustomerRegister2Binding;
 
-public class CustomerRegistrationActivity2 extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class CustomerRegistrationActivity2 extends AppCompatActivity {
     private CustomerRegister2Binding binding;
     private DatePickerDialog dpd;
     private Intent currentIntent;
@@ -36,7 +34,6 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity implements 
         ArrayAdapter<CharSequence> provList = ArrayAdapter.createFromResource(this, R.array.provinces, android.R.layout.simple_spinner_item);
         provList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         provSpinner.setAdapter(provList);
-        provSpinner.setOnItemSelectedListener(this);
 
         binding.cancelButton2.setOnClickListener(view ->
                 startActivity(new Intent(CustomerRegistrationActivity2.this, SignupActivity.class)));
@@ -49,7 +46,6 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity implements 
     private String makeDateString(int day, int month, int year) {
         return getMonthFormat(month) + " " + day + " " + year;
     }
-
     private String getMonthFormat(int month) {
         switch (month) {
             case 0:
@@ -84,19 +80,6 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity implements 
     public void openDatePicker(View view) {
         dpd.show();
     }
-
-    // Spinner Functions
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        String choice = adapterView.getItemAtPosition(i).toString();
-        if (i != 0)
-            Toast.makeText(this, choice + " selected", Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(this, "Please select a province/territory", Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {}
 
     private void createUser() {
         Address address = new Address();
@@ -137,7 +120,7 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity implements 
             binding.zipCode.setError("Field cannot be empty");
             valid = false;
         }
-        if (!binding.zipCode.getText().toString().matches("([A-Z]\\d[A-Z]\\s\\d[A-Z]\\d)")) {
+        else if (!binding.zipCode.getText().toString().matches("([A-Z]\\d[A-Z]\\s\\d[A-Z]\\d)")) {
             binding.zipCode.setError("Postal code must match schema A1A 1A1");
             valid = false;
         }
@@ -149,7 +132,7 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity implements 
             binding.phoneNum.setError("Phone number cannot be empty");
             valid = false;
         }
-        if (!binding.phoneNum.getText().toString().matches("\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d")) {
+        else if (!binding.phoneNum.getText().toString().matches("\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d")) {
             binding.phoneNum.setError("Must contain 10 digits");
             valid = false;
         }

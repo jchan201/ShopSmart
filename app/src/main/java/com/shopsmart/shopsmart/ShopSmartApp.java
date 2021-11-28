@@ -2,7 +2,6 @@ package com.shopsmart.shopsmart;
 
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
 
 import io.realm.Realm;
 import io.realm.mongodb.App;

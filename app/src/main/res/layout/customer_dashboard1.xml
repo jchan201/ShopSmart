@@ -47,24 +47,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.109" />
 
-<!--    <RelativeLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="255dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.5"-->
-<!--        app:layout_constraintStart_toStartOf="parent">-->
-
-<!--        <ListView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:id="@+id/listViewShops">-->
-
-<!--        </ListView>-->
-
-<!--    </RelativeLayout>-->
-
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="412dp"
@@ -87,12 +69,11 @@
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_marginStart="16dp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/avatar"
-                android:visibility="gone"
-                />
+                app:srcCompat="@drawable/avatar" />
 
             <TextView
                 android:id="@+id/shopNameView"
@@ -100,8 +81,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="115dp"
                 android:layout_marginTop="16dp"
-                android:text="Shop Name"
                 android:background="@drawable/rectangle3"
+                android:text="Shop Name"
                 android:textSize="17dp"
                 android:visibility="gone"
                 app:layout_constraintStart_toEndOf="@+id/imageViewShop"
@@ -113,8 +94,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="115dp"
                 android:layout_marginTop="7dp"
-                android:text="Shop Phone"
                 android:background="@drawable/rectangle3"
+                android:text="Shop Phone"
                 android:textSize="17dp"
                 android:visibility="gone"
                 app:layout_constraintStart_toEndOf="@+id/imageViewShop"
@@ -126,8 +107,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="115dp"
                 android:layout_marginTop="7dp"
-                android:text="Shop Email"
                 android:background="@drawable/rectangle3"
+                android:text="Shop Email"
                 android:textSize="17dp"
                 android:visibility="gone"
                 app:layout_constraintStart_toEndOf="@+id/imageViewShop"
@@ -139,24 +120,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="115dp"
                 android:layout_marginTop="7dp"
-                android:text="Shop Address"
                 android:background="@drawable/rectangle3"
+                android:text="Shop Address"
                 android:textSize="17dp"
                 android:visibility="gone"
                 app:layout_constraintStart_toEndOf="@+id/imageViewShop"
                 app:layout_constraintTop_toBottomOf="@+id/shopEmailView" />
-
-            <!--            <TextView-->
-<!--                android:id="@+id/shopInfoText"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:gravity="left"-->
-<!--                android:text="Shop Information"-->
-<!--                android:textSize="18dp"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintHorizontal_bias="0"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

@@ -148,6 +148,9 @@
             android:name=".CustomerPaymentsActivity"
             android:label="Profile" />
         <activity
+            android:name=".CustomerPaymentAddActivity"
+            android:label="Payment Method"/>
+        <activity
             android:name=".CustomerManageProfileActivity"
             android:label="Profile Menu" />
     </application>

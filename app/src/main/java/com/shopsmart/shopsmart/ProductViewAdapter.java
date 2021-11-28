@@ -9,8 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
 
 import io.realm.Realm;

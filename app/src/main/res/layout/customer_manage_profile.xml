@@ -6,61 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".CustomerManageProfileActivity">
 
-    <Button
-        android:id="@+id/orderButtonManage"
-        android:layout_width="215dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/button_bg"
-        android:text="Order History"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/paymentButton" />
-
-    <Button
-        android:id="@+id/cancelButtonManage"
-        android:layout_width="215dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/button_bg"
-        android:text="Cancel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/orderButtonManage" />
-
-    <Button
-        android:id="@+id/accountButton"
-        android:layout_width="215dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/button_bg"
-        android:text="Account Info"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/queryFullName" />
-
-    <Button
-        android:id="@+id/paymentButton"
-        android:layout_width="215dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/button_bg"
-        android:text="Payment Info"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordButton" />
-
-    <Button
-        android:id="@+id/passwordButton"
-        android:layout_width="215dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/button_bg"
-        android:text="Reset Password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/accountButton" />
-
     <TextView
         android:id="@+id/queryFullName"
         android:layout_width="match_parent"
@@ -69,13 +14,63 @@
         android:layout_marginHorizontal="50dp"
         android:layout_marginTop="28dp"
         android:fontFamily="sans-serif-light"
-        android:text="queryFullName"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="22dp"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textRegister3" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/queryFullName"
+        app:layout_constraintVertical_bias="0.2">
+
+        <Button
+            android:id="@+id/accountButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_bg"
+            android:text="Account Info" />
+
+        <Button
+            android:id="@+id/passwordButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/button_bg"
+            android:text="Reset Password" />
+
+        <Button
+            android:id="@+id/paymentButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/button_bg"
+            android:text="Payment Info" />
+
+        <Button
+            android:id="@+id/orderButtonManage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/button_bg"
+            android:text="Order History" />
+
+        <Button
+            android:id="@+id/cancelButtonManage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/button_bg"
+            android:text="Cancel" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textRegister3"

@@ -13,12 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import io.realm.Realm;
-import io.realm.mongodb.App;
-import io.realm.mongodb.AppConfiguration;
-import io.realm.mongodb.Credentials;
-import io.realm.mongodb.sync.SyncConfiguration;
-
 public class ShopOwnerSignupActivity3 extends AppCompatActivity {
     private ShopownerSignupActivity3Binding binding;
     private Intent currIntent;

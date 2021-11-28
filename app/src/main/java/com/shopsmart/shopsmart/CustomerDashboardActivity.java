@@ -66,8 +66,6 @@ public class CustomerDashboardActivity extends AppCompatActivity implements Maps
                     shopString.append("Description: ").append(allShops.get(n).getDesc()).append("\n");
                     shopString.append("Phone: ").append(allShops.get(n).getPhone()).append("\n").append("\n");
                 }
-                /*TextView shopText = (TextView) findViewById(R.id.shopInfoText);
-                shopText.setText(shopString.toString());*/
 
                 Bundle bundle = new Bundle();
                 bundle.putString("USERNAME", ShopSmartApp.email);

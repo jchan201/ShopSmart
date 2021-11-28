@@ -106,7 +106,6 @@ public class AppUser extends RealmObject {
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
-
     public String getBirthdateString(){
         SimpleDateFormat formatter = new SimpleDateFormat("MMM dd yyyy");
         String strDate = formatter.format(birthdate);
