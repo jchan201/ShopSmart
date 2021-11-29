@@ -75,15 +75,20 @@ public class StartupActivity extends AppCompatActivity {
                                 user = users.get(i);
                             }
                         }
-                        String type = user.getUserType();
-                        switch (type) {
-                            case "Customer":
-                                Intent customerDashboardActivity = new Intent(StartupActivity.this, CustomerDashboardActivity.class);
-                                startActivity(customerDashboardActivity);
-                                break;
-                            case "Owner":
-                                Intent intentToDashboard = new Intent(StartupActivity.this, ShopOwnerDashboardActivity.class);
-                                startActivity(intentToDashboard);
+                        if (user != null) {
+                            String type = user.getUserType();
+                            switch (type) {
+                                case "Customer":
+                                    startActivity(new Intent(StartupActivity.this, CustomerDashboardActivity.class));
+                                    break;
+                                case "Owner":
+                                    startActivity(new Intent(StartupActivity.this, ShopOwnerDashboardActivity.class));
+                            }
+                        } else {
+                            binding.txtError.setText("Invalid email/password.");
+                            binding.txtError.setVisibility(View.VISIBLE);
+                            ATTEMPTS.add(email);
+                            if (ATTEMPTS.size() == 5) binding.btnLogin.setEnabled(false);
                         }
                     } else {
                         binding.txtError.setText("Invalid email/password.");

@@ -123,10 +123,10 @@ public class ShopRegister3 extends AppCompatActivity {
                             realm.insert(shop);
                             user.addShop(shop.getId());
                         });
+                        startActivity(new Intent(ShopRegister3.this, ShopListActivity.class)
+                                .putExtra("EXTRA_REGISTER_SHOP_SUCCESS", true));
                     }
                 });
-                startActivity(new Intent(ShopRegister3.this, ShopListActivity.class)
-                        .putExtra("EXTRA_REGISTER_SHOP_SUCCESS", true));
             }
         });
         binding.btnCancel.setOnClickListener(view ->
