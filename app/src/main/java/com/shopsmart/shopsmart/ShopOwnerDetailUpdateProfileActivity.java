@@ -3,7 +3,6 @@ package com.shopsmart.shopsmart;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,23 +12,12 @@ import com.shopsmart.shopsmart.databinding.ShopownerDetailUpdateProfileActivityB
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import io.realm.Realm;
 import io.realm.RealmResults;
-import io.realm.mongodb.App;
-import io.realm.mongodb.AppConfiguration;
-import io.realm.mongodb.Credentials;
-import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ShopOwnerDetailUpdateProfileActivity extends AppCompatActivity {
-    private final String PARTITION = "ShopSmart";
-    Intent currIntent;
-    String userEmail;
-    String userPass;
-    AppUser user;
-    private DatePickerDialog datePickerDialog;
     private ShopownerDetailUpdateProfileActivityBinding binding;
-    private App app;
-    private Realm realm;
+    private DatePickerDialog datePickerDialog;
+    private AppUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,37 +25,13 @@ public class ShopOwnerDetailUpdateProfileActivity extends AppCompatActivity {
         binding = ShopownerDetailUpdateProfileActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Access realm
-        app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
-
-        // Get Intent
-        this.currIntent = this.getIntent();
-
-        if (this.currIntent != null) {
-            this.userEmail = currIntent.getStringExtra("EXTRA_EMAIL");
-            this.userPass = currIntent.getStringExtra("EXTRA_PASS");
-        }
-
-        Credentials credentials = Credentials.emailPassword(userEmail, userPass);
-        app.loginAsync(credentials, result -> {
+        ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
             if (result.isSuccess()) {
-                Log.v("LOGIN", "Successfully authenticated using email and password.");
-
-                // Open a Synced Realm for asynchronous transactions.
-//                SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
-                SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), "ShopSmart")
-                        .allowWritesOnUiThread(true) // allow synchronous writes
-                        .build();
-                realm = Realm.getInstance(config);
-
-                // Retrieve all users in the Realm.
-                RealmResults<AppUser> users = realm.where(AppUser.class).findAll();
-
-                // Find the AppUser
+                ShopSmartApp.instantiateRealm();
+                RealmResults<AppUser> users = ShopSmartApp.realm.where(AppUser.class).findAll();
                 for (int i = 0; i < users.size(); i++) {
-                    if (users.get(i).getEmail().equals(userEmail)) {
+                    if (users.get(i).getEmail().equals(ShopSmartApp.email))
                         user = users.get(i);
-                    }
                 }
                 binding.textFName.setText(user.getFirstName());
                 binding.textMName.setText(user.getMiddleInitial());
@@ -79,72 +43,54 @@ public class ShopOwnerDetailUpdateProfileActivity extends AppCompatActivity {
                 int calYear = cal.get(Calendar.YEAR);
                 int calMonth = cal.get(Calendar.MONTH);
                 int calDay = cal.get(Calendar.DAY_OF_MONTH);
-
-                // Date picker
                 binding.datePickerButton.setText(makeDateString(calDay, calMonth, calYear));
-                DatePickerDialog.OnDateSetListener dateSetListener =
-                        (datePicker, year, month, day) -> binding.datePickerButton.setText(makeDateString(day, month, year));
-                datePickerDialog = new DatePickerDialog(this, dateSetListener, 2000, 0, 1);
+                DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, day) ->
+                        binding.datePickerButton.setText(makeDateString(day, month, year));
+                datePickerDialog = new DatePickerDialog(this, dateSetListener, calYear, calMonth, calDay);
             }
         });
-
-        binding.btnCancel.setOnClickListener(view -> {
-                    realm.close();
-                    Intent intentToProfile = new Intent(ShopOwnerDetailUpdateProfileActivity.this, ShopOwnerProfileDetailActivity.class);
-                    intentToProfile.putExtra("EXTRA_PASS", userPass);
-                    intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
-                    startActivity(intentToProfile);
-                }
-        );
-
+        binding.btnCancel.setOnClickListener(view ->
+                startActivity(new Intent(ShopOwnerDetailUpdateProfileActivity.this, ShopOwnerProfileDetailActivity.class)));
         binding.btnSave.setOnClickListener(view -> {
             if (validation()) {
-                updateUser();
-                realm.close();
-                Intent intentToProfile = new Intent(ShopOwnerDetailUpdateProfileActivity.this, ShopOwnerProfileDetailActivity.class);
-                intentToProfile.putExtra("EXTRA_PASS", userPass);
-                intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
-                startActivity(intentToProfile);
-            }
-        });
-    }
-
-    private void updateUser() {
-        realm.executeTransaction(transactionRealm -> {
-            user.setFirstName(binding.textFName.getText().toString());
-            user.setMiddleInitial(binding.textMName.getText().toString());
-            user.setLastName(binding.textLName.getText().toString());
-            user.setPhone(binding.textPhone.getText().toString());
-            try {
-                user.setBirthdate(new SimpleDateFormat("MMM dd yyyy").parse(binding.datePickerButton.getText().toString()));
-            } catch (Exception e) {
-                e.printStackTrace();
+                ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
+                    if (result.isSuccess()) {
+                        ShopSmartApp.instantiateRealm();
+                        ShopSmartApp.realm.executeTransaction(transactionRealm -> {
+                            user.setFirstName(binding.textFName.getText().toString());
+                            user.setMiddleInitial(binding.textMName.getText().toString());
+                            user.setLastName(binding.textLName.getText().toString());
+                            user.setPhone(binding.textPhone.getText().toString());
+                            try {
+                                user.setBirthdate(new SimpleDateFormat("MMM dd yyyy").parse(binding.datePickerButton.getText().toString()));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        });
+                        startActivity(new Intent(ShopOwnerDetailUpdateProfileActivity.this, ShopOwnerProfileDetailActivity.class));
+                    }
+                });
             }
         });
     }
 
     private boolean validation() {
         boolean valid = true;
-
         if (this.binding.textFName.getText().toString().isEmpty()) {
             this.binding.textFName.setError("First name cannot be empty");
             valid = false;
         }
-
         if (this.binding.textLName.getText().toString().isEmpty()) {
             this.binding.textLName.setError("Last name cannot be empty");
             valid = false;
         }
-
         if (this.binding.textPhone.getText().toString().isEmpty()) {
             this.binding.textPhone.setError("Phone number cannot be empty");
             valid = false;
         }
-
         return valid;
     }
 
-    // Date Functions
     private String makeDateString(int day, int month, int year) {
         return getMonthFormat(month) + " " + day + " " + year;
     }
@@ -182,20 +128,5 @@ public class ShopOwnerDetailUpdateProfileActivity extends AppCompatActivity {
 
     public void openDatePicker(View view) {
         datePickerDialog.show();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        binding = null;
-
-        // Log out.
-        app.currentUser().logOutAsync(result -> {
-            if (result.isSuccess()) {
-                Log.v("LOGOUT", "Successfully logged out.");
-            } else {
-                Log.e("LOGOUT", "Failed to log out, error: " + result.getError());
-            }
-        });
     }
 }

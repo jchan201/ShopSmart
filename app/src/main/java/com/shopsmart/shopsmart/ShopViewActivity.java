@@ -2,13 +2,11 @@ package com.shopsmart.shopsmart;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
@@ -19,31 +17,14 @@ import org.bson.types.ObjectId;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.realm.Realm;
 import io.realm.RealmResults;
-import io.realm.mongodb.App;
-import io.realm.mongodb.AppConfiguration;
-import io.realm.mongodb.Credentials;
-import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ShopViewActivity extends AppCompatActivity {
-    private final String PARTITION = "ShopSmart";
-    Intent currIntent;
-    String userEmail;
-    String userPass;
-    AppUser user;
-    List<ObjectId> shopIds;
-    ArrayList<Shop> shops;
-    Shop shop;
-    int index = 0;
-    int total = 0;
-    TabLayout tabLayout;
-    ViewPager2 view2;
-    FragmentAdapter adapter;
-    boolean userType;
     private ShopViewActivityBinding binding;
-    private App app;
-    private Realm realm;
+    private FragmentAdapter adapter;
+    private TabLayout tabLayout;
+    private boolean userType;
+    private int index = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,25 +32,10 @@ public class ShopViewActivity extends AppCompatActivity {
         binding = ShopViewActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
-        this.currIntent = this.getIntent();
-        if (this.currIntent != null) {
-            this.userEmail = currIntent.getStringExtra("EXTRA_EMAIL");
-            this.userPass = currIntent.getStringExtra("EXTRA_PASS");
-            this.index = currIntent.getIntExtra("EXTRA_INDEX", index);
-            this.userType = currIntent.getBooleanExtra("EXTRA_USER_CUSTOMER", false);
-            if(!userType) {
-                Log.i("HELLO", "SHOP OWNER");
-            }
-            else{
-                Log.i("HELLO", "CUSTOMER");
-            }
-        }
-
-        FragmentManager fm = getSupportFragmentManager();
+        index = getIntent().getIntExtra("EXTRA_INDEX", index);
         tabLayout = binding.tabLayout;
-        view2 = binding.viewPager;
-        adapter = new FragmentAdapter(fm, getLifecycle(), userEmail, userPass, index);
+        ViewPager2 view2 = binding.viewPager;
+        adapter = new FragmentAdapter(getSupportFragmentManager(), getLifecycle(), index);
         view2.setAdapter(adapter);
         tabLayout.addTab(tabLayout.newTab().setText("Info"));
         tabLayout.addTab(tabLayout.newTab().setText("Products"));
@@ -80,14 +46,9 @@ public class ShopViewActivity extends AppCompatActivity {
                 int position = tab.getPosition();
                 view2.setCurrentItem(position);
                 Bundle bundle = new Bundle();
-                bundle.putString("EXTRA_USER", userEmail);
-                bundle.putString("EXTRA_PASS", userPass);
                 bundle.putInt("EXTRA_INDEX", index);
-                if (position == 0) {
-                    adapter.first.setArguments(bundle);
-                } else if (position == 1) {
-                    adapter.second.setArguments(bundle);
-                }
+                if (position == 0) adapter.first.setArguments(bundle);
+                else if (position == 1) adapter.second.setArguments(bundle);
             }
 
             @Override
@@ -105,46 +66,23 @@ public class ShopViewActivity extends AppCompatActivity {
             }
         });
 
-        // Access realm
-        app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
-
-        // Get Intent
-        this.currIntent = this.getIntent();
-
-        if (this.currIntent != null) {
-            this.userEmail = currIntent.getStringExtra("EXTRA_EMAIL");
-            this.userPass = currIntent.getStringExtra("EXTRA_PASS");
-            this.index = currIntent.getIntExtra("EXTRA_INDEX", index);
-        }
-
-        Credentials credentials = Credentials.emailPassword(userEmail, userPass);
-        app.loginAsync(credentials, result -> {
+        ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
             if (result.isSuccess()) {
-                Log.v("LOGIN", "Successfully authenticated using email and password.");
-
-                SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
-                realm = Realm.getInstance(config);
-
-                RealmResults<AppUser> users = realm.where(AppUser.class).findAll();
+                ShopSmartApp.instantiateRealm();
+                RealmResults<AppUser> users = ShopSmartApp.realm.where(AppUser.class).findAll();
+                AppUser user = null;
                 for (AppUser u : users) {
-                    if (u.getEmail().equals(userEmail)) {
+                    if (u.getEmail().equals(ShopSmartApp.email)) {
                         user = u;
                     }
                 }
-                if(user.getUserType().equals("Customer")){
-                    RealmResults<Shop> allShops = realm.where(Shop.class).findAll();
-//                    shopIds = user.getShops();
-                    shops = new ArrayList<>();
-                    for (Shop s : allShops) {
-//                        for (ObjectId o : shopIds) {
-//                            if (s.getId().equals(o))
-                                shops.add(s);
-//                        }
-                    }
-                }
-                else {
-                    RealmResults<Shop> allShops = realm.where(Shop.class).findAll();
-                    shopIds = user.getShops();
+                RealmResults<Shop> allShops = ShopSmartApp.realm.where(Shop.class).findAll();
+                ArrayList<Shop> shops;
+                if (user.getUserType().equals("Customer")) {
+                    shops = new ArrayList<>(allShops);
+                    userType = true;
+                } else {
+                    List<ObjectId> shopIds = user.getShops();
                     shops = new ArrayList<>();
                     for (Shop s : allShops) {
                         for (ObjectId o : shopIds) {
@@ -152,30 +90,21 @@ public class ShopViewActivity extends AppCompatActivity {
                                 shops.add(s);
                         }
                     }
+                    userType = false;
                 }
-
-                total = shops.size();
-
-                if (index >= 0) {
-                    shop = shops.get(index);
-                    displayShopInfo();
-                }
-                realm.close();
-            } else {
-                Log.v("LOGIN", "Failed to authenticate using email and password.");
+                if (index >= 0)
+                    displayShopInfo(shops.get(index));
             }
         });
     }
 
-    private void displayShopInfo() {
+    private void displayShopInfo(Shop shop) {
         binding.queryShopName.setText(shop.getName());
         binding.queryShopDescription.setText(shop.getDesc());
         binding.queryShopPhone.setText(shop.getPhone());
         binding.queryShopWebsite.setText(shop.getWebsite());
         binding.queryShopEmail.setText(shop.getEmail());
         Bundle bundle = new Bundle();
-        bundle.putString("EXTRA_USER", userEmail);
-        bundle.putString("EXTRA_PASS", userPass);
         bundle.putInt("EXTRA_INDEX", index);
         adapter.first.setArguments(bundle);
     }
@@ -191,60 +120,15 @@ public class ShopViewActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHome:
-                realm.close();
-                if(!userType) {
-                    Intent listIntent = new Intent(ShopViewActivity.this, ShopListActivity.class);
-                    listIntent.putExtra("EXTRA_EMAIL", userEmail);
-                    listIntent.putExtra("EXTRA_PASS", userPass);
-                    startActivity(listIntent);
-                    finish();
-                }
-                else{
-                    Intent listIntent = new Intent(ShopViewActivity.this, CustomerDashboardActivity.class);
-                    listIntent.putExtra("EXTRA_EMAIL", userEmail);
-                    listIntent.putExtra("EXTRA_PASS", userPass);
-                    startActivity(listIntent);
-                    finish();
-                }
-                break;
-
             case R.id.menuPrev:
-                realm.close();
-                Intent prevIntent = new Intent(ShopViewActivity.this, ShopListActivity.class);
-                prevIntent.putExtra("EXTRA_PASS", userPass);
-                prevIntent.putExtra("EXTRA_EMAIL", userEmail);
-                startActivity(prevIntent);
-                finish();
+                if (userType)
+                    startActivity(new Intent(ShopViewActivity.this, CustomerDashboardActivity.class));
+                else
+                    startActivity(new Intent(ShopViewActivity.this, ShopListActivity.class));
                 break;
-//            case R.id.Profile:
-//                realm.close();
-//                Intent settingsIntent = new Intent(CustomerDashboardActivity.this, CustomerManageProfileActivity.class);
-//                settingsIntent.putExtra("EXTRA_EMAIL", userEmail);
-//                settingsIntent.putExtra("EXTRA_PASS", userPass);
-//                Toast.makeText(CustomerDashboardActivity.this, "Profile", Toast.LENGTH_SHORT).show();
-//                startActivity(settingsIntent);
-//                finish();
-//                break;
             case R.id.LogOut:
-                realm.close();
-                Intent dashboardIntent = new Intent(ShopViewActivity.this, StartupActivity.class);
-                startActivity(dashboardIntent);
+                startActivity(new Intent(ShopViewActivity.this, StartupActivity.class));
         }
         return true;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        binding = null;
-
-        // Log out.
-        app.currentUser().logOutAsync(result -> {
-            if (result.isSuccess()) {
-                Log.v("LOGOUT", "Successfully logged out.");
-            } else {
-                Log.e("LOGOUT", "Failed to log out, error: " + result.getError());
-            }
-        });
     }
 }

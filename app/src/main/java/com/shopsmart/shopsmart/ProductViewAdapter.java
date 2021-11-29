@@ -1,7 +1,6 @@
 package com.shopsmart.shopsmart;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,31 +8,16 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
-
-import io.realm.Realm;
-import io.realm.mongodb.App;
-import io.realm.mongodb.Credentials;
-import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ProductViewAdapter extends BaseAdapter {
     private final Context context;
     private final ArrayList<Product> products;
-    private final String PARTITION = "ShopSmart";
-    private final String userEmail, userPass;
-    private final App app;
-    private Realm realm;
     private final AppUser appUser;
 
-    ProductViewAdapter(Context context, ArrayList<Product> products, String userEmail,
-                       String userPass, App app, AppUser appUser) {
+    ProductViewAdapter(Context context, ArrayList<Product> products, AppUser appUser) {
         this.context = context;
         this.products = products;
-        this.userEmail = userEmail;
-        this.userPass = userPass;
-        this.app = app;
         this.appUser = appUser;
     }
 
@@ -53,9 +37,9 @@ public class ProductViewAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(int i, View view, ViewGroup parent) {
         if (view == null)
-            view = LayoutInflater.from(context).inflate(R.layout.product_view_list_item, viewGroup, false);
+            view = LayoutInflater.from(context).inflate(R.layout.product_view_list_item, parent, false);
 
         Product product = products.get(i);
         TextView txtName = view.findViewById(R.id.txtName);
@@ -70,20 +54,13 @@ public class ProductViewAdapter extends BaseAdapter {
         else txtStock.setText("None in Stock");
         if (!appUser.getUserType().equals("Owner")) {
             view.findViewById(R.id.btnAddToCart).setOnClickListener(view1 -> {
-                Credentials credentials = Credentials.emailPassword(userEmail, userPass);
-                app.loginAsync(credentials, result -> {
+                ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
                     if (result.isSuccess()) {
-                        Log.v("LOGIN", "Successfully authenticated using email and password.");
-                        SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(),
-                                PARTITION).allowWritesOnUiThread(true).build();
-                        realm = Realm.getInstance(config);
-                        realm.executeTransaction(realm ->
+                        ShopSmartApp.instantiateRealm();
+                        ShopSmartApp.realm.executeTransaction(realm ->
                                 appUser.addShoppingItem(new ProductItem(product.getId(), 1)));
                         Toast.makeText(context, "Added " + product.getName() + " to cart.", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Log.v("LOGIN", "Failed to authenticate using email and password.");
                     }
-                    realm.close();
                 });
             });
         } else view.findViewById(R.id.btnAddToCart).setEnabled(false);

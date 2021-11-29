@@ -2,7 +2,6 @@ package com.shopsmart.shopsmart;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -10,25 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.ShopownerProfilePaymentsActivityBinding;
 
-import io.realm.Realm;
 import io.realm.RealmResults;
-import io.realm.mongodb.App;
-import io.realm.mongodb.AppConfiguration;
-import io.realm.mongodb.Credentials;
-import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ShopOwnerProfilePaymentsActivity extends AppCompatActivity {
-    private final String PARTITION = "ShopSmart";
-    Intent currIntent;
-    String userEmail;
-    String userPass;
-    AppUser user;
-    PaymentMethod[] paymentMethods;
-    int index = 0;
-    int total = 0;
     private ShopownerProfilePaymentsActivityBinding binding;
-    private App app;
-    private Realm realm;
+    private PaymentMethod[] paymentMethods;
+    private int index = 0;
+    private int total = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,58 +23,30 @@ public class ShopOwnerProfilePaymentsActivity extends AppCompatActivity {
         binding = ShopownerProfilePaymentsActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Access realm
-        app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
+        Intent currIntent = getIntent();
+        boolean paymentSuccess = currIntent.getBooleanExtra("EXTRA_UPDATE_PAYMENT_SUCCESS", false);
+        if (paymentSuccess)
+            Toast.makeText(ShopOwnerProfilePaymentsActivity.this, "Successfully update payment method.", Toast.LENGTH_SHORT).show();
+        boolean addSuccess = currIntent.getBooleanExtra("EXTRA_ADD_PAYMENT_SUCCESS", false);
+        if (addSuccess)
+            Toast.makeText(ShopOwnerProfilePaymentsActivity.this, "Successfully add new payment method.", Toast.LENGTH_SHORT).show();
+        boolean deleteSuccess = currIntent.getBooleanExtra("EXTRA_DELETE_PAYMENT_SUCCESS", false);
+        if (deleteSuccess)
+            Toast.makeText(ShopOwnerProfilePaymentsActivity.this, "Successfully remove payment method.", Toast.LENGTH_SHORT).show();
 
-        // Get Intent
-        this.currIntent = this.getIntent();
-
-        if (this.currIntent != null) {
-            this.userEmail = currIntent.getStringExtra("EXTRA_EMAIL");
-            this.userPass = currIntent.getStringExtra("EXTRA_PASS");
-
-            boolean paymentSuccess = currIntent.getBooleanExtra("EXTRA_UPDATE_PAYMENT_SUCCESS", false);
-            if (paymentSuccess)
-                Toast.makeText(ShopOwnerProfilePaymentsActivity.this, "Successfully update payment method.", Toast.LENGTH_SHORT).show();
-
-            boolean addSuccess = currIntent.getBooleanExtra("EXTRA_ADD_PAYMENT_SUCCESS", false);
-            if (addSuccess)
-                Toast.makeText(ShopOwnerProfilePaymentsActivity.this, "Successfully add new payment method.", Toast.LENGTH_SHORT).show();
-
-            boolean deleteSuccess = currIntent.getBooleanExtra("EXTRA_DELETE_PAYMENT_SUCCESS", false);
-            if (deleteSuccess)
-                Toast.makeText(ShopOwnerProfilePaymentsActivity.this, "Successfully remove payment method.", Toast.LENGTH_SHORT).show();
-
-        }
-
-        Credentials credentials = Credentials.emailPassword(userEmail, userPass);
-        app.loginAsync(credentials, result -> {
+        ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
             if (result.isSuccess()) {
-                Log.v("LOGIN", "Successfully authenticated using email and password.");
-
-                // Open a Synced Realm for asynchronous transactions.
-                SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
-                realm = Realm.getInstance(config);
-
-                // Retrieve all users in the Realm.
-                RealmResults<AppUser> users = realm.where(AppUser.class).findAll();
-
-                // Find the AppUser
+                ShopSmartApp.instantiateRealm();
+                RealmResults<AppUser> users = ShopSmartApp.realm.where(AppUser.class).findAll();
+                AppUser user = null;
                 for (int i = 0; i < users.size(); i++) {
-                    if (users.get(i).getEmail().equals(userEmail)) {
+                    if (users.get(i).getEmail().equals(ShopSmartApp.email))
                         user = users.get(i);
-                    }
                 }
-
                 paymentMethods = user.getPaymentMethods().toArray(new PaymentMethod[0]);
                 total = paymentMethods.length;
                 binding.textPaymentTotal.setText(Integer.toString(total));
-                if (total == 0) {
-                    binding.textPaymentIndex.setText(Integer.toString(index));
-                } else {
-                    binding.textPaymentIndex.setText(Integer.toString(index + 1));
-                }
-
+                binding.textPaymentIndex.setText(Integer.toString(total == 0 ? index : index + 1));
                 if (index == 0 && total == 0) {
                     binding.singlePaymentView.setVisibility(View.GONE);
                     binding.textCardNum.setVisibility(View.GONE);
@@ -103,52 +62,32 @@ public class ShopOwnerProfilePaymentsActivity extends AppCompatActivity {
                         binding.buttonPrev.setVisibility(View.INVISIBLE);
                         binding.buttonNext.setVisibility(View.INVISIBLE);
                     }
-
-                    if (index + 1 < total) {
-                        binding.buttonPrev.setVisibility(View.INVISIBLE);
-                    }
+                    if (index + 1 < total) binding.buttonPrev.setVisibility(View.INVISIBLE);
                     displayCardInfo(paymentMethods[index]);
                 }
-            } else {
-                Log.v("LOGIN", "Failed to authenticate using email and password.");
             }
         });
-
         binding.buttonPrev.setOnClickListener(view -> {
             if (index > 0) {
                 index -= 1;
                 binding.buttonNext.setVisibility(View.VISIBLE);
                 binding.textPaymentIndex.setText(Integer.toString(index + 1));
                 displayCardInfo(paymentMethods[index]);
-
-                if (index == 0) {
-                    binding.buttonPrev.setVisibility(View.INVISIBLE);
-                }
+                if (index == 0) binding.buttonPrev.setVisibility(View.INVISIBLE);
             }
         });
-
         binding.buttonNext.setOnClickListener(view -> {
             if (index < total) {
                 index += 1;
                 binding.buttonPrev.setVisibility(View.VISIBLE);
                 binding.textPaymentIndex.setText(Integer.toString(index + 1));
                 displayCardInfo(paymentMethods[index]);
-
-                if (index + 1 == total) {
-                    binding.buttonNext.setVisibility(View.INVISIBLE);
-                }
+                if (index + 1 == total) binding.buttonNext.setVisibility(View.INVISIBLE);
             }
         });
-
-        binding.btnRemove.setOnClickListener(view -> {
-            realm.close();
-            Intent intentToProfile = new Intent(ShopOwnerProfilePaymentsActivity.this, ShopOwnerProfileDeletePaymentsConfirmActivity.class);
-            intentToProfile.putExtra("EXTRA_PASS", userPass);
-            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
-            intentToProfile.putExtra("EXTRA_REMOVE_INDEX", index);
-            startActivity(intentToProfile);
-        });
-
+        binding.btnRemove.setOnClickListener(view ->
+                startActivity(new Intent(ShopOwnerProfilePaymentsActivity.this, ShopOwnerProfileDeletePaymentsConfirmActivity.class)
+                        .putExtra("EXTRA_REMOVE_INDEX", index)));
         binding.btnEdit.setOnClickListener(view -> {
             PaymentMethod paymentMethod = new PaymentMethod();
             paymentMethod.setName(paymentMethods[index].getName());
@@ -164,51 +103,20 @@ public class ShopOwnerProfilePaymentsActivity extends AppCompatActivity {
             billingAddress.setAddress1(paymentMethods[index].getBillingAddress().getAddress1());
             billingAddress.setAddress2(paymentMethods[index].getBillingAddress().getAddress2());
 
-            Intent intentToProfile = new Intent(ShopOwnerProfilePaymentsActivity.this, ShopOwnerProfileUpdatePaymentsActivity1.class);
-            intentToProfile.putExtra("EXTRA_PASS", userPass);
-            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
-            intentToProfile.putExtra("EXTRA_UPDATE_INDEX", index);
-            intentToProfile.putExtra("EXTRA_PAYMENT_METHOD_OBJ", paymentMethod);
-            intentToProfile.putExtra("EXTRA_BILLING_ADDRESS_OBJ", billingAddress);
-            realm.close();
-            startActivity(intentToProfile);
+            startActivity(new Intent(ShopOwnerProfilePaymentsActivity.this, ShopOwnerProfileUpdatePaymentsActivity1.class)
+                    .putExtra("EXTRA_UPDATE_INDEX", index)
+                    .putExtra("EXTRA_PAYMENT_METHOD_OBJ", paymentMethod)
+                    .putExtra("EXTRA_BILLING_ADDRESS_OBJ", billingAddress));
         });
-
-        binding.btnAdd.setOnClickListener(view -> {
-            realm.close();
-            Intent intentToProfile = new Intent(ShopOwnerProfilePaymentsActivity.this, ShopOwnerProfileAddPaymentsActivity1.class);
-            intentToProfile.putExtra("EXTRA_PASS", userPass);
-            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
-            startActivity(intentToProfile);
-        });
-
-        binding.btnBack.setOnClickListener(view -> {
-            realm.close();
-            Intent intentToBack = new Intent(ShopOwnerProfilePaymentsActivity.this, ShopOwnerProfileActivity.class);
-            intentToBack.putExtra("EXTRA_PASS", userPass);
-            intentToBack.putExtra("EXTRA_EMAIL", userEmail);
-            startActivity(intentToBack);
-        });
+        binding.btnAdd.setOnClickListener(view ->
+                startActivity(new Intent(ShopOwnerProfilePaymentsActivity.this, ShopOwnerProfileAddPaymentsActivity1.class)));
+        binding.btnBack.setOnClickListener(view ->
+                startActivity(new Intent(ShopOwnerProfilePaymentsActivity.this, ShopOwnerProfileActivity.class)));
     }
 
     private void displayCardInfo(PaymentMethod paymentMethod) {
         binding.textCardNum.setText("***" + paymentMethod.getCardNumber().substring(paymentMethod.getCardNumber().length() - 4));
         binding.textCardName.setText(paymentMethod.getName().toUpperCase());
         binding.textCardExpire.setText(paymentMethod.getExpiry());
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        binding = null;
-
-        // Log out.
-        app.currentUser().logOutAsync(result -> {
-            if (result.isSuccess()) {
-                Log.v("LOGOUT", "Successfully logged out.");
-            } else {
-                Log.e("LOGOUT", "Failed to log out, error: " + result.getError());
-            }
-        });
     }
 }

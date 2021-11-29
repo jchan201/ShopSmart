@@ -1,6 +1,7 @@
 package com.shopsmart.shopsmart;
 
 import java.io.Serializable;
+
 import io.realm.RealmObject;
 import io.realm.annotations.RealmClass;
 import io.realm.annotations.Required;

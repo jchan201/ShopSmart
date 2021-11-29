@@ -8,27 +8,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.shopsmart.shopsmart.databinding.ActivitySignupBinding;
 
 public class SignupActivity extends AppCompatActivity {
-    private final String PARTITION = "ShopSmart";
-    Intent currIntent;
-    boolean success = true;
-    String errorMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        com.shopsmart.shopsmart.databinding.ActivitySignupBinding binding = ActivitySignupBinding.inflate(getLayoutInflater());
+        ActivitySignupBinding binding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Get Intent
-        this.currIntent = this.getIntent();
-
-        if (this.currIntent != null) {
-            this.success = currIntent.getBooleanExtra("EXTRA_SIGNUP_SUCCESS", true);
-            this.errorMessage = currIntent.getStringExtra("EXTRA_ERROR_MSG");
-        }
-
-        if (!success) {
-            binding.textError.setText("Failed to register user: " + errorMessage);
+        Intent currIntent = this.getIntent();
+        if (currIntent != null) {
+            boolean success = currIntent.getBooleanExtra("EXTRA_SIGNUP_SUCCESS", true);
+            if (!success)
+                binding.textError.setText("Failed to register user: " + currIntent.getStringExtra("EXTRA_ERROR_MSG"));
         }
 
         binding.btnCustomer.setOnClickListener(view -> {

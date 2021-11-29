@@ -8,16 +8,16 @@ import androidx.fragment.app.Fragment;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
-import android.nfc.Tag;
+//import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
+//import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
+//import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.EditText;
+//import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -30,12 +30,12 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.material.tabs.TabLayout;
+//import com.google.android.material.tabs.TabLayout;
 
-import org.bson.types.ObjectId;
+//import org.bson.types.ObjectId;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
+//import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -43,17 +43,17 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
+//import io.realm.RealmResults;
 import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
-import io.realm.mongodb.Credentials;
-import io.realm.mongodb.sync.SyncConfiguration;
+//import io.realm.mongodb.Credentials;
+//import io.realm.mongodb.sync.SyncConfiguration;
 
 public class MapsFragment extends Fragment implements View.OnClickListener {
     private FragmentMapsListener listener;
 
-    private final String PARTITION = "ShopSmart";
-    private static final String TAG = "";
+//    private final String PARTITION = "ShopSmart";
+//    private static final String TAG = "";
     private static final String USERNAME = "param1";
     private static final String USERPASS = "param2";
     private static final String NUMSHOPS = "param3";
@@ -78,10 +78,10 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
     CharSequence shopAddress;
     String shopId;
 
-    AppUser user;
-    ArrayList<Shop> shops;
-    Shop shop;
-    Address address;
+//    AppUser user;
+//    ArrayList<Shop> shops;
+//    Shop shop;
+//    Address address;
 
     boolean clickable = true;
 
@@ -144,32 +144,32 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
     };
     private Bundle savedInstanceState;
 
-    private void init(){
-//        searchView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-//                if(actionId == EditorInfo.IME_ACTION_SEARCH
-//                || actionId == EditorInfo.IME_ACTION_DONE
-//                || keyEvent.getAction() == KeyEvent.ACTION_DOWN
-//                || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER) {
-//                    geoLocate();
-//                }
-//                return false;
-//            }
-//        });
-    }
+//    private void init(){
+////        searchView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+////            @Override
+////            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+////                if(actionId == EditorInfo.IME_ACTION_SEARCH
+////                || actionId == EditorInfo.IME_ACTION_DONE
+////                || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+////                || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER) {
+////                    geoLocate();
+////                }
+////                return false;
+////            }
+////        });
+//    }
 
-    private void geoLocate(){
-//        String searchString = searchText.getText().toString();
-//
-//        Geocoder geocoder = new Geocoder(MapsFragment.this);
-//        List<Address> list = new ArrayList<>();
-//        try{
-//            list = geocoder.getFromLocationName(searchString, 1);
-//        }catch(IOException e){
-//            Log.e(TAG, "Error");
-//        }
-    }
+//    private void geoLocate(){
+////        String searchString = searchText.getText().toString();
+////
+////        Geocoder geocoder = new Geocoder(MapsFragment.this);
+////        List<Address> list = new ArrayList<>();
+////        try{
+////            list = geocoder.getFromLocationName(searchString, 1);
+////        }catch(IOException e){
+////            Log.e(TAG, "Error");
+////        }
+//    }
 
     @Nullable
     @Override
@@ -184,14 +184,13 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
         // Access realm
         app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
 
-        RelativeLayout mapLayout = (RelativeLayout) view.findViewById(R.id.rlMaps);
+//        RelativeLayout mapLayout = (RelativeLayout) view.findViewById(R.id.rlMaps);
 
         searchView = view.findViewById(R.id.searchInput);
 
         viewBtn = (Button) view.findViewById(R.id.buttonView2);
         homeBtn = (Button) view.findViewById(R.id.buttonHome);
 
-        viewBtn = (Button) view.findViewById(R.id.buttonView2);
         viewBtn.setClickable(false);
         viewBtn.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.gray));
 
@@ -333,7 +332,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
                 List<Address> addressList = null;
                 boolean place = true;
 
-                if(location != null || !location.equals("")){
+                if(location != null && !location.equals("")){
                     Geocoder geocoder = new Geocoder(getActivity().getApplicationContext());
                     try{
                         addressList = geocoder.getFromLocationName(location, 1);
@@ -361,7 +360,9 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
                             Marker marker = map.addMarker(new MarkerOptions().position(latLng)
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                                     .title(shopNames[idx]));
-                            marker.showInfoWindow();
+                            if(marker != null) {
+                                marker.showInfoWindow();
+                            }
                             locationView.setText("Location: " + shopNames[idx]);
                             listener.onInputMapSent(shopIds[idx]);
 
@@ -393,6 +394,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
         });
 
 
+
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
@@ -412,12 +414,12 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
                 googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(@NonNull Marker marker) {
-                        boolean shopNameGet = false;
+//                        boolean shopNameGet = false;
 
                         locationView = (TextView) view.findViewById(R.id.textLocation2);
                         locationView.setText("Location: " + marker.getTitle());
                         viewBtn = (Button) view.findViewById(R.id.buttonView2);
-                        if(marker.getTitle().toString().equals("Home")){
+                        if(marker.getTitle().equals("Home")){
                             viewBtn.setClickable(false);
                             viewBtn.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.gray));
                             Log.i("HELLO", "Button False");
@@ -457,6 +459,12 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
+    public boolean getLocationByName(String place){
+        Boolean check = false;
+
+        return check;
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -474,7 +482,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
         String check = userAddress.substring(0, 2);
         Log.i("HELLO BUTTON", homeAddress);
         List<Address> addressList = null;
-        Address address = null;
+        Address address;
         boolean place = true;
         location = location.replaceAll("\\s+", "");
         Log.i("HELLO BUTTON", location);
