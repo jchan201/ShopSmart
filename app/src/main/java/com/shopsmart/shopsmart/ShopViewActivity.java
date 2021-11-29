@@ -209,12 +209,22 @@ public class ShopViewActivity extends AppCompatActivity {
                 break;
 
             case R.id.menuPrev:
-                realm.close();
-                Intent prevIntent = new Intent(ShopViewActivity.this, ShopListActivity.class);
-                prevIntent.putExtra("EXTRA_PASS", userPass);
-                prevIntent.putExtra("EXTRA_EMAIL", userEmail);
-                startActivity(prevIntent);
-                finish();
+                if(!userType) {
+                    realm.close();
+                    Intent prevIntent = new Intent(ShopViewActivity.this, ShopListActivity.class);
+                    prevIntent.putExtra("EXTRA_PASS", userPass);
+                    prevIntent.putExtra("EXTRA_EMAIL", userEmail);
+                    startActivity(prevIntent);
+                    finish();
+                }
+                else {
+                    realm.close();
+                    Intent prevIntent = new Intent(ShopViewActivity.this, CustomerDashboardActivity.class);
+                    prevIntent.putExtra("EXTRA_PASS", userPass);
+                    prevIntent.putExtra("EXTRA_EMAIL", userEmail);
+                    startActivity(prevIntent);
+                    finish();
+                }
                 break;
 //            case R.id.Profile:
 //                realm.close();

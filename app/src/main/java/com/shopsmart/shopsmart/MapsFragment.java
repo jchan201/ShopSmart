@@ -393,6 +393,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
         });
 
 
+
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
@@ -455,6 +456,12 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
         });
 
         return view;
+    }
+
+    public boolean getLocationByName(String place){
+        Boolean check = false;
+
+        return check;
     }
 
     @Override
