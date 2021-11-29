@@ -224,6 +224,8 @@ public class CustomerProfileActivity extends AppCompatActivity {
     private boolean validation() {
         boolean valid = true;
 
+
+
         return valid;
     }
 
