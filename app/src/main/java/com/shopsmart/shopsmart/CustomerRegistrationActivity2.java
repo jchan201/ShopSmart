@@ -46,6 +46,7 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity {
     private String makeDateString(int day, int month, int year) {
         return getMonthFormat(month) + " " + day + " " + year;
     }
+
     private String getMonthFormat(int month) {
         switch (month) {
             case 0:
@@ -119,8 +120,7 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity {
         if (binding.zipCode.getText().toString().isEmpty()) {
             binding.zipCode.setError("Field cannot be empty");
             valid = false;
-        }
-        else if (!binding.zipCode.getText().toString().matches("([A-Z]\\d[A-Z]\\s\\d[A-Z]\\d)")) {
+        } else if (!binding.zipCode.getText().toString().matches("([A-Z]\\d[A-Z]\\s\\d[A-Z]\\d)")) {
             binding.zipCode.setError("Postal code must match schema A1A 1A1");
             valid = false;
         }
@@ -131,8 +131,7 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity {
         if (binding.phoneNum.getText().toString().isEmpty()) {
             binding.phoneNum.setError("Phone number cannot be empty");
             valid = false;
-        }
-        else if (!binding.phoneNum.getText().toString().matches("\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d")) {
+        } else if (!binding.phoneNum.getText().toString().matches("\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d")) {
             binding.phoneNum.setError("Must contain 10 digits");
             valid = false;
         }

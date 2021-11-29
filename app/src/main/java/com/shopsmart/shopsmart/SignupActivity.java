@@ -19,7 +19,8 @@ public class SignupActivity extends AppCompatActivity {
         Intent currIntent = this.getIntent();
         if (currIntent != null) {
             boolean success = currIntent.getBooleanExtra("EXTRA_SIGNUP_SUCCESS", true);
-            if (!success) binding.textError.setText("Failed to register user: " + currIntent.getStringExtra("EXTRA_ERROR_MSG"));
+            if (!success)
+                binding.textError.setText("Failed to register user: " + currIntent.getStringExtra("EXTRA_ERROR_MSG"));
         }
 
         binding.btnCustomer.setOnClickListener(view -> {

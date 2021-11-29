@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -32,18 +31,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MapsFragment extends Fragment implements View.OnClickListener {
-    String userAddress;
-    Button homeBtn;
-    Button viewBtn;
-    TextView locationView;
-    String shopId;
-    GoogleMap map;
-    SearchView searchView;
     private FragmentMapsListener listener;
-    private Integer numShops = 0;
-    private String[] shopIds;
-    private String[] shopNames;
-    private String[] shopPCodes;
+    private TextView locationView;
+    private Button viewBtn;
+    private GoogleMap map;
     private final OnMapReadyCallback callback = new OnMapReadyCallback() {
         @Override
         public void onMapReady(GoogleMap googleMap) {
@@ -52,45 +43,27 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         }
     };
+    private String[] shopIds;
+    private String[] shopNames;
+    private String[] shopPCodes;
+    private String userAddress;
+    private Integer numShops;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
-        Bundle bundle = this.getArguments();
-        searchView = view.findViewById(R.id.searchInput);
-        viewBtn = (Button) view.findViewById(R.id.buttonView2);
-        homeBtn = (Button) view.findViewById(R.id.buttonHome);
-        viewBtn = (Button) view.findViewById(R.id.buttonView2);
-        viewBtn.setClickable(false);
-        viewBtn.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.gray));
+        SearchView searchView = view.findViewById(R.id.searchInput);
+        Button homeBtn = (Button) view.findViewById(R.id.buttonHome);
+        SupportMapFragment supportMapFragment = (SupportMapFragment)
+                getChildFragmentManager().findFragmentById(R.id.map);
         locationView = (TextView) view.findViewById(R.id.textLocation2);
+        viewBtn = (Button) view.findViewById(R.id.buttonView2);
+        viewBtn.setEnabled(false);
 
-        homeBtn.setOnClickListener(v -> {
-            map.clear();
-            viewBtn = (Button) view.findViewById(R.id.buttonView2);
-            viewBtn.setClickable(false);
-            viewBtn.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.gray));
-            getLocation();
-            listener.onInputMapSent("Home");
-        });
-
-        viewBtn.setOnClickListener(view1 -> {
-            int idx = -1;
-            if (!locationView.getText().toString().equals("Location: Home")) {
-                for (int x = 0; x < numShops; x++) {
-                    if (locationView.getText().toString().equals("Location: " + shopNames[x])) {
-                        idx = x;
-                    }
-                }
-
-                listener.onViewMapSent(idx);
-            }
-        });
-
+        Bundle bundle = getArguments();
         if (bundle != null) {
             numShops = bundle.getInt("NUMSHOPS");
             shopIds = new String[numShops];
@@ -101,13 +74,12 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
             shopPCodes = bundle.getStringArray("SHOPPCODES");
             userAddress = bundle.getString("USERADDRESS");
         } else {
+            numShops = 0;
             homeBtn.setVisibility(View.GONE);
             searchView.setVisibility(View.GONE);
             viewBtn.setVisibility(View.GONE);
             locationView.setVisibility(View.GONE);
         }
-        SupportMapFragment supportMapFragment = (SupportMapFragment)
-                getChildFragmentManager().findFragmentById(R.id.map);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -115,7 +87,6 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
                 String location = searchView.getQuery().toString();
                 boolean shopName = false;
                 int idx = -1;
-
                 for (int x = 0; x < numShops && !shopName; x++) {
                     if (shopNames[x].toUpperCase(Locale.ROOT).contains(location.toUpperCase(Locale.ROOT))) {
                         location = shopPCodes[x].replaceAll("\\s+", "");
@@ -123,11 +94,10 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
                         shopName = true;
                     }
                 }
-                List<Address> addressList = null;
-                boolean place;
-
                 if (!location.equals("")) {
                     Geocoder geocoder = new Geocoder(getActivity().getApplicationContext());
+                    List<Address> addressList = null;
+                    boolean place;
                     try {
                         addressList = geocoder.getFromLocationName(location, 1);
                     } catch (IOException e) {
@@ -151,8 +121,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
                             locationView.setText("Location: " + shopNames[idx]);
                             listener.onInputMapSent(shopIds[idx]);
 
-                            viewBtn.setClickable(true);
-                            viewBtn.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.teal));
+                            viewBtn.setEnabled(true);
                         }
                         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
                     } else {
@@ -175,6 +144,26 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
             }
         });
 
+        viewBtn.setOnClickListener(view1 -> {
+            int idx = -1;
+            if (!locationView.getText().toString().equals("Location: Home")) {
+                for (int x = 0; x < numShops; x++) {
+                    if (locationView.getText().toString().equals("Location: " + shopNames[x])) {
+                        idx = x;
+                    }
+                }
+                listener.onViewMapSent(idx);
+            }
+        });
+
+        homeBtn.setOnClickListener(v -> {
+            map.clear();
+            viewBtn = (Button) view.findViewById(R.id.buttonView2);
+            viewBtn.setEnabled(false);
+            getLocation();
+            listener.onInputMapSent("Home");
+        });
+
         supportMapFragment.getMapAsync(googleMap -> {
             googleMap.setOnMapClickListener(latLng -> {
                 MarkerOptions markerOptions = new MarkerOptions();
@@ -188,23 +177,16 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
                 locationView = (TextView) view.findViewById(R.id.textLocation2);
                 locationView.setText("Location: " + marker.getTitle());
                 viewBtn = (Button) view.findViewById(R.id.buttonView2);
-                if (marker.getTitle().equals("Home")) {
-                    viewBtn.setClickable(false);
-                    viewBtn.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.gray));
-                } else {
-                    viewBtn.setClickable(true);
-                    viewBtn.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.teal));
-                }
+                viewBtn.setEnabled(!marker.getTitle().equals("Home"));
+                String shopId = null;
                 if (!locationView.getText().toString().equals("Location: Home")) {
                     for (int x = 0; x < numShops; x++) {
                         if (locationView.getText().toString().equals("Location: " + shopNames[x])) {
                             shopId = shopIds[x];
                         }
                     }
-                } else {
-                    shopId = "HOME";
-                }
-                listener.onInputMapSent(shopId);
+                } else shopId = "HOME";
+                if (shopId != null) listener.onInputMapSent(shopId);
                 return false;
             });
         });
@@ -224,15 +206,13 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
     }
 
     public void getLocation() {
-        String homeAddress = userAddress;
         String location = userAddress;
         String check = userAddress.substring(0, 2);
         List<Address> addressList = null;
         Address address;
-        boolean place = true;
+        boolean place;
         location = location.replaceAll("\\s+", "");
         Geocoder geocoder = new Geocoder(getActivity().getApplicationContext());
-
         try {
             addressList = geocoder.getFromLocationName(location, 1);
         } catch (IOException e) {
@@ -250,7 +230,6 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
             }
         }
-
         for (int x = 0; x < numShops; x++) {
             addressList = null;
             boolean checkAddress = false;
@@ -280,7 +259,8 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View view) {}
+    public void onClick(View view) {
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -301,6 +281,7 @@ public class MapsFragment extends Fragment implements View.OnClickListener {
 
     public interface FragmentMapsListener {
         void onInputMapSent(CharSequence input);
+
         void onViewMapSent(int idx);
     }
 }

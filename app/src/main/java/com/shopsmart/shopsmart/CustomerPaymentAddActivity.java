@@ -99,6 +99,7 @@ public class CustomerPaymentAddActivity extends AppCompatActivity {
     private String makeDateString(int day, int month, int year) {
         return getMonthFormat(month) + " " + day + " " + year;
     }
+
     private String getMonthFormat(int month) {
         switch (month) {
             case 1:
@@ -180,8 +181,7 @@ public class CustomerPaymentAddActivity extends AppCompatActivity {
             if (Long.parseLong(binding.expY.getText().toString()) + 2000 + (Long.parseLong(binding.expM.getText().toString()) / 12) < todaysDate.get(Calendar.YEAR) + ((todaysDate.get(Calendar.MONTH) + 1) / 12)) {
                 binding.expY.setError("Please enter a valid date");
                 valid = false;
-            }
-            else if (Long.parseLong(binding.expM.getText().toString()) > 12) {
+            } else if (Long.parseLong(binding.expM.getText().toString()) > 12) {
                 binding.expM.setError("Please enter a valid date" + todaysDate.get(Calendar.YEAR));
                 valid = false;
             }

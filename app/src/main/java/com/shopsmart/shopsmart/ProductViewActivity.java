@@ -104,7 +104,7 @@ public class ProductViewActivity extends AppCompatActivity {
         });
 
         binding.saveStockBtn.setOnClickListener(view -> {
-            if(Integer.parseInt(binding.stockCountEditText.getText().toString()) >= 0){
+            if (Integer.parseInt(binding.stockCountEditText.getText().toString()) >= 0) {
 
                 realm.executeTransaction(transactionRealm -> {
                     product.setStock(Integer.parseInt(binding.stockCountEditText.getText().toString()));
@@ -117,8 +117,7 @@ public class ProductViewActivity extends AppCompatActivity {
                 binding.stockCountEditText.setVisibility(View.INVISIBLE);
                 binding.saveStockBtn.setVisibility(View.INVISIBLE);
                 binding.cancelBtn.setVisibility(View.INVISIBLE);
-            }
-            else{
+            } else {
                 binding.stockCountEditText.setError("Stock count cannot be less than 0");
             }
         });

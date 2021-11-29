@@ -3,6 +3,7 @@ package com.shopsmart.shopsmart;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -120,23 +121,24 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
         appUser.addPaymentMethod(createPaymentMethod());
         appUser.addOrUpdateAddress((Address) currIntent.getSerializableExtra("EXTRA_ADDRESS_OBJ"));
 
-        // Create user in database
         ShopSmartApp.app.getEmailPassword().registerUserAsync(email, password, registerResult -> {
             Intent loginScreen = new Intent(ShopOwnerSignupActivity3.this, StartupActivity.class);
             if (registerResult.isSuccess()) {
-                // Create AppUser with associated User
                 ShopSmartApp.login(email, password);
-                ShopSmartApp.instantiateRealm();
-                ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, loginResult ->
-                        ShopSmartApp.realm.executeTransaction(transactionRealm ->
-                                transactionRealm.insert(appUser)));
-                ShopSmartApp.logout();
+                ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, loginResult -> {
+                    ShopSmartApp.instantiateRealm();
+                    ShopSmartApp.realm.executeTransaction(transactionRealm ->
+                            transactionRealm.insert(appUser));
+                    ShopSmartApp.logout();
+                });
                 loginScreen.putExtra("EXTRA_SIGNUP_SUCCESS", true);
                 Log.i("REGISTER", "Successfully registered user.");
             } else {
+                Toast.makeText(this, "Email already taken.", Toast.LENGTH_SHORT).show();
                 Log.e("REGISTER", "Failed to register user: " + registerResult.getError().getErrorMessage());
             }
             startActivity(loginScreen);
+            finish();
         });
     }
 }

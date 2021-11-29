@@ -32,8 +32,7 @@ public class CustomerRegistrationActivity1 extends AppCompatActivity implements 
                 intent.putExtra("EXTRA_EMAIL", binding.email.getText().toString());
                 intent.putExtra("EXTRA_PASSWORD", binding.password1.getText().toString());
                 startActivity(intent);
-            }
-            else
+            } else
                 Toast.makeText(getApplicationContext(), "Both Passwords must be the same", Toast.LENGTH_SHORT).show();
         }
     }

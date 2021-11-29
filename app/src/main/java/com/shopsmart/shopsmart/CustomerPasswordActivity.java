@@ -23,19 +23,16 @@ public class CustomerPasswordActivity extends AppCompatActivity {
         );
         binding.confirmButton.setOnClickListener(view -> {
             if (validation())
-                updatePassword();
-        });
-    }
-
-    private void updatePassword() {
-        ShopSmartApp.app.getEmailPassword().callResetPasswordFunctionAsync(
-                ShopSmartApp.email,
-                binding.password1.getText().toString(), new String[] {}, it -> {
-            if (it.isSuccess()) {
-                Log.i("PASS_RESET", "Successfully reset the password for " + ShopSmartApp.email);
-                startActivity(new Intent(CustomerPasswordActivity.this, CustomerManageProfileActivity.class));
-            } else
-                Log.e("PASS_RESET", "Failed to reset the password for " + ShopSmartApp.email + ": " + it.getError().getErrorMessage());
+                ShopSmartApp.app.getEmailPassword().callResetPasswordFunctionAsync(
+                        ShopSmartApp.email,
+                        binding.password1.getText().toString(), new String[]{}, it -> {
+                            if (it.isSuccess()) {
+                                Log.i("PASS_RESET", "Successfully reset the password for " + ShopSmartApp.email);
+                                ShopSmartApp.password = binding.password1.getText().toString();
+                                startActivity(new Intent(CustomerPasswordActivity.this, CustomerManageProfileActivity.class));
+                            } else
+                                Log.e("PASS_RESET", "Failed to reset the password for " + ShopSmartApp.email + ": " + it.getError().getErrorMessage());
+                        });
         });
     }
 

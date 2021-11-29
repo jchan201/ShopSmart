@@ -15,29 +15,31 @@ public class ShopSmartApp extends Application {
     public static Credentials credentials;
     public static String email;
     public static String password;
-    private static SyncConfiguration config;
 
     public static void login(String userEmail, String userPassword) {
         email = userEmail;
         password = userPassword;
         credentials = Credentials.emailPassword(email, password);
-        config = new SyncConfiguration.Builder(app.currentUser(), "ShopSmart")
-                .allowQueriesOnUiThread(true)
-                .allowWritesOnUiThread(true)
-                .build();
     }
 
     public static void logout() {
-        if (app.currentUser() != null)
-            app.currentUser().logOut();
+        if (realm != null) {
+            realm.close();
+            realm = null;
+        }
+        if (app.currentUser().isLoggedIn())
+            app.currentUser().logOutAsync(result -> {});
         credentials = null;
         email = null;
         password = null;
     }
 
     public static void instantiateRealm() {
-        if (realm == null)
-            realm = Realm.getInstance(config);
+        if (realm == null || realm.isClosed())
+            realm = Realm.getInstance(new SyncConfiguration.Builder(app.currentUser(), "ShopSmart")
+                    .allowQueriesOnUiThread(true)
+                    .allowWritesOnUiThread(true)
+                    .build());
     }
 
     @Override

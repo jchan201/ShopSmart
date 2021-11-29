@@ -31,7 +31,6 @@ public class ShopOwnerDashboardActivity extends AppCompatActivity {
                 if (user != null) binding.textUsername.setText(user.getEmail());
             }
         });
-
         binding.btnDelete.setOnClickListener(view ->
                 startActivity(new Intent(ShopOwnerDashboardActivity.this, ShopOwnerDeleteAccountConfirmActivity.class)));
 

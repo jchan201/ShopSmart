@@ -38,41 +38,6 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         binding.finishButton.setOnClickListener(this);
     }
 
-    private String makeDateString(int day, int month, int year) {
-        return getMonthFormat(month) + " " + day + " " + year;
-    }
-
-    private String getMonthFormat(int month) {
-        switch (month) {
-            case 1:
-                return "JAN";
-            case 2:
-                return "FEB";
-            case 3:
-                return "MAR";
-            case 4:
-                return "APR";
-            case 5:
-                return "MAY";
-            case 6:
-                return "JUN";
-            case 7:
-                return "JUL";
-            case 8:
-                return "AUG";
-            case 9:
-                return "SEP";
-            case 10:
-                return "OCT";
-            case 11:
-                return "NOV";
-            case 12:
-                return "DEC";
-            default:
-                return "";
-        }
-    }
-
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         String choice = adapterView.getItemAtPosition(i).toString();
@@ -83,7 +48,8 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {}
+    public void onNothingSelected(AdapterView<?> adapterView) {
+    }
 
     @Override
     public void onClick(View view) {
@@ -126,8 +92,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
             if (Long.parseLong(binding.expY.getText().toString()) + 2000 + (Long.parseLong(binding.expM.getText().toString()) / 12) < todaysDate.get(Calendar.YEAR) + ((todaysDate.get(Calendar.MONTH) + 1) / 12)) {
                 binding.expY.setError("Please enter a valid date");
                 valid = false;
-            }
-            else if (Long.parseLong(binding.expM.getText().toString()) > 12) {
+            } else if (Long.parseLong(binding.expM.getText().toString()) > 12) {
                 binding.expM.setError("Please enter a valid date" + todaysDate.get(Calendar.YEAR));
                 valid = false;
             }
@@ -186,23 +151,24 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         appUser.setUserType("Customer");
         appUser.addPaymentMethod(createPayment());
 
-        // Create user in database
         ShopSmartApp.app.getEmailPassword().registerUserAsync(email, password, registerResult -> {
             Intent loginScreen = new Intent(CustomerRegistrationActivity3.this, StartupActivity.class);
             if (registerResult.isSuccess()) {
-                // Create AppUser with associated User
                 ShopSmartApp.login(email, password);
-                ShopSmartApp.instantiateRealm();
-                ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, loginResult ->
-                        ShopSmartApp.realm.executeTransaction(transactionRealm ->
-                                transactionRealm.insert(appUser)));
-                ShopSmartApp.logout();
+                ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, loginResult -> {
+                    ShopSmartApp.instantiateRealm();
+                    ShopSmartApp.realm.executeTransaction(transactionRealm ->
+                            transactionRealm.insert(appUser));
+                    ShopSmartApp.logout();
+                });
                 loginScreen.putExtra("EXTRA_SIGNUP_SUCCESS", true);
                 Log.i("REGISTER", "Successfully registered user.");
             } else {
+                Toast.makeText(this, "Email already taken.", Toast.LENGTH_SHORT).show();
                 Log.e("REGISTER", "Failed to register user: " + registerResult.getError().getErrorMessage());
             }
             startActivity(loginScreen);
+            finish();
         });
     }
 

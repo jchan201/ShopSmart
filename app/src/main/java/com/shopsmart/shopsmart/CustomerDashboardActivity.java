@@ -98,14 +98,16 @@ public class CustomerDashboardActivity extends AppCompatActivity implements Maps
         int id = item.getItemId();
         if (id == R.id.Profile)
             startActivity(new Intent(CustomerDashboardActivity.this, CustomerManageProfileActivity.class));
-        else if (id == R.id.LogOut)
+        else if (id == R.id.LogOut) {
+            ShopSmartApp.logout();
             startActivity(new Intent(CustomerDashboardActivity.this, StartupActivity.class));
+        }
         return true;
     }
 
     @Override
     public void onInputMapSent(CharSequence input) {
-        ImageView imgView = (ImageView) findViewById(R.id.imageViewShop);
+        ImageView imgView = findViewById(R.id.imageViewShop);
         boolean shopIdBool = false;
 
         int getInt = -1;
@@ -116,10 +118,10 @@ public class CustomerDashboardActivity extends AppCompatActivity implements Maps
             }
         }
 
-        TextView shopNameText = (TextView) findViewById(R.id.shopNameView);
-        TextView shopPhoneText = (TextView) findViewById(R.id.shopPhoneView);
-        TextView shopEmailText = (TextView) findViewById(R.id.shopEmailView);
-        TextView shopAddressText = (TextView) findViewById(R.id.shopAddressView);
+        TextView shopNameText = findViewById(R.id.shopNameView);
+        TextView shopPhoneText = findViewById(R.id.shopPhoneView);
+        TextView shopEmailText = findViewById(R.id.shopEmailView);
+        TextView shopAddressText = findViewById(R.id.shopAddressView);
         if (shopIdBool) {
             shopNameText.setVisibility(View.VISIBLE);
             shopPhoneText.setVisibility(View.VISIBLE);
@@ -145,7 +147,6 @@ public class CustomerDashboardActivity extends AppCompatActivity implements Maps
     public void onViewMapSent(int idx) {
         Intent intent = new Intent(CustomerDashboardActivity.this, ShopViewActivity.class);
         intent.putExtra("EXTRA_INDEX", idx);
-        intent.putExtra("EXTRA_USER_CUSTOMER", true);
         startActivity(intent);
     }
 

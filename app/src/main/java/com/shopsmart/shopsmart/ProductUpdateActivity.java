@@ -190,7 +190,7 @@ public class ProductUpdateActivity extends AppCompatActivity {
         return valid;
     }
 
-    private void productTypeSetting(){
+    private void productTypeSetting() {
         int main = 0;
         int sub = 0;
 
@@ -206,10 +206,10 @@ public class ProductUpdateActivity extends AppCompatActivity {
         String[] toys = getResources().getStringArray(R.array.Toys);
         String[] sportsOutdoors = getResources().getStringArray(R.array.SportsOutdoors);
 
-        for(int i = 0; i < mainType.length; i++){
-            if(i == 0){
-                for(int y = 0; y < clothing.length; y++){
-                    if(clothing[y].equals(product.getProductType())){
+        for (int i = 0; i < mainType.length; i++) {
+            if (i == 0) {
+                for (int y = 0; y < clothing.length; y++) {
+                    if (clothing[y].equals(product.getProductType())) {
                         sub = y;
                         main = i;
                         break;
@@ -217,9 +217,9 @@ public class ProductUpdateActivity extends AppCompatActivity {
                 }
             }
 
-            if(i == 1){
-                for(int y = 0; y < kitchen.length; y++){
-                    if(kitchen[y].equals(product.getProductType())){
+            if (i == 1) {
+                for (int y = 0; y < kitchen.length; y++) {
+                    if (kitchen[y].equals(product.getProductType())) {
                         sub = y;
                         main = i;
                         break;
@@ -227,9 +227,9 @@ public class ProductUpdateActivity extends AppCompatActivity {
                 }
             }
 
-            if(i == 2){
-                for(int y = 0; y < food.length; y++){
-                    if(food[y].equals(product.getProductType())){
+            if (i == 2) {
+                for (int y = 0; y < food.length; y++) {
+                    if (food[y].equals(product.getProductType())) {
                         sub = y;
                         main = i;
                         break;
@@ -237,9 +237,9 @@ public class ProductUpdateActivity extends AppCompatActivity {
                 }
             }
 
-            if(i == 3){
-                for(int y = 0; y < electronics.length; y++){
-                    if(electronics[y].equals(product.getProductType())){
+            if (i == 3) {
+                for (int y = 0; y < electronics.length; y++) {
+                    if (electronics[y].equals(product.getProductType())) {
                         sub = y;
                         main = i;
                         break;
@@ -247,9 +247,9 @@ public class ProductUpdateActivity extends AppCompatActivity {
                 }
             }
 
-            if(i == 4){
-                for(int y = 0; y < household.length; y++){
-                    if(household[y].equals(product.getProductType())){
+            if (i == 4) {
+                for (int y = 0; y < household.length; y++) {
+                    if (household[y].equals(product.getProductType())) {
                         sub = y;
                         main = i;
                         break;
@@ -257,9 +257,9 @@ public class ProductUpdateActivity extends AppCompatActivity {
                 }
             }
 
-            if(i == 5){
-                for(int y = 0; y < pharmaceutical.length; y++){
-                    if(pharmaceutical[y].equals(product.getProductType())){
+            if (i == 5) {
+                for (int y = 0; y < pharmaceutical.length; y++) {
+                    if (pharmaceutical[y].equals(product.getProductType())) {
                         sub = y;
                         main = i;
                         break;
@@ -267,9 +267,9 @@ public class ProductUpdateActivity extends AppCompatActivity {
                 }
             }
 
-            if(i == 6){
-                for(int y = 0; y < pets.length; y++){
-                    if(pets[y].equals(product.getProductType())){
+            if (i == 6) {
+                for (int y = 0; y < pets.length; y++) {
+                    if (pets[y].equals(product.getProductType())) {
                         sub = y;
                         main = i;
                         break;
@@ -277,9 +277,9 @@ public class ProductUpdateActivity extends AppCompatActivity {
                 }
             }
 
-            if(i == 7){
-                for(int y = 0; y < officeArtSchool.length; y++){
-                    if(officeArtSchool[y].equals(product.getProductType())){
+            if (i == 7) {
+                for (int y = 0; y < officeArtSchool.length; y++) {
+                    if (officeArtSchool[y].equals(product.getProductType())) {
                         sub = y;
                         main = i;
                         break;
@@ -287,9 +287,9 @@ public class ProductUpdateActivity extends AppCompatActivity {
                 }
             }
 
-            if(i == 8){
-                for(int y = 0; y < toys.length; y++){
-                    if(toys[y].equals(product.getProductType())){
+            if (i == 8) {
+                for (int y = 0; y < toys.length; y++) {
+                    if (toys[y].equals(product.getProductType())) {
                         sub = y;
                         main = i;
                         break;
@@ -297,9 +297,9 @@ public class ProductUpdateActivity extends AppCompatActivity {
                 }
             }
 
-            if(i == 9){
-                for(int y = 0; y < sportsOutdoors.length; y++){
-                    if(sportsOutdoors[y].equals(product.getProductType())){
+            if (i == 9) {
+                for (int y = 0; y < sportsOutdoors.length; y++) {
+                    if (sportsOutdoors[y].equals(product.getProductType())) {
                         sub = y;
                         main = i;
                         break;

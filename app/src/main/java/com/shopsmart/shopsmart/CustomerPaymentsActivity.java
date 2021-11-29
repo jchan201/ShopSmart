@@ -2,7 +2,6 @@ package com.shopsmart.shopsmart;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -66,8 +65,7 @@ public class CustomerPaymentsActivity extends AppCompatActivity implements Seria
                     if (index + 1 == total) {
                         binding.buttonPrev.setVisibility(View.INVISIBLE);
                         binding.buttonNext.setVisibility(View.INVISIBLE);
-                    }
-                    else if (index + 1 < total)
+                    } else if (index + 1 < total)
                         binding.buttonPrev.setVisibility(View.INVISIBLE);
                     displayCardInfo(paymentMethods[index]);
                 }

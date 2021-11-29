@@ -2,7 +2,6 @@ package com.shopsmart.shopsmart;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,31 +15,12 @@ import org.bson.types.ObjectId;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.realm.Realm;
 import io.realm.RealmResults;
-import io.realm.mongodb.App;
-import io.realm.mongodb.AppConfiguration;
-import io.realm.mongodb.Credentials;
-import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ProductAddActivity extends AppCompatActivity {
-    private final String PARTITION = "ShopSmart";
-    Intent currIntent;
-    String userEmail;
-    String userPass;
-    AppUser user;
-    List<ObjectId> shopIds;
-    ArrayList<Shop> shops;
-    Product product;
-    Address address;
-
-    Shop shop;
-    int index = 0;
-    int total = 0;
-    SyncConfiguration config;
     private ProductAddActivityBinding binding;
-    private App app;
-    private Realm realm;
+    private Shop shop;
+    private int index;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,84 +28,56 @@ public class ProductAddActivity extends AppCompatActivity {
         binding = ProductAddActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Access realm
-        app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
-
-        // Get Intent
-        this.currIntent = this.getIntent();
-
-        if (this.currIntent != null) {
-            this.userEmail = currIntent.getStringExtra("EXTRA_EMAIL");
-            this.userPass = currIntent.getStringExtra("EXTRA_PASS");
-            this.index = currIntent.getIntExtra("EXTRA_INDEX", index);
-        }
-
-        Credentials credentials = Credentials.emailPassword(userEmail, userPass);
-        app.loginAsync(credentials, result -> {
+        ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
             if (result.isSuccess()) {
-                Log.v("LOGIN", "Successfully authenticated using email and password.");
-
-                SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).allowWritesOnUiThread(true).build();
-                realm = Realm.getInstance(config);
-
-                RealmResults<AppUser> users = realm.where(AppUser.class).findAll();
+                ShopSmartApp.instantiateRealm();
+                RealmResults<AppUser> users = ShopSmartApp.realm.where(AppUser.class).findAll();
+                AppUser user = null;
                 for (AppUser u : users) {
-                    if (u.getEmail().equals(userEmail)) {
+                    if (u.getEmail().equals(ShopSmartApp.email)) {
                         user = u;
                     }
                 }
-                RealmResults<Shop> allShops = realm.where(Shop.class).findAll();
-                shopIds = user.getShops();
-                shops = new ArrayList<>();
+                RealmResults<Shop> allShops = ShopSmartApp.realm.where(Shop.class).findAll();
+                List<ObjectId> shopIds = user.getShops();
+                ArrayList<Shop> shops = new ArrayList<>();
                 for (Shop s : allShops) {
                     for (ObjectId o : shopIds) {
                         if (s.getId().equals(o))
                             shops.add(s);
                     }
                 }
-
-                total = shops.size();
-
-                if (index >= 0) {
-                    shop = shops.get(index);
-                    address = shop.getAddress();
-                }
-            } else {
-                Log.v("LOGIN", "Failed to authenticate using email and password.");
+                index = getIntent().getIntExtra("EXTRA_INDEX", 0);
+                if (index >= 0) shop = shops.get(index);
             }
         });
 
-        binding.btnCancel.setOnClickListener(view -> startActivity(new Intent(ProductAddActivity.this, ShopInventoryActivity.class)
-                .putExtra("EXTRA_EMAIL", userEmail)
-                .putExtra("EXTRA_PASS", userPass)
-                .putExtra("EXTRA_INDEX", index)));
+        binding.btnCancel.setOnClickListener(view ->
+                startActivity(new Intent(ProductAddActivity.this, ShopInventoryActivity.class)
+                        .putExtra("EXTRA_INDEX", index)));
 
         binding.btnSave.setOnClickListener(view -> {
             if (validation()) {
-                String name = binding.edtTextProductName.getText().toString();
-                String desc = binding.edtTextDesc.getText().toString();
-                double price = Double.parseDouble(binding.edtTextPrice.getText().toString());
-                int stock = Integer.parseInt(binding.edtTextStock.getText().toString());
-
-                String productType = binding.spinnerSub.getSelectedItem().toString();
-
-                product = new Product(shop.getId(), productType, name, desc, price, stock);
-
-                realm.executeTransaction(realm -> {
-                    Log.d("Something", "Executing transaction...");
-
-                    realm.insert(product);
-                    shop.addProduct(product.getId());
-
+                ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
+                    if (result.isSuccess()) {
+                        ShopSmartApp.instantiateRealm();
+                        ShopSmartApp.realm.executeTransaction(realm -> {
+                            Product product = new Product(
+                                    shop.getId(),
+                                    binding.spinnerSub.getSelectedItem().toString(),
+                                    binding.edtTextProductName.getText().toString(),
+                                    binding.edtTextDesc.getText().toString(),
+                                    Double.parseDouble(binding.edtTextPrice.getText().toString()),
+                                    Integer.parseInt(binding.edtTextStock.getText().toString()));
+                            realm.insert(product);
+                            shop.addProduct(product.getId());
+                        });
+                        Intent nextSignUpScreen = new Intent(ProductAddActivity.this, ShopInventoryActivity.class);
+                        nextSignUpScreen.putExtra("EXTRA_ADD_PRODUCT_SUCCESS", true);
+                        nextSignUpScreen.putExtra("EXTRA_INDEX", index);
+                        startActivity(nextSignUpScreen);
+                    }
                 });
-
-                realm.close();
-                Intent nextSignUpScreen = new Intent(ProductAddActivity.this, ShopInventoryActivity.class);
-                nextSignUpScreen.putExtra("EXTRA_EMAIL", userEmail);
-                nextSignUpScreen.putExtra("EXTRA_PASS", userPass);
-                nextSignUpScreen.putExtra("EXTRA_INDEX", index);
-                nextSignUpScreen.putExtra("EXTRA_ADD_PRODUCT_SUCCESS", true);
-                startActivity(nextSignUpScreen);
             }
         });
 
@@ -137,55 +89,46 @@ public class ProductAddActivity extends AppCompatActivity {
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.spinnerSub.setAdapter(adapter);
                 }
-
                 if (position == 1) {
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.Kitchen, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.spinnerSub.setAdapter(adapter);
                 }
-
                 if (position == 2) {
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.Food, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.spinnerSub.setAdapter(adapter);
                 }
-
                 if (position == 3) {
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.Electronics, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.spinnerSub.setAdapter(adapter);
                 }
-
                 if (position == 4) {
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.Household, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.spinnerSub.setAdapter(adapter);
                 }
-
                 if (position == 5) {
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.Pharmaceutical, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.spinnerSub.setAdapter(adapter);
                 }
-
                 if (position == 6) {
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.Pets, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.spinnerSub.setAdapter(adapter);
                 }
-
                 if (position == 7) {
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.OfficeArtSchool, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.spinnerSub.setAdapter(adapter);
                 }
-
                 if (position == 8) {
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.Toys, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.spinnerSub.setAdapter(adapter);
                 }
-
                 if (position == 9) {
                     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductAddActivity.this, R.array.SportsOutdoors, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -195,39 +138,32 @@ public class ProductAddActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
     }
 
     private boolean validation() {
         boolean valid = true;
-
-        if (this.binding.edtTextProductName.getText().toString().isEmpty()) {
-            this.binding.edtTextProductName.setError("Product name cannot be empty");
+        if (binding.edtTextProductName.getText().toString().isEmpty()) {
+            binding.edtTextProductName.setError("Product name cannot be empty");
             valid = false;
         }
-
-        if (this.binding.edtTextPrice.getText().toString().isEmpty()) {
-            this.binding.edtTextPrice.setError("Product price cannot be empty");
+        if (binding.edtTextPrice.getText().toString().isEmpty()) {
+            binding.edtTextPrice.setError("Product price cannot be empty");
             valid = false;
         }
-
-        if (Double.parseDouble(this.binding.edtTextPrice.getText().toString()) < 0) {
-            this.binding.edtTextPrice.setError("Product price cannot be negative value");
+        if (Double.parseDouble(binding.edtTextPrice.getText().toString()) < 0) {
+            binding.edtTextPrice.setError("Product price cannot be negative value");
             valid = false;
         }
-
-        if (this.binding.edtTextStock.getText().toString().isEmpty()) {
-            this.binding.edtTextStock.setError("Stock cannot be empty");
+        if (binding.edtTextStock.getText().toString().isEmpty()) {
+            binding.edtTextStock.setError("Stock cannot be empty");
             valid = false;
         }
-
-        if (Integer.parseInt(this.binding.edtTextStock.getText().toString()) < 0) {
-            this.binding.edtTextStock.setError("Stock cannot be negative value");
+        if (Integer.parseInt(binding.edtTextStock.getText().toString()) < 0) {
+            binding.edtTextStock.setError("Stock cannot be negative value");
             valid = false;
         }
-
         return valid;
     }
 }

@@ -226,8 +226,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
         if (binding.userPostalCode.getText().toString().isEmpty()) {
             binding.userPostalCode.setError("Field cannot be empty");
             valid = false;
-        }
-        else if (!binding.userPostalCode.getText().toString().matches("([A-Z]\\d[A-Z]\\s\\d[A-Z]\\d)")) {
+        } else if (!binding.userPostalCode.getText().toString().matches("([A-Z]\\d[A-Z]\\s\\d[A-Z]\\d)")) {
             binding.userPostalCode.setError("Postal code must match schema A1A 1A1");
             valid = false;
         }
@@ -238,8 +237,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
         if (binding.inputPhoneNumber.getText().toString().isEmpty()) {
             binding.inputPhoneNumber.setError("Phone number cannot be empty");
             valid = false;
-        }
-        else if (!binding.inputPhoneNumber.getText().toString().matches("\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d")) {
+        } else if (!binding.inputPhoneNumber.getText().toString().matches("\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d")) {
             binding.inputPhoneNumber.setError("Must contain 10 digits");
             valid = false;
         }
@@ -268,6 +266,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
     private String makeDateString(int day, int month, int year) {
         return getMonthFormat(month) + " " + day + " " + year;
     }
+
     private String getMonthFormat(int month) {
         switch (month) {
             case 0:
