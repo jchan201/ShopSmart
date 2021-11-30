@@ -121,13 +121,18 @@ public class ShopViewActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menuHome:
             case R.id.menuPrev:
-                if (userType)
+                if (userType) {
                     startActivity(new Intent(ShopViewActivity.this, CustomerDashboardActivity.class));
-                else
+                    finish();
+                }
+                else {
                     startActivity(new Intent(ShopViewActivity.this, ShopListActivity.class));
+                    finish();
+                }
                 break;
             case R.id.LogOut:
                 startActivity(new Intent(ShopViewActivity.this, StartupActivity.class));
+                finish();
         }
         return true;
     }

@@ -26,16 +26,19 @@ public class SignupActivity extends AppCompatActivity {
         binding.btnCustomer.setOnClickListener(view -> {
             // Go to Customer Signup Activity
             startActivity(new Intent(SignupActivity.this, CustomerRegistrationActivity1.class));
+            finish();
         });
 
         binding.btnShopOwner.setOnClickListener(view -> {
             // Go to Shop Owner Signup Activity
             startActivity(new Intent(SignupActivity.this, ShopOwnerSignupActivity.class));
+            finish();
         });
 
         binding.btnBack.setOnClickListener(view -> {
             // Go back to Login
             startActivity(new Intent(SignupActivity.this, StartupActivity.class));
+            finish();
         });
     }
 }
