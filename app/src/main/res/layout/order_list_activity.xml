@@ -7,35 +7,35 @@
     android:background="#2a47a7"
     android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#2a47a7">
+
+        <View
+            android:id="@+id/titleView"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/rectangle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#2a47a7">
-
-            <View
-                android:id="@+id/titleView"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/rectangle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Inventory"
-                android:textSize="40dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/titleView"
-                app:layout_constraintEnd_toEndOf="@+id/titleView"
-                app:layout_constraintStart_toStartOf="@+id/titleView"
-                app:layout_constraintTop_toTopOf="@+id/titleView" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:text="Order List"
+            android:textSize="40dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/titleView"
+            app:layout_constraintEnd_toEndOf="@+id/titleView"
+            app:layout_constraintStart_toStartOf="@+id/titleView"
+            app:layout_constraintTop_toTopOf="@+id/titleView" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,7 +45,7 @@
         android:orientation="vertical">
 
         <ListView
-            android:id="@+id/lstProducts"
+            android:id="@+id/lstOrders"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -53,10 +53,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleView"
-            tools:listitem="@layout/product_list_item" />
+            tools:listitem="@layout/order_list_item" />
 
         <Button
-            android:id="@+id/btnAddProduct"
+            android:id="@+id/btnDeleteAll"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -64,7 +64,7 @@
             android:layout_marginBottom="16dp"
             android:ems="10"
             android:padding="8dp"
-            android:text="ADD PRODUCT"
+            android:text="CLEAR ALL ORDERS"
             android:textAlignment="center"
             android:textSize="20sp" />
 

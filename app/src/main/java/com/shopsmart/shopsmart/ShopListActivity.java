@@ -2,6 +2,7 @@ package com.shopsmart.shopsmart;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,13 +15,26 @@ import org.bson.types.ObjectId;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.mongodb.App;
+import io.realm.mongodb.AppConfiguration;
+import io.realm.mongodb.Credentials;
+import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ShopListActivity extends AppCompatActivity {
+    private final String PARTITION = "ShopSmart";
+    Intent currIntent;
+    String userEmail;
+    String userPass;
+    AppUser user;
+    List<ObjectId> shopIds;
+    ArrayList<Shop> shops;
+    int index = 0;
+    int total = 0;
     private ShopListActivityBinding binding;
-    private ArrayList<Shop> shops;
-    private int index;
-    private int total;
+    private App app;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,38 +42,59 @@ public class ShopListActivity extends AppCompatActivity {
         binding = ShopListActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Intent currIntent = getIntent();
-        if (currIntent != null) {
+        Realm.init(this);
+
+        // Access realm
+        app = new App(new AppConfiguration.Builder("shopsmart-acsmx").build());
+
+        // Get Intent
+        this.currIntent = this.getIntent();
+
+        if (this.currIntent != null) {
+            this.userEmail = currIntent.getStringExtra("EXTRA_EMAIL");
+            this.userPass = currIntent.getStringExtra("EXTRA_PASS");
+
             boolean addSuccess = currIntent.getBooleanExtra("EXTRA_REGISTER_SHOP_SUCCESS", false);
             if (addSuccess)
-                Toast.makeText(ShopListActivity.this, "Successfully registered new shop.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ShopListActivity.this, "Successfully register new shop to your name.", Toast.LENGTH_SHORT).show();
+
             boolean deleteSuccess = currIntent.getBooleanExtra("EXTRA_DELETE_SHOP_SUCCESS", false);
             if (deleteSuccess)
-                Toast.makeText(ShopListActivity.this, "Successfully closed shop.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ShopListActivity.this, "Successfully close down shop to your name.", Toast.LENGTH_SHORT).show();
         }
-        ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
+
+        Credentials credentials = Credentials.emailPassword(userEmail, userPass);
+        app.loginAsync(credentials, result -> {
             if (result.isSuccess()) {
-                ShopSmartApp.instantiateRealm();
-                RealmResults<AppUser> users = ShopSmartApp.realm.where(AppUser.class).findAll();
-                AppUser user = null;
+                Log.v("LOGIN", "Successfully authenticated using email and password.");
+
+                SyncConfiguration config = new SyncConfiguration.Builder(app.currentUser(), PARTITION).build();
+                realm = Realm.getInstance(config);
+
+                RealmResults<AppUser> users = realm.where(AppUser.class).findAll();
                 for (AppUser u : users) {
-                    if (u.getEmail().equals(ShopSmartApp.email)) {
+                    if (u.getEmail().equals(userEmail)) {
                         user = u;
                     }
                 }
-                RealmResults<Shop> allShops = ShopSmartApp.realm.where(Shop.class).findAll();
-                List<ObjectId> shopIds;
-                if (user != null) shopIds = user.getShops();
-                else shopIds = null;
+                RealmResults<Shop> allShops = realm.where(Shop.class).findAll();
+                shopIds = user.getShops();
                 shops = new ArrayList<>();
                 for (Shop s : allShops) {
                     for (ObjectId o : shopIds) {
-                        if (s.getId().equals(o)) shops.add(s);
+                        if (s.getId().equals(o))
+                            shops.add(s);
                     }
                 }
+
                 total = shops.size();
                 binding.textShopTotal.setText(Integer.toString(total));
-                binding.textShopIndex.setText(Integer.toString(total == 0 ? index : index + 1));
+                if (total == 0) {
+                    binding.textShopIndex.setText(Integer.toString(index));
+                } else {
+                    binding.textShopIndex.setText(Integer.toString(index + 1));
+                }
+
                 if (index == 0 && total == 0) {
                     binding.singleShopView.setVisibility(View.GONE);
                     binding.textShopName.setVisibility(View.GONE);
@@ -68,7 +103,10 @@ public class ShopListActivity extends AppCompatActivity {
                     binding.btnDelete.setVisibility(View.GONE);
                     binding.buttonPrev.setVisibility(View.GONE);
                     binding.buttonNext.setVisibility(View.GONE);
-                    binding.btnInventory.setEnabled(false);
+                    binding.textSlash.setVisibility(View.GONE);
+                    binding.textShopIndex.setVisibility(View.GONE);
+                    binding.textShopTotal.setVisibility(View.GONE);
+                    binding.btnInventory.setVisibility(View.GONE);
                 } else {
                     binding.singleShopView.setVisibility(View.VISIBLE);
                     binding.textShopName.setVisibility(View.VISIBLE);
@@ -77,59 +115,118 @@ public class ShopListActivity extends AppCompatActivity {
                     binding.btnDelete.setVisibility(View.VISIBLE);
                     binding.buttonPrev.setVisibility(View.VISIBLE);
                     binding.buttonNext.setVisibility(View.VISIBLE);
-                    binding.btnInventory.setEnabled(true);
-                    if (index + 1 == total) binding.buttonNext.setVisibility(View.GONE);
-                    if (index == 0) binding.buttonPrev.setVisibility(View.GONE);
+                    binding.textSlash.setVisibility(View.VISIBLE);
+                    binding.textShopIndex.setVisibility(View.VISIBLE);
+                    binding.textShopTotal.setVisibility(View.VISIBLE);
+                    binding.btnInventory.setVisibility(View.VISIBLE);
+                    if (index + 1 == total)
+                        binding.buttonNext.setVisibility(View.GONE);
+                    if (index == 0) {
+                        binding.buttonPrev.setVisibility(View.GONE);
+                    }
                     displayCardInfo(shops.get(index));
                 }
+            } else {
+                Log.v("LOGIN", "Failed to authenticate using email and password.");
             }
         });
+
         binding.buttonPrev.setOnClickListener(view -> {
             if (index > 0) {
                 index -= 1;
                 binding.buttonNext.setVisibility(View.VISIBLE);
                 binding.textShopIndex.setText(Integer.toString(index + 1));
                 displayCardInfo(shops.get(index));
-                if (index == 0) binding.buttonPrev.setVisibility(View.INVISIBLE);
+
+                if (index == 0) {
+                    binding.buttonPrev.setVisibility(View.INVISIBLE);
+                }
             }
         });
+
         binding.buttonNext.setOnClickListener(view -> {
             if (index < total) {
                 index += 1;
                 binding.buttonPrev.setVisibility(View.VISIBLE);
                 binding.textShopIndex.setText(Integer.toString(index + 1));
                 displayCardInfo(shops.get(index));
-                if (index + 1 == total) binding.buttonNext.setVisibility(View.INVISIBLE);
+
+                if (index + 1 == total) {
+                    binding.buttonNext.setVisibility(View.INVISIBLE);
+                }
             }
         });
+
         binding.btnView.setOnClickListener(view -> {
+            realm.close();
             Intent intentToProfile = new Intent(ShopListActivity.this, ShopViewActivity.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
             intentToProfile.putExtra("EXTRA_INDEX", index);
             startActivity(intentToProfile);
         });
+
         binding.btnEdit.setOnClickListener(view -> {
+            realm.close();
             Intent intentToProfile = new Intent(ShopListActivity.this, ShopRegisterEdit.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
             intentToProfile.putExtra("EXTRA_INDEX", index);
             startActivity(intentToProfile);
         });
+
         binding.btnDelete.setOnClickListener(view -> {
+            realm.close();
             Intent intentToProfile = new Intent(ShopListActivity.this, ShopDeleteConfirmActivity.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
             intentToProfile.putExtra("EXTRA_REMOVE_INDEX", index);
             startActivity(intentToProfile);
         });
+
         binding.btnInventory.setOnClickListener(view -> {
+            realm.close();
             Intent intentToProfile = new Intent(ShopListActivity.this, ShopInventoryActivity.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
             intentToProfile.putExtra("EXTRA_INDEX", index);
             startActivity(intentToProfile);
         });
-        binding.btnAdd.setOnClickListener(view ->
-                startActivity(new Intent(ShopListActivity.this, ShopRegister.class)));
 
-        binding.btnBack.setOnClickListener(view ->
-                startActivity(new Intent(ShopListActivity.this, ShopOwnerDashboardActivity.class)));
+        binding.btnAdd.setOnClickListener(view -> {
+            realm.close();
+            Intent intentToProfile = new Intent(ShopListActivity.this, ShopRegister.class);
+            intentToProfile.putExtra("EXTRA_PASS", userPass);
+            intentToProfile.putExtra("EXTRA_EMAIL", userEmail);
+            startActivity(intentToProfile);
+        });
+
+        binding.btnBack.setOnClickListener(view -> {
+            realm.close();
+            Intent intentToBack = new Intent(ShopListActivity.this, ShopOwnerDashboardActivity.class);
+            intentToBack.putExtra("EXTRA_PASS", userPass);
+            intentToBack.putExtra("EXTRA_EMAIL", userEmail);
+            startActivity(intentToBack);
+
+        });
     }
 
     private void displayCardInfo(Shop shop) {
         binding.textShopName.setText(shop.getName());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        binding = null;
+
+        // Log out.
+        app.currentUser().logOutAsync(result -> {
+            if (result.isSuccess()) {
+                Log.v("LOGOUT", "Successfully logged out.");
+            } else {
+                Log.e("LOGOUT", "Failed to log out, error: " + result.getError());
+            }
+        });
     }
 }
