@@ -20,7 +20,7 @@ public class ShopOwnerProfileDetailActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         if (getIntent().getBooleanExtra("EXTRA_RESET_PASSWORD_SUCCESS", false))
-            Toast.makeText(ShopOwnerProfileDetailActivity.this, "Successfully reset password.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Successfully reset password.", Toast.LENGTH_SHORT).show();
 
         ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
             if (result.isSuccess()) {

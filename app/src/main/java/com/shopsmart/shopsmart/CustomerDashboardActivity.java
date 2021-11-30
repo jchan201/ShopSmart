@@ -134,12 +134,11 @@ public class CustomerDashboardActivity extends AppCompatActivity implements Maps
             shopEmailText.setText("Email: " + allShops.get(getInt).getEmail());
             shopAddressText.setText("Address: " + allShops.get(getInt).getAddress().getAddress1() + " " + allShops.get(getInt).getAddress().getAddress2());
         } else {
-            shopNameText.setVisibility(View.GONE);
-            shopPhoneText.setVisibility(View.GONE);
-            shopEmailText.setVisibility(View.GONE);
-            shopAddressText.setVisibility(View.GONE);
-            imgView.setVisibility(View.GONE);
-
+            shopNameText.setVisibility(View.INVISIBLE);
+            shopPhoneText.setVisibility(View.INVISIBLE);
+            shopEmailText.setVisibility(View.INVISIBLE);
+            shopAddressText.setVisibility(View.INVISIBLE);
+            imgView.setVisibility(View.INVISIBLE);
         }
     }
 

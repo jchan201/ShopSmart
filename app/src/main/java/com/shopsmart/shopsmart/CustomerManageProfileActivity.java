@@ -2,6 +2,7 @@ package com.shopsmart.shopsmart;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +18,9 @@ public class CustomerManageProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = CustomerManageProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        if (getIntent().getBooleanExtra("EXTRA_RESET_PASSWORD_SUCCESS", false))
+            Toast.makeText(this, "Successfully reset password.", Toast.LENGTH_SHORT).show();
 
         ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
             if (result.isSuccess()) {

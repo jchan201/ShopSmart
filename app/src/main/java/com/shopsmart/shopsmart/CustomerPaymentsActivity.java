@@ -31,7 +31,6 @@ public class CustomerPaymentsActivity extends AppCompatActivity implements Seria
             boolean paymentSuccess = currIntent.getBooleanExtra("EXTRA_UPDATE_PAYMENT_SUCCESS", false);
             if (paymentSuccess)
                 Toast.makeText(CustomerPaymentsActivity.this, "Successfully update payment method.", Toast.LENGTH_SHORT).show();
-
             boolean addSuccess = currIntent.getBooleanExtra("EXTRA_ADD_PAYMENT_SUCCESS", false);
             if (addSuccess)
                 Toast.makeText(CustomerPaymentsActivity.this, "Successfully add new payment method.", Toast.LENGTH_SHORT).show();
@@ -71,7 +70,6 @@ public class CustomerPaymentsActivity extends AppCompatActivity implements Seria
                 }
             }
         });
-
         binding.buttonPrev.setOnClickListener(view -> {
             if (index > 0) {
                 index -= 1;

@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.CustomerResetPasswordBinding;
+
+import io.realm.RealmResults;
 
 public class CustomerPasswordActivity extends AppCompatActivity {
     private CustomerResetPasswordBinding binding;
@@ -18,21 +21,40 @@ public class CustomerPasswordActivity extends AppCompatActivity {
         binding = CustomerResetPasswordBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
+            if (result.isSuccess()) {
+                ShopSmartApp.instantiateRealm();
+                RealmResults<AppUser> users = ShopSmartApp.realm.where(AppUser.class).findAll();
+                AppUser user = null;
+                for (int i = 0; i < users.size(); i++) {
+                    if (users.get(i).getEmail().equals(ShopSmartApp.email)) {
+                        user = users.get(i);
+                    }
+                }
+                if (user != null) binding.queryUser.setText(user.getEmail());
+            }
+        });
         binding.cancelButton.setOnClickListener(view ->
-                startActivity(new Intent(CustomerPasswordActivity.this, CustomerDashboardActivity.class))
+                startActivity(new Intent(CustomerPasswordActivity.this, CustomerManageProfileActivity.class))
         );
         binding.confirmButton.setOnClickListener(view -> {
-            if (validation())
+            if (validation()) {
+                String email = ShopSmartApp.email;
+                String password = binding.password1.getText().toString();
                 ShopSmartApp.app.getEmailPassword().callResetPasswordFunctionAsync(
-                        ShopSmartApp.email,
-                        binding.password1.getText().toString(), new String[]{}, it -> {
+                        email,
+                        password, new String[]{}, it -> {
                             if (it.isSuccess()) {
                                 Log.i("PASS_RESET", "Successfully reset the password for " + ShopSmartApp.email);
-                                ShopSmartApp.password = binding.password1.getText().toString();
-                                startActivity(new Intent(CustomerPasswordActivity.this, CustomerManageProfileActivity.class));
+                                ShopSmartApp.password = password;
+                                ShopSmartApp.logout();
+                                ShopSmartApp.login(email, password);
+                                startActivity(new Intent(CustomerPasswordActivity.this, CustomerManageProfileActivity.class)
+                                        .putExtra("EXTRA_RESET_PASSWORD_SUCCESS", true));
                             } else
                                 Log.e("PASS_RESET", "Failed to reset the password for " + ShopSmartApp.email + ": " + it.getError().getErrorMessage());
                         });
+            }
         });
     }
 

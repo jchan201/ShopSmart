@@ -145,6 +145,9 @@
             android:name=".CustomerProfileActivity"
             android:label="Profile" />
         <activity
+            android:name=".CustomerPasswordActivity"
+            android:label="Reset Password" />
+        <activity
             android:name=".CustomerPaymentsActivity"
             android:label="Profile" />
         <activity

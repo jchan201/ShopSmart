@@ -264,7 +264,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
             case R.id.menuHome:
                 startActivity(new Intent(CustomerProfileActivity.this, CustomerDashboardActivity.class));
             case R.id.menuPrev:
-                startActivity(new Intent(CustomerProfileActivity.this, CustomerDashboardActivity.class));
+                startActivity(new Intent(CustomerProfileActivity.this, CustomerManageProfileActivity.class));
         }
         return true;
     }
