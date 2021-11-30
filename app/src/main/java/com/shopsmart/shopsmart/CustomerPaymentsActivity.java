@@ -96,6 +96,7 @@ public class CustomerPaymentsActivity extends AppCompatActivity implements Seria
             Intent intentToProfile = new Intent(CustomerPaymentsActivity.this, CustomerPaymentAddActivity.class);
             intentToProfile.putExtra("EXTRA_PMETHOD_EDIT", false);
             startActivity(intentToProfile);
+            finish();
         });
 
         binding.buttonRemove.setOnClickListener(view -> {
@@ -162,9 +163,13 @@ public class CustomerPaymentsActivity extends AppCompatActivity implements Seria
             intentAdd.putExtra("EXTRA_PMETHOD_EDIT", true);
             intentAdd.putExtra("EXTRA_INDEX", index);
             startActivity(intentAdd);
+
+            finish();
         });
-        binding.btnBack2.setOnClickListener(view ->
-                startActivity(new Intent(CustomerPaymentsActivity.this, CustomerManageProfileActivity.class)));
+        binding.btnBack2.setOnClickListener(view -> {
+                startActivity(new Intent(CustomerPaymentsActivity.this, CustomerManageProfileActivity.class));
+                finish();
+        });
     }
 
     private void displayCardInfo(PaymentMethod paymentMethod) {
