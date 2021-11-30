@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.shopsmart.shopsmart.databinding.ShopDeleteConfirmationActivityBinding;
 
+import java.util.List;
+
+import io.realm.RealmList;
 import io.realm.RealmResults;
 
 public class ShopDeleteConfirmActivity extends AppCompatActivity {
@@ -35,6 +38,12 @@ public class ShopDeleteConfirmActivity extends AppCompatActivity {
                         ShopSmartApp.realm.executeTransaction(transactionRealm -> {
                             int index = getIntent().getIntExtra("EXTRA_REMOVE_INDEX", 0);
                             Shop deleteShop = transactionRealm.where(Shop.class).equalTo("_id", user.getShops().get(index)).findFirst();
+
+                            if(!deleteShop.getProducts().isEmpty()) {
+                                deleteShop.getProducts().deleteAllFromRealm();
+                                deleteShop.removeAllProduct();
+                            }
+
                             deleteShop.deleteFromRealm();
                             user.removeShop(index);
                         });

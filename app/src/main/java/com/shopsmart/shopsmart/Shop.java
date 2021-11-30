@@ -123,4 +123,5 @@ public class Shop extends RealmObject implements Serializable {
     public RealmList<ObjectId> getProducts(){ return products;}
     public void addProduct(ObjectId product){ products.add(product);}
     public void removeProduct(int pos) { products.remove(pos);}
+    public void removeAllProduct() { products.removeAll(products);}
 }
