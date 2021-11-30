@@ -97,6 +97,48 @@ public class CustomerPaymentsActivity extends AppCompatActivity implements Seria
             intentToProfile.putExtra("EXTRA_PMETHOD_EDIT", false);
             startActivity(intentToProfile);
         });
+
+        binding.buttonRemove.setOnClickListener(view -> {
+            ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
+                if (result.isSuccess()) {
+                    ShopSmartApp.instantiateRealm();
+                    ShopSmartApp.realm.executeTransaction(transactionRealm -> user.removePaymentMethod(index));
+
+                    paymentMethods = new PaymentMethod[user.getPaymentMethods().size()];
+                    paymentMethods = user.getPaymentMethods().toArray(new PaymentMethod[0]);
+
+                    total = paymentMethods.length;
+                    if(index > 0){
+                        index-=1;
+                    }
+                    else{
+                        index=0;
+                    }
+
+                    binding.queryTotalIndex.setText(Integer.toString(total));
+                    binding.queryCardIndex.setText(Integer.toString(index + 1));
+                    if (index == 0 && total == 0) {
+                        binding.customerPaymentView.setVisibility(View.GONE);
+                        binding.queryCardNum.setVisibility(View.GONE);
+                        binding.queryCardName.setVisibility(View.GONE);
+                        binding.queryCardNum3.setVisibility(View.GONE);
+                        binding.queryExpDate.setVisibility(View.GONE);
+                        binding.buttonEdit.setVisibility(View.GONE);
+                        binding.buttonRemove.setVisibility(View.GONE);
+                        binding.buttonPrev.setVisibility(View.GONE);
+                        binding.buttonNext.setVisibility(View.GONE);
+                    } else {
+                        if (index + 1 == total) {
+                            binding.buttonPrev.setVisibility(View.INVISIBLE);
+                            binding.buttonNext.setVisibility(View.INVISIBLE);
+                        } else if (index + 1 < total)
+                            binding.buttonPrev.setVisibility(View.INVISIBLE);
+                        displayCardInfo(paymentMethods[index]);
+                    }
+                }
+            });
+        });
+
         binding.buttonEdit.setOnClickListener(view -> {
             PaymentMethod pMethod = new PaymentMethod();
             pMethod.setName(paymentMethods[index].getName());
