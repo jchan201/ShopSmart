@@ -14,6 +14,7 @@ public class ProductViewActivity extends AppCompatActivity {
     private ProductViewActivityBinding binding;
     private ObjectId productId;
     private Product product;
+    private int index;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +22,12 @@ public class ProductViewActivity extends AppCompatActivity {
         binding = ProductViewActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        productId = (ObjectId) getIntent().getSerializableExtra("EXTRA_PRODUCT_ID");
+        Intent currIntent = getIntent();
+        if (currIntent != null) {
+            index = currIntent.getIntExtra("EXTRA_SHOP_INDEX", 0);
+            productId = (ObjectId) currIntent.getSerializableExtra("EXTRA_PRODUCT_ID");
+        }
+
         ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
             if (result.isSuccess()) {
                 ShopSmartApp.instantiateRealm();
@@ -34,10 +40,10 @@ public class ProductViewActivity extends AppCompatActivity {
             }
         });
         binding.btnBack.setOnClickListener(view ->
-                startActivity(new Intent(ProductViewActivity.this, ShopInventoryActivity.class)));
+                startActivity(new Intent(ProductViewActivity.this, ShopInventoryActivity.class).putExtra("EXTRA_INDEX", index)));
         binding.btnEdit.setOnClickListener(view ->
                 startActivity(new Intent(ProductViewActivity.this, ProductUpdateActivity.class)
-                        .putExtra("EXTRA_PRODUCT_ID", productId)));
+                        .putExtra("EXTRA_PRODUCT_ID", productId).putExtra("EXTRA_SHOP_INDEX", index)));
         binding.addStockBtn.setOnClickListener(view -> {
             binding.addStockBtn.setVisibility(View.INVISIBLE);
             binding.stockCountText.setVisibility(View.INVISIBLE);
