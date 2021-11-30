@@ -65,6 +65,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
                     binding.userCountry.setText("Canada");
                     binding.queryProvince.setText(user.getAddress().getProvince());
                     binding.queryPostalCode.setText(user.getAddress().getPostalCode());
+                    binding.userPostalCode.setText(user.getAddress().getPostalCode());
                     binding.queryPhoneNum.setText(user.getPhone());
                     binding.inputPhoneNumber.setText(user.getPhone());
 
@@ -211,35 +212,41 @@ public class CustomerProfileActivity extends AppCompatActivity {
 
     private boolean validation() {
         boolean valid = true;
-        if (binding.firstName.getText().toString().isEmpty()) {
-            binding.firstName.setError("Field cannot be empty");
-            valid = false;
+        if (nameEdit) {
+            if (binding.firstName.getText().toString().isEmpty()) {
+                binding.firstName.setError("Field cannot be empty");
+                valid = false;
+            }
+            if (binding.lastName.getText().toString().isEmpty()) {
+                binding.lastName.setError("Field cannot be empty");
+                valid = false;
+            }
         }
-        if (binding.lastName.getText().toString().isEmpty()) {
-            binding.lastName.setError("Field cannot be empty");
-            valid = false;
-        }
-        if (binding.city1.getText().toString().isEmpty()) {
+        if (cityEdit && binding.city1.getText().toString().isEmpty()) {
             binding.city1.setError("Field cannot be empty");
             valid = false;
         }
-        if (binding.userPostalCode.getText().toString().isEmpty()) {
-            binding.userPostalCode.setError("Field cannot be empty");
-            valid = false;
-        } else if (!binding.userPostalCode.getText().toString().matches("([A-Z]\\d[A-Z]\\s\\d[A-Z]\\d)")) {
-            binding.userPostalCode.setError("Postal code must match schema A1A 1A1");
-            valid = false;
+        if (pCodeEdit) {
+            if (binding.userPostalCode.getText().toString().isEmpty()) {
+                binding.userPostalCode.setError("Field cannot be empty");
+                valid = false;
+            } else if (!binding.userPostalCode.getText().toString().matches("([A-Z]\\d[A-Z]\\s\\d[A-Z]\\d)")) {
+                binding.userPostalCode.setError("Postal code must match schema A1A 1A1");
+                valid = false;
+            }
         }
-        if (binding.addressLine1.getText().toString().isEmpty()) {
+        if (addressEdit && binding.addressLine1.getText().toString().isEmpty()) {
             binding.addressLine1.setError("Field cannot be empty");
             valid = false;
         }
-        if (binding.inputPhoneNumber.getText().toString().isEmpty()) {
-            binding.inputPhoneNumber.setError("Phone number cannot be empty");
-            valid = false;
-        } else if (!binding.inputPhoneNumber.getText().toString().matches("\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d")) {
-            binding.inputPhoneNumber.setError("Must contain 10 digits");
-            valid = false;
+        if (phoneEdit) {
+            if (binding.inputPhoneNumber.getText().toString().isEmpty()) {
+                binding.inputPhoneNumber.setError("Phone number cannot be empty");
+                valid = false;
+            } else if (!binding.inputPhoneNumber.getText().toString().matches("\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d")) {
+                binding.inputPhoneNumber.setError("Must contain 10 digits");
+                valid = false;
+            }
         }
         return valid;
     }
