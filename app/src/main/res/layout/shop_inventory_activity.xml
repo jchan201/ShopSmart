@@ -37,6 +37,21 @@
                 app:layout_constraintTop_toTopOf="@+id/titleView" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <TextView
+        android:id="@+id/textNoProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No product in inventory at the moment"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        android:background="@drawable/rectangle"
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddProduct"
+        app:layout_constraintTop_toBotomOf="@+id/titleView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
@@ -50,6 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/rectangle"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleView"
