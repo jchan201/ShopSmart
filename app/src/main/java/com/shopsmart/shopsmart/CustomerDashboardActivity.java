@@ -102,6 +102,9 @@ public class CustomerDashboardActivity extends AppCompatActivity implements Maps
             ShopSmartApp.logout();
             startActivity(new Intent(CustomerDashboardActivity.this, StartupActivity.class));
         }
+        else if( id == R.id.ShoppingCart){
+
+        }
         return true;
     }
 

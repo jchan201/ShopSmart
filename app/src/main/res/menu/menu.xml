@@ -18,8 +18,8 @@
         android:title="Profile"
         app:showAsAction="never"
         />
-    <item android:id="@+id/Settings"
-        android:title="Settings"
+    <item android:id="@+id/ShoppingCart"
+        android:title="Shopping Cart"
         app:showAsAction="never"
         />
     <item android:id="@+id/LogOut"
