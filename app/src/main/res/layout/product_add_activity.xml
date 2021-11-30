@@ -144,12 +144,13 @@
         android:background="@drawable/basic_rectangle"
         android:ems="10"
         android:hint="STOCK"
-        android:inputType="numberPassword"
+        android:inputType="number"
         android:maxLength="16"
         android:padding="8dp"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtTextPrice" />
 

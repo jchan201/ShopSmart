@@ -2,6 +2,7 @@ package com.shopsmart.shopsmart;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -66,6 +67,7 @@ public class ShopInventoryActivity extends AppCompatActivity {
                             }
                         }
                     }
+                    EmptyOrNot(products);
                     ListAdapter listAdapter = new ListAdapter(this, products, shop);
                     binding.lstProducts.setAdapter(listAdapter);
                 }
@@ -79,5 +81,16 @@ public class ShopInventoryActivity extends AppCompatActivity {
         });
         binding.btnBack.setOnClickListener(view ->
                 startActivity(new Intent(ShopInventoryActivity.this, ShopListActivity.class)));
+    }
+
+    public void EmptyOrNot(ArrayList<Product> products){
+        if(products.isEmpty()){
+            binding.textNoProduct.setVisibility(View.VISIBLE);
+            binding.lstProducts.setVisibility(View.GONE);
+        }
+        else{
+            binding.textNoProduct.setVisibility(View.GONE);
+            binding.lstProducts.setVisibility(View.VISIBLE);
+        }
     }
 }

@@ -43,6 +43,7 @@ public class ListAdapter extends ArrayAdapter<Product> {
                     });
                     products.remove(pos);
                     this.notifyDataSetChanged();
+
                 }
             });
         });
