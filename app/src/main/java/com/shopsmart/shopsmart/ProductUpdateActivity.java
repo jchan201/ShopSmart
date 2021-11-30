@@ -17,6 +17,7 @@ public class ProductUpdateActivity extends AppCompatActivity {
     private ObjectId productId;
     private Product product;
     private int subIndex = 0;
+    private int index = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +25,12 @@ public class ProductUpdateActivity extends AppCompatActivity {
         binding = ProductUpdateActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        productId = (ObjectId) getIntent().getSerializableExtra("EXTRA_PRODUCT_ID");
+        Intent currIntent = getIntent();
+        if (currIntent != null) {
+            index = currIntent.getIntExtra("EXTRA_SHOP_INDEX", 0);
+            productId = (ObjectId) currIntent.getSerializableExtra("EXTRA_PRODUCT_ID");
+        }
+
         ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
             if (result.isSuccess()) {
                 ShopSmartApp.instantiateRealm();
@@ -36,7 +42,7 @@ public class ProductUpdateActivity extends AppCompatActivity {
             }
         });
         binding.btnCancel.setOnClickListener(view ->
-                startActivity(new Intent(ProductUpdateActivity.this, ShopInventoryActivity.class)));
+                startActivity(new Intent(ProductUpdateActivity.this, ShopInventoryActivity.class).putExtra("EXTRA_INDEX", index)));
         binding.btnSave.setOnClickListener(view -> {
             if (validation()) {
                 ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
@@ -50,6 +56,7 @@ public class ProductUpdateActivity extends AppCompatActivity {
                         });
                         Intent nextSignUpScreen = new Intent(ProductUpdateActivity.this, ShopInventoryActivity.class);
                         nextSignUpScreen.putExtra("EXTRA_UPDATE_PRODUCT_SUCCESS", true);
+                        nextSignUpScreen.putExtra("EXTRA_INDEX", index);
                         startActivity(nextSignUpScreen);
                     }
                 });

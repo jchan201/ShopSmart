@@ -179,4 +179,5 @@ public class AppUser extends RealmObject {
     public void removeShop(int pos) {
         shops.remove(pos);
     }
+    public void removeAllShop() {shops.removeAll(shops);}
 }

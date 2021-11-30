@@ -39,8 +39,30 @@ public class ShopOwnerDeleteAccountConfirmActivity extends AppCompatActivity {
                             user = users.get(i);
                         }
                     }
-                    if (user != null)
+
+                    if (user != null) {
+
+                        //remove all orders
+                        if(!user.getOrders().isEmpty()){
+                            user.getOrders().deleteAllFromRealm();
+                            user.removeAllOrders();
+                        }
+
+                        //remove all products and shops
+                        if(!user.getShops().isEmpty()) {
+                            for (int i = 0; i < user.getShops().size(); i++) {
+                                Shop deleteShop = transactionRealm.where(Shop.class).equalTo("_id", user.getShops().get(i)).findFirst();
+                                deleteShop.getProducts().deleteAllFromRealm();
+                                deleteShop.removeAllProduct();
+                            }
+
+                            user.getShops().deleteAllFromRealm();
+                            user.removeAllShop();
+                        }
+
+                        //remove said user
                         user.deleteFromRealm();
+                    }
                 });
                 ShopSmartApp.logout();
                 Intent intentToProfile = new Intent(ShopOwnerDeleteAccountConfirmActivity.this, StartupActivity.class);

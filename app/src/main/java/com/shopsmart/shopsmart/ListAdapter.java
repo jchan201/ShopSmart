@@ -14,11 +14,13 @@ import java.util.ArrayList;
 public class ListAdapter extends ArrayAdapter<Product> {
     private final ArrayList<Product> products;
     private final Shop shop;
+    int shop_index = 0;
 
-    public ListAdapter(Context context, ArrayList<Product> products, Shop shop) {
+    public ListAdapter(Context context, ArrayList<Product> products, Shop shop, int shop_index) {
         super(context, 0, products);
         this.products = products;
         this.shop = shop;
+        this.shop_index = shop_index;
     }
 
     @Override
@@ -54,6 +56,7 @@ public class ListAdapter extends ArrayAdapter<Product> {
             int pos = (Integer) v.getTag();
             Intent nextScreen = new Intent(getContext(), ProductViewActivity.class);
             nextScreen.putExtra("EXTRA_PRODUCT_ID", products.get(pos).getId());
+            nextScreen.putExtra("EXTRA_SHOP_INDEX", shop_index);
             getContext().startActivity(nextScreen);
         });
 
@@ -63,6 +66,7 @@ public class ListAdapter extends ArrayAdapter<Product> {
             int pos = (Integer) v.getTag();
             Intent nextScreen = new Intent(getContext(), ProductUpdateActivity.class);
             nextScreen.putExtra("EXTRA_PRODUCT_ID", products.get(pos).getId());
+            nextScreen.putExtra("EXTRA_SHOP_INDEX", shop_index);
             getContext().startActivity(nextScreen);
         });
         return view;

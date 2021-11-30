@@ -68,7 +68,7 @@ public class ShopInventoryActivity extends AppCompatActivity {
                         }
                     }
                     EmptyOrNot(products);
-                    ListAdapter listAdapter = new ListAdapter(this, products, shop);
+                    ListAdapter listAdapter = new ListAdapter(this, products, shop, index);
                     binding.lstProducts.setAdapter(listAdapter);
                 }
 
