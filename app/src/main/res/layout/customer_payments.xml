@@ -34,14 +34,17 @@
 
     <Button
         android:id="@+id/buttonAdd"
-        android:layout_width="85dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/button_bg2"
-        android:drawableTop="@drawable/button_add_white"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:padding="8dp"
+        android:text="ADD PAYMENT METHOD"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnBack2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customerPaymentView" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonPrev"
