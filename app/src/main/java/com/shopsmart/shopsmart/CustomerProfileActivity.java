@@ -248,6 +248,22 @@ public class CustomerProfileActivity extends AppCompatActivity {
                 valid = false;
             }
         }
+
+        if (dobEdit){
+            Date dateOfBirth = null;
+            try {
+                dateOfBirth = new SimpleDateFormat("MMM dd yyyy").parse(binding.dobProfile.getText().toString());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            Date todayDate = Calendar.getInstance().getTime();
+
+            if(dateOfBirth.after(todayDate)){
+                binding.dobProfile.setError("Date of birth cannot be after today");
+                valid = false;
+            }
+        }
+
         return valid;
     }
 
