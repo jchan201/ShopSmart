@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,15 +54,17 @@ public class ProductViewAdapter extends BaseAdapter {
             txtStock.setText(String.format("%d in Stock", product.getStock()));
         else txtStock.setText("None in Stock");
         if (!appUser.getUserType().equals("Owner")) {
-            view.findViewById(R.id.btnAddToCart).setOnClickListener(view1 -> {
+            Button btnAddToCart = view.findViewById(R.id.btnAddToCart);
+            btnAddToCart.setOnClickListener(view1 -> {
                 ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
                     if (result.isSuccess()) {
                         ShopSmartApp.instantiateRealm();
                         ShopSmartApp.realm.executeTransaction(realm ->
                                 appUser.addShoppingItem(new ProductItem(product.getId(), 1)));
-                        Toast.makeText(context, "Added " + product.getName() + " to cart.", Toast.LENGTH_SHORT).show();
                     }
                 });
+                btnAddToCart.setEnabled(false);
+                btnAddToCart.setText("Added to cart");
             });
         } else view.findViewById(R.id.btnAddToCart).setEnabled(false);
         return view;

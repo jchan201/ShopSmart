@@ -49,7 +49,7 @@ public class CustomerPaymentsActivity extends AppCompatActivity implements Seria
                 paymentMethods = user.getPaymentMethods().toArray(new PaymentMethod[0]);
                 total = paymentMethods.length;
                 binding.queryTotalIndex.setText(Integer.toString(total));
-                binding.queryCardIndex.setText(Integer.toString(index + 1));
+                binding.queryCardIndex.setText(Integer.toString(total == 0 ? index : index + 1));
                 if (index == 0 && total == 0) {
                     binding.customerPaymentView.setVisibility(View.GONE);
                     binding.queryCardNum.setVisibility(View.GONE);
@@ -103,18 +103,11 @@ public class CustomerPaymentsActivity extends AppCompatActivity implements Seria
                 if (result.isSuccess()) {
                     ShopSmartApp.instantiateRealm();
                     ShopSmartApp.realm.executeTransaction(transactionRealm -> user.removePaymentMethod(index));
-
                     paymentMethods = new PaymentMethod[user.getPaymentMethods().size()];
                     paymentMethods = user.getPaymentMethods().toArray(new PaymentMethod[0]);
-
                     total = paymentMethods.length;
-                    if(index > 0){
-                        index-=1;
-                    }
-                    else{
-                        index=0;
-                    }
-
+                    if (index > 0) index -= 1;
+                    else index = 0;
                     binding.queryTotalIndex.setText(Integer.toString(total));
                     binding.queryCardIndex.setText(Integer.toString(index + 1));
                     if (index == 0 && total == 0) {
