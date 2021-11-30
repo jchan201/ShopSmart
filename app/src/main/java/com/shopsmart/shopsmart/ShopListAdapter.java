@@ -35,8 +35,8 @@ public class ShopListAdapter extends ArrayAdapter<Product> {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.shop_list_item, parent, false);
         }
-        TextView productName = (TextView) convertView.findViewById(R.id.productName);
-        Button viewBtn = (Button) convertView.findViewById(R.id.buttonView);
+        TextView productName = convertView.findViewById(R.id.productName);
+        Button viewBtn = convertView.findViewById(R.id.buttonView);
         productName.setText(product.getName());
         viewBtn.setTag(position);
 

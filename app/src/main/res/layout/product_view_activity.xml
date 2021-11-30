@@ -52,34 +52,33 @@
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toTopOf="@+id/bodyView"
-        />
+        app:layout_constraintTop_toTopOf="@+id/bodyView" />
 
-<!--    <EditText-->
-<!--        android:id="@+id/edtTextProductName"-->
-<!--        android:layout_width="300dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:background="@drawable/basic_rectangle"-->
-<!--        android:ems="10"-->
-<!--        android:hint="PRODUCT NAME"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:maxLength="16"-->
-<!--        android:padding="8dp"-->
-<!--        android:textAlignment="center"-->
-<!--        android:textSize="20sp"-->
-<!--        app:layout_constraintEnd_toEndOf="@+id/bodyView"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/bodyView"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/txtTitle" />-->
+    <!--    <EditText-->
+    <!--        android:id="@+id/edtTextProductName"-->
+    <!--        android:layout_width="300dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="8dp"-->
+    <!--        android:background="@drawable/basic_rectangle"-->
+    <!--        android:ems="10"-->
+    <!--        android:hint="PRODUCT NAME"-->
+    <!--        android:inputType="textPersonName"-->
+    <!--        android:maxLength="16"-->
+    <!--        android:padding="8dp"-->
+    <!--        android:textAlignment="center"-->
+    <!--        android:textSize="20sp"-->
+    <!--        app:layout_constraintEnd_toEndOf="@+id/bodyView"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/bodyView"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/txtTitle" />-->
 
     <TextView
         android:id="@+id/productNameTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginLeft="40dp"
-        android:textSize="17sp"
+        android:layout_marginTop="16dp"
         android:text="Name: "
+        android:textSize="17sp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
 
@@ -87,21 +86,21 @@
         android:id="@+id/productNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginLeft="5dp"
-        android:textSize="17sp"
+        android:layout_marginTop="16dp"
         android:text="UNKNOWN PRODUCT NAME"
+        android:textSize="17sp"
         app:layout_constraintStart_toEndOf="@+id/productNameTitle"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitle"/>
+        app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
 
     <TextView
         android:id="@+id/productDescTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginLeft="40dp"
-        android:textSize="17sp"
+        android:layout_marginTop="16dp"
         android:text="Description: "
+        android:textSize="17sp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/productNameTitle" />
 
@@ -109,8 +108,8 @@
         android:id="@+id/edtTextDescLayout"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:layout_marginLeft="40dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/productDescTitle">
 
@@ -118,28 +117,27 @@
             android:id="@+id/edtTextDesc"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="DESCRIPTION"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            android:enabled="false"
             android:background="@drawable/basic_rectangle"
+            android:enabled="false"
+            android:gravity="top"
             android:inputType="textMultiLine"
             android:lines="3"
-            android:gravity="top"
             android:overScrollMode="always"
             android:scrollbarStyle="insideInset"
             android:scrollHorizontally="false"
-            />
+            android:text="DESCRIPTION"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/typeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginLeft="40dp"
-        android:textSize="17sp"
+        android:layout_marginTop="16dp"
         android:text="Main type: "
+        android:textSize="17sp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/edtTextDescLayout" />
 
@@ -147,21 +145,21 @@
         android:id="@+id/typeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginLeft="5dp"
-        android:textSize="17sp"
+        android:layout_marginTop="16dp"
         android:text="UNKNOWN MAIN TYPE"
+        android:textSize="17sp"
         app:layout_constraintStart_toEndOf="@+id/typeTitle"
-        app:layout_constraintTop_toBottomOf="@+id/edtTextDescLayout"/>
+        app:layout_constraintTop_toBottomOf="@+id/edtTextDescLayout" />
 
     <TextView
         android:id="@+id/priceTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginLeft="40dp"
-        android:textSize="17sp"
+        android:layout_marginTop="16dp"
         android:text="Price: "
+        android:textSize="17sp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/typeTitle" />
 
@@ -169,21 +167,21 @@
         android:id="@+id/priceText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginLeft="5dp"
-        android:textSize="17sp"
+        android:layout_marginTop="16dp"
         android:text="00.00"
+        android:textSize="17sp"
         app:layout_constraintStart_toEndOf="@+id/priceTitle"
-        app:layout_constraintTop_toBottomOf="@+id/typeTitle"/>
+        app:layout_constraintTop_toBottomOf="@+id/typeTitle" />
 
     <TextView
         android:id="@+id/stockCountTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginLeft="40dp"
-        android:textSize="17sp"
+        android:layout_marginTop="16dp"
         android:text="Stock count: "
+        android:textSize="17sp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
         app:layout_constraintTop_toBottomOf="@+id/priceTitle" />
 
@@ -191,24 +189,24 @@
         android:id="@+id/stockCountText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginLeft="5dp"
-        android:textSize="17sp"
+        android:layout_marginTop="16dp"
         android:text="0"
+        android:textSize="17sp"
         app:layout_constraintStart_toEndOf="@+id/stockCountTitle"
-        app:layout_constraintTop_toBottomOf="@+id/priceTitle"/>
+        app:layout_constraintTop_toBottomOf="@+id/priceTitle" />
 
     <EditText
         android:id="@+id/stockCountEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:layout_marginLeft="2dp"
+        android:layout_marginTop="5dp"
         android:hint="000"
         android:inputType="number"
         android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/stockCountTitle"
-        app:layout_constraintTop_toBottomOf="@+id/priceTitle"/>
+        app:layout_constraintTop_toBottomOf="@+id/priceTitle" />
 
 
     <Button
@@ -270,7 +268,6 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
-        app:layout_constraintStart_toStartOf="@+id/bodyView"
-        />
+        app:layout_constraintStart_toStartOf="@+id/bodyView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

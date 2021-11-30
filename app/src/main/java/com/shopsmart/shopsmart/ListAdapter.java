@@ -25,10 +25,10 @@ public class ListAdapter extends ArrayAdapter<Product> {
     public View getView(int i, View view, ViewGroup parent) {
         if (view == null)
             view = LayoutInflater.from(getContext()).inflate(R.layout.product_list_item, parent, false);
-        TextView productName = (TextView) view.findViewById(R.id.productName);
+        TextView productName = view.findViewById(R.id.productName);
         productName.setText(products.get(i).getName());
 
-        Button deleteBtn = (Button) view.findViewById(R.id.btnDelete);
+        Button deleteBtn = view.findViewById(R.id.btnDelete);
         deleteBtn.setTag(i);
         deleteBtn.setOnClickListener(v -> {
             int pos = (Integer) v.getTag();
@@ -43,12 +43,12 @@ public class ListAdapter extends ArrayAdapter<Product> {
                     });
                     products.remove(pos);
                     this.notifyDataSetChanged();
-                    ((ShopInventoryActivity)getContext()).EmptyOrNot(products);
+                    ((ShopInventoryActivity) getContext()).EmptyOrNot(products);
                 }
             });
         });
 
-        Button viewBtn = (Button) view.findViewById(R.id.btnView);
+        Button viewBtn = view.findViewById(R.id.btnView);
         viewBtn.setTag(i);
         viewBtn.setOnClickListener(v -> {
             int pos = (Integer) v.getTag();
@@ -57,7 +57,7 @@ public class ListAdapter extends ArrayAdapter<Product> {
             getContext().startActivity(nextScreen);
         });
 
-        Button editBtn = (Button) view.findViewById(R.id.btnEdit);
+        Button editBtn = view.findViewById(R.id.btnEdit);
         editBtn.setTag(i);
         editBtn.setOnClickListener(v -> {
             int pos = (Integer) v.getTag();

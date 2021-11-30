@@ -2,7 +2,6 @@ package com.shopsmart.shopsmart;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,12 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.shopsmart.shopsmart.databinding.ProductUpdateActivityBinding;
 
 import org.bson.types.ObjectId;
-
-import io.realm.Realm;
-import io.realm.mongodb.App;
-import io.realm.mongodb.AppConfiguration;
-import io.realm.mongodb.Credentials;
-import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ProductUpdateActivity extends AppCompatActivity {
     private ProductUpdateActivityBinding binding;
@@ -117,6 +110,7 @@ public class ProductUpdateActivity extends AppCompatActivity {
                 }
                 binding.spinnerSub.setSelection(subIndex, false);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(ProductUpdateActivity.this, R.array.Clothing, android.R.layout.simple_spinner_item);

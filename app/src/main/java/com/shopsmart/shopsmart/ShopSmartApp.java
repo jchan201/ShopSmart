@@ -28,7 +28,8 @@ public class ShopSmartApp extends Application {
             realm = null;
         }
         if (app.currentUser().isLoggedIn())
-            app.currentUser().logOutAsync(result -> {});
+            app.currentUser().logOutAsync(result -> {
+            });
         credentials = null;
         email = null;
         password = null;

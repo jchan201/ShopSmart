@@ -73,12 +73,10 @@ public class ShopOwnerProfileUpdatePaymentsActivity1 extends AppCompatActivity {
             binding.edtTextCCV.setError("CCV cannot be empty");
             valid = false;
         }
-
-        if(binding.edtTextCCV.getText().toString().length() < 3){
+        if (binding.edtTextCCV.getText().toString().length() < 3) {
             binding.edtTextCCV.setError("CCV length invalid");
             valid = false;
         }
-
         if (binding.edtTextExpiryDateYear.getText().toString().isEmpty()) {
             binding.edtTextExpiryDateYear.setError("Expire year cannot be empty");
             valid = false;

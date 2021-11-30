@@ -83,12 +83,11 @@ public class ShopInventoryActivity extends AppCompatActivity {
                 startActivity(new Intent(ShopInventoryActivity.this, ShopListActivity.class)));
     }
 
-    public void EmptyOrNot(ArrayList<Product> products){
-        if(products.isEmpty()){
+    public void EmptyOrNot(ArrayList<Product> products) {
+        if (products.isEmpty()) {
             binding.textNoProduct.setVisibility(View.VISIBLE);
             binding.lstProducts.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             binding.textNoProduct.setVisibility(View.GONE);
             binding.lstProducts.setVisibility(View.VISIBLE);
         }

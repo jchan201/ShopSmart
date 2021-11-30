@@ -2,7 +2,6 @@ package com.shopsmart.shopsmart;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,12 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.shopsmart.shopsmart.databinding.ProductViewActivityBinding;
 
 import org.bson.types.ObjectId;
-
-import io.realm.Realm;
-import io.realm.mongodb.App;
-import io.realm.mongodb.AppConfiguration;
-import io.realm.mongodb.Credentials;
-import io.realm.mongodb.sync.SyncConfiguration;
 
 public class ProductViewActivity extends AppCompatActivity {
     private ProductViewActivityBinding binding;
@@ -44,7 +37,7 @@ public class ProductViewActivity extends AppCompatActivity {
                 startActivity(new Intent(ProductViewActivity.this, ShopInventoryActivity.class)));
         binding.btnEdit.setOnClickListener(view ->
                 startActivity(new Intent(ProductViewActivity.this, ProductUpdateActivity.class)
-                .putExtra("EXTRA_PRODUCT_ID", productId)));
+                        .putExtra("EXTRA_PRODUCT_ID", productId)));
         binding.addStockBtn.setOnClickListener(view -> {
             binding.addStockBtn.setVisibility(View.INVISIBLE);
             binding.stockCountText.setVisibility(View.INVISIBLE);

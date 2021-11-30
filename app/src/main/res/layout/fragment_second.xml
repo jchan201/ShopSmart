@@ -4,24 +4,24 @@
     android:id="@+id/flSecondFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="vertical"
-    tools:context=".SecondFragment"
-    android:background="#FFFFFF">
+    tools:context=".SecondFragment">
 
     <TextView
         android:id="@+id/txtMsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textSize="20sp"
-        android:visibility="gone"
+        android:layout_weight="1"
         android:textColor="@color/white"
-        android:layout_weight="1"/>
+        android:textSize="20sp"
+        android:visibility="gone" />
 
     <ListView
         android:id="@+id/lstProducts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 </LinearLayout>

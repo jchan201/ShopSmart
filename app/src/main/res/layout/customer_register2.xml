@@ -13,10 +13,10 @@
         android:layout_marginStart="60dp"
         android:background="@drawable/button_bg"
         android:text="Cancel"
-        app:layout_constraintVertical_bias="0.4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        app:layout_constraintVertical_bias="0.4" />
 
     <Button
         android:id="@+id/nextButton2"
@@ -25,12 +25,12 @@
         android:layout_marginEnd="40dp"
         android:background="@drawable/button_bg"
         android:text="Next"
-        app:layout_constraintVertical_bias="0.4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.836"
         app:layout_constraintStart_toEndOf="@+id/cancelButton2"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        app:layout_constraintVertical_bias="0.4" />
 
     <TextView
         android:id="@+id/textView3"
