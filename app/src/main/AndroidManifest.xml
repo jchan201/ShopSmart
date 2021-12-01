@@ -159,6 +159,9 @@
         <activity
             android:name=".OrderListActivity"
             android:label="Order List" />
+        <activity
+            android:name=".ShoppingCartActivity"
+            android:label="Shopping Cart" />
     </application>
 
 </manifest>
