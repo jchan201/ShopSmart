@@ -27,18 +27,21 @@
         android:layout_height="45dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="48dp"
+        android:enabled="false"
         android:background="@drawable/button_bg2"
         android:drawableTop="@drawable/button_next_white"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/customerPaymentView" />
 
     <Button
-        android:id="@+id/buttonAdd"
+        android:id="@+id/buttonCheckout"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:ems="10"
         android:padding="8dp"
+        android:enabled="false"
         android:text="CHECKOUT"
         android:textAlignment="center"
         android:textSize="20sp"
@@ -48,6 +51,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
+        android:enabled="false"
         android:id="@+id/buttonPrev"
         android:layout_width="59dp"
         android:layout_height="45dp"
@@ -55,6 +59,7 @@
         android:layout_marginTop="12dp"
         android:background="@drawable/button_bg2"
         android:drawableTop="@drawable/button_prev_white"
+        app:layout_constraintBottom_toTopOf="@+id/customerCheckoutView2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/customerPaymentView" />
 
@@ -78,7 +83,7 @@
         android:layout_marginBottom="15dp"
         android:background="@drawable/white_rectangle"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/buttonAdd"
+        app:layout_constraintBottom_toTopOf="@+id/buttonCheckout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -143,7 +148,7 @@
         android:layout_marginTop="5dp"
         android:text="Tips:"
         android:textSize="17dp"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
@@ -199,7 +204,7 @@
         android:text="$0.00"
         android:textAlignment="textEnd"
         android:textSize="17dp"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -226,11 +231,12 @@
         android:text="_______________________________________"
         android:textSize="17dp"
         android:visibility="visible"
-        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvTotal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintVertical_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/tvTotal" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTips" />
 
     <TextView
         android:id="@+id/queryFullName"
@@ -260,9 +266,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="0dp"
         android:text="00"
         android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/textView16"
         app:layout_constraintTop_toBottomOf="@+id/customerPaymentView" />
 
@@ -273,6 +279,7 @@
         android:layout_marginTop="12dp"
         android:text="/"
         android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/customerCheckoutView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -285,6 +292,7 @@
         android:layout_marginTop="12dp"
         android:text="00"
         android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintStart_toEndOf="@+id/textView16"
         app:layout_constraintTop_toBottomOf="@+id/customerPaymentView" />
 
