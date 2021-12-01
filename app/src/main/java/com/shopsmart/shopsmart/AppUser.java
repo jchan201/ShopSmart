@@ -156,6 +156,7 @@ public class AppUser extends RealmObject {
     public void removeShoppingItem(int pos) {
         shoppingCart.remove(pos);
     }
+    public void removeAllShoppingItem() {shoppingCart.removeAll(shoppingCart);}
 
     public RealmList<ObjectId> getOrders() {
         return orders;

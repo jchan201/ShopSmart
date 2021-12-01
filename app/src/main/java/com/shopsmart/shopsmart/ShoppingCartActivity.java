@@ -32,6 +32,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
                         user = u;
                 }
 
+                productItemArrayList = new ArrayList<>();
                 for(ProductItem p : user.getShoppingCart()){
                     productItemArrayList.add(p);
                 }
@@ -60,9 +61,12 @@ public class ShoppingCartActivity extends AppCompatActivity {
     }
 
     public void calculateAndSetSubTotal(){
-        for(ProductItem p : user.getShoppingCart()){
-            Product product = ShopSmartApp.realm.where(Product.class).equalTo("_id", p.getProductId()).findFirst();
-            subTotal+= product.getPrice()*p.getQuantity();
+
+        if(!user.getShoppingCart().isEmpty()) {
+            for (ProductItem p : user.getShoppingCart()) {
+                Product product = ShopSmartApp.realm.where(Product.class).equalTo("_id", p.getProductId()).findFirst();
+                subTotal += product.getPrice() * p.getQuantity();
+            }
         }
 
         binding.tvSubtotal.setText(Double.toString(subTotal));

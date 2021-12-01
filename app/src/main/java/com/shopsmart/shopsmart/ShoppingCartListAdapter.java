@@ -74,6 +74,8 @@ public class ShoppingCartListAdapter extends ArrayAdapter<ProductItem> {
                         deleteItem(position);
                         productItemArrayList.remove(position);
                         ShoppingCartListAdapter.this.notifyDataSetChanged();
+
+                        ((ShoppingCartActivity)getContext()).calculateAndSetSubTotal();
                     }
                 });
             }
@@ -133,8 +135,6 @@ public class ShoppingCartListAdapter extends ArrayAdapter<ProductItem> {
                 ShopSmartApp.realm.executeTransaction(transactionRealm -> {
                     appUser.removeShoppingItem(index);
                 });
-
-                ((ShoppingCartActivity)getContext()).calculateAndSetSubTotal();
             }
         });
     }
