@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
+import com.shopsmart.shopsmart.databinding.ActivityCustomerShoppingCartBinding;
 import com.shopsmart.shopsmart.databinding.ShopViewActivityBinding;
 
 import org.bson.types.ObjectId;
@@ -33,6 +34,7 @@ public class ShopViewActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         index = getIntent().getIntExtra("EXTRA_INDEX", index);
+        userType = getIntent().getBooleanExtra("CUSTOMER", false);
         tabLayout = binding.tabLayout;
         ViewPager2 view2 = binding.viewPager;
         adapter = new FragmentAdapter(getSupportFragmentManager(), getLifecycle(), index);
@@ -69,19 +71,18 @@ public class ShopViewActivity extends AppCompatActivity {
         ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
             if (result.isSuccess()) {
                 ShopSmartApp.instantiateRealm();
-                RealmResults<AppUser> users = ShopSmartApp.realm.where(AppUser.class).findAll();
-                AppUser user = null;
-                for (AppUser u : users) {
-                    if (u.getEmail().equals(ShopSmartApp.email)) {
-                        user = u;
-                    }
-                }
                 RealmResults<Shop> allShops = ShopSmartApp.realm.where(Shop.class).findAll();
                 ArrayList<Shop> shops;
-                if (user.getUserType().equals("Customer")) {
+                if (userType) { // customer
                     shops = new ArrayList<>(allShops);
-                    userType = true;
-                } else {
+                } else { // shop owner
+                    RealmResults<AppUser> users = ShopSmartApp.realm.where(AppUser.class).findAll();
+                    AppUser user = null;
+                    for (AppUser u : users) {
+                        if (u.getEmail().equals(ShopSmartApp.email)) {
+                            user = u;
+                        }
+                    }
                     List<ObjectId> shopIds = user.getShops();
                     shops = new ArrayList<>();
                     for (Shop s : allShops) {
@@ -90,7 +91,6 @@ public class ShopViewActivity extends AppCompatActivity {
                                 shops.add(s);
                         }
                     }
-                    userType = false;
                 }
                 if (index >= 0)
                     displayShopInfo(shops.get(index));
@@ -111,29 +111,24 @@ public class ShopViewActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
+        if (userType) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.menu, menu);
+        }
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuHome:
-            case R.id.menuPrev:
-                if (userType) {
-                    startActivity(new Intent(ShopViewActivity.this, CustomerDashboardActivity.class));
-                    finish();
-                }
-                else {
-                    startActivity(new Intent(ShopViewActivity.this, ShopListActivity.class));
-                    finish();
-                }
-                break;
-            case R.id.LogOut:
-                startActivity(new Intent(ShopViewActivity.this, StartupActivity.class));
-                finish();
-        }
+        int id = item.getItemId();
+        if (id == R.id.menuHome || id == R.id.menuPrev)
+            startActivity(new Intent(ShopViewActivity.this, CustomerDashboardActivity.class));
+        else if (id == R.id.Profile)
+            startActivity(new Intent(ShopViewActivity.this, CustomerManageProfileActivity.class));
+        else if (id == R.id.LogOut)
+            startActivity(new Intent(ShopViewActivity.this, StartupActivity.class));
+        else if (id == R.id.ShoppingCart)
+            startActivity(new Intent(ShopViewActivity.this, ActivityCustomerShoppingCartBinding.class));
         return true;
     }
 }

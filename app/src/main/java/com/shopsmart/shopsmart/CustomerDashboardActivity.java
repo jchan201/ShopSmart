@@ -98,13 +98,10 @@ public class CustomerDashboardActivity extends AppCompatActivity implements Maps
         int id = item.getItemId();
         if (id == R.id.Profile)
             startActivity(new Intent(CustomerDashboardActivity.this, CustomerManageProfileActivity.class));
-        else if (id == R.id.LogOut) {
-            ShopSmartApp.logout();
+        else if (id == R.id.LogOut)
             startActivity(new Intent(CustomerDashboardActivity.this, StartupActivity.class));
-        }
-        else if( id == R.id.ShoppingCart){
-
-        }
+        else if (id == R.id.ShoppingCart)
+            startActivity(new Intent(CustomerDashboardActivity.this, CustomerShoppingCartActivity.class));
         return true;
     }
 
@@ -149,6 +146,7 @@ public class CustomerDashboardActivity extends AppCompatActivity implements Maps
     public void onViewMapSent(int idx) {
         Intent intent = new Intent(CustomerDashboardActivity.this, ShopViewActivity.class);
         intent.putExtra("EXTRA_INDEX", idx);
+        intent.putExtra("CUSTOMER", true);
         startActivity(intent);
     }
 

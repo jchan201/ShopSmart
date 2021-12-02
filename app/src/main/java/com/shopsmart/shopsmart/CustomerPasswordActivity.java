@@ -3,8 +3,6 @@ package com.shopsmart.shopsmart;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -92,17 +90,5 @@ public class CustomerPasswordActivity extends AppCompatActivity {
             valid = false;
         }
         return valid;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.Profile:
-                startActivity(new Intent(CustomerPasswordActivity.this, CustomerManageProfileActivity.class));
-                break;
-            case R.id.menuHome:
-                startActivity(new Intent(CustomerPasswordActivity.this, CustomerDashboardActivity.class));
-        }
-        return true;
     }
 }

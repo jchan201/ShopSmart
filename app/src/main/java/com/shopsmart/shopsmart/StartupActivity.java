@@ -64,6 +64,8 @@ public class StartupActivity extends AppCompatActivity {
                 binding.txtError.setText("Please enter a password.");
                 binding.txtError.setVisibility(View.VISIBLE);
             } else {
+                if (ShopSmartApp.app.currentUser() != null)
+                    ShopSmartApp.logout();
                 ShopSmartApp.login(email, password);
                 ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
                     if (result.isSuccess()) {

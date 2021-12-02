@@ -14,20 +14,18 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 public class ShoppingCartListAdapter extends ArrayAdapter<ProductItem> {
-    private ArrayList<ProductItem> productItemArrayList;
-    private Product product;
-    private Shop shop;
-    private AppUser appUser;
-    private int currentQuantity = 1;
+    private static final int QUANTITY_LIMIT = 99;
+    private final ArrayList<ProductItem> shoppingCart;
+    private final AppUser appUser;
+    private int[] quantities;
+    private double subtotal;
 
-    public ShoppingCartListAdapter(Context context, ArrayList<ProductItem> productItemArrayList) {
-        super(context, 0, productItemArrayList);
-    }
-
-    public ShoppingCartListAdapter(Context context, ArrayList<ProductItem> productItemArrayList, AppUser appUser) {
-        super(context, 0, productItemArrayList);
+    public ShoppingCartListAdapter(Context context, ArrayList<ProductItem> shoppingCart, AppUser appUser, double subtotal) {
+        super(context, 0, shoppingCart);
         this.appUser = appUser;
-        this.productItemArrayList = productItemArrayList;
+        this.shoppingCart = shoppingCart;
+        quantities = new int[shoppingCart.size()];
+        this.subtotal = subtotal;
     }
 
     @NonNull
@@ -36,21 +34,22 @@ public class ShoppingCartListAdapter extends ArrayAdapter<ProductItem> {
         if (convertView == null)
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.shopping_cart_list_item, parent, false);
 
-        ProductItem productItem = productItemArrayList.get(position);
         TextView productItemName = convertView.findViewById(R.id.productItemName);
         TextView shopName = convertView.findViewById(R.id.shopSoldName);
         TextView price = convertView.findViewById(R.id.productItemPrice);
-
         Button deleteBtn = convertView.findViewById(R.id.buttonDelete);
         TextView quantity = convertView.findViewById(R.id.tvQuantity);
         Button AddBtn = convertView.findViewById(R.id.buttonQuantityAdd);
         Button SubBtn = convertView.findViewById(R.id.buttonQuantitySub);
 
+        ProductItem productItem = shoppingCart.get(position);
+        quantities[position] = productItem.getQuantity();
+        quantity.setText(Integer.toString(quantities[position]));
         ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
             if (result.isSuccess()) {
                 ShopSmartApp.instantiateRealm();
-                product = ShopSmartApp.realm.where(Product.class).equalTo("_id", productItem.getProductId()).findFirst();
-                shop = ShopSmartApp.realm.where(Shop.class).equalTo("_id", product.getShopId()).findFirst();
+                Product product = ShopSmartApp.realm.where(Product.class).equalTo("_id", productItem.getProductId()).findFirst();
+                Shop shop = ShopSmartApp.realm.where(Shop.class).equalTo("_id", product.getShopId()).findFirst();
 
                 productItemName.setText(product.getName());
                 shopName.setText(shop.getName());
@@ -58,84 +57,62 @@ public class ShoppingCartListAdapter extends ArrayAdapter<ProductItem> {
             }
         });
 
+        AddBtn.setTag(quantities[position]);
+        AddBtn.setOnClickListener(view -> {
+            int pos = (Integer) view.getTag();
+            if (quantities[pos] < QUANTITY_LIMIT) {
+                AddBtn.setEnabled(false);
+                ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
+                    if (result.isSuccess()) {
+                        ShopSmartApp.instantiateRealm();
+                        productItem.setQuantity(++quantities[pos]);
+                        quantity.setText(Integer.toString(quantities[pos]));
+                        Product product = ShopSmartApp.realm.where(Product.class).equalTo("_id", productItem.getProductId()).findFirst();
+                        subtotal += product.getPrice();
+                        ((CustomerShoppingCartActivity) getContext()).updateSubtotal(subtotal);
+                    }
+                    AddBtn.setEnabled(true);
+                });
+            }
+        });
+        SubBtn.setTag(quantities[position]);
+        SubBtn.setOnClickListener(view -> {
+            int pos = (Integer) view.getTag();
+            if (quantities[pos] < QUANTITY_LIMIT) {
+                SubBtn.setEnabled(false);
+                ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
+                    if (result.isSuccess()) {
+                        ShopSmartApp.instantiateRealm();
+                        productItem.setQuantity(--quantities[pos]);
+                        quantity.setText(Integer.toString(quantities[pos]));
+                        Product product = ShopSmartApp.realm.where(Product.class).equalTo("_id", productItem.getProductId()).findFirst();
+                        subtotal -= product.getPrice();
+                        ((CustomerShoppingCartActivity) getContext()).updateSubtotal(subtotal);
+                    }
+                    SubBtn.setEnabled(true);
+                });
+            }
+        });
         deleteBtn.setTag(position);
-        AddBtn.setTag(position);
-        SubBtn.setTag(position);
-        currentQuantity = productItem.getQuantity();
-        quantity.setText(Integer.toString(currentQuantity));
-
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int position = (Integer) view.getTag();
-                ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
-                    if (result.isSuccess()) {
-                        ShopSmartApp.instantiateRealm();
-                        deleteItem(position);
-                        productItemArrayList.remove(position);
-                        ShoppingCartListAdapter.this.notifyDataSetChanged();
-
-                        ((ShoppingCartActivity)getContext()).calculateAndSetSubTotal();
+        deleteBtn.setOnClickListener(view -> {
+            int pos = (Integer) view.getTag();
+            ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
+                if (result.isSuccess()) {
+                    ShopSmartApp.instantiateRealm();
+                    Product product = ShopSmartApp.realm.where(Product.class).equalTo("_id", productItem.getProductId()).findFirst();
+                    subtotal -= product.getPrice() * quantities[pos];
+                    appUser.removeShoppingItem(pos);
+                    shoppingCart.remove(pos);
+                    int[] temp = new int[shoppingCart.size()];
+                    for (int i = 0; i < quantities.length; i++) {
+                        if (i != pos) temp[i] = quantities[i];
                     }
-                });
-            }
+                    quantities = temp;
+                    ShoppingCartListAdapter.this.notifyDataSetChanged();
+                    ((CustomerShoppingCartActivity) getContext()).updateSubtotal(subtotal);
+                }
+            });
         });
-
-        AddBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int position = (Integer) view.getTag();
-                ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
-                    if (result.isSuccess()) {
-                        ShopSmartApp.instantiateRealm();
-                        //Quantity on UI
-                        currentQuantity+=1;
-                        quantity.setText(Integer.toString(currentQuantity));
-
-                        //Quantity on Realm
-                        ShopSmartApp.realm.executeTransaction(transactionRealm -> {
-                            appUser.getShoppingCart().get(position).setQuantity(currentQuantity);
-                        });
-
-                        ((ShoppingCartActivity)getContext()).calculateAndSetSubTotal();
-                    }
-                });
-            }
-        });
-
-        SubBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int position = (Integer) view.getTag();
-                ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
-                    if (result.isSuccess()) {
-                        ShopSmartApp.instantiateRealm();
-                        //Quantity on UI
-                        currentQuantity-=1;
-                        quantity.setText(Integer.toString(currentQuantity));
-
-                        //Quantity on Realm
-                        ShopSmartApp.realm.executeTransaction(transactionRealm -> {
-                            appUser.getShoppingCart().get(position).setQuantity(currentQuantity);
-                        });
-
-                        ((ShoppingCartActivity)getContext()).calculateAndSetSubTotal();
-                    }
-                });
-            }
-        });
-
         return convertView;
-    }
-
-    private void deleteItem(int index) {
-        ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
-            if (result.isSuccess()) {
-                ShopSmartApp.instantiateRealm();
-                ShopSmartApp.realm.executeTransaction(transactionRealm -> {
-                    appUser.removeShoppingItem(index);
-                });
-            }
-        });
     }
 }

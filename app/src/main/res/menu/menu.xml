@@ -3,28 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:title="Prev"
-        android:icon="@drawable/button_prev"
         android:id="@+id/menuPrev"
-        app:showAsAction="ifRoom"
-        />
+        android:icon="@drawable/button_prev"
+        android:title="Prev"
+        app:showAsAction="ifRoom" />
     <item
-        android:title="Home"
         android:id="@+id/menuHome"
         android:icon="@drawable/toolbar_home"
-        app:showAsAction="ifRoom"
-        />
-    <item android:id="@+id/Profile"
+        android:title="Home"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/Profile"
         android:title="Profile"
-        app:showAsAction="never"
-        />
-    <item android:id="@+id/ShoppingCart"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/ShoppingCart"
         android:title="Shopping Cart"
-        app:showAsAction="never"
-        />
-    <item android:id="@+id/LogOut"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/LogOut"
         android:title="Log Out"
-        app:showAsAction="never"
-        />
+        app:showAsAction="never" />
 
 </menu>

@@ -46,30 +46,20 @@ public class OrderListAdapter extends ArrayAdapter<Order> {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int position = (Integer) view.getTag();
+                int pos = (Integer) view.getTag();
                 ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
                     if (result.isSuccess()) {
                         ShopSmartApp.instantiateRealm();
-                        deleteOrder(position);
-                        orderArrayList.remove(position);
+                        Order deleteOrder = ShopSmartApp.realm.where(Order.class)
+                                .equalTo("_id", appUser.getOrders().get(pos)).findFirst();
+                        deleteOrder.deleteFromRealm();
+                        appUser.removeOrder(pos);
+                        orderArrayList.remove(pos);
                         OrderListAdapter.this.notifyDataSetChanged();
                     }
                 });
             }
         });
         return convertView;
-    }
-
-    private void deleteOrder(int index) {
-        ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
-            if (result.isSuccess()) {
-                ShopSmartApp.instantiateRealm();
-                ShopSmartApp.realm.executeTransaction(transactionRealm -> {
-                    Order deleteOrder = transactionRealm.where(Order.class).equalTo("_id", appUser.getOrders().get(index)).findFirst();
-                    deleteOrder.deleteFromRealm();
-                    appUser.removeOrder(index);
-                });
-            }
-        });
     }
 }

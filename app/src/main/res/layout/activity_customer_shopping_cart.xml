@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CustomerPaymentsActivity">
+    tools:context=".CustomerShoppingCartActivity">
 
     <Button
         android:id="@+id/btnBack"
@@ -50,8 +50,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/queryFullName"
         android:padding="5dp"
-        tools:listitem="@layout/shopping_cart_list_item"
-        />
+        tools:listitem="@layout/shopping_cart_list_item" />
 
     <View
         android:id="@+id/viewSubtotal"

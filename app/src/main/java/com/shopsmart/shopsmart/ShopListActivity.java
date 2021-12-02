@@ -109,24 +109,25 @@ public class ShopListActivity extends AppCompatActivity {
             }
         });
         binding.btnView.setOnClickListener(view -> {
-            Intent intentToProfile = new Intent(ShopListActivity.this, ShopViewActivity.class);
-            intentToProfile.putExtra("EXTRA_INDEX", index);
-            startActivity(intentToProfile);
+            Intent intent = new Intent(ShopListActivity.this, ShopViewActivity.class);
+            intent.putExtra("EXTRA_INDEX", index);
+            intent.putExtra("CUSTOMER", false);
+            startActivity(intent);
         });
         binding.btnEdit.setOnClickListener(view -> {
-            Intent intentToProfile = new Intent(ShopListActivity.this, ShopRegisterEdit.class);
-            intentToProfile.putExtra("EXTRA_INDEX", index);
-            startActivity(intentToProfile);
+            Intent intent = new Intent(ShopListActivity.this, ShopRegisterEdit.class);
+            intent.putExtra("EXTRA_INDEX", index);
+            startActivity(intent);
         });
         binding.btnDelete.setOnClickListener(view -> {
-            Intent intentToProfile = new Intent(ShopListActivity.this, ShopDeleteConfirmActivity.class);
-            intentToProfile.putExtra("EXTRA_REMOVE_INDEX", index);
-            startActivity(intentToProfile);
+            Intent intent = new Intent(ShopListActivity.this, ShopDeleteConfirmActivity.class);
+            intent.putExtra("EXTRA_REMOVE_INDEX", index);
+            startActivity(intent);
         });
         binding.btnInventory.setOnClickListener(view -> {
-            Intent intentToProfile = new Intent(ShopListActivity.this, ShopInventoryActivity.class);
-            intentToProfile.putExtra("EXTRA_INDEX", index);
-            startActivity(intentToProfile);
+            Intent intent = new Intent(ShopListActivity.this, ShopInventoryActivity.class);
+            intent.putExtra("EXTRA_INDEX", index);
+            startActivity(intent);
         });
         binding.btnAdd.setOnClickListener(view ->
                 startActivity(new Intent(ShopListActivity.this, ShopRegister.class)));

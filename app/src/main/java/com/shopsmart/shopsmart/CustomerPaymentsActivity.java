@@ -160,8 +160,8 @@ public class CustomerPaymentsActivity extends AppCompatActivity implements Seria
             finish();
         });
         binding.btnBack2.setOnClickListener(view -> {
-                startActivity(new Intent(CustomerPaymentsActivity.this, CustomerManageProfileActivity.class));
-                finish();
+            startActivity(new Intent(CustomerPaymentsActivity.this, CustomerManageProfileActivity.class));
+            finish();
         });
     }
 

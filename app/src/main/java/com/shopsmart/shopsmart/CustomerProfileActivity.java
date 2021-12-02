@@ -3,9 +3,6 @@ package com.shopsmart.shopsmart;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -248,8 +245,7 @@ public class CustomerProfileActivity extends AppCompatActivity {
                 valid = false;
             }
         }
-
-        if (dobEdit){
+        if (dobEdit) {
             Date dateOfBirth = null;
             try {
                 dateOfBirth = new SimpleDateFormat("MMM dd yyyy").parse(binding.dobProfile.getText().toString());
@@ -258,31 +254,12 @@ public class CustomerProfileActivity extends AppCompatActivity {
             }
             Date todayDate = Calendar.getInstance().getTime();
 
-            if(dateOfBirth.after(todayDate)){
+            if (dateOfBirth.after(todayDate)) {
                 binding.dobProfile.setError("Date of birth cannot be after today");
                 valid = false;
             }
         }
-
         return valid;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuHome:
-                startActivity(new Intent(CustomerProfileActivity.this, CustomerDashboardActivity.class));
-            case R.id.menuPrev:
-                startActivity(new Intent(CustomerProfileActivity.this, CustomerManageProfileActivity.class));
-        }
-        return true;
     }
 
     // Date Functions

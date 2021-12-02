@@ -176,8 +176,8 @@ public class ShopRegisterEdit3 extends AppCompatActivity {
         });
 
         binding.btnCancel.setOnClickListener(view -> {
-                startActivity(new Intent(ShopRegisterEdit3.this, ShopRegister.class));
-                finish();
+            startActivity(new Intent(ShopRegisterEdit3.this, ShopRegister.class));
+            finish();
         });
     }
 
