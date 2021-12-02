@@ -128,7 +128,7 @@ public class ShopViewActivity extends AppCompatActivity {
         else if (id == R.id.LogOut)
             startActivity(new Intent(ShopViewActivity.this, StartupActivity.class));
         else if (id == R.id.ShoppingCart)
-            startActivity(new Intent(ShopViewActivity.this, ActivityCustomerShoppingCartBinding.class));
+            startActivity(new Intent(ShopViewActivity.this, CustomerShoppingCartActivity.class));
         return true;
     }
 }
