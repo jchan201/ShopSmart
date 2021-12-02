@@ -113,7 +113,6 @@
                 app:layout_constraintBottom_toBottomOf="@id/quantityLayout"
                 app:layout_constraintEnd_toEndOf="@id/quantityLayout"
                 app:layout_constraintStart_toEndOf="@id/tvQuantity"
-
                 android:layout_marginRight="5dp"
                 android:layout_marginLeft="5dp"
                 android:drawableRight="@drawable/button_add_white"
@@ -128,7 +127,9 @@
                 app:layout_constraintStart_toStartOf="@id/quantityLayout"
                 app:layout_constraintEnd_toStartOf="@id/tvQuantity"
                 android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp" />
+                android:layout_marginLeft="5dp"
+                android:drawableLeft="@drawable/ic_subtract"
+                android:paddingLeft="3dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
