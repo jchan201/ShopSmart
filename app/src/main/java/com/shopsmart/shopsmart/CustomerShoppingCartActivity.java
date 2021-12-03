@@ -35,6 +35,8 @@ public class CustomerShoppingCartActivity extends AppCompatActivity {
                 }
                 ArrayList<ProductItem> shoppingCart = new ArrayList<>(user.getShoppingCart());
 
+                if(!shoppingCart.isEmpty()) checkoutButtonToggle();
+
                 shopArrayList = new ArrayList<>();
 
                 double subtotal = 0;
@@ -67,5 +69,9 @@ public class CustomerShoppingCartActivity extends AppCompatActivity {
 
     public void removeShopFromList(ObjectId shopId) {
         shopArrayList.remove(shopId);
+    }
+
+    public void checkoutButtonToggle(){
+        binding.buttonCheckout.setEnabled(!binding.buttonCheckout.isEnabled());
     }
 }
