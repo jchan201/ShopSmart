@@ -10,6 +10,7 @@ import com.shopsmart.shopsmart.databinding.CustomerCheckoutBinding;
 
 import java.io.Serializable;
 
+import io.realm.RealmList;
 import io.realm.RealmResults;
 
 public class CustomerCheckoutActivity extends AppCompatActivity implements Serializable {
@@ -21,6 +22,7 @@ public class CustomerCheckoutActivity extends AppCompatActivity implements Seria
     private int numItems = 0;
     private double itemTotal = 0;
     private int numUniqueShops = 0;
+    private RealmList<ProductItem> items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +104,12 @@ public class CustomerCheckoutActivity extends AppCompatActivity implements Seria
         });
         binding.buttonCheckout.setOnClickListener(view -> {
             if (binding.buttonCheckout.getText().toString().equals("CHECKOUT")) {
+                //fetches Shopping Cart
+                items = user.getShoppingCart();
+                for(int x = 0; x < items.size(); x++){
+
+                }
+
                 Intent intentToProfile = new Intent(CustomerCheckoutActivity.this, CustomerDashboardActivity.class);
                 intentToProfile.putExtra("EXTRA_PMETHOD_EDIT", false);
                 startActivity(intentToProfile);

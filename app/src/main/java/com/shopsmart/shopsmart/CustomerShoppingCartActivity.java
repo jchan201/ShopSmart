@@ -50,6 +50,7 @@ public class CustomerShoppingCartActivity extends AppCompatActivity {
                     binding.buttonCheckout.setEnabled(true);
                 uniqueShops = new ArrayList<>();
                 double subtotal = 0;
+                //asdf
                 for (ProductItem p : shoppingCart) {
                     Product product = ShopSmartApp.realm.where(Product.class).equalTo("_id", p.getProductId()).findFirst();
                     if (!uniqueShops.contains(product.getShopId()))
