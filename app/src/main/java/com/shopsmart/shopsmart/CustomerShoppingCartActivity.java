@@ -18,7 +18,6 @@ public class CustomerShoppingCartActivity extends AppCompatActivity {
     private ShoppingCartListAdapter shoppingCartListAdapter;
     private ArrayList<ObjectId> uniqueShops;
     private AppUser user;
-
     private boolean boolCrap;
 
     @Override
@@ -28,14 +27,8 @@ public class CustomerShoppingCartActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         Intent currIntent = getIntent();
-
-        if(currIntent!=null){
-            boolCrap = currIntent.getBooleanExtra("EXTRA_BOOLCRAP", false);
-            if(boolCrap){
-                finish();
-            }
-        }
-
+        boolCrap = currIntent.getBooleanExtra("EXTRA_BOOLCRAP", false);
+        if (boolCrap) finish();
         ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
             if (result.isSuccess()) {
                 ShopSmartApp.instantiateRealm();
@@ -50,7 +43,6 @@ public class CustomerShoppingCartActivity extends AppCompatActivity {
                     binding.buttonCheckout.setEnabled(true);
                 uniqueShops = new ArrayList<>();
                 double subtotal = 0;
-                //asdf
                 for (ProductItem p : shoppingCart) {
                     Product product = ShopSmartApp.realm.where(Product.class).equalTo("_id", p.getProductId()).findFirst();
                     if (!uniqueShops.contains(product.getShopId()))
@@ -71,12 +63,15 @@ public class CustomerShoppingCartActivity extends AppCompatActivity {
         });
         binding.btnBack.setOnClickListener(view -> finish());
     }
+
     public void updateSubtotal(double subtotal) {
         binding.tvSubtotal.setText(String.format("%.2f", subtotal));
     }
+
     public void removeShopFromList(ObjectId shopId) {
         uniqueShops.remove(shopId);
     }
+
     public void toggleCheckout() {
         binding.buttonCheckout.setEnabled(!binding.buttonCheckout.isEnabled());
     }
