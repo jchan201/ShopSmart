@@ -47,7 +47,7 @@ public class CustomerShoppingCartActivity extends AppCompatActivity {
                 }
                 shoppingCartListAdapter = new ShoppingCartListAdapter(this, shoppingCart, user, subtotal);
                 binding.listShoppingCart.setAdapter(shoppingCartListAdapter);
-                binding.tvSubtotal.setText(Double.toString(subtotal));
+                binding.tvSubtotal.setText(String.format("%.2f", subtotal));
             }
         });
         binding.buttonCheckout.setOnClickListener(view -> {
@@ -60,7 +60,8 @@ public class CustomerShoppingCartActivity extends AppCompatActivity {
         binding.btnBack.setOnClickListener(view -> finish());
     }
     public void updateSubtotal(double subtotal) {
-        binding.tvSubtotal.setText(Double.toString(subtotal));
+//        binding.tvSubtotal.setText(Double.toString(subtotal));
+        binding.tvSubtotal.setText(String.format("%.2f", subtotal));
     }
     public void removeShopFromList(ObjectId shopId) {
         uniqueShops.remove(shopId);
