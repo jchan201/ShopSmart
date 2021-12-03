@@ -38,7 +38,8 @@ public class OrderListAdapter extends ArrayAdapter<Order> {
         TextView orderTotal = convertView.findViewById(R.id.orderTotal);
 
         orderDate.setText(new SimpleDateFormat("MMM. dd, yyyy").format(order.getDate()));
-        orderTotal.setText(Double.toString(order.getSubtotal() + order.getTax()));
+//        orderTotal.setText(Double.toString(order.getSubtotal() + order.getTax()));
+        orderTotal.setText(String.format("%.2f", order.getSubtotal() + order.getTax()));
         return convertView;
     }
 }
