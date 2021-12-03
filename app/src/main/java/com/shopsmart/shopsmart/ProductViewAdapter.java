@@ -54,7 +54,7 @@ public class ProductViewAdapter extends BaseAdapter {
         else txtStock.setText("None in Stock");
         if (!appUser.getUserType().equals("Owner")) {
             Button btnAddToCart = view.findViewById(R.id.btnAddToCart);
-            btnAddToCart.setEnabled(!appUser.getShoppingCart().stream().anyMatch(n -> n.getProductId().equals(product.getId())));
+            btnAddToCart.setEnabled(!appUser.getShoppingCart().stream().anyMatch(n -> n.getProductId().equals(product.getId())) && product.getStock() > 0);
             btnAddToCart.setOnClickListener(view1 -> {
                 ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
                     if (result.isSuccess()) {
