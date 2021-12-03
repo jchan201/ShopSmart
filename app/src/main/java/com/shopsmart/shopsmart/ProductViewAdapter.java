@@ -55,9 +55,8 @@ public class ProductViewAdapter extends BaseAdapter {
         if (!appUser.getUserType().equals("Owner")) {
             Button btnAddToCart = view.findViewById(R.id.btnAddToCart);
 
-            if(appUser.getShoppingCart().contains(product)) {
-                btnAddToCart.setEnabled(false);
-            }
+            boolean existed = appUser.getShoppingCart().stream().anyMatch(n -> n.getProductId().equals(product.getId()));
+            btnAddToCart.setEnabled(!existed);
 
             btnAddToCart.setOnClickListener(view1 -> {
                 ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {

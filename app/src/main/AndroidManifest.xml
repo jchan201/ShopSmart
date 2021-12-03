@@ -160,6 +160,9 @@
         <activity
             android:name=".CustomerShoppingCartActivity"
             android:label="Shopping Cart" />
+        <activity android:name=".CustomerCheckoutActivity"
+            android:label="Checkout"
+            />
     </application>
 
 </manifest>

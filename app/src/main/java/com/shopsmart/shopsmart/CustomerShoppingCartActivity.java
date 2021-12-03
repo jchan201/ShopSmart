@@ -19,11 +19,22 @@ public class CustomerShoppingCartActivity extends AppCompatActivity {
     private ArrayList<ObjectId> uniqueShops;
     private AppUser user;
 
+    private boolean boolCrap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityCustomerShoppingCartBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        Intent currIntent = getIntent();
+
+        if(currIntent!=null){
+            boolCrap = currIntent.getBooleanExtra("EXTRA_BOOLCRAP", false);
+            if(boolCrap){
+                finish();
+            }
+        }
 
         ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
             if (result.isSuccess()) {
