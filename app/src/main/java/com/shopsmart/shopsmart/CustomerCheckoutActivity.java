@@ -25,7 +25,6 @@ public class CustomerCheckoutActivity extends AppCompatActivity implements Seria
     private int numItems = 0;
     private double itemTotal = 0;
     private int numUniqueShops = 0;
-    private RealmList<ProductItem> items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,16 +108,17 @@ public class CustomerCheckoutActivity extends AppCompatActivity implements Seria
             if (binding.buttonCheckout.getText().toString().equals("CHECKOUT")) {
                 Date date = new Date();
                 order = new Order(user.getId(), date, itemTotal + numUniqueShops * 3, itemTotal*.13);
-
                 ShopSmartApp.realm.executeTransaction(transactionRealm ->{
                     transactionRealm.insert(order);
                     user.addOrder(order.getId());
+                    for (ProductItem p : user.getShoppingCart()) {
+                        Product product = ShopSmartApp.realm.where(Product.class).equalTo("_id", p.getProductId()).findFirst();
+                        product.setStock(product.getStock() - p.getQuantity());
+                    }
+                    user.removeAllShoppingItem();
                 });
-
-                user.removeAllShoppingItem();
-
                 Intent intentToProfile = new Intent(CustomerCheckoutActivity.this, CustomerDashboardActivity.class);
-                intentToProfile.putExtra("EXTRA_PMETHOD_EDIT", false);
+                intentToProfile.putExtra("CHECKOUT_SUCCESS", true);
                 startActivity(intentToProfile);
                 finish();
             } else {

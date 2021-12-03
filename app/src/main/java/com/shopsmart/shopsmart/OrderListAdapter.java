@@ -35,31 +35,9 @@ public class OrderListAdapter extends ArrayAdapter<Order> {
         Order order = orderArrayList.get(position);
         TextView orderDate = convertView.findViewById(R.id.orderDate);
         TextView orderTotal = convertView.findViewById(R.id.orderTotal);
-        Button deleteBtn = convertView.findViewById(R.id.btnDelete);
-        Button viewBtn = convertView.findViewById(R.id.btnView);
 
         orderDate.setText(order.getDate().toString());
         orderTotal.setText(Double.toString(order.getSubtotal() + order.getTax()));
-        deleteBtn.setTag(position);
-        viewBtn.setTag(position);
-
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int pos = (Integer) view.getTag();
-                ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
-                    if (result.isSuccess()) {
-                        ShopSmartApp.instantiateRealm();
-                        Order deleteOrder = ShopSmartApp.realm.where(Order.class)
-                                .equalTo("_id", appUser.getOrders().get(pos)).findFirst();
-                        deleteOrder.deleteFromRealm();
-                        appUser.removeOrder(pos);
-                        orderArrayList.remove(pos);
-                        OrderListAdapter.this.notifyDataSetChanged();
-                    }
-                });
-            }
-        });
         return convertView;
     }
 }

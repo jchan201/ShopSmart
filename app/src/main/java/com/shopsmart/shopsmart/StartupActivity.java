@@ -53,11 +53,6 @@ public class StartupActivity extends AppCompatActivity {
         };
         binding.edtTxtEmail.addTextChangedListener(textWatcher);
         binding.edtTxtPassword.addTextChangedListener(textWatcher);
-
-        //email and pword
-        binding.edtTxtEmail.setText("sherlock@sh.com");
-        binding.edtTxtPassword.setText("1234512345A");
-
         binding.btnLogin.setOnClickListener(view -> {
             String email = binding.edtTxtEmail.getText().toString();
             String password = binding.edtTxtPassword.getText().toString();

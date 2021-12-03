@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -32,6 +33,8 @@ public class CustomerDashboardActivity extends AppCompatActivity implements Maps
         binding = CustomerDashboard1Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        if (getIntent().getBooleanExtra("CHECKOUT_SUCCESS", false))
+            Toast.makeText(this, "Successfully made the purchase!", Toast.LENGTH_SHORT).show();
         Fragment fragment = new MapsFragment();
         getSupportFragmentManager()
                 .beginTransaction()

@@ -56,19 +56,6 @@
             tools:listitem="@layout/order_list_item" />
 
         <Button
-            android:id="@+id/btnDeleteAll"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:ems="10"
-            android:padding="8dp"
-            android:text="CLEAR ALL ORDERS"
-            android:textAlignment="center"
-            android:textSize="20sp" />
-
-        <Button
             android:id="@+id/btnBack"
             android:layout_width="300dp"
             android:layout_height="wrap_content"

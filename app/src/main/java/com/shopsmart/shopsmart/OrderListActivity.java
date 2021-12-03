@@ -49,16 +49,6 @@ public class OrderListActivity extends AppCompatActivity {
                 binding.lstOrders.setAdapter(orderListAdapter);
             }
         });
-        binding.btnDeleteAll.setOnClickListener(view -> {
-            ShopSmartApp.realm.executeTransaction(transactionRealm -> {
-                RealmResults<Order> deleteOrders = ShopSmartApp.realm.where(Order.class).equalTo("cust_id", user.getId()).findAll();
-                deleteOrders.deleteAllFromRealm();
-
-                user.removeAllOrders();
-            });
-
-            orderListAdapter.notifyDataSetChanged();
-        });
         binding.btnBack.setOnClickListener(view ->
                 startActivity(new Intent(OrderListActivity.this, CustomerManageProfileActivity.class)));
     }
