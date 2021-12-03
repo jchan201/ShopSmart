@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.shopsmart.shopsmart.databinding.CustomerCheckoutBinding;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 
 import io.realm.RealmList;
 import io.realm.RealmResults;
@@ -17,6 +19,7 @@ public class CustomerCheckoutActivity extends AppCompatActivity implements Seria
     private CustomerCheckoutBinding binding;
     private AppUser user;
     private PaymentMethod[] paymentMethods;
+    private Order order;
     private int index = 0;
     private int total = 0;
     private int numItems = 0;
@@ -104,11 +107,15 @@ public class CustomerCheckoutActivity extends AppCompatActivity implements Seria
         });
         binding.buttonCheckout.setOnClickListener(view -> {
             if (binding.buttonCheckout.getText().toString().equals("CHECKOUT")) {
-                //fetches Shopping Cart
-                items = user.getShoppingCart();
-                for(int x = 0; x < items.size(); x++){
+                Date date = new Date();
+                order = new Order(user.getId(), date, itemTotal + numUniqueShops * 3, itemTotal*.13);
 
-                }
+                ShopSmartApp.realm.executeTransaction(transactionRealm ->{
+                    transactionRealm.insert(order);
+                    user.addOrder(order.getId());
+                });
+
+                user.removeAllShoppingItem();
 
                 Intent intentToProfile = new Intent(CustomerCheckoutActivity.this, CustomerDashboardActivity.class);
                 intentToProfile.putExtra("EXTRA_PMETHOD_EDIT", false);
