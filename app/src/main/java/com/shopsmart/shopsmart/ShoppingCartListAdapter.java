@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ public class ShoppingCartListAdapter extends ArrayAdapter<ProductItem> {
     private final AppUser appUser;
     private int[] quantities;
     private double subtotal;
+    private int[] stocks;
 
     public ShoppingCartListAdapter(Context context, ArrayList<ProductItem> shoppingCart, AppUser appUser, double subtotal) {
         super(context, 0, shoppingCart);
@@ -26,6 +28,7 @@ public class ShoppingCartListAdapter extends ArrayAdapter<ProductItem> {
         this.shoppingCart = shoppingCart;
         quantities = new int[shoppingCart.size()];
         this.subtotal = subtotal;
+        stocks = new int[shoppingCart.size()];
     }
 
     @NonNull
@@ -50,6 +53,7 @@ public class ShoppingCartListAdapter extends ArrayAdapter<ProductItem> {
                 ShopSmartApp.instantiateRealm();
                 Product product = ShopSmartApp.realm.where(Product.class)
                         .equalTo("_id", productItem.getProductId()).findFirst();
+                stocks[position] = product.getStock();
                 Shop shop = ShopSmartApp.realm.where(Shop.class)
                         .equalTo("_id", product.getShopId()).findFirst();
                 productItemName.setText(product.getName());
@@ -61,30 +65,36 @@ public class ShoppingCartListAdapter extends ArrayAdapter<ProductItem> {
         AddBtn.setOnClickListener(view -> {
             int pos = (Integer) view.getTag();
             if (quantities[pos] < QUANTITY_LIMIT) {
-                AddBtn.setEnabled(false);
-                deleteBtn.setEnabled(false);
-                ((CustomerShoppingCartActivity) getContext()).toggleCheckout();
-                ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
-                    if (result.isSuccess()) {
-                        ShopSmartApp.instantiateRealm();
-                        ShopSmartApp.realm.executeTransaction(realm ->
-                            productItem.setQuantity(++quantities[pos]));
-                        quantity.setText(Integer.toString(quantities[pos]));
-                        Product product = ShopSmartApp.realm.where(Product.class)
-                                .equalTo("_id", productItem.getProductId()).findFirst();
-                        subtotal += product.getPrice();
-                        ((CustomerShoppingCartActivity) getContext()).updateSubtotal(subtotal);
-                    }
-                    AddBtn.setEnabled(true);
-                    deleteBtn.setEnabled(true);
+                if (quantities[pos] < stocks[pos]) {
+                    AddBtn.setEnabled(false);
+                    SubBtn.setEnabled(false);
+                    deleteBtn.setEnabled(false);
                     ((CustomerShoppingCartActivity) getContext()).toggleCheckout();
-                });
+                    ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
+                        if (result.isSuccess()) {
+                            ShopSmartApp.instantiateRealm();
+                            ShopSmartApp.realm.executeTransaction(realm ->
+                                    productItem.setQuantity(++quantities[pos]));
+                            quantity.setText(Integer.toString(quantities[pos]));
+                            Product product = ShopSmartApp.realm.where(Product.class)
+                                    .equalTo("_id", productItem.getProductId()).findFirst();
+                            subtotal += product.getPrice();
+                            ((CustomerShoppingCartActivity) getContext()).updateSubtotal(subtotal);
+                        }
+                        AddBtn.setEnabled(true);
+                        SubBtn.setEnabled(true);
+                        deleteBtn.setEnabled(true);
+                        ((CustomerShoppingCartActivity) getContext()).toggleCheckout();
+                    });
+                } else
+                    Toast.makeText(getContext(), "Cannot exceed stock of " + stocks[pos], Toast.LENGTH_SHORT).show();
             }
         });
         SubBtn.setTag(position);
         SubBtn.setOnClickListener(view -> {
             int pos = (Integer) view.getTag();
             if (quantities[pos] > 1) {
+                AddBtn.setEnabled(false);
                 SubBtn.setEnabled(false);
                 deleteBtn.setEnabled(false);
                 ((CustomerShoppingCartActivity) getContext()).toggleCheckout();
@@ -99,6 +109,7 @@ public class ShoppingCartListAdapter extends ArrayAdapter<ProductItem> {
                         subtotal -= product.getPrice();
                         ((CustomerShoppingCartActivity) getContext()).updateSubtotal(subtotal);
                     }
+                    AddBtn.setEnabled(true);
                     SubBtn.setEnabled(true);
                     deleteBtn.setEnabled(true);
                     ((CustomerShoppingCartActivity) getContext()).toggleCheckout();
@@ -124,9 +135,14 @@ public class ShoppingCartListAdapter extends ArrayAdapter<ProductItem> {
                         temp[i] = quantities[i + j];
                     }
                     quantities = temp;
+                    temp = new int[stocks.length - 1];
+                    for (int i = 0, j = 0; i < temp.length; i++) {
+                        if (i == pos) j++;
+                        temp[i] = stocks[i + j];
+                    }
+                    stocks = temp;
                     if (shoppingCart.isEmpty()) subtotal = 0;
                     ShoppingCartListAdapter.this.notifyDataSetChanged();
-                    deleteBtn.setEnabled(true);
                     ((CustomerShoppingCartActivity) getContext()).toggleCheckout();
                     ((CustomerShoppingCartActivity) getContext()).removeShopFromList(product.getShopId());
                     ((CustomerShoppingCartActivity) getContext()).updateSubtotal(subtotal);

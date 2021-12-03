@@ -114,10 +114,7 @@ public class CustomerCheckoutActivity extends AppCompatActivity implements Seria
                 finish();
             }
         });
-        binding.btnBack2.setOnClickListener(view -> {
-            startActivity(new Intent(CustomerCheckoutActivity.this, CustomerShoppingCartActivity.class));
-            finish();
-        });
+        binding.btnBack2.setOnClickListener(view -> finish());
     }
 
     private void displayCardInfo(PaymentMethod paymentMethod) {
