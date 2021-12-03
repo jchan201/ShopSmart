@@ -39,8 +39,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleView"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/titleView" />
 
     <TextView
         android:id="@+id/textTitle"
@@ -85,7 +84,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="@+id/chkMonday"
-        app:layout_constraintTop_toBottomOf="@+id/txtOpen"/>
+        app:layout_constraintTop_toBottomOf="@+id/txtOpen" />
 
     <EditText
         android:id="@+id/edtTxtMonday2"
@@ -97,7 +96,7 @@
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/chkTuesday"
         app:layout_constraintStart_toEndOf="@+id/edtTxtMonday1"
-        app:layout_constraintTop_toBottomOf="@+id/txtOpen"/>
+        app:layout_constraintTop_toBottomOf="@+id/txtOpen" />
 
     <CheckBox
         android:id="@+id/chkTuesday"
@@ -122,7 +121,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="@+id/chkTuesday"
-        app:layout_constraintTop_toBottomOf="@+id/chkMonday"/>
+        app:layout_constraintTop_toBottomOf="@+id/chkMonday" />
 
     <EditText
         android:id="@+id/edtTxtTuesday2"
@@ -134,7 +133,7 @@
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/chkWednesday"
         app:layout_constraintStart_toEndOf="@+id/edtTxtTuesday1"
-        app:layout_constraintTop_toBottomOf="@+id/chkMonday"/>
+        app:layout_constraintTop_toBottomOf="@+id/chkMonday" />
 
     <CheckBox
         android:id="@+id/chkWednesday"
@@ -159,7 +158,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="@+id/chkWednesday"
-        app:layout_constraintTop_toBottomOf="@+id/chkTuesday"/>
+        app:layout_constraintTop_toBottomOf="@+id/chkTuesday" />
 
     <EditText
         android:id="@+id/edtTxtWednesday2"
@@ -171,7 +170,7 @@
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/chkThursday"
         app:layout_constraintStart_toEndOf="@+id/edtTxtWednesday1"
-        app:layout_constraintTop_toBottomOf="@+id/chkTuesday"/>
+        app:layout_constraintTop_toBottomOf="@+id/chkTuesday" />
 
     <CheckBox
         android:id="@+id/chkThursday"
@@ -196,7 +195,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="@+id/chkThursday"
-        app:layout_constraintTop_toBottomOf="@+id/chkWednesday"/>
+        app:layout_constraintTop_toBottomOf="@+id/chkWednesday" />
 
     <EditText
         android:id="@+id/edtTxtThursday2"
@@ -208,7 +207,7 @@
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/chkFriday"
         app:layout_constraintStart_toEndOf="@+id/edtTxtThursday1"
-        app:layout_constraintTop_toBottomOf="@+id/chkWednesday"/>
+        app:layout_constraintTop_toBottomOf="@+id/chkWednesday" />
 
     <CheckBox
         android:id="@+id/chkFriday"
@@ -233,7 +232,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="@+id/chkFriday"
-        app:layout_constraintTop_toBottomOf="@+id/chkThursday"/>
+        app:layout_constraintTop_toBottomOf="@+id/chkThursday" />
 
     <EditText
         android:id="@+id/edtTxtFriday2"
@@ -245,7 +244,7 @@
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/chkSaturday"
         app:layout_constraintStart_toEndOf="@+id/edtTxtFriday1"
-        app:layout_constraintTop_toBottomOf="@+id/chkThursday"/>
+        app:layout_constraintTop_toBottomOf="@+id/chkThursday" />
 
     <CheckBox
         android:id="@+id/chkSaturday"
@@ -270,7 +269,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="@+id/chkSaturday"
-        app:layout_constraintTop_toBottomOf="@+id/chkFriday"/>
+        app:layout_constraintTop_toBottomOf="@+id/chkFriday" />
 
     <EditText
         android:id="@+id/edtTxtSaturday2"
@@ -282,7 +281,7 @@
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/chkSunday"
         app:layout_constraintStart_toEndOf="@+id/edtTxtSaturday1"
-        app:layout_constraintTop_toBottomOf="@+id/chkFriday"/>
+        app:layout_constraintTop_toBottomOf="@+id/chkFriday" />
 
     <CheckBox
         android:id="@+id/chkSunday"
@@ -307,7 +306,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="@+id/chkSunday"
-        app:layout_constraintTop_toBottomOf="@+id/chkSaturday"/>
+        app:layout_constraintTop_toBottomOf="@+id/chkSaturday" />
 
     <EditText
         android:id="@+id/edtTxtSunday2"
@@ -319,7 +318,7 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/chkSunday"
         app:layout_constraintStart_toEndOf="@+id/edtTxtSunday1"
-        app:layout_constraintTop_toBottomOf="@+id/chkSaturday"/>
+        app:layout_constraintTop_toBottomOf="@+id/chkSaturday" />
 
     <Button
         android:id="@+id/btnSave"
@@ -347,7 +346,6 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
-        app:layout_constraintStart_toStartOf="@+id/bodyView"
-        />
+        app:layout_constraintStart_toStartOf="@+id/bodyView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

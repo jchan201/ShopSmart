@@ -122,6 +122,7 @@ public class ShoppingCartListAdapter extends ArrayAdapter<ProductItem> {
                         temp[i] = quantities[i + j];
                     }
                     quantities = temp;
+                    if (shoppingCart.isEmpty()) subtotal = 0;
                     ShoppingCartListAdapter.this.notifyDataSetChanged();
                     ((CustomerShoppingCartActivity) getContext()).removeShopFromList(product.getShopId());
                     ((CustomerShoppingCartActivity) getContext()).updateSubtotal(subtotal);

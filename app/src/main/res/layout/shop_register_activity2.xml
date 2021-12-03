@@ -40,8 +40,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleView"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/titleView" />
 
     <TextView
         android:id="@+id/textTitle"
@@ -79,8 +78,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
-        app:layout_constraintStart_toStartOf="@+id/bodyView"
-        />
+        app:layout_constraintStart_toStartOf="@+id/bodyView" />
 
     <TextView
         android:id="@+id/textCityTitle"
@@ -104,7 +102,7 @@
         android:maxLines="1"
         android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/textCityTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textTitle"/>
+        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
     <TextView
         android:id="@+id/textProvinceTitle"
@@ -115,18 +113,18 @@
         android:text="Province: "
         android:textSize="15dp"
         app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/textCityTitle"/>
+        app:layout_constraintTop_toBottomOf="@+id/textCityTitle" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/textProvince"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="32dp"-->
-<!--        android:layout_marginLeft="5dp"-->
-<!--        android:textSize="15dp"-->
-<!--        android:text="UNKNOWN"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/textProvinceTitle"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textCity" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/textProvince"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="32dp"-->
+    <!--        android:layout_marginLeft="5dp"-->
+    <!--        android:textSize="15dp"-->
+    <!--        android:text="UNKNOWN"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/textProvinceTitle"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textCity" />-->
 
     <Spinner
         android:id="@+id/spinner_province"
@@ -159,13 +157,13 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="14dp"
+        android:hint="A1A 1A1"
         android:inputType="text"
         android:maxLength="7"
         android:maxLines="1"
-        android:hint="A1A 1A1"
         android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/textZipCodeTitle"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_province"/>
+        app:layout_constraintTop_toBottomOf="@+id/spinner_province" />
 
     <TextView
         android:id="@+id/textAddLine1Title"
@@ -189,7 +187,7 @@
         android:maxLines="1"
         android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/textAddLine1Title"
-        app:layout_constraintTop_toBottomOf="@+id/textZipCode"/>
+        app:layout_constraintTop_toBottomOf="@+id/textZipCode" />
 
     <TextView
         android:id="@+id/textAddLine2Title"
@@ -213,6 +211,6 @@
         android:maxLines="1"
         android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/textAddLine1Title"
-        app:layout_constraintTop_toBottomOf="@+id/textAddLine1"/>
+        app:layout_constraintTop_toBottomOf="@+id/textAddLine1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

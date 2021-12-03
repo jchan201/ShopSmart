@@ -79,8 +79,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/bodyView"
-        app:layout_constraintStart_toStartOf="@+id/bodyView"
-        />
+        app:layout_constraintStart_toStartOf="@+id/bodyView" />
 
     <TextView
         android:id="@+id/textNameTitle"
@@ -104,7 +103,7 @@
         android:text="UNKNOWN"
         android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/textNameTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textTitle"/>
+        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
     <EditText
         android:id="@+id/textMName"
@@ -117,7 +116,7 @@
         android:text="UNKNOWN"
         android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/textNameTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textFName"/>
+        app:layout_constraintTop_toBottomOf="@+id/textFName" />
 
     <EditText
         android:id="@+id/textLName"
@@ -130,7 +129,7 @@
         android:text="UNKNOWN"
         android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/textNameTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textMName"/>
+        app:layout_constraintTop_toBottomOf="@+id/textMName" />
 
     <TextView
         android:id="@+id/textDOBTitle"
@@ -180,7 +179,6 @@
         android:textColor="@color/black"
         android:textSize="25dp"
         app:layout_constraintStart_toEndOf="@+id/textDOBTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textLName"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/textLName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
