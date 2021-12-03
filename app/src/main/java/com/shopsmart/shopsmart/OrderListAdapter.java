@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class OrderListAdapter extends ArrayAdapter<Order> {
@@ -36,7 +37,7 @@ public class OrderListAdapter extends ArrayAdapter<Order> {
         TextView orderDate = convertView.findViewById(R.id.orderDate);
         TextView orderTotal = convertView.findViewById(R.id.orderTotal);
 
-        orderDate.setText(order.getDate().toString());
+        orderDate.setText(new SimpleDateFormat("MMM. dd, yyyy").format(order.getDate()));
         orderTotal.setText(Double.toString(order.getSubtotal() + order.getTax()));
         return convertView;
     }
