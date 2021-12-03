@@ -13,6 +13,8 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
+
 public class ShoppingCartListAdapter extends ArrayAdapter<ProductItem> {
     private static final int QUANTITY_LIMIT = 99;
     private final ArrayList<ProductItem> shoppingCart;
@@ -48,67 +50,80 @@ public class ShoppingCartListAdapter extends ArrayAdapter<ProductItem> {
         ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
             if (result.isSuccess()) {
                 ShopSmartApp.instantiateRealm();
-                Product product = ShopSmartApp.realm.where(Product.class).equalTo("_id", productItem.getProductId()).findFirst();
-                Shop shop = ShopSmartApp.realm.where(Shop.class).equalTo("_id", product.getShopId()).findFirst();
-
+                Product product = ShopSmartApp.realm.where(Product.class)
+                        .equalTo("_id", productItem.getProductId()).findFirst();
+                Shop shop = ShopSmartApp.realm.where(Shop.class)
+                        .equalTo("_id", product.getShopId()).findFirst();
                 productItemName.setText(product.getName());
                 shopName.setText(shop.getName());
                 price.setText(Double.toString(product.getPrice()));
             }
         });
-
-        AddBtn.setTag(quantities[position]);
+        AddBtn.setTag(position);
         AddBtn.setOnClickListener(view -> {
             int pos = (Integer) view.getTag();
             if (quantities[pos] < QUANTITY_LIMIT) {
                 AddBtn.setEnabled(false);
+                ((CustomerShoppingCartActivity) getContext()).toggleCheckout();
                 ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
                     if (result.isSuccess()) {
                         ShopSmartApp.instantiateRealm();
-                        productItem.setQuantity(++quantities[pos]);
+                        ShopSmartApp.realm.executeTransaction(realm ->
+                            productItem.setQuantity(++quantities[pos]));
                         quantity.setText(Integer.toString(quantities[pos]));
-                        Product product = ShopSmartApp.realm.where(Product.class).equalTo("_id", productItem.getProductId()).findFirst();
+                        Product product = ShopSmartApp.realm.where(Product.class)
+                                .equalTo("_id", productItem.getProductId()).findFirst();
                         subtotal += product.getPrice();
                         ((CustomerShoppingCartActivity) getContext()).updateSubtotal(subtotal);
                     }
                     AddBtn.setEnabled(true);
+                    ((CustomerShoppingCartActivity) getContext()).toggleCheckout();
                 });
             }
         });
-        SubBtn.setTag(quantities[position]);
+        SubBtn.setTag(position);
         SubBtn.setOnClickListener(view -> {
             int pos = (Integer) view.getTag();
-            if (quantities[pos] < QUANTITY_LIMIT) {
+            if (quantities[pos] > 1) {
                 SubBtn.setEnabled(false);
+                ((CustomerShoppingCartActivity) getContext()).toggleCheckout();
                 ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
                     if (result.isSuccess()) {
                         ShopSmartApp.instantiateRealm();
-                        productItem.setQuantity(--quantities[pos]);
+                        ShopSmartApp.realm.executeTransaction(realm ->
+                                productItem.setQuantity(--quantities[pos]));
                         quantity.setText(Integer.toString(quantities[pos]));
-                        Product product = ShopSmartApp.realm.where(Product.class).equalTo("_id", productItem.getProductId()).findFirst();
+                        Product product = ShopSmartApp.realm.where(Product.class)
+                                .equalTo("_id", productItem.getProductId()).findFirst();
                         subtotal -= product.getPrice();
                         ((CustomerShoppingCartActivity) getContext()).updateSubtotal(subtotal);
                     }
                     SubBtn.setEnabled(true);
+                    ((CustomerShoppingCartActivity) getContext()).toggleCheckout();
                 });
             }
         });
         deleteBtn.setTag(position);
         deleteBtn.setOnClickListener(view -> {
             int pos = (Integer) view.getTag();
+            deleteBtn.setEnabled(false);
             ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
                 if (result.isSuccess()) {
                     ShopSmartApp.instantiateRealm();
-                    Product product = ShopSmartApp.realm.where(Product.class).equalTo("_id", productItem.getProductId()).findFirst();
+                    Product product = ShopSmartApp.realm.where(Product.class)
+                            .equalTo("_id", productItem.getProductId()).findFirst();
                     subtotal -= product.getPrice() * quantities[pos];
-                    appUser.removeShoppingItem(pos);
+                    ShopSmartApp.realm.executeTransaction(realm ->
+                        appUser.removeShoppingItem(pos));
                     shoppingCart.remove(pos);
-                    int[] temp = new int[shoppingCart.size()];
-                    for (int i = 0; i < quantities.length; i++) {
-                        if (i != pos) temp[i] = quantities[i];
+                    int[] temp = new int[quantities.length - 1];
+                    for (int i = 0, j = 0; i < temp.length; i++) {
+                        if (i == pos) j++;
+                        temp[i] = quantities[i + j];
                     }
                     quantities = temp;
                     ShoppingCartListAdapter.this.notifyDataSetChanged();
+                    deleteBtn.setEnabled(true);
                     ((CustomerShoppingCartActivity) getContext()).removeShopFromList(product.getShopId());
                     ((CustomerShoppingCartActivity) getContext()).updateSubtotal(subtotal);
                 }
