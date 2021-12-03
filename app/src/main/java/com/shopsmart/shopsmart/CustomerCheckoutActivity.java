@@ -33,6 +33,15 @@ public class CustomerCheckoutActivity extends AppCompatActivity implements Seria
             numItems = currIntent.getIntExtra("EXTRA_NUMITEMS", numItems);
             itemTotal = currIntent.getDoubleExtra("EXTRA_TOTAL", itemTotal);
             numUniqueShops = currIntent.getIntExtra("EXTRA_UNIQUESHOPPES", numUniqueShops);
+
+            if(numItems != 0){
+                binding.buttonCheckout.setEnabled(true);
+                binding.tvItems.setText("(" + numItems + ") Items:");
+                binding.tvItemsDollars.setText("$" + String.format("%.2f", itemTotal));
+                binding.tvTaxDollar.setText("$" + String.format("%.2f", itemTotal * 0.13));
+                binding.tvDFeeDollar.setText("$3.00 x " + numUniqueShops);
+                binding.tvTotalDollars.setText("$" + String.format("%.2f", (itemTotal*1.13 + numUniqueShops * 3)));
+            }
         }
 
         ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
@@ -60,20 +69,21 @@ public class CustomerCheckoutActivity extends AppCompatActivity implements Seria
                     binding.buttonCheckout.setText("Add Payment");
                     binding.buttonCheckout.setEnabled(true);
                 } else {
-                    if (total == 1) {
+                    if (total <= 1) {
                         binding.buttonPrev.setEnabled(false);
                         binding.buttonNext.setEnabled(false);
                     } else {
-                        if (index + 1 == 0) {
-                            binding.buttonPrev.setEnabled(false);
-                            binding.buttonNext.setEnabled(true);
-                        } else if (index + 1 == total) {
-                            binding.buttonNext.setEnabled(false);
-                            binding.buttonPrev.setEnabled(true);
-                        } else {
-                            binding.buttonNext.setEnabled(true);
-                            binding.buttonPrev.setEnabled(true);
-                        }
+                        binding.buttonNext.setEnabled(true);
+//                        if (index + 1 == 0) {
+//                            binding.buttonPrev.setEnabled(false);
+//                            binding.buttonNext.setEnabled(true);
+//                        } else if (index + 1 == total) {
+//                            binding.buttonNext.setEnabled(false);
+//                            binding.buttonPrev.setEnabled(true);
+//                        } else {
+//                            binding.buttonNext.setEnabled(true);
+//                            binding.buttonPrev.setEnabled(true);
+//                        }
                     }
                     displayCardInfo(paymentMethods[index]);
                 }
@@ -82,22 +92,26 @@ public class CustomerCheckoutActivity extends AppCompatActivity implements Seria
         binding.buttonPrev.setOnClickListener(view -> {
             if (index > 0) {
                 index -= 1;
-                binding.buttonNext.setVisibility(View.VISIBLE);
+//                binding.buttonNext.setVisibility(View.VISIBLE);
+                binding.buttonNext.setEnabled(true);
                 binding.queryCardIndex.setText(Integer.toString(index + 1));
                 displayCardInfo(paymentMethods[index]);
                 if (index == 0)
-                    binding.buttonPrev.setVisibility(View.INVISIBLE);
+//                    binding.buttonPrev.setVisibility(View.INVISIBLE);
+                    binding.buttonPrev.setEnabled(false);
             }
         });
         binding.buttonNext.setOnClickListener(view -> {
             if (index < total) {
                 index += 1;
-                binding.buttonPrev.setVisibility(View.VISIBLE);
+//                binding.buttonPrev.setVisibility(View.VISIBLE);
+                binding.buttonPrev.setEnabled(true);
                 binding.queryCardIndex.setText(Integer.toString(index + 1));
                 displayCardInfo(paymentMethods[index]);
 
                 if (index + 1 == total) {
-                    binding.buttonNext.setVisibility(View.INVISIBLE);
+//                    binding.buttonNext.setVisibility(View.INVISIBLE);
+                    binding.buttonNext.setEnabled(false);
                 }
             }
         });
@@ -115,7 +129,9 @@ public class CustomerCheckoutActivity extends AppCompatActivity implements Seria
             }
         });
         binding.btnBack2.setOnClickListener(view -> {
-            startActivity(new Intent(CustomerCheckoutActivity.this, CustomerShoppingCartActivity.class));
+            Intent intentToProfile = new Intent(CustomerCheckoutActivity.this, CustomerShoppingCartActivity.class);
+            intentToProfile.putExtra("EXTRA_BOOLCRAP", true);
+            startActivity(intentToProfile);
             finish();
         });
     }

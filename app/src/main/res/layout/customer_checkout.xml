@@ -10,7 +10,7 @@
         android:id="@+id/btnBack2"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="24dp"
         android:ems="10"
         android:padding="8dp"
         android:text="CANCEL"
@@ -18,7 +18,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -30,6 +30,7 @@
         android:background="@drawable/button_bg2"
         android:drawableTop="@drawable/button_next_white"
         android:enabled="false"
+        app:layout_constraintVertical_bias="0.5"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/customerPaymentView" />
@@ -59,6 +60,7 @@
         android:background="@drawable/button_bg2"
         android:drawableTop="@drawable/button_prev_white"
         android:enabled="false"
+        app:layout_constraintVertical_bias="0.5"
         app:layout_constraintBottom_toTopOf="@+id/customerCheckoutView2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/customerPaymentView" />
@@ -67,14 +69,14 @@
         android:id="@+id/customerPaymentView"
         android:layout_width="354dp"
         android:layout_height="148dp"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/white_rectangle"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/queryFullName"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <View
         android:id="@+id/customerCheckoutView2"
@@ -85,7 +87,7 @@
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/buttonCheckout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.524"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2"
         app:layout_constraintVertical_bias="0.0" />
@@ -212,11 +214,25 @@
 
     <TextView
         android:id="@+id/tvTotal"
-        android:layout_width="300dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
         android:text="Total:"
         android:textSize="17dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/customerCheckoutView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTotalDollars"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:text="$0.00"
+        android:textSize="17dp"
+        android:textAlignment="textEnd"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/customerCheckoutView2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -241,6 +257,7 @@
     <TextView
         android:id="@+id/queryFullName"
         style="@style/layout1"
+        android:layout_marginTop="12dp"
         android:text="queryFullName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -349,6 +366,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.55" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
