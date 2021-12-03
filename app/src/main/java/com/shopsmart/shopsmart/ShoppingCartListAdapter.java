@@ -13,8 +13,6 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-import io.realm.Realm;
-
 public class ShoppingCartListAdapter extends ArrayAdapter<ProductItem> {
     private static final int QUANTITY_LIMIT = 99;
     private final ArrayList<ProductItem> shoppingCart;
@@ -64,6 +62,7 @@ public class ShoppingCartListAdapter extends ArrayAdapter<ProductItem> {
             int pos = (Integer) view.getTag();
             if (quantities[pos] < QUANTITY_LIMIT) {
                 AddBtn.setEnabled(false);
+                deleteBtn.setEnabled(false);
                 ((CustomerShoppingCartActivity) getContext()).toggleCheckout();
                 ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
                     if (result.isSuccess()) {
@@ -77,6 +76,7 @@ public class ShoppingCartListAdapter extends ArrayAdapter<ProductItem> {
                         ((CustomerShoppingCartActivity) getContext()).updateSubtotal(subtotal);
                     }
                     AddBtn.setEnabled(true);
+                    deleteBtn.setEnabled(true);
                     ((CustomerShoppingCartActivity) getContext()).toggleCheckout();
                 });
             }
@@ -86,6 +86,7 @@ public class ShoppingCartListAdapter extends ArrayAdapter<ProductItem> {
             int pos = (Integer) view.getTag();
             if (quantities[pos] > 1) {
                 SubBtn.setEnabled(false);
+                deleteBtn.setEnabled(false);
                 ((CustomerShoppingCartActivity) getContext()).toggleCheckout();
                 ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
                     if (result.isSuccess()) {
@@ -99,6 +100,7 @@ public class ShoppingCartListAdapter extends ArrayAdapter<ProductItem> {
                         ((CustomerShoppingCartActivity) getContext()).updateSubtotal(subtotal);
                     }
                     SubBtn.setEnabled(true);
+                    deleteBtn.setEnabled(true);
                     ((CustomerShoppingCartActivity) getContext()).toggleCheckout();
                 });
             }
@@ -124,6 +126,8 @@ public class ShoppingCartListAdapter extends ArrayAdapter<ProductItem> {
                     quantities = temp;
                     if (shoppingCart.isEmpty()) subtotal = 0;
                     ShoppingCartListAdapter.this.notifyDataSetChanged();
+                    deleteBtn.setEnabled(true);
+                    ((CustomerShoppingCartActivity) getContext()).toggleCheckout();
                     ((CustomerShoppingCartActivity) getContext()).removeShopFromList(product.getShopId());
                     ((CustomerShoppingCartActivity) getContext()).updateSubtotal(subtotal);
                 }
