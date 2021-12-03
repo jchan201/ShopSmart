@@ -123,7 +123,6 @@ public class ShoppingCartListAdapter extends ArrayAdapter<ProductItem> {
                     }
                     quantities = temp;
                     ShoppingCartListAdapter.this.notifyDataSetChanged();
-                    deleteBtn.setEnabled(true);
                     ((CustomerShoppingCartActivity) getContext()).removeShopFromList(product.getShopId());
                     ((CustomerShoppingCartActivity) getContext()).updateSubtotal(subtotal);
                 }
