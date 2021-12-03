@@ -52,7 +52,7 @@ public class CustomerShoppingCartActivity extends AppCompatActivity {
         });
         binding.buttonCheckout.setOnClickListener(view -> {
             Intent intentToNext = new Intent(CustomerShoppingCartActivity.this, CustomerCheckoutActivity.class);
-            intentToNext.putExtra("EXTRA_UNIQUESHOPPES", uniqueShops.stream().distinct().count());
+            intentToNext.putExtra("EXTRA_UNIQUESHOPPES", uniqueShops.size());
             intentToNext.putExtra("EXTRA_TOTAL", Double.parseDouble(binding.tvSubtotal.getText().toString()));
             intentToNext.putExtra("EXTRA_NUMITEMS", user.getShoppingCart().size());
             startActivity(intentToNext);
@@ -60,7 +60,6 @@ public class CustomerShoppingCartActivity extends AppCompatActivity {
         binding.btnBack.setOnClickListener(view -> finish());
     }
     public void updateSubtotal(double subtotal) {
-//        binding.tvSubtotal.setText(Double.toString(subtotal));
         binding.tvSubtotal.setText(String.format("%.2f", subtotal));
     }
     public void removeShopFromList(ObjectId shopId) {
