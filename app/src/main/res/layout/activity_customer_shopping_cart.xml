@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CustomerShoppingCartActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".CustomerShoppingCartActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -39,19 +39,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
+        android:layout_marginTop="25dp"
         android:layout_weight="1"
         android:gravity="center|bottom"
-        android:orientation="vertical"
-        android:layout_marginTop="25dp">
+        android:orientation="vertical">
 
         <ListView
             android:id="@+id/listShoppingCart"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:background="@drawable/white_rectangle"
             android:padding="10dp"
-            android:layout_marginBottom="10dp"
             tools:listitem="@layout/shopping_cart_list_item" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -65,36 +65,36 @@
                 android:layout_height="0dp"
                 android:background="@drawable/white_rectangle"
                 android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvSubtotalTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:text="Subtotal: $"
                 android:textSize="17dp"
                 android:visibility="visible"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:layout_marginLeft="23dp"
-                app:layout_constraintStart_toStartOf="@+id/viewSubtotal"
-                app:layout_constraintBottom_toBottomOf="@+id/viewSubtotal" />
+                app:layout_constraintBottom_toBottomOf="@+id/viewSubtotal"
+                app:layout_constraintStart_toStartOf="@+id/viewSubtotal" />
 
             <TextView
                 android:id="@+id/tvSubtotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="00.00"
-                android:textSize="17dp"
-                android:visibility="visible"
                 android:layout_marginLeft="2dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                app:layout_constraintStart_toEndOf="@+id/tvSubtotalTitle"
-                app:layout_constraintBottom_toBottomOf="@+id/viewSubtotal" />
+                android:text="00.00"
+                android:textSize="17dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/viewSubtotal"
+                app:layout_constraintStart_toEndOf="@+id/tvSubtotalTitle" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
@@ -103,6 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             android:ems="10"
+            android:enabled="false"
             android:padding="8dp"
             android:text="GO TO CHECKOUT"
             android:textAlignment="center"

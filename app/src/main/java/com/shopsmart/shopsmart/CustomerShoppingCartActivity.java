@@ -35,6 +35,8 @@ public class CustomerShoppingCartActivity extends AppCompatActivity {
                 }
                 binding.queryFullName.setText(user.getEmail());
                 ArrayList<ProductItem> shoppingCart = new ArrayList<>(user.getShoppingCart());
+                if (!shoppingCart.isEmpty())
+                    binding.buttonCheckout.setEnabled(true);
                 uniqueShops = new ArrayList<>();
                 double subtotal = 0;
                 for (ProductItem p : shoppingCart) {
