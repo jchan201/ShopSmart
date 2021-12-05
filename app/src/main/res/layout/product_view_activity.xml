@@ -4,94 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2a47a7"
     tools:context=".ShopRegister">
 
-    <View
-        android:id="@+id/titleView"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/rectangle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="View Product Info"
+        android:id="@+id/textRegister3"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentTop="true"
+        android:background="#76b5c5"
+        android:fontFamily="sans-serif-light"
+        android:paddingVertical="25dp"
+        android:text="View Product"
+        android:textAlignment="center"
+        android:textColor="#000"
         android:textSize="40sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/titleView"
-        app:layout_constraintEnd_toEndOf="@+id/titleView"
-        app:layout_constraintHorizontal_bias="0.524"
-        app:layout_constraintStart_toStartOf="@+id/titleView"
-        app:layout_constraintTop_toTopOf="@+id/titleView"
-        app:layout_constraintVertical_bias="0.857" />
-
-    <View
-        android:id="@+id/bodyView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/rectangle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleView" />
-
-    <TextView
-        android:id="@+id/txtTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Product"
-        android:textSize="30dp"
-        app:layout_constraintEnd_toEndOf="@+id/bodyView"
-        app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toTopOf="@+id/bodyView" />
-
-    <!--    <EditText-->
-    <!--        android:id="@+id/edtTextProductName"-->
-    <!--        android:layout_width="300dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="8dp"-->
-    <!--        android:background="@drawable/basic_rectangle"-->
-    <!--        android:ems="10"-->
-    <!--        android:hint="PRODUCT NAME"-->
-    <!--        android:inputType="textPersonName"-->
-    <!--        android:maxLength="16"-->
-    <!--        android:padding="8dp"-->
-    <!--        android:textAlignment="center"-->
-    <!--        android:textSize="20sp"-->
-    <!--        app:layout_constraintEnd_toEndOf="@+id/bodyView"-->
-    <!--        app:layout_constraintStart_toStartOf="@+id/bodyView"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/txtTitle" />-->
-
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
+    
     <TextView
         android:id="@+id/productNameTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:text="Name: "
         android:textSize="17sp"
-        app:layout_constraintStart_toStartOf="@+id/bodyView"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textRegister3" />
 
     <TextView
         android:id="@+id/productNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:text="UNKNOWN PRODUCT NAME"
         android:textSize="17sp"
         app:layout_constraintStart_toEndOf="@+id/productNameTitle"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/textRegister3" />
 
     <TextView
         android:id="@+id/productDescTitle"
@@ -101,7 +52,7 @@
         android:layout_marginTop="16dp"
         android:text="Description: "
         android:textSize="17sp"
-        app:layout_constraintStart_toStartOf="@+id/bodyView"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/productNameTitle" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -110,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="4dp"
-        app:layout_constraintStart_toStartOf="@+id/bodyView"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/productDescTitle">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -138,7 +89,7 @@
         android:layout_marginTop="16dp"
         android:text="Main type: "
         android:textSize="17sp"
-        app:layout_constraintStart_toStartOf="@+id/bodyView"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtTextDescLayout" />
 
     <TextView
@@ -160,7 +111,7 @@
         android:layout_marginTop="16dp"
         android:text="Price: "
         android:textSize="17sp"
-        app:layout_constraintStart_toStartOf="@+id/bodyView"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/typeTitle" />
 
     <TextView
@@ -182,7 +133,7 @@
         android:layout_marginTop="16dp"
         android:text="Stock count: "
         android:textSize="17sp"
-        app:layout_constraintStart_toStartOf="@+id/bodyView"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/priceTitle" />
 
     <TextView
@@ -216,7 +167,7 @@
         android:layout_marginTop="3dp"
         android:layout_marginEnd="50dp"
         android:text="Add Stock"
-        app:layout_constraintEnd_toEndOf="@+id/bodyView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/priceTitle" />
 
     <Button
@@ -238,7 +189,7 @@
         android:layout_marginEnd="20dp"
         android:text="Cancel"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/bodyView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/priceTitle" />
 
     <Button
@@ -252,8 +203,8 @@
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/btnBack"
-        app:layout_constraintEnd_toEndOf="@+id/bodyView"
-        app:layout_constraintStart_toStartOf="@+id/bodyView" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <Button
@@ -267,7 +218,7 @@
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/bodyView"
-        app:layout_constraintStart_toStartOf="@+id/bodyView" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
