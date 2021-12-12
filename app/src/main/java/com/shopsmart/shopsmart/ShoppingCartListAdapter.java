@@ -58,7 +58,7 @@ public class ShoppingCartListAdapter extends ArrayAdapter<ProductItem> {
                         .equalTo("_id", product.getShopId()).findFirst();
                 productItemName.setText(product.getName());
                 shopName.setText(shop.getName());
-                price.setText(Double.toString(product.getPrice()));
+                price.setText(String.format("%.2f",product.getPrice()));
             }
         });
         AddBtn.setTag(position);
