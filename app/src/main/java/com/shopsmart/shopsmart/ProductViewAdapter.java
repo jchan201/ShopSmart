@@ -46,6 +46,7 @@ public class ProductViewAdapter extends BaseAdapter {
         TextView txtDescription = view.findViewById(R.id.txtDescription);
         TextView txtPrice = view.findViewById(R.id.txtPrice);
         TextView txtStock = view.findViewById(R.id.txtStock);
+
         txtName.setText(product.getName());
         txtDescription.setText(product.getDesc());
         txtPrice.setText(String.format("Price: $%.2f", product.getPrice()));
@@ -71,10 +72,10 @@ public class ProductViewAdapter extends BaseAdapter {
             //Then check cart if there is stock
             else{
                 btnAddToCart.setEnabled(!appUser.getShoppingCart().stream().anyMatch(n -> n.getProductId().equals(product.getId())));
-            }
 
-            if(!btnAddToCart.isEnabled()){
-                btnAddToCart.setText("Added to cart");
+                if(!btnAddToCart.isEnabled()){
+                    btnAddToCart.setText("Added to cart");
+                }
             }
 
             btnAddToCart.setOnClickListener(view1 -> {
