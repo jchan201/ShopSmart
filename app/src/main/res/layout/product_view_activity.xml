@@ -161,12 +161,12 @@
 
 
     <Button
-        android:id="@+id/addStockBtn"
+        android:id="@+id/setStockBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="50dp"
-        android:text="Add Stock"
+        android:text="Set Stock"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/priceTitle" />
 
@@ -174,10 +174,12 @@
         android:id="@+id/saveStockBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
         android:text="Save"
         android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@id/stockCountEditText"
         app:layout_constraintEnd_toStartOf="@+id/cancelBtn"
         app:layout_constraintTop_toBottomOf="@+id/priceTitle" />
 
@@ -185,7 +187,7 @@
         android:id="@+id/cancelBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="20dp"
         android:text="Cancel"
         android:visibility="invisible"

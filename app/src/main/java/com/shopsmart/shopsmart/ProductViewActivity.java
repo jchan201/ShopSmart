@@ -44,8 +44,8 @@ public class ProductViewActivity extends AppCompatActivity {
         binding.btnEdit.setOnClickListener(view ->
                 startActivity(new Intent(ProductViewActivity.this, ProductUpdateActivity.class)
                         .putExtra("EXTRA_PRODUCT_ID", productId).putExtra("EXTRA_SHOP_INDEX", index)));
-        binding.addStockBtn.setOnClickListener(view -> {
-            binding.addStockBtn.setVisibility(View.INVISIBLE);
+        binding.setStockBtn.setOnClickListener(view -> {
+            binding.setStockBtn.setVisibility(View.INVISIBLE);
             binding.stockCountText.setVisibility(View.INVISIBLE);
             binding.stockCountEditText.setVisibility(View.VISIBLE);
             binding.stockCountEditText.setText(Integer.toString(product.getStock()));
@@ -53,7 +53,7 @@ public class ProductViewActivity extends AppCompatActivity {
             binding.cancelBtn.setVisibility(View.VISIBLE);
         });
         binding.cancelBtn.setOnClickListener(view -> {
-            binding.addStockBtn.setVisibility(View.VISIBLE);
+            binding.setStockBtn.setVisibility(View.VISIBLE);
             binding.stockCountText.setVisibility(View.VISIBLE);
             binding.stockCountEditText.setVisibility(View.INVISIBLE);
             binding.saveStockBtn.setVisibility(View.INVISIBLE);
@@ -68,9 +68,9 @@ public class ProductViewActivity extends AppCompatActivity {
                                 product.setStock(Integer.parseInt(binding.stockCountEditText.getText().toString())));
                     }
                 });
-                binding.addStockBtn.setVisibility(View.VISIBLE);
+                binding.setStockBtn.setVisibility(View.VISIBLE);
                 binding.stockCountText.setVisibility(View.VISIBLE);
-                binding.stockCountText.setText(Integer.toString(product.getStock()));
+                binding.stockCountText.setText(binding.stockCountEditText.getText().toString());
                 binding.stockCountEditText.setVisibility(View.INVISIBLE);
                 binding.saveStockBtn.setVisibility(View.INVISIBLE);
                 binding.cancelBtn.setVisibility(View.INVISIBLE);
