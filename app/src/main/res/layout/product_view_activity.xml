@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="20dp"
-        android:text="UNKNOWN PRODUCT NAME"
+        android:text=""
         android:textSize="17sp"
         app:layout_constraintStart_toEndOf="@+id/productNameTitle"
         app:layout_constraintTop_toBottomOf="@+id/textRegister3" />
@@ -98,7 +98,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="16dp"
-        android:text="UNKNOWN MAIN TYPE"
+        android:text=""
         android:textSize="17sp"
         app:layout_constraintStart_toEndOf="@+id/typeTitle"
         app:layout_constraintTop_toBottomOf="@+id/edtTextDescLayout" />
