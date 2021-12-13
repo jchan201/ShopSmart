@@ -38,8 +38,9 @@ public class ListAdapter extends ArrayAdapter<Product> {
         deleteBtn.setOnClickListener(v -> {
             int pos = (Integer) v.getTag();
 
-            viewBtn.setEnabled(false);
-            editBtn.setEnabled(false);
+            toggleAllDeleteButton(false, parent);
+            toggleAllViewButton(false, parent);
+            toggleAllEditButton(false, parent);
 
             ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
                 if (result.isSuccess()) {
@@ -55,8 +56,9 @@ public class ListAdapter extends ArrayAdapter<Product> {
                     ((ShopInventoryActivity) getContext()).EmptyOrNot(products);
                 }
 
-                viewBtn.setEnabled(true);
-                editBtn.setEnabled(true);
+                toggleAllDeleteButton(true, parent);
+                toggleAllViewButton(true, parent);
+                toggleAllEditButton(true, parent);
 
             });
         });
@@ -79,5 +81,23 @@ public class ListAdapter extends ArrayAdapter<Product> {
             getContext().startActivity(nextScreen);
         });
         return view;
+    }
+
+    public void toggleAllDeleteButton(boolean toggle, ViewGroup parent){
+        for(int i = 0; i < parent.getChildCount(); i++){
+            parent.getChildAt(i).findViewById(R.id.btnDelete).setEnabled(toggle);
+        }
+    }
+
+    public void toggleAllViewButton(boolean toggle, ViewGroup parent){
+        for(int i = 0; i < parent.getChildCount(); i++){
+            parent.getChildAt(i).findViewById(R.id.btnView).setEnabled(toggle);
+        }
+    }
+
+    public void toggleAllEditButton(boolean toggle, ViewGroup parent){
+        for(int i = 0; i < parent.getChildCount(); i++){
+            parent.getChildAt(i).findViewById(R.id.btnEdit).setEnabled(toggle);
+        }
     }
 }
