@@ -97,7 +97,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
                 binding.expY.setError("Please enter a valid date");
                 valid = false;
             } else if (Long.parseLong(binding.expM.getText().toString()) > 12) {
-                binding.expM.setError("Please enter a valid date" + todaysDate.get(Calendar.YEAR));
+                binding.expM.setError("Please enter a valid date ");
                 valid = false;
             }
         }

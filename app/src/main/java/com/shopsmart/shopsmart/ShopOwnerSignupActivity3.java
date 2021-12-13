@@ -29,8 +29,18 @@ public class ShopOwnerSignupActivity3 extends AppCompatActivity {
         int year = cal.get(Calendar.YEAR);
         binding.edtTextExpiryDateYear.setText(Integer.toString(year));
         binding.spinnerExpiryDateMonth.setSelection(cal.get(Calendar.MONTH));
-        binding.buttonCancel.setOnClickListener(view ->
-                startActivity(new Intent(ShopOwnerSignupActivity3.this, ShopOwnerSignupActivity2.class)));
+
+        binding.buttonCancel.setOnClickListener(view -> {
+            Intent nextSignUpScreen = new Intent(ShopOwnerSignupActivity3.this, ShopOwnerSignupActivity2.class);
+            nextSignUpScreen.putExtra("EXTRA_FNAME", getIntent().getStringExtra("EXTRA_FNAME"));
+            nextSignUpScreen.putExtra("EXTRA_MNAME", getIntent().getStringExtra("EXTRA_MNAME"));
+            nextSignUpScreen.putExtra("EXTRA_LNAME", getIntent().getStringExtra("EXTRA_LNAME"));
+            nextSignUpScreen.putExtra("EXTRA_EMAIL", getIntent().getStringExtra("EXTRA_EMAIL"));
+            nextSignUpScreen.putExtra("EXTRA_PASSWORD", getIntent().getStringExtra("EXTRA_PASSWORD"));
+            nextSignUpScreen.putExtra("EXTRA_DOB", getIntent().getStringExtra("EXTRA_DOB"));
+            startActivity(nextSignUpScreen);
+        });
+
         binding.buttonNext.setOnClickListener(view -> {
             if (validation()) createUser();
         });

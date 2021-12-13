@@ -33,94 +33,124 @@
 
         <activity
             android:name=".ShopRegister3"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShopRegister2"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShopRegister"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShopRegisterEdit"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShopListActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ProductAddActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ProductViewActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ProductUpdateActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShopInventoryActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShopDeleteConfirmActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShopOwnerDashboardActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShopOwnerProfileActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShopOwnerProfileDetailActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShopOwnerDetailUpdateProfileActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShopOwnerDetailResetPasswordActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShopOwnerProfileAddressActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShopOwnerProfileAddressUpdateActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShopOwnerProfilePaymentsActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShopOwnerProfileAddPaymentsActivity1"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShopOwnerProfileAddPaymentsActivity2"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShopOwnerProfileDeletePaymentsConfirmActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShopOwnerProfileUpdatePaymentsActivity1"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShopOwnerProfileUpdatePaymentsActivity2"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShopOwnerDeleteAccountConfirmActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShopOwnerSignupActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShopOwnerSignupActivity2"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShopOwnerSignupActivity3"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShopViewActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SignupActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".StartupActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -129,40 +159,52 @@
         </activity>
         <activity
             android:name=".CustomerRegistrationActivity2"
-            android:label="Registration2" />
+            android:label="Registration2"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CustomerRegistrationActivity3"
-            android:label="Registration3" />
+            android:label="Registration3"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CustomerRegistrationActivity1"
-            android:label="Registration1" />
+            android:label="Registration1"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CustomerDashboardActivity"
-            android:label="Dashboard" />
+            android:label="Dashboard"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CustomerProfileActivity"
-            android:label="Profile" />
+            android:label="Profile"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CustomerPasswordActivity"
-            android:label="Reset Password" />
+            android:label="Reset Password"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CustomerPaymentsActivity"
-            android:label="Profile" />
+            android:label="Profile"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CustomerPaymentAddActivity"
-            android:label="Payment Method" />
+            android:label="Payment Method"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CustomerManageProfileActivity"
-            android:label="Profile Menu" />
+            android:label="Profile Menu"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".OrderListActivity"
-            android:label="Order List" />
+            android:label="Order List"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CustomerShoppingCartActivity"
-            android:label="Shopping Cart" />
-        <activity android:name=".CustomerCheckoutActivity"
+            android:label="Shopping Cart"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CustomerCheckoutActivity"
             android:label="Checkout"
-            />
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

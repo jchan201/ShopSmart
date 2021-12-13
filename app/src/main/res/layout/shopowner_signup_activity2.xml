@@ -134,7 +134,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#FF0000"
-        android:text="Cancel"
+        android:text="BACK"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="64dp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -46,15 +46,38 @@ public class ProductViewAdapter extends BaseAdapter {
         TextView txtDescription = view.findViewById(R.id.txtDescription);
         TextView txtPrice = view.findViewById(R.id.txtPrice);
         TextView txtStock = view.findViewById(R.id.txtStock);
+
         txtName.setText(product.getName());
         txtDescription.setText(product.getDesc());
         txtPrice.setText(String.format("Price: $%.2f", product.getPrice()));
+
+        boolean stocked = true;
+
         if (product.getStock() > 0)
             txtStock.setText(String.format("%d in Stock", product.getStock()));
-        else txtStock.setText("None in Stock");
+
+        else {
+            txtStock.setText("None in Stock");
+            stocked = false;
+        }
+
         if (!appUser.getUserType().equals("Owner")) {
             Button btnAddToCart = view.findViewById(R.id.btnAddToCart);
-            btnAddToCart.setEnabled(!appUser.getShoppingCart().stream().anyMatch(n -> n.getProductId().equals(product.getId())) && product.getStock() > 0);
+
+            //Check stock
+            if(!stocked){
+                btnAddToCart.setEnabled(false);
+                btnAddToCart.setText("Out of Stock");
+            }
+            //Then check cart if there is stock
+            else{
+                btnAddToCart.setEnabled(!appUser.getShoppingCart().stream().anyMatch(n -> n.getProductId().equals(product.getId())));
+
+                if(!btnAddToCart.isEnabled()){
+                    btnAddToCart.setText("Added to cart");
+                }
+            }
+
             btnAddToCart.setOnClickListener(view1 -> {
                 ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
                     if (result.isSuccess()) {

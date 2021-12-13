@@ -32,7 +32,12 @@ public class ShopOwnerProfileDetailActivity extends AppCompatActivity {
                         user = users.get(i);
                 }
                 binding.textEmail.setText(user.getEmail());
-                binding.textName.setText(user.getFirstName() + " " + user.getMiddleInitial() + ". " + user.getLastName());
+                if(user.getMiddleInitial().isEmpty()){
+                    binding.textName.setText(user.getFirstName() + " " + user.getLastName());
+                }
+                else{
+                    binding.textName.setText(user.getFirstName() + " " + user.getMiddleInitial() + ". " + user.getLastName());
+                }
                 binding.textDOB.setText(user.getBirthdateString());
                 binding.textPhone.setText(user.getPhone());
             }
