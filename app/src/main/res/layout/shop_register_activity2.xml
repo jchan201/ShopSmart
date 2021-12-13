@@ -57,17 +57,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textCityTitle" />
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/textProvince"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="32dp"-->
-    <!--        android:layout_marginLeft="5dp"-->
-    <!--        android:textSize="15dp"-->
-    <!--        android:text="UNKNOWN"-->
-    <!--        app:layout_constraintStart_toEndOf="@+id/textProvinceTitle"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/textCity" />-->
-
     <Spinner
         android:id="@+id/spinner_province"
         android:layout_width="70dp"
@@ -176,7 +165,7 @@
         android:layout_marginBottom="16dp"
         android:ems="10"
         android:padding="8dp"
-        android:text="CANCEL"
+        android:text="BACK"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"

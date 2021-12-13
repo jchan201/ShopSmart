@@ -129,8 +129,16 @@ public class ShopRegister3 extends AppCompatActivity {
                 });
             }
         });
-        binding.btnCancel.setOnClickListener(view ->
-                startActivity(new Intent(ShopRegister3.this, ShopListActivity.class)));
+
+        binding.btnCancel.setOnClickListener(view -> {
+            Intent nextSignUpScreen = new Intent(ShopRegister3.this, ShopRegister2.class);
+            nextSignUpScreen.putExtra("EXTRA_NAME", getIntent().getStringExtra("EXTRA_NAME"));
+            nextSignUpScreen.putExtra("EXTRA_DESC", getIntent().getStringExtra("EXTRA_DESC"));
+            nextSignUpScreen.putExtra("EXTRA_EMAIL", getIntent().getStringExtra("EXTRA_EMAIL"));
+            nextSignUpScreen.putExtra("EXTRA_PHONE", getIntent().getStringExtra("EXTRA_PHONE"));
+            nextSignUpScreen.putExtra("EXTRA_WEBSITE", getIntent().getStringExtra("EXTRA_WEBSITE"));
+            startActivity(nextSignUpScreen);
+        });
     }
 
     private boolean validation() {
