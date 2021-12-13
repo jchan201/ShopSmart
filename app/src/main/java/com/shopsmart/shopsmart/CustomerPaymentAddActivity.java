@@ -73,6 +73,7 @@ public class CustomerPaymentAddActivity extends AppCompatActivity {
 
         binding.buttonAdd.setOnClickListener(view -> {
             if (validateData()) {
+                binding.buttonAdd.setEnabled(false);
                 if (!editPMethod) {
                     pMethod = new PaymentMethod();
                     pMethod.setCardNumber(binding.cCardNum.getText().toString());

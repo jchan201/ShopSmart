@@ -130,6 +130,15 @@ public class CustomerProfileActivity extends AppCompatActivity {
             phoneEdit = true;
         });
         binding.applyButton.setOnClickListener(view -> {
+            binding.editFullName.setEnabled(false);
+            binding.editDob.setEnabled(false);
+            binding.editCity.setEnabled(false);
+            binding.editAddress.setEnabled(false);
+            binding.editCountry.setEnabled(false);
+            binding.editPCode.setEnabled(false);
+            binding.editProvince.setEnabled(false);
+            binding.editPhoneNum.setEnabled(false);
+            binding.applyButton.setEnabled(false);
             if (validation()) {
                 ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
                     if (result.isSuccess()) {
@@ -200,6 +209,15 @@ public class CustomerProfileActivity extends AppCompatActivity {
                             }
                         });
                     }
+                    binding.editFullName.setEnabled(true);
+                    binding.editDob.setEnabled(true);
+                    binding.editCity.setEnabled(true);
+                    binding.editAddress.setEnabled(true);
+                    binding.editCountry.setEnabled(true);
+                    binding.editPCode.setEnabled(true);
+                    binding.editProvince.setEnabled(true);
+                    binding.editPhoneNum.setEnabled(true);
+                    binding.applyButton.setEnabled(true);
                 });
             }
         });

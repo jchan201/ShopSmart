@@ -100,6 +100,7 @@ public class CustomerPaymentsActivity extends AppCompatActivity implements Seria
         });
 
         binding.buttonRemove.setOnClickListener(view -> {
+            binding.buttonRemove.setEnabled(false);
             ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
                 if (result.isSuccess()) {
                     ShopSmartApp.instantiateRealm();

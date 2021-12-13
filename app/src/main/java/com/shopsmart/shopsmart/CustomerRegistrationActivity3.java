@@ -133,6 +133,8 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
     }
 
     private void createUser() {
+        binding.backButton.setEnabled(false);
+        binding.finishButton.setEnabled(false);
         String email = currentIntent.getStringExtra("EXTRA_EMAIL");
         String password = currentIntent.getStringExtra("EXTRA_PASSWORD");
         AppUser appUser = new AppUser();
