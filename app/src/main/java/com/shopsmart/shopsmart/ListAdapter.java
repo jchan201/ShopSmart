@@ -31,9 +31,17 @@ public class ListAdapter extends ArrayAdapter<Product> {
         productName.setText(products.get(i).getName());
 
         Button deleteBtn = view.findViewById(R.id.btnDelete);
+        Button viewBtn = view.findViewById(R.id.btnView);
+        Button editBtn = view.findViewById(R.id.btnEdit);
+
         deleteBtn.setTag(i);
         deleteBtn.setOnClickListener(v -> {
             int pos = (Integer) v.getTag();
+
+            toggleAllDeleteButton(false, parent);
+            toggleAllViewButton(false, parent);
+            toggleAllEditButton(false, parent);
+
             ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
                 if (result.isSuccess()) {
                     ShopSmartApp.instantiateRealm();
@@ -47,10 +55,14 @@ public class ListAdapter extends ArrayAdapter<Product> {
                     this.notifyDataSetChanged();
                     ((ShopInventoryActivity) getContext()).EmptyOrNot(products);
                 }
+
+                toggleAllDeleteButton(true, parent);
+                toggleAllViewButton(true, parent);
+                toggleAllEditButton(true, parent);
+
             });
         });
 
-        Button viewBtn = view.findViewById(R.id.btnView);
         viewBtn.setTag(i);
         viewBtn.setOnClickListener(v -> {
             int pos = (Integer) v.getTag();
@@ -60,7 +72,6 @@ public class ListAdapter extends ArrayAdapter<Product> {
             getContext().startActivity(nextScreen);
         });
 
-        Button editBtn = view.findViewById(R.id.btnEdit);
         editBtn.setTag(i);
         editBtn.setOnClickListener(v -> {
             int pos = (Integer) v.getTag();
@@ -70,5 +81,23 @@ public class ListAdapter extends ArrayAdapter<Product> {
             getContext().startActivity(nextScreen);
         });
         return view;
+    }
+
+    public void toggleAllDeleteButton(boolean toggle, ViewGroup parent){
+        for(int i = 0; i < parent.getChildCount(); i++){
+            parent.getChildAt(i).findViewById(R.id.btnDelete).setEnabled(toggle);
+        }
+    }
+
+    public void toggleAllViewButton(boolean toggle, ViewGroup parent){
+        for(int i = 0; i < parent.getChildCount(); i++){
+            parent.getChildAt(i).findViewById(R.id.btnView).setEnabled(toggle);
+        }
+    }
+
+    public void toggleAllEditButton(boolean toggle, ViewGroup parent){
+        for(int i = 0; i < parent.getChildCount(); i++){
+            parent.getChildAt(i).findViewById(R.id.btnEdit).setEnabled(toggle);
+        }
     }
 }
