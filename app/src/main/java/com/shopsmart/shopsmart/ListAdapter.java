@@ -31,9 +31,16 @@ public class ListAdapter extends ArrayAdapter<Product> {
         productName.setText(products.get(i).getName());
 
         Button deleteBtn = view.findViewById(R.id.btnDelete);
+        Button viewBtn = view.findViewById(R.id.btnView);
+        Button editBtn = view.findViewById(R.id.btnEdit);
+
         deleteBtn.setTag(i);
         deleteBtn.setOnClickListener(v -> {
             int pos = (Integer) v.getTag();
+
+            viewBtn.setEnabled(false);
+            editBtn.setEnabled(false);
+
             ShopSmartApp.app.loginAsync(ShopSmartApp.credentials, result -> {
                 if (result.isSuccess()) {
                     ShopSmartApp.instantiateRealm();
@@ -47,10 +54,13 @@ public class ListAdapter extends ArrayAdapter<Product> {
                     this.notifyDataSetChanged();
                     ((ShopInventoryActivity) getContext()).EmptyOrNot(products);
                 }
+
+                viewBtn.setEnabled(true);
+                editBtn.setEnabled(true);
+
             });
         });
 
-        Button viewBtn = view.findViewById(R.id.btnView);
         viewBtn.setTag(i);
         viewBtn.setOnClickListener(v -> {
             int pos = (Integer) v.getTag();
@@ -60,7 +70,6 @@ public class ListAdapter extends ArrayAdapter<Product> {
             getContext().startActivity(nextScreen);
         });
 
-        Button editBtn = view.findViewById(R.id.btnEdit);
         editBtn.setTag(i);
         editBtn.setOnClickListener(v -> {
             int pos = (Integer) v.getTag();

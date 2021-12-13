@@ -72,7 +72,7 @@ public class CustomerShoppingCartActivity extends AppCompatActivity {
         uniqueShops.remove(shopId);
     }
 
-    public void toggleCheckout() {
-        binding.buttonCheckout.setEnabled(!binding.buttonCheckout.isEnabled());
+    public void toggleCheckout(boolean toggle) {
+        binding.buttonCheckout.setEnabled(toggle);
     }
 }
