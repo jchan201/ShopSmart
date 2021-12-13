@@ -34,7 +34,7 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
         provSpinner.setAdapter(provList);
         provSpinner.setOnItemSelectedListener(this);
 
-        binding.cancelButton3.setOnClickListener(this);
+        binding.backButton.setOnClickListener(this);
         binding.finishButton.setOnClickListener(this);
     }
 
@@ -55,8 +55,12 @@ public class CustomerRegistrationActivity3 extends AppCompatActivity implements 
     public void onClick(View view) {
         if (view != null) {
             int id = view.getId();
-            if (id == R.id.cancelButton3)
-                startActivity(new Intent(this, StartupActivity.class));
+            if (id == R.id.backButton) {
+                Intent intent = new Intent(this, CustomerRegistrationActivity2.class);
+                intent.putExtra("EXTRA_EMAIL", currentIntent.getStringExtra("EXTRA_EMAIL"));
+                intent.putExtra("EXTRA_PASSWORD", currentIntent.getStringExtra("EXTRA_PASSWORD"));
+                startActivity(intent);
+            }
             else if (id == R.id.finishButton && validateData())
                 createUser();
         }

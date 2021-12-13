@@ -56,7 +56,7 @@ public class ShopOwnerProfileAddPaymentsActivity2 extends AppCompatActivity {
             }
         });
         binding.btnBack.setOnClickListener(view ->
-                startActivity(new Intent(ShopOwnerProfileAddPaymentsActivity2.this, ShopOwnerProfilePaymentsActivity.class)));
+                startActivity(new Intent(ShopOwnerProfileAddPaymentsActivity2.this, ShopOwnerProfileAddPaymentsActivity1.class)));
     }
 
     private boolean validation() {

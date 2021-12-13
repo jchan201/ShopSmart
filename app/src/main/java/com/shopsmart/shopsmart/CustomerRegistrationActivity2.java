@@ -35,8 +35,8 @@ public class CustomerRegistrationActivity2 extends AppCompatActivity {
         provList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         provSpinner.setAdapter(provList);
 
-        binding.cancelButton2.setOnClickListener(view ->
-                startActivity(new Intent(CustomerRegistrationActivity2.this, SignupActivity.class)));
+        binding.backButton.setOnClickListener(view ->
+                startActivity(new Intent(CustomerRegistrationActivity2.this, CustomerRegistrationActivity1.class)));
         binding.nextButton2.setOnClickListener(view -> {
             if (validateData()) createUser();
         });

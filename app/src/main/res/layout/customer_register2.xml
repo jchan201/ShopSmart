@@ -7,7 +7,7 @@
     tools:context=".CustomerRegistrationActivity2">
 
     <Button
-        android:id="@+id/cancelButton2"
+        android:id="@+id/backButton"
         android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
