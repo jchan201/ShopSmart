@@ -6,263 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".CustomerPaymentsActivity">
 
-    <Button
-        android:id="@+id/btnBack2"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:ems="10"
-        android:padding="8dp"
-        android:text="CANCEL"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/buttonNext"
-        android:layout_width="59dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="48dp"
-        android:background="@drawable/button_bg2"
-        android:drawableTop="@drawable/button_next_white"
-        android:enabled="false"
-        app:layout_constraintVertical_bias="0.5"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customerPaymentView" />
-
-    <Button
-        android:id="@+id/buttonCheckout"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:ems="10"
-        android:enabled="false"
-        android:padding="8dp"
-        android:text="CHECKOUT"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnBack2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/buttonPrev"
-        android:layout_width="59dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/button_bg2"
-        android:drawableTop="@drawable/button_prev_white"
-        android:enabled="false"
-        app:layout_constraintVertical_bias="0.5"
-        app:layout_constraintBottom_toTopOf="@+id/customerCheckoutView2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customerPaymentView" />
-
-    <View
-        android:id="@+id/customerPaymentView"
-        android:layout_width="354dp"
-        android:layout_height="148dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/white_rectangle"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/queryFullName"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <View
-        android:id="@+id/customerCheckoutView2"
-        android:layout_width="350dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/white_rectangle"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/buttonCheckout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.524"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/tvCart"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="17dp"
-        android:text="Cart:"
-        android:textSize="17dp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toStartOf="@+id/customerCheckoutView2"
-        app:layout_constraintStart_toEndOf="@+id/customerCheckoutView2"
-        app:layout_constraintTop_toTopOf="@+id/customerCheckoutView2" />
-
-    <TextView
-        android:id="@+id/tvItems"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Items:"
-        android:textSize="17dp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCart" />
-
-    <TextView
-        android:id="@+id/tvTax"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Tax:"
-        android:textSize="17dp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvItems" />
-
-    <TextView
-        android:id="@+id/tvDFee"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Delivery Fee:"
-        android:textSize="17dp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTax" />
-
-    <TextView
-        android:id="@+id/tvTips"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Tips:"
-        android:textSize="17dp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDFee" />
-
-    <TextView
-        android:id="@+id/tvItemsDollars"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="$0.00"
-        android:textAlignment="textEnd"
-        android:textSize="17dp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCart" />
-
-    <TextView
-        android:id="@+id/tvTaxDollar"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="$0.00"
-        android:textAlignment="textEnd"
-        android:textSize="17dp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvItems" />
-
-    <TextView
-        android:id="@+id/tvDFeeDollar"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="$0.00"
-        android:textAlignment="textEnd"
-        android:textSize="17dp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTax" />
-
-    <TextView
-        android:id="@+id/tvTipsDollar"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="$0.00"
-        android:textAlignment="textEnd"
-        android:textSize="17dp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDFee" />
-
-    <TextView
-        android:id="@+id/tvTotal"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:text="Total:"
-        android:textSize="17dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/customerCheckoutView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tvTotalDollars"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:text="$0.00"
-        android:textSize="17dp"
-        android:textAlignment="textEnd"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/customerCheckoutView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-    <TextView
-        android:id="@+id/tvTotalLine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="_______________________________________"
-        android:textSize="17dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/tvTotal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTips"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/queryFullName"
-        style="@style/layout1"
-        android:layout_marginTop="12dp"
-        android:text="queryFullName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textRegister3" />
-
     <TextView
         android:id="@+id/textRegister3"
         android:layout_width="match_parent"
@@ -278,94 +21,356 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp" />
 
-    <TextView
-        android:id="@+id/queryCardIndex"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="00"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toStartOf="@+id/textView16"
-        app:layout_constraintTop_toBottomOf="@+id/customerPaymentView" />
+    <ScrollView
+        android:id="@+id/bodyView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="@+id/textRegister3"
+        app:layout_constraintStart_toStartOf="@+id/textRegister3"
+        app:layout_constraintTop_toBottomOf="@+id/textRegister3"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="/"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/customerCheckoutView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customerPaymentView" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/innerBodyView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/queryTotalIndex"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="00"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintStart_toEndOf="@+id/textView16"
-        app:layout_constraintTop_toBottomOf="@+id/customerPaymentView" />
+            <TextView
+                android:id="@+id/queryFullName"
+                style="@style/layout1"
+                android:layout_marginTop="16dp"
+                android:text="queryFullName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/innerBodyView" />
 
-    <TextView
-        android:id="@+id/queryCardNum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="25dp"
-        android:text="****LOADING"
-        android:textSize="15dp"
-        app:layout_constraintStart_toStartOf="@+id/customerPaymentView"
-        app:layout_constraintTop_toTopOf="@+id/customerPaymentView" />
+            <View
+                android:id="@+id/customerPaymentView"
+                android:layout_width="354dp"
+                android:layout_height="148dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/white_rectangle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/queryFullName" />
 
-    <TextView
-        android:id="@+id/queryCardName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="17dp"
-        android:text="LOADING"
-        android:textSize="15dp"
-        app:layout_constraintStart_toStartOf="@+id/customerPaymentView"
-        app:layout_constraintTop_toBottomOf="@+id/queryCardNum" />
+            <TextView
+                android:id="@+id/queryCardNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="25dp"
+                android:text="****LOADING"
+                android:textSize="15dp"
+                app:layout_constraintStart_toStartOf="@+id/customerPaymentView"
+                app:layout_constraintTop_toTopOf="@+id/customerPaymentView" />
 
-    <TextView
-        android:id="@+id/queryCardNum3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="17dp"
-        android:text="Exp Date: "
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="@+id/customerPaymentView"
-        app:layout_constraintStart_toStartOf="@+id/customerPaymentView"
-        app:layout_constraintTop_toBottomOf="@+id/queryCardName"
-        app:layout_constraintVertical_bias="0.035" />
+            <TextView
+                android:id="@+id/queryCardName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="17dp"
+                android:text="LOADING"
+                android:textSize="15dp"
+                app:layout_constraintStart_toStartOf="@+id/customerPaymentView"
+                app:layout_constraintTop_toBottomOf="@+id/queryCardNum" />
 
-    <TextView
-        android:id="@+id/queryExpDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:paddingTop="10dp"
-        android:text="00/00 "
-        android:textSize="15dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/queryCardNum3"
-        app:layout_constraintTop_toBottomOf="@+id/queryCardName" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.55" />
+
+            <TextView
+                android:id="@+id/queryCardNum3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="17dp"
+                android:text="Exp Date: "
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="@+id/customerPaymentView"
+                app:layout_constraintStart_toStartOf="@+id/customerPaymentView"
+                app:layout_constraintTop_toBottomOf="@+id/queryCardName"
+                app:layout_constraintVertical_bias="0.035" />
+
+            <TextView
+                android:id="@+id/queryExpDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:paddingTop="10dp"
+                android:text="00/00 "
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/queryCardNum3"
+                app:layout_constraintTop_toBottomOf="@+id/queryCardName" />
+
+            <Button
+                android:id="@+id/buttonPrev"
+                android:layout_width="59dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/button_bg2"
+                android:drawableTop="@drawable/button_prev_white"
+                android:enabled="false"
+                app:layout_constraintBottom_toTopOf="@+id/customerCheckoutView2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/customerPaymentView" />
+
+            <TextView
+                android:id="@+id/queryCardIndex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:text="00"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toTopOf="@+id/customerCheckoutView2"
+                app:layout_constraintEnd_toStartOf="@+id/textView16"
+                app:layout_constraintTop_toBottomOf="@+id/customerPaymentView" />
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:text="/"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toTopOf="@+id/customerCheckoutView2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/customerPaymentView" />
+
+            <TextView
+                android:id="@+id/queryTotalIndex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:text="00"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toTopOf="@+id/customerCheckoutView2"
+                app:layout_constraintStart_toEndOf="@+id/textView16"
+                app:layout_constraintTop_toBottomOf="@+id/customerPaymentView" />
+
+            <Button
+                android:id="@+id/buttonNext"
+                android:layout_width="59dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginEnd="48dp"
+                android:background="@drawable/button_bg2"
+                android:drawableTop="@drawable/button_next_white"
+                android:enabled="false"
+                app:layout_constraintVertical_bias="0.5"
+                app:layout_constraintBottom_toTopOf="@+id/customerCheckoutView2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/customerPaymentView" />
+
+
+            <View
+                android:id="@+id/customerCheckoutView2"
+                android:layout_width="350dp"
+                android:layout_height="200dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/white_rectangle"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/buttonCheckout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvCart"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:text="Cart:"
+                android:textSize="17dp"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="@+id/customerCheckoutView2"
+                app:layout_constraintEnd_toEndOf="@+id/customerCheckoutView2"
+                app:layout_constraintTop_toTopOf="@+id/customerCheckoutView2" />
+
+            <TextView
+                android:id="@+id/tvItems"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Items:"
+                android:textSize="17dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvCart" />
+
+            <TextView
+                android:id="@+id/tvItemsDollars"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="$0.00"
+                android:textAlignment="textEnd"
+                android:textSize="17dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvCart" />
+
+            <TextView
+                android:id="@+id/tvTax"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Tax:"
+                android:textSize="17dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvItems" />
+
+            <TextView
+                android:id="@+id/tvTaxDollar"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="$0.00"
+                android:textAlignment="textEnd"
+                android:textSize="17dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvItems" />
+
+            <TextView
+                android:id="@+id/tvDFee"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Delivery Fee:"
+                android:textSize="17dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTax" />
+
+            <TextView
+                android:id="@+id/tvDFeeDollar"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="$0.00"
+                android:textAlignment="textEnd"
+                android:textSize="17dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTax" />
+
+            <TextView
+                android:id="@+id/tvTips"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Tips:"
+                android:textSize="17dp"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.503"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDFee" />
+
+            <TextView
+                android:id="@+id/tvTipsDollar"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="$0.00"
+                android:textAlignment="textEnd"
+                android:textSize="17dp"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDFee" />
+
+            <TextView
+                android:id="@+id/tvTotalLine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="_______________________________________"
+                android:textSize="17dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/tvTotal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTips"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/tvTotal"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:text="Total:"
+                android:textSize="17dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/customerCheckoutView2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvTotalDollars"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:text="$0.00"
+                android:textSize="17dp"
+                android:textAlignment="textEnd"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/customerCheckoutView2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/buttonCheckout"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:ems="10"
+                android:enabled="false"
+                android:padding="8dp"
+                android:text="CHECKOUT"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/btnBack2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/btnBack2"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:ems="10"
+                android:padding="8dp"
+                android:text="CANCEL"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/innerBodyView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
